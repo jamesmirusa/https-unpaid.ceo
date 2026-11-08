@@ -386,6 +386,10 @@ MonoBehaviour:
     m_Localized: Got it
     m_Metadata:
       m_Items: []
+  - m_Id: 37261197434880
+    m_Localized: Tired-out mistake
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

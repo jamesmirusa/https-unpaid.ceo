@@ -383,6 +383,10 @@ MonoBehaviour:
     m_Key: onboarding.continue
     m_Metadata:
       m_Items: []
+  - m_Id: 37261197434880
+    m_Key: company.mistake
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

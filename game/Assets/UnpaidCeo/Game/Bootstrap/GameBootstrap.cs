@@ -182,7 +182,9 @@ namespace UnpaidCeo.Game.Bootstrap
         IEnumerator NextMonth()
         {
             _busy = true;
-            var report = _engine!.EndMonth(_state!, Ui!.CurrentDecisions());
+            MonthReport report;
+            try { report = _engine!.EndMonth(_state!, Ui!.CurrentDecisions()); }
+            catch (Exception e) { Debug.LogException(e); _busy = false; yield break; }
             _city?.Sync(_state!);
             if (_timelapse != null)
             {

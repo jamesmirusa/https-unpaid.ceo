@@ -41,6 +41,8 @@ namespace UnpaidCeo.Core.Game
         public NpcRelations Npcs { get; set; } = new NpcRelations();
         public List<BusinessState> Businesses { get; set; } = new List<BusinessState>();
         public HeroAppearance Hero { get; set; } = new HeroAppearance();
+        /// <summary>Month whose scenes were already rolled (0 = none yet).</summary>
+        public int ScenesRolledMonth { get; set; }
         public Dictionary<string, int> StoryletLastMonth { get; set; } = new Dictionary<string, int>();
         /// <summary>Once-only storylets already shown: id → month.</summary>
         public Dictionary<string, int> StoryletsSeen { get; set; } = new Dictionary<string, int>();

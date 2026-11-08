@@ -15,6 +15,7 @@ namespace UnpaidCeo.Game.Ui
             ("company.gross", r => r.GrossProfit, true),
             ("company.fixed", r => -r.Fixed, false),
             ("company.marketing", r => -r.Marketing, false),
+            ("company.mistake", r => -r.MistakeLoss, false),
             ("company.tax", r => -r.TaxReserve, false),
             ("company.net", r => r.NetProfit, true),
             ("company.personal", r => -r.PersonalCosts, false),

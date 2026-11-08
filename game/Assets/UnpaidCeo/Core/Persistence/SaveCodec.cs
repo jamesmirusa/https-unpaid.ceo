@@ -77,6 +77,18 @@ namespace UnpaidCeo.Core.Persistence
             s.Businesses = s.Businesses ?? new System.Collections.Generic.List<Economy.BusinessState>();
             s.Facts = s.Facts ?? new Narrative.FactStore();
             s.Npcs = s.Npcs ?? new Narrative.NpcRelations();
+            // Repair nested state that would otherwise throw in the month loop on every launch.
+            s.Facts.Items = s.Facts.Items ?? new System.Collections.Generic.Dictionary<string, int>();
+            s.Npcs.Values = s.Npcs.Values ?? new System.Collections.Generic.Dictionary<string, int>();
+            s.Businesses.RemoveAll(b => b == null || string.IsNullOrEmpty(b.Id) || string.IsNullOrEmpty(b.IndustryId));
+            if (s.LastDecisions != null)
+            {
+                s.LastDecisions.WorkSplit = s.LastDecisions.WorkSplit ?? new System.Collections.Generic.Dictionary<string, int>();
+                s.LastDecisions.Levers = s.LastDecisions.Levers ?? new System.Collections.Generic.List<LeverChange>();
+                s.LastDecisions.FreeActions = s.LastDecisions.FreeActions ?? new System.Collections.Generic.List<string>();
+            }
+            if (s.LastDecisions == null || !s.LastDecisions.TryGetAllocation(out _))
+                s.LastDecisions = MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null);
         }
 
         static LoadResult Corrupt(string json) => new LoadResult { Status = LoadStatus.CorruptReset, Backup = json };

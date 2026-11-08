@@ -13,6 +13,7 @@ namespace UnpaidCeo.Core.Game
         public Money GrossProfit { get; set; }
         public Money Fixed { get; set; }
         public Money Marketing { get; set; }
+        public Money MistakeLoss { get; set; }
         public Money OperatingProfit { get; set; }
         public Money TaxReserve { get; set; }
         public Money NetProfit { get; set; }

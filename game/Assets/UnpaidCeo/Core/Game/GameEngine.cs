@@ -60,6 +60,9 @@ namespace UnpaidCeo.Core.Game
         public IReadOnlyList<StoryletDef> BeginMonth(GameState s)
         {
             if (s.PendingStorylets.Count > 0) return s.PendingStorylets.Select(FindStorylet).ToList();
+            // Scenes are rolled once per month: a relaunch after resolving them must not roll fresh ones.
+            if (s.ScenesRolledMonth == s.Month) return Array.Empty<StoryletDef>();
+            s.ScenesRolledMonth = s.Month;
 
             var rng = Pcg32.FromState(s.Rng);
             var picks = StoryletSelector.Pick(_c.Storylets, Context(s), s.StoryletLastMonth,
@@ -137,9 +140,14 @@ namespace UnpaidCeo.Core.Game
             // Free actions spend action points available at the start of the month.
             int ap = LifeSimulator.ActionPoints(s.Life, 0, b.Life);
             double errorChance = LifeSimulator.ErrorChance(s.Life, b.Life);
+            // Each action at most once a month, and an action that opens a fact (a debt, a scheme) waits until
+            // that fact is resolved, so its consequence cannot be postponed forever.
+            var taken = new HashSet<string>();
             foreach (var id in d.FreeActions)
             {
-                if (!_c.FreeActions.TryGetValue(id, out var fa) || fa.ActionPoints > ap) { report.RejectedActions.Add(id); continue; }
+                if (!_c.FreeActions.TryGetValue(id, out var fa) || fa.ActionPoints > ap || !taken.Add(id)
+                    || fa.Effects.OfType<SetFactEffect>().Any(f => s.Facts.Has(f.FactId)))
+                { report.RejectedActions.Add(id); continue; }
                 ap -= fa.ActionPoints;
                 s.Cash -= fa.Cost;
                 EffectApplier.ApplyAll(fa.Effects, s);
@@ -151,13 +159,15 @@ namespace UnpaidCeo.Core.Game
 
             // Businesses and gigs.
             var repFactor = 0.8 + 0.004 * s.Life.Reputation;
+            // Splits are shares of work time; totals above 100 are scaled down instead of multiplying capacity.
+            int splitTotal = Math.Max(100, d.WorkSplit.Values.Where(v => v > 0).Sum());
             Money revenue = Money.Zero, cogs = Money.Zero, fixedCosts = Money.Zero, marketing = Money.Zero, collected = Money.Zero;
             foreach (var bs in s.Businesses)
             {
                 if (!_c.Industries.TryGetValue(bs.IndustryId, out var def)) continue;
                 int share = 0;
                 if (def.Kind == IndustryKind.Gig && s.StudyXp >= def.RequiredStudy && d.WorkSplit.TryGetValue(bs.Id, out var split))
-                    share = (int)Math.Round(time.Work * Math.Max(0, split) / 100.0, MidpointRounding.AwayFromZero);
+                    share = (int)Math.Round(time.Work * Math.Max(0, split) / (double)splitTotal, MidpointRounding.AwayFromZero);
                 var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, 1.0, 1.0, share));
                 revenue += r.Revenue; cogs += r.Cogs; fixedCosts += r.Fixed; marketing += r.Marketing; collected += r.CashCollected;
             }
@@ -175,6 +185,7 @@ namespace UnpaidCeo.Core.Game
             report.GrossProfit = revenue - cogs;
             report.Fixed = fixedCosts;
             report.Marketing = marketing;
+            report.MistakeLoss = mistakeLoss;
             report.OperatingProfit = report.GrossProfit - fixedCosts - marketing - mistakeLoss;
             report.TaxReserve = EconomyFormulas.TaxReserve(report.OperatingProfit, b.TaxRate);
             report.NetProfit = report.OperatingProfit - report.TaxReserve;
@@ -263,7 +274,7 @@ namespace UnpaidCeo.Core.Game
                 AddJournal(s, "consequence", "journal.first_bills");
             }
 
-            if (r.NetProfit.Cents < 0 && !s.Facts.Has("first_loss"))
+            if ((r.NetProfit.Cents < 0 || r.CashEnd.Cents < r.CashStart.Cents) && !s.Facts.Has("first_loss"))
             {
                 s.Facts.Set("first_loss", s.Month);
                 AddJournal(s, "consequence", "journal.first_loss");
@@ -276,12 +287,15 @@ namespace UnpaidCeo.Core.Game
             }
             else s.Facts.Clear("in_debt");
 
+            // The comeback clears "bankrupt": restart the count so the same month cannot re-bankrupt the player.
+            if (!s.Facts.Has("bankrupt") && s.MonthsInDeepDebt >= 2) s.MonthsInDeepDebt = 0;
             s.MonthsInDeepDebt = s.Cash < b.DebtBankruptLine ? s.MonthsInDeepDebt + 1 : 0;
             if (s.MonthsInDeepDebt >= 2 && !s.Facts.Has("bankrupt"))
             {
                 s.Facts.Set("bankrupt", s.Month);
                 AddJournal(s, "consequence", "journal.bankrupt");
             }
+            if (s.Cash.Cents >= 0) s.Facts.Clear("bankrupt");
 
             if (s.Chapter == 1 && !s.Facts.Has("chapter1_done") && Chapters.Chapter1GoalMet(s, b))
             {
