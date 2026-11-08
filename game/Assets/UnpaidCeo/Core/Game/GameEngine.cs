@@ -168,7 +168,9 @@ namespace UnpaidCeo.Core.Game
                 int share = 0;
                 if (def.Kind == IndustryKind.Gig && s.StudyXp >= def.RequiredStudy && d.WorkSplit.TryGetValue(bs.Id, out var split))
                     share = (int)Math.Round(time.Work * Math.Max(0, split) / (double)splitTotal, MidpointRounding.AwayFromZero);
-                var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, 1.0, 1.0, share));
+                double season = def.Seasonality != null && def.Seasonality.Length == 12 ? def.Seasonality[(s.Month - 1) % 12] : 1.0;
+                double district = b.DistrictDemand.TryGetValue(Chapters.District(s.Chapter), out var df) ? df : 1.0;
+                var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, 1.0, share, district, b.PayrollOverhead));
                 revenue += r.Revenue; cogs += r.Cogs; fixedCosts += r.Fixed; marketing += r.Marketing; collected += r.CashCollected;
             }
 

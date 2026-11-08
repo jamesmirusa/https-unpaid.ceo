@@ -13,6 +13,8 @@ namespace UnpaidCeo.Core.Economy
         /// <summary>Owned units (carts, stores). Ignored for gigs.</summary>
         public int Units { get; set; }
         public Money Marketing { get; set; }
+        /// <summary>Employees on payroll (the owner is not one of them).</summary>
+        public int Employees { get; set; }
         /// <summary>Revenue booked but not yet paid, oldest first (B2B delay).</summary>
         public List<Money> Receivables { get; set; } = new List<Money>();
     }
@@ -25,12 +27,20 @@ namespace UnpaidCeo.Core.Economy
         /// <summary>Share of the player's Work time given to this gig, 0..100.</summary>
         public readonly int WorkShare;
 
-        public BusinessInputs(double reputationFactor, double seasonFactor, double eventFactor, int workShare)
+        /// <summary>Demand multiplier of the district the business is in.</summary>
+        public readonly double DistrictFactor;
+        /// <summary>Employer costs on top of salaries.</summary>
+        public readonly double PayrollOverhead;
+
+        public BusinessInputs(double reputationFactor, double seasonFactor, double eventFactor, int workShare,
+            double districtFactor = 1.0, double payrollOverhead = 0.0)
         {
             ReputationFactor = reputationFactor;
             SeasonFactor = seasonFactor;
             EventFactor = eventFactor;
             WorkShare = workShare;
+            DistrictFactor = districtFactor;
+            PayrollOverhead = payrollOverhead;
         }
     }
 
