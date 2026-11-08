@@ -6,7 +6,8 @@
         "UnpaidCeo.Game",
         "UnityEngine.TestRunner",
         "Unity.Localization",
-        "Unity.ResourceManager"
+        "Unity.ResourceManager",
+        "Unity.Addressables"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
