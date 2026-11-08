@@ -338,6 +338,46 @@ MonoBehaviour:
     m_Localized: Your block in the Bronx
     m_Metadata:
       m_Items: []
+  - m_Id: 8989772341248
+    m_Localized: Create your hero
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924160
+    m_Localized: Species
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924161
+    m_Localized: Outfit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924162
+    m_Localized: Color
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924163
+    m_Localized: Done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924164
+    m_Localized: Raccoon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924165
+    m_Localized: Fox
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924166
+    m_Localized: Cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924167
+    m_Localized: Hoodie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924168
+    m_Localized: Blazer
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

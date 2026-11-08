@@ -335,6 +335,46 @@ MonoBehaviour:
     m_Key: city.hint
     m_Metadata:
       m_Items: []
+  - m_Id: 8989772341248
+    m_Key: hero.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924160
+    m_Key: hero.species
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924161
+    m_Key: hero.outfit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924162
+    m_Key: hero.color
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924163
+    m_Key: hero.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924164
+    m_Key: hero.species.raccoon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924165
+    m_Key: hero.species.fox
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924166
+    m_Key: hero.species.cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924167
+    m_Key: hero.outfit.hoodie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924168
+    m_Key: hero.outfit.blazer
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

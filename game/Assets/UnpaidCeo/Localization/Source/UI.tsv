@@ -79,3 +79,13 @@ settings.reset.confirm	Tap again to erase your progress.	Нажми ещё ра�
 ranking.title	Ranking	Рейтинг
 ranking.soon	Weekly challenges and the leaderboard are coming soon.	Недельные челленджи и рейтинг скоро появятся.
 city.hint	Your block in the Bronx	Твой квартал в Бронксе
+hero.title	Create your hero	Создай героя
+hero.species	Species	Вид
+hero.outfit	Outfit	Образ
+hero.color	Color	Цвет
+hero.done	Done	Готово
+hero.species.raccoon	Raccoon	Енот
+hero.species.fox	Fox	Лис
+hero.species.cat	Cat	Кот
+hero.outfit.hoodie	Hoodie	Худи
+hero.outfit.blazer	Blazer	Пиджак

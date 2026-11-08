@@ -87,3 +87,8 @@
 .dialogue__text { white-space: normal; font-size: 36px; margin: 8px 0 16px 0; }
 .dialogue__option { padding: 16px 24px; margin: 6px 0; border-radius: 22px; border-width: 0; background-color: var(--panel-strong); white-space: normal; -unity-text-align: middle-left; }
 .dialogue__continue { align-self: flex-end; padding: 10px 28px; border-radius: 22px; border-width: 0; background-color: var(--accent); }
+
+/* Hero creator */
+.hero-creator { position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 24px 24px 8px 24px; background-color: var(--panel); border-radius: 32px; }
+.swatch { width: 80px; height: 80px; margin: 6px 16px 6px 0; border-radius: 40px; border-width: 5px; border-color: var(--track); }
+.swatch--selected { border-color: var(--accent); }

@@ -32,6 +32,7 @@ namespace UnpaidCeo.Editor
             Directory.CreateDirectory(Settings + "/Volumes");
             BuildBronx();
             BuildRoom();
+            MarkCharactersAddressable();
             AssetDatabase.SaveAssets();
         }
 
@@ -321,6 +322,17 @@ namespace UnpaidCeo.Editor
             var path = $"{Scenes}/Room.unity";
             EditorSceneManager.SaveScene(scene, path);
             MakeAddressable(path, CityView.RoomAddress, "district_bronx");
+        }
+
+        /// <summary>Heroes and NPCs load on demand (address = prefab name), keeping them out of the initial web download.</summary>
+        static void MarkCharactersAddressable()
+        {
+            foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { Prefabs }))
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var name = Path.GetFileNameWithoutExtension(path);
+                if (name.StartsWith("hero_") || name.StartsWith("npc_")) MakeAddressable(path, name, "characters");
+            }
         }
 
         static void MakeAddressable(string assetPath, string address, string groupName)
