@@ -50,6 +50,7 @@
     <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneProvider" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AnimationClip" preserve="all" />
     <type fullname="UnityEngine.Animator" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -89,6 +90,7 @@
     <type fullname="UnpaidCeo.Game.City.LotView" preserve="all" />
     <type fullname="UnpaidCeo.Game.City.RoomScene" preserve="all" />
     <type fullname="UnpaidCeo.Game.City.TimelapseDirector" preserve="all" />
+    <type fullname="UnpaidCeo.Game.Hero.CharacterAnimator" preserve="all" />
     <type fullname="UnpaidCeo.Game.City.CityCatalog/Entry" preserve="nothing" serialized="true" />
   </assembly>
 </linker>
