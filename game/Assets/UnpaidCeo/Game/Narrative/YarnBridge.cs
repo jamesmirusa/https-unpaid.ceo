@@ -47,7 +47,9 @@ namespace UnpaidCeo.Game.Narrative
         /// <summary>Only "en" and "ru" have Yarn text; every other UI language reads the English lines.</summary>
         public void SetLanguage(string languageCode)
         {
-            if (lineProvider != null) lineProvider.LocaleCode = languageCode == "ru" ? "ru" : "en";
+            var code = UnpaidCeo.Game.Audio.AudioAddresses.VoiceLanguage(languageCode);
+            if (lineProvider != null) lineProvider.LocaleCode = code;
+            if (lineProvider is BuiltinLocalisedLineProvider builtin) builtin.AssetLocaleCode = code;
         }
 
         /// <summary>Text of a Yarn line in the current dialogue language (used by the journal to quote chosen options).</summary>

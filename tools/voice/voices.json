@@ -1,0 +1,16 @@
+{
+  "model": "eleven_v4",
+  "separator": "[long pause]",
+  "voices": {
+    "Unpaid CEO":     { "en": ["JS8l7lQwh35gDnA8DTXd", "HorHey - gravelly, playful"],              "ru": ["RLRdvNFwJJct2XZOgfzy", "Mishka Yaponcik - Odessa rogue charm"] },
+    "Narrator":       { "en": ["KYpkPJwl1dpLc9QpMwnO", "Wyman - The Storyteller"],                 "ru": ["ogi2DyUAKJb7CEdqqvlU", "Stanislav - deep warm storyteller"] },
+    "Jay":            { "en": ["OwEAPhTFInN6VSRT9QXm", "Jordan - warm & gritty sidekick"],         "ru": ["lcbtvdFBqqCNU6t9VIr1", "Max - natural & friendly"] },
+    "Tony":           { "en": ["2UyW0L6yjNuo3ZH3XnoV", "Boom Mike - blue-collar Jersey guy"],      "ru": ["Dd5SDO8GiEVc2Od6pkuc", "Aram - deep & grounded"] },
+    "Mom":            { "en": ["YyRJWuwyhKdMZRRnm464", "Katie - warm conversational"],             "ru": ["CsT9glYAgw8L02hu9od2", "Marina - warm expressive"] },
+    "Mr. Fins":       { "en": ["WzVKtqQpTUUQ2JNx8YxI", "Silas - weathered villain"],               "ru": ["aJC9di73GYKqRpVCR663", "Gleb - deep & resonant"] },
+    "Mr. Whiskerton": { "en": ["qkG6pQFWpZTnYnoQZGFs", "Timothy Pemberton Smythe - British posh"], "ru": ["1kb4Md8n0kMNktygYhDF", "Ivan - 19th-century storyteller"] },
+    "Collector":      { "en": ["N2lVS1w4EtoT3dr4eOWO", "Callum - husky trickster"],                "ru": ["CD7zkojvx2OVr7zyCwFs", "Ivan 2 - bandito"] },
+    "Inspector":      { "en": ["exurTFaGNF2gnRcPNH8I", "Philip - quiet authority"],                "ru": ["AZ8raiNBSkBbrtDIBhFz", "Anton B - calm and straight"] }
+  },
+  "lessonVoice": "Unpaid CEO"
+}

@@ -1,9 +1,21 @@
 {
   "projectFileVersion": 4,
-  "sourceFiles": ["**/*.yarn"],
-  "excludeFiles": ["**/*~/*"],
+  "sourceFiles": [
+    "**/*.yarn"
+  ],
+  "excludeFiles": [
+    "**/*~/*",
+    "Voice/**"
+  ],
   "localisation": {
-    "ru": { "strings": "Chapter1-ru.csv", "assets": null }
+    "en": {
+      "strings": null,
+      "assets": "Voice/en"
+    },
+    "ru": {
+      "strings": "Chapter1-ru.csv",
+      "assets": "Voice/ru"
+    }
   },
   "baseLanguage": "en",
   "definitions": null,

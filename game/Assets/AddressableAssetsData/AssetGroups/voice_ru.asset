@@ -1,0 +1,1120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: voice_ru
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: voice_ru
+  m_GUID: 319b874efa2a545b5923a0de65f11e4b
+  m_SerializeEntries:
+  - m_GUID: 01211e325535a4407931b2860068f636
+    m_Address: line_ru_ch1_fatcat_fee_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 0291e60f4d8a04450823b99c948c9b02
+    m_Address: line_ru_ch1_bankrupt_comeback_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 02a484fdb55ca40969815e24ead706ab
+    m_Address: line_ru_ch1_mentor_reserve_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 0378ab93a1a7e4e5c97dc05fab508c6f
+    m_Address: line_ru_ch1_friend_needs_help_08
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 0452be4652d46476598b9bd8c9b27e01
+    m_Address: line_ru_ch1_shark_apr_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 08efa6c9d8a374ea898dc42c66ab9557
+    m_Address: line_ru_ch1_tony_fallout_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 0d2a7aa64a18d41c79a18f43e475cd98
+    m_Address: line_ru_ch1_city_heatwave_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1172daa3313344858b8cce96a56c3254
+    m_Address: line_ru_ch1_tony_shelf_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 117c9618baa9d49b18877e7bc433165d
+    m_Address: line_ru_ch1_mom_repay_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 128dc708bba1442c69c532e307112616
+    m_Address: line_ru_ch1_mom_call_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 12d66538425be4d7d98cf7f8898b0d3e
+    m_Address: line_ru_ch1_tony_cold_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 13ad2c78d1f584a6f9ed1f4a30199064
+    m_Address: line_ru_ch1_shark_collect_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 14ed84b31e25844478fbb5045b52dbf6
+    m_Address: line_ru_ch1_tony_intro_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 15936b6d85e824140a6ed1950aa24419
+    m_Address: line_ru_ch1_friend_needs_help_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 166d80f817d2c468185d21dc18f117dd
+    m_Address: line_ru_ch1_mentor_profit_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1946119c71db14539bda01e667b20584
+    m_Address: line_ru_ch1_fatcat_fee_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1a375ce449ae04278ac2ed7f71bf4213
+    m_Address: line_ru_ch1_mentor_burnout_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1ae5be1b4ea4e4cf7923d4ecca5a39ba
+    m_Address: line_ru_ch1_mentor_welcome_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1b256e4391c424ba496d673084692a6b
+    m_Address: line_ru_ch1_city_wallet_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1b8a55c9db7b8456eb65ae8591c679bc
+    m_Address: line_ru_ch1_mom_rent_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1cd0c98ba20804de089d58e5946d1b96
+    m_Address: line_ru_ch1_mom_visit_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1e1250fbc36ba47998b08ed2f9055def
+    m_Address: line_ru_ch1_mom_call_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2093d958bbe5e4f44a834819a5206817
+    m_Address: line_ru_ch1_shark_threat_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2178c186909214c79ac8202e2fb6d132
+    m_Address: line_ru_ch1_fatcat_fee_08
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 23184c6532419493c9c331b7aebde838
+    m_Address: line_ru_ch1_mentor_first_loss_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 25f34f7b87a4340129c085487ace397a
+    m_Address: line_ru_ch1_shark_job_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 286e70145fb41498987dc7c5facb2113
+    m_Address: line_ru_ch1_mentor_first_loss_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 29dd6f033c50941e1b9bd233f1dbbdd1
+    m_Address: line_ru_ch1_tony_snacks_08
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2b03b59dd84634844a4480e8bafc3e47
+    m_Address: line_ru_ch1_tony_cold_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2b3e1a0a9549f48ada29a6689d84a577
+    m_Address: line_ru_ch1_ai_rush_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2b3f0b67e5e2344e9a573c3dfaa4dda5
+    m_Address: line_ru_ch1_shark_job_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2fb2394e318d84838b5c535ba23b566a
+    m_Address: line_ru_ch1_fatcat_party_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 30517e3a2b36d4e7995a5d39d38dcdfd
+    m_Address: line_ru_ch1_mentor_reserve_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 34636af32fc374b2d9242fe1f3dab008
+    m_Address: line_ru_ch1_mentor_in_debt_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 365f08724758b483687c9ce9001f0fae
+    m_Address: line_ru_ch1_city_subway_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 37e73469545dd4dd9a03fdef24389ee9
+    m_Address: line_ru_ch1_fatcat_party_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 383bbc70d3fc54545b79b8feaef1e431
+    m_Address: line_ru_ch1_resale_flip_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 38b7c51b8797448a193727957cff0d0f
+    m_Address: line_ru_ch1_shark_threat_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 3ce307a18732f467780b17a81381d204
+    m_Address: line_ru_ch1_mom_rent_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 3ec85e7af2cd745e8bab374797a3c7f8
+    m_Address: line_ru_ch1_tony_shelf_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 4140620a881f6417f95ce816b0a0ec79
+    m_Address: line_ru_ch1_mentor_profit_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 42eb8b848d3fb420e9c08b3d0588c6db
+    m_Address: line_ru_ch1_mom_rent_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 450d4375ee2344dcbb896309a9666fba
+    m_Address: line_ru_ch1_friend_needs_help_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 47ca8fb5088cc4d9a8c9a9d289363106
+    m_Address: line_ru_ch1_city_subway_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 489a44d955af0412990c148fa096ce9d
+    m_Address: line_ru_ch1_mentor_welcome_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 489bf6f05bc824a54940b8d364c170c6
+    m_Address: line_ru_ch1_mom_visit_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 49135a60b4f9d4cde8fb9199d60cc6a3
+    m_Address: line_ru_ch1_mentor_first_loss_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 498a0aea026ea4ae1a35015fbf170d84
+    m_Address: line_ru_ch1_family_missed_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 4c03f133a5c7d4eddb3dc1b16ed23a28
+    m_Address: line_ru_ch1_mentor_first_loss_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 4cf877fc7a7c043db8209638dc81a816
+    m_Address: line_ru_ch1_shark_apr_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 4e205f19a0e714f6696726c0610a9f4c
+    m_Address: line_ru_ch1_tony_robbery_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 500be8fdfd2ce43a486c1c17bbe2d178
+    m_Address: line_ru_ch1_tony_intro_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 522b0b2c6e52f42be9eb7394529e5b6f
+    m_Address: line_ru_ch1_shark_threat_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 535682428742141aa86e781f475069fa
+    m_Address: line_ru_ch1_tony_fallout_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 544b679a45c0c49a9a18b7ef74ff7386
+    m_Address: line_ru_ch1_shark_apr_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 54534a5ad139e4c6aa2a71402899cb36
+    m_Address: line_ru_ch1_bankrupt_comeback_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 554d4e4aacf904773bcdc03e66127553
+    m_Address: line_ru_ch1_tony_intro_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 556dc394613284f95902eca9246e3508
+    m_Address: line_ru_ch1_friend_coin_crash_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 5816d4781afca41e48ba7f5fb12f923e
+    m_Address: line_ru_ch1_mentor_burnout_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 5a671715017c74ec58267916ae24d1b8
+    m_Address: line_ru_ch1_mentor_in_debt_09
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 5b195ac8233fc4c1f8686378c933380e
+    m_Address: line_ru_ch1_mentor_welcome_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 5c521b18b07f140a898b86202071cabc
+    m_Address: line_ru_ch1_tony_robbery_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 5e51a475c9bae4423a0ed2255f397674
+    m_Address: line_ru_ch1_friend_coin_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 609fa307a212e47d68c38b36cd0e80ad
+    m_Address: line_ru_ch1_tony_dinner_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 62aad09218e50494ba2d971b68f3c381
+    m_Address: line_ru_ch1_friend_birthday_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 62cf9111cb17a4046b55631bdbe03458
+    m_Address: line_ru_ch1_mentor_chapter_end_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 6335a16317ec440f1b0ab9cde0313c8c
+    m_Address: line_ru_ch1_fatcat_fee_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 6392e8ca2b18349f9aafe65f0a012d17
+    m_Address: line_ru_ch1_shark_apr_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 63a7c0b709a23413fb2537e7ec535f3c
+    m_Address: line_ru_ch1_city_subway_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 63aac4b656b724ed38bea077bcb62d4e
+    m_Address: line_ru_ch1_mentor_in_debt_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 63aae0d85d02c4d26a5c0cc1e624688b
+    m_Address: line_ru_ch1_shark_job_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 63eec983543284a9d88e4f73ec53df2d
+    m_Address: line_ru_ch1_friend_coin_crash_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 64190dc6a2a4840b3a63a4410aa0e6fd
+    m_Address: line_ru_ch1_shark_threat_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 665243bec7a614e8eb33d947a46645d8
+    m_Address: line_ru_ch1_fatcat_fee_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 686ed1eff3ce24982a9a85d202447f43
+    m_Address: line_ru_ch1_shark_offer_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 6c264627da1024bc2903470148a0b0dc
+    m_Address: line_ru_ch1_friend_coin_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 7037f5ebb4f9847d9b8ea55ed9e249f1
+    m_Address: line_ru_ch1_tony_snacks_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 71ab7f6896b1b4d309182e9d95d78532
+    m_Address: line_ru_ch1_tony_robbery_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 71e3f8d03399549d581a08438d911dd2
+    m_Address: line_ru_ch1_resale_find_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 729fa4b8e399249048e9580fe9ae2eac
+    m_Address: line_ru_ch1_fatcat_offer_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 72cb839db519543389d12ced982fc3c8
+    m_Address: line_ru_ch1_friend_repays_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 730d99a62a2a246048c86671164ac60c
+    m_Address: line_ru_ch1_mentor_profit_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 736956d48c17f46569207694c991949b
+    m_Address: line_ru_ch1_delivery_tip_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 737146a51c4e04beabc505acee0e0eea
+    m_Address: line_ru_ch1_family_missed_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 753bd56dfab334cb2b04064a51b2975b
+    m_Address: line_ru_ch1_shark_apr_07
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 755448b6a9be545f8988bc80c2662e51
+    m_Address: line_ru_ch1_friend_intro_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 776e65636204e4482ae072fd72b59415
+    m_Address: line_ru_ch1_friend_birthday_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 78aeed86e390c4ad58a7bbc112897f25
+    m_Address: line_ru_ch1_shark_offer_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 79393eb8d59bd491c8f24d8c47859018
+    m_Address: line_ru_ch1_delivery_tip_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 79eda88918f214645bcf9aa0514e7ae5
+    m_Address: line_ru_ch1_mentor_welcome_08
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 82ca22e01e05f468a83036242fbc95ef
+    m_Address: line_ru_ch1_shark_offer_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 83c32abf4a2404e02afeda3fd90d43cf
+    m_Address: line_ru_ch1_city_wallet_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 84cf269ea3ed640f58a8b67a5e98666f
+    m_Address: line_ru_ch1_tony_cold_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 84d9886ca82db4cee9854bf3891c9aa7
+    m_Address: line_ru_ch1_friend_needs_help_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 8693064c852c44ae7be5f3823e1bcb7e
+    m_Address: line_ru_ch1_city_wallet_reward_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 892740cf5457342629eabcf7b9ca2586
+    m_Address: line_ru_ch1_tony_snacks_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 8b8cf058bd86b450ca30da50257a2c1d
+    m_Address: line_ru_ch1_fatcat_party_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 8b8df96bcc27543ae8eab5dc06c5d77e
+    m_Address: line_ru_ch1_city_heatwave_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 8e903837047b34114af37f384f53f0b2
+    m_Address: line_ru_ch1_mentor_reserve_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 8f0e51de2dce945af8f1dff4a8ab280a
+    m_Address: line_ru_ch1_friend_repays_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 8f4c085f2d32f47a8ad3c3b55a0f2a92
+    m_Address: line_ru_ch1_delivery_tip_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 924aedcad6aac4205a334d36e2995cf6
+    m_Address: line_ru_ch1_friend_needs_help_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 93dadfd2056f74ec6bee3e7f94847069
+    m_Address: line_ru_ch1_fatcat_offer_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 93f95fdbc0f0d4f1fb25dc965ef2bca4
+    m_Address: line_ru_ch1_friend_coin_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 94aed8682f2724f7ea77e4ea12cc5eb3
+    m_Address: line_ru_ch1_city_wallet_reward_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 95f760a42badc4bb6ade1c8b13510a66
+    m_Address: line_ru_ch1_delivery_tip_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 95f8c24e8ea1c411ebe6377c13e528f6
+    m_Address: line_ru_ch1_mom_rent_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 962b7fae2ea4d4ba39220498d37e706a
+    m_Address: line_ru_ch1_tony_cold_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 9a97d5d842eb84f388978069db392334
+    m_Address: line_ru_ch1_shark_collect_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 9b50906cfbe984233b98940a387c7fd1
+    m_Address: line_ru_ch1_gray_audit_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 9b9f61ae7903848a193a73baaabb27f6
+    m_Address: line_ru_ch1_fatcat_offer_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 9bdfaf792623e4d8a89d247adf077f30
+    m_Address: line_ru_ch1_gray_audit_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 9e9324f6d85a24b93af003dca5b03bd9
+    m_Address: line_ru_ch1_friend_coin_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 9f39907854d6043308c2b69efc1e2e20
+    m_Address: line_ru_ch1_mom_call_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 9fc9c145ca2c242818e052979ac36b95
+    m_Address: line_ru_ch1_friend_partner_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: a17964c10189440b0be714f70e38d5ed
+    m_Address: line_ru_ch1_family_missed_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: a3779a7fa6f1a4493a34013dbd69934e
+    m_Address: line_ru_ch1_mentor_chapter_end_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: a585370236c784dbbb73abd0e384efa7
+    m_Address: line_ru_ch1_mentor_first_loss_07
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: a67ed5ac642544ddf9311fbfb8c34f0e
+    m_Address: line_ru_ch1_tony_shelf_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: aa7558458beac4b3082df8edf9c4a7df
+    m_Address: line_ru_ch1_tony_dinner_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: aca14815d40564afebaaef709660e641
+    m_Address: line_ru_ch1_shark_offer_07
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: ad1796d0bd95e4bfe9f54356f3ae15ea
+    m_Address: line_ru_ch1_city_subway_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: ae499405985f440f88ad8ff7d91f2faf
+    m_Address: line_ru_ch1_tony_shelf_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b02048b8d9f5d49f4b13a652fad4c52e
+    m_Address: line_ru_ch1_tony_dinner_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b0e7beddaa34f4bc281650a049b363b2
+    m_Address: line_ru_ch1_tony_snacks_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b1976126cabeb46bd96e914ab0af98d5
+    m_Address: line_ru_ch1_resale_find_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b1e4b534c793e476dab65cfc47b61bd5
+    m_Address: line_ru_ch1_ai_rush_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b412699cf25064377b4412412b23ad8c
+    m_Address: line_ru_ch1_fatcat_party_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b806e4d528ceb43d7b3383446a316599
+    m_Address: line_ru_ch1_shark_collect_07
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b896283c1f878465689107499bb29483
+    m_Address: line_ru_ch1_ai_rush_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: bb879ce7ab88e4ba0bef5efd410079aa
+    m_Address: line_ru_ch1_mentor_in_debt_07
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c13a46b1fc2b845fb9138346f0c54c6e
+    m_Address: line_ru_ch1_mentor_chapter_end_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c3f3931e3569240068202c00c92a6905
+    m_Address: line_ru_ch1_tony_fallout_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c486f088078aa4b1280d429d6d683815
+    m_Address: line_ru_ch1_shark_job_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c5e78222ca5fd42f19ff203e0a1f70b8
+    m_Address: line_ru_ch1_friend_partner_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c62e26e5f05984dc8a5ea6869193a3c5
+    m_Address: line_ru_ch1_mentor_chapter_end_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c6345786a39a44ae49bf688136e60f7d
+    m_Address: line_ru_ch1_tony_intro_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c832fc08798df4029ab802b821f72afe
+    m_Address: line_ru_ch1_mom_visit_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c863e1f292c27450ba1119d362e48b18
+    m_Address: line_ru_ch1_resale_find_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c8c900463c8a048cfb66d2f0945ef2c9
+    m_Address: line_ru_ch1_friend_intro_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c8eb471ee46c24f60aec2764861db93c
+    m_Address: line_ru_ch1_city_wallet_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: ca35f99b2184b4a9490986f4437e309d
+    m_Address: line_ru_ch1_mentor_reserve_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: cba1fafd8077f4ef8abab0a78b818ad2
+    m_Address: line_ru_ch1_city_wallet_reward_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: cedeb7fb873f0426e94ef05afadd7504
+    m_Address: line_ru_ch1_mentor_in_debt_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: d3acc500d18c44f6e83730be69bd70e7
+    m_Address: line_ru_ch1_mentor_profit_07
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: d6a48b148916d4aba8f658ecc0cc946b
+    m_Address: line_ru_ch1_mom_call_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: d7dc20f4b48d747ce90f56ec8f3bc239
+    m_Address: line_ru_ch1_gray_audit_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: d7f2054d68045492f93615ca8c555018
+    m_Address: line_ru_ch1_fatcat_offer_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: d89ac0b9f707a4c3bb512c022bcc529b
+    m_Address: line_ru_ch1_friend_coin_crash_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: dada85f3e49774e54837a31168b995bd
+    m_Address: line_ru_ch1_friend_intro_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: dc54ad4ae371d4d33aed1eff163ee9ae
+    m_Address: line_ru_ch1_tony_robbery_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: dc8936f4143d94d479df7ad7819c4384
+    m_Address: line_ru_ch1_city_heatwave_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: def3ff80c79fb47269f5f84ed19d04ae
+    m_Address: line_ru_ch1_mentor_in_debt_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: df2a2ac65303347f8a45492335056732
+    m_Address: line_ru_ch1_bankrupt_comeback_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: dfd0571cb32de4573a73b148e206d479
+    m_Address: line_ru_ch1_fatcat_offer_08
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e00031749e48145ebaed9c6e96a0b535
+    m_Address: line_ru_ch1_resale_flip_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e043d0f9b95914755b556d7fc0bba840
+    m_Address: line_ru_ch1_mom_repay_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e0c32d885ac594ec18608c8b2538fdfc
+    m_Address: line_ru_ch1_resale_flip_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e2692532a2fad466182602adc8fdf29a
+    m_Address: line_ru_ch1_mom_visit_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e277ebb3a761a490389d66e56b5f4c88
+    m_Address: line_ru_ch1_gray_audit_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e2b8e6d904ae54ec48bd623fff726aca
+    m_Address: line_ru_ch1_resale_flip_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e3122c26745f3474ba3e6b516e94dcc5
+    m_Address: line_ru_ch1_tony_snacks_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e34c31b0b5de242a6a585a8effd49eb6
+    m_Address: line_ru_ch1_friend_repays_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e4192970b16184d7e8bba0e0732e3a15
+    m_Address: line_ru_ch1_friend_coin_08
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e85539c0cfb3d464a9477daf987ce1e1
+    m_Address: line_ru_ch1_bankrupt_comeback_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e88b5c0d8cfde4d0bbce3b5657f76cfc
+    m_Address: line_ru_ch1_mentor_burnout_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: ea793b062e0b54fbdaca30fe7a099bd0
+    m_Address: line_ru_ch1_shark_collect_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: eaa498238349b4ab3bf06ad988a115ee
+    m_Address: line_ru_ch1_mentor_burnout_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: ee053b76340f041a1bc2934a4ecb41e7
+    m_Address: line_ru_ch1_city_wallet_reward_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f05a67151112b4377bddd47693941b9a
+    m_Address: line_ru_ch1_bankrupt_comeback_07
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f1014a0879ab64f23b8b36ef647ea672
+    m_Address: line_ru_ch1_family_missed_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f138a7b1125744d3eb370f50bd282aad
+    m_Address: line_ru_ch1_friend_partner_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f23ea72c5bcf94f89b69b80d6bd75a78
+    m_Address: line_ru_ch1_mentor_welcome_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f2962f59536c846b29c440b7fe14c82e
+    m_Address: line_ru_ch1_friend_birthday_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f4844bf60c1da445faeea85739564426
+    m_Address: line_ru_ch1_shark_offer_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f6de13325982a48a1b12bc870895a0f7
+    m_Address: line_ru_ch1_mom_repay_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f8a79e5a08c844efba35842935e9b331
+    m_Address: line_ru_ch1_tony_robbery_08
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: fa60eca2b742c4476820713edbd645a9
+    m_Address: line_ru_ch1_friend_coin_crash_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: fac9ed97eba8e491e817771db2d397f0
+    m_Address: line_ru_ch1_tony_fallout_06
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: fd2f4ecb0e6d24e9f84eb5dd31bedbe8
+    m_Address: line_ru_ch1_mentor_welcome_03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: fe15e42492ed14980acabeb113a7fc73
+    m_Address: line_ru_ch1_friend_intro_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: fe4d91f7e58aa4c4093e8ecedc53d69d
+    m_Address: line_ru_ch1_mentor_profit_05
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: af0bedfd9ca3d4b4a9a555cf73b1e4ce, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a4a690e8ac91e4a5aa00b28bbb476b47, type: 2}
+    - {fileID: 11400000, guid: ad1697532268345909b86a2847c8f305, type: 2}
+    m_SchemaDisplayOrder:
+    - voice_ru_BundledAssetGroupSchema
+    - voice_ru_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1

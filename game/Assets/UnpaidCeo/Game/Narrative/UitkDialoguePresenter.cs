@@ -14,6 +14,9 @@ namespace UnpaidCeo.Game.Narrative
     {
         [SerializeField] UIDocument? document;
 
+        /// <summary>Plays each line's voice clip (Yarn's localised line asset) and stops it on continue.</summary>
+        public UnpaidCeo.Game.Audio.AudioDirector? Audio { get; set; }
+
         VisualElement? _panel;
         Label? _speaker;
         Label? _text;
@@ -69,6 +72,7 @@ namespace UnpaidCeo.Game.Narrative
             _text.text = line.TextWithoutCharacterName.Text;
             _options?.Clear();
             _continue.style.display = DisplayStyle.Flex;
+            Audio?.PlayVoice(line.Asset as AudioClip);
 
             var done = new YarnTaskCompletionSource();
             void Advance() => done.TrySetResult();
@@ -76,6 +80,7 @@ namespace UnpaidCeo.Game.Narrative
             using (token.NextContentToken.Register(Advance))
                 await done.Task;
             _continue.clicked -= Advance;
+            Audio?.StopVoice();
         }
 
         public override async YarnTask<DialogueOption?> RunOptionsAsync(DialogueOption[] dialogueOptions, LineCancellationToken cancellationToken)
