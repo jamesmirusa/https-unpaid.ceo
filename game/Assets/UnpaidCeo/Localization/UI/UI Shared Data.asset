@@ -387,6 +387,66 @@ MonoBehaviour:
     m_Key: company.mistake
     m_Metadata:
       m_Items: []
+  - m_Id: 82149070856192
+    m_Key: hud.turns_left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244800
+    m_Key: hud.next_in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244801
+    m_Key: missions.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244802
+    m_Key: missions.streak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244803
+    m_Key: missions.points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244804
+    m_Key: mission.months_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244805
+    m_Key: mission.months_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244806
+    m_Key: mission.months_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244807
+    m_Key: mission.scenes_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244808
+    m_Key: mission.scenes_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244809
+    m_Key: mission.quiz_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244810
+    m_Key: mission.quiz_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244811
+    m_Key: mission.quiz_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244812
+    m_Key: mission.actions_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244813
+    m_Key: mission.actions_5
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

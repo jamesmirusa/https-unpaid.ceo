@@ -98,6 +98,29 @@ namespace UnpaidCeo.Core.Persistence
                 s.LastDecisions = MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null);
         }
 
+        public static string EncodeMeta(PlayerMeta m) => JsonConvert.SerializeObject(m, Formatting.None, Settings);
+
+        /// <summary>Turn budget, streak and missions; unreadable text gives a fresh record (never throws).</summary>
+        public static PlayerMeta DecodeMeta(string json)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(json)) return new PlayerMeta();
+                var m = JsonConvert.DeserializeObject<PlayerMeta>(json, Settings) ?? new PlayerMeta();
+                m.Turns = m.Turns ?? new TurnState();
+                m.Meta = m.Meta ?? new MetaProgress();
+                m.Meta.MissionProgress = m.Meta.MissionProgress ?? new System.Collections.Generic.Dictionary<string, int>();
+                m.Meta.MissionsDone = m.Meta.MissionsDone ?? new System.Collections.Generic.List<string>();
+                m.Meta.SkillXp = m.Meta.SkillXp ?? new System.Collections.Generic.Dictionary<string, int>();
+                m.Meta.QuizKeysToday = m.Meta.QuizKeysToday ?? new System.Collections.Generic.List<string>();
+                return m;
+            }
+            catch (Exception e) when (e is JsonException || e is FormatException || e is InvalidCastException || e is ArgumentException || e is OverflowException)
+            {
+                return new PlayerMeta();
+            }
+        }
+
         static LoadResult Corrupt(string json) => new LoadResult { Status = LoadStatus.CorruptReset, Backup = json };
     }
 }

@@ -1,0 +1,14 @@
+{
+  "missions": [
+    { "id": "months_1", "kind": "endMonth", "target": 1, "skill": "sales", "xp": 5, "ceoPoints": 2, "titleKey": "mission.months_1" },
+    { "id": "months_3", "kind": "endMonth", "target": 3, "skill": "operations", "xp": 10, "ceoPoints": 4, "titleKey": "mission.months_3" },
+    { "id": "months_6", "kind": "endMonth", "target": 6, "skill": "leadership", "xp": 15, "ceoPoints": 6, "titleKey": "mission.months_6" },
+    { "id": "scenes_1", "kind": "storyletChoice", "target": 1, "skill": "leadership", "xp": 5, "ceoPoints": 2, "titleKey": "mission.scenes_1" },
+    { "id": "scenes_3", "kind": "storyletChoice", "target": 3, "skill": "sales", "xp": 10, "ceoPoints": 4, "titleKey": "mission.scenes_3" },
+    { "id": "quiz_1", "kind": "quizAnswer", "target": 1, "skill": "finance", "xp": 5, "ceoPoints": 2, "titleKey": "mission.quiz_1" },
+    { "id": "quiz_3", "kind": "quizAnswer", "target": 3, "skill": "finance", "xp": 10, "ceoPoints": 4, "titleKey": "mission.quiz_3" },
+    { "id": "quiz_5", "kind": "quizAnswer", "target": 5, "skill": "marketing", "xp": 12, "ceoPoints": 5, "titleKey": "mission.quiz_5" },
+    { "id": "actions_2", "kind": "freeAction", "target": 2, "skill": "marketing", "xp": 8, "ceoPoints": 3, "titleKey": "mission.actions_2" },
+    { "id": "actions_5", "kind": "freeAction", "target": 5, "skill": "operations", "xp": 12, "ceoPoints": 5, "titleKey": "mission.actions_5" }
+  ]
+}

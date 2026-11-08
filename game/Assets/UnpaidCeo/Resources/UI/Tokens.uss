@@ -100,3 +100,18 @@
 .coach__speaker { margin: 0 32px 8px 32px; font-size: 32px; -unity-font-style: bold; color: var(--accent); }
 .coach__text { margin: 0 32px 24px 32px; font-size: 40px; white-space: normal; color: var(--text); }
 .app .coach-target { border-width: 8px; border-color: #FFD24A; scale: 1.04 1.04; }
+
+/* Daily turns and missions (stage 2A) */
+.turns-bar { flex-direction: row; justify-content: center; align-items: center; margin: 0 24px 8px 24px; }
+.turns-bar__caption { font-size: 28px; color: var(--text-dim); margin-right: 8px; }
+.turns-bar__value { font-size: 30px; -unity-font-style: bold; margin-right: 24px; }
+.turns-bar__wait { flex-direction: row; align-items: center; }
+.primary-button:disabled { opacity: 0.45; }
+.missions { position: absolute; left: 24px; right: 24px; bottom: 16px; padding: 12px 24px; background-color: var(--panel); border-radius: 24px; }
+.missions__title { font-size: 30px; -unity-font-style: bold; margin-bottom: 4px; }
+.mission .row__label { font-size: 28px; white-space: normal; }
+.mission .row__value { font-size: 28px; }
+.mission--done .row__label, .mission--done .row__value { color: var(--text-dim); }
+.missions__footer { flex-direction: row; align-items: center; margin-top: 8px; }
+.missions__caption { font-size: 26px; color: var(--text-dim); margin-right: 6px; }
+.missions__value { font-size: 26px; -unity-font-style: bold; margin-right: 20px; }

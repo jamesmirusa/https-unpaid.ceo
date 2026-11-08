@@ -12,6 +12,9 @@ namespace UnpaidCeo.Game.Ui
     {
         public const string Table = "Academy";
 
+        /// <summary>After every quiz answer: lesson id and question index.</summary>
+        public event System.Action<string, int> Answered;
+
         readonly GameEngine _engine;
         readonly GameState _state;
         readonly Label _lessonTitle, _lessonBody, _quizTitle, _feedback;
@@ -102,6 +105,7 @@ namespace UnpaidCeo.Game.Ui
             UiText.Bind(_feedback, correct ? "academy.quiz.correct" : "academy.quiz.wrong", Table);
             Show(_feedback);
             ShowSelected();
+            Answered?.Invoke(lesson.Id, q);
         }
     }
 }

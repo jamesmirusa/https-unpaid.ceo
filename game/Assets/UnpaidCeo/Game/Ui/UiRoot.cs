@@ -11,6 +11,16 @@ using UnpaidCeo.Core.Platform;
 
 namespace UnpaidCeo.Game.Ui
 {
+    /// <summary>One daily mission row: its title key, progress toward the target, done or not.</summary>
+    public readonly struct MissionView
+    {
+        public readonly string TitleKey;
+        public readonly int Progress;
+        public readonly int Target;
+        public readonly bool Done;
+        public MissionView(string titleKey, int progress, int target, bool done) { TitleKey = titleKey; Progress = progress; Target = target; Done = done; }
+    }
+
     /// <summary>
     /// Phone-first UI (spec §5): HUD (cash, month, energy), the screen area, the "Next month" button under the thumb,
     /// and the bottom nav City · Company · Decisions · Academy · Ranking. Journal and Settings open from the HUD.
@@ -40,13 +50,27 @@ namespace UnpaidCeo.Game.Ui
         AcademyScreen _academy;
         Label _cash, _month;
         VisualElement _energyFill;
+        Button _next;
+        VisualElement _turnsBar, _waitRow, _missions;
+        Label _turnsValue, _countdownValue;
 
         public VisualElement Root { get; private set; }
         public string CurrentTab { get; private set; }
         public string Language { get; private set; } = "en";
         public bool IsNeon { get; private set; }
 
+        public Button NextMonthButton => _next;
+        /// <summary>"left/per day" manual months.</summary>
+        public Label TurnsValue => _turnsValue;
+        /// <summary>Shown instead of a working button when today's months are used up.</summary>
+        public VisualElement CountdownRow => _waitRow;
+        public Label CountdownValue => _countdownValue;
+        /// <summary>Today's missions on the City screen.</summary>
+        public VisualElement MissionsPanel => _missions;
+
         public event Action NextMonthRequested;
+        /// <summary>A quiz answer in the Academy (lesson id, question index), first try or practice.</summary>
+        public event Action<string, int> QuizAnswered;
         public event Action<bool> ThemeChanged;
         public event Action ResetRequested;
 
@@ -116,13 +140,35 @@ namespace UnpaidCeo.Game.Ui
             _company = new CompanyScreen(_screens[Company], this);
             _decisions = new DecisionsScreen(_screens[Decisions], engine, state);
             _academy = new AcademyScreen(_screens[Academy], engine, state);
+            _academy.Answered += (lesson, q) => QuizAnswered?.Invoke(lesson, q);
+            _missions = new VisualElement { name = "city-missions" };
+            _missions.AddToClassList("missions");
+            _missions.style.display = DisplayStyle.None;
+            _screens[City].Add(_missions);
             _journal = new JournalScreen(_screens[Journal], engine, state);
             _settings = new SettingsScreen(_screens[Settings], this);
             _settings.ResetRequested += () => ResetRequested?.Invoke();
 
-            var next = UiText.Bind(new Button(() => NextMonthRequested?.Invoke()) { name = "next-month" }, "hud.next_month");
-            next.AddToClassList("primary-button");
-            Root.Add(next);
+            _turnsBar = new VisualElement { name = "turns-bar" };
+            _turnsBar.AddToClassList("turns-bar");
+            _turnsBar.Add(UiText.Label("hud.turns_left", "turns-bar__caption"));
+            _turnsValue = UiText.ValueLabel("", "turns-bar__value");
+            _turnsValue.name = "turns-left";
+            _turnsBar.Add(_turnsValue);
+            _waitRow = new VisualElement { name = "next-wait" };
+            _waitRow.AddToClassList("turns-bar__wait");
+            _waitRow.Add(UiText.Label("hud.next_in", "turns-bar__caption"));
+            _countdownValue = UiText.ValueLabel("", "turns-bar__value");
+            _countdownValue.name = "next-countdown";
+            _waitRow.Add(_countdownValue);
+            _waitRow.style.display = DisplayStyle.None;
+            _turnsBar.Add(_waitRow);
+            _turnsBar.style.display = DisplayStyle.None;
+            Root.Add(_turnsBar);
+
+            _next = UiText.Bind(new Button(() => NextMonthRequested?.Invoke()) { name = "next-month" }, "hud.next_month");
+            _next.AddToClassList("primary-button");
+            Root.Add(_next);
 
             var nav = Clone("BottomNav");
             Root.Add(nav);
@@ -186,6 +232,48 @@ namespace UnpaidCeo.Game.Ui
         }
 
         public MonthDecisions CurrentDecisions() => _decisions.Build();
+
+        /// <summary>Manual months left today; with none left the button is off and a countdown to the refill shows.</summary>
+        public void SetTurns(int left, int perDay, long secondsToRefill)
+        {
+            _turnsBar.style.display = DisplayStyle.Flex;
+            _turnsValue.text = $"{Math.Max(0, left)}/{perDay}";
+            bool none = left <= 0;
+            _next.SetEnabled(!none);
+            _waitRow.style.display = none ? DisplayStyle.Flex : DisplayStyle.None;
+            _countdownValue.text = Countdown(secondsToRefill);
+        }
+
+        public static string Countdown(long seconds)
+        {
+            if (seconds < 0) seconds = 0;
+            return $"{seconds / 3600:00}:{seconds / 60 % 60:00}:{seconds % 60:00}";
+        }
+
+        /// <summary>Today's missions, the streak and CEO points on the City screen.</summary>
+        public void SetMissions(IReadOnlyList<MissionView> missions, int streak, int ceoPoints)
+        {
+            _missions.Clear();
+            _missions.Add(UiText.Label("missions.title", "missions__title"));
+            foreach (var m in missions)
+            {
+                var row = new VisualElement();
+                row.AddToClassList("row");
+                row.AddToClassList("mission");
+                row.EnableInClassList("mission--done", m.Done);
+                row.Add(UiText.Label(m.TitleKey, "row__label"));
+                row.Add(UiText.ValueLabel($"{Math.Min(m.Progress, m.Target)}/{m.Target}", "row__value"));
+                _missions.Add(row);
+            }
+            var footer = new VisualElement();
+            footer.AddToClassList("missions__footer");
+            footer.Add(UiText.Label("missions.streak", "missions__caption"));
+            footer.Add(UiText.ValueLabel(streak.ToString(), "missions__value"));
+            footer.Add(UiText.Label("missions.points", "missions__caption"));
+            footer.Add(UiText.ValueLabel(ceoPoints.ToString(), "missions__value"));
+            _missions.Add(footer);
+            _missions.style.display = missions.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+        }
 
         public IEnumerator SetLanguage(string code)
         {

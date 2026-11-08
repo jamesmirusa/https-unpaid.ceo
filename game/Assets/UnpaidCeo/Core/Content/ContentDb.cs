@@ -3,6 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnpaidCeo.Core.Economy;
+using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Narrative;
 using UnpaidCeo.Core.Primitives;
 
@@ -17,6 +18,7 @@ namespace UnpaidCeo.Core.Content
         public string Storylets { get; set; }
         public string Npcs { get; set; }
         public string Lessons { get; set; }
+        public string Missions { get; set; }
     }
 
     /// <summary>A named character; Name maps a language code to the display name.</summary>
@@ -48,11 +50,14 @@ namespace UnpaidCeo.Core.Content
         public IReadOnlyDictionary<string, LessonDef> Lessons { get; private set; }
         /// <summary>Lessons in file order: the order they unlock in when several trigger in one month.</summary>
         public IReadOnlyList<LessonDef> LessonsInOrder => LessonList;
+        public IReadOnlyDictionary<string, MissionDef> Missions { get; private set; }
 
         internal List<IndustryDef> IndustryList { get; private set; }
         internal List<FreeActionDef> FreeActionList { get; private set; }
         internal List<NpcDef> NpcList { get; private set; }
         internal List<LessonDef> LessonList { get; private set; }
+        /// <summary>Missions in file order: the pool daily missions are drawn from.</summary>
+        internal List<MissionDef> MissionList { get; private set; }
 
         static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
@@ -64,6 +69,7 @@ namespace UnpaidCeo.Core.Content
         class StoryletsFile { public List<StoryletDef> Storylets { get; set; } = new List<StoryletDef>(); }
         class NpcsFile { public List<NpcDef> Npcs { get; set; } = new List<NpcDef>(); }
         class LessonsFile { public List<LessonDef> Lessons { get; set; } = new List<LessonDef>(); }
+        class MissionsFile { public List<MissionDef> Missions { get; set; } = new List<MissionDef>(); }
 
         public static ContentDb FromJson(ContentFiles files)
         {
@@ -72,6 +78,7 @@ namespace UnpaidCeo.Core.Content
             var storylets = Parse<StoryletsFile>(files.Storylets)?.Storylets ?? new List<StoryletDef>();
             var npcs = Parse<NpcsFile>(files.Npcs)?.Npcs ?? new List<NpcDef>();
             var lessons = Parse<LessonsFile>(files.Lessons)?.Lessons ?? new List<LessonDef>();
+            var missions = Parse<MissionsFile>(files.Missions)?.Missions ?? new List<MissionDef>();
             return new ContentDb
             {
                 IndustryList = industries,
@@ -83,6 +90,8 @@ namespace UnpaidCeo.Core.Content
                 Npcs = ToDict(npcs, n => n.Id),
                 LessonList = lessons,
                 Lessons = ToDict(lessons, l => l.Id),
+                MissionList = missions,
+                Missions = ToDict(missions, m => m.Id),
                 Balance = Parse<Balance>(files.Balance) ?? new Balance(),
             };
         }

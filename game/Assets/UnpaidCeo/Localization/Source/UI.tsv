@@ -9,6 +9,8 @@ hud.reserve	Reserve	Резерв
 hud.month	Month	Месяц
 hud.energy	Energy	Энергия
 hud.next_month	Next month	Следующий месяц
+hud.turns_left	Months today	Месяцев сегодня
+hud.next_in	New months in	Новые месяцы через
 hud.journal	Journal	Журнал
 hud.settings	Settings	Настройки
 company.title	Company	Компания
@@ -92,3 +94,16 @@ hero.outfit.hoodie	Hoodie	Худи
 hero.outfit.blazer	Blazer	Пиджак
 onboarding.gig	Take the gig · +$40	Взять заказ · +40 $
 onboarding.continue	Got it	Понял
+missions.title	Daily missions	Задания дня
+missions.streak	Streak, days	Серия, дней
+missions.points	CEO points	Очки CEO
+mission.months_1	Play 1 month	Сыграй 1 месяц
+mission.months_3	Play 3 months	Сыграй 3 месяца
+mission.months_6	Play all 6 months of the day	Сыграй все 6 месяцев дня
+mission.scenes_1	Make a choice in a scene	Сделай выбор в сцене
+mission.scenes_3	Make choices in 3 scenes	Сделай выбор в 3 сценах
+mission.quiz_1	Answer a quiz question in the Academy	Ответь на вопрос в Академии
+mission.quiz_3	Answer 3 quiz questions	Ответь на 3 вопроса викторины
+mission.quiz_5	Answer 5 quiz questions	Ответь на 5 вопросов викторины
+mission.actions_2	Take 2 free actions	Соверши 2 свободных действия
+mission.actions_5	Take 5 free actions	Соверши 5 свободных действий

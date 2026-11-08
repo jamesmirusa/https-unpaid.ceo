@@ -1,6 +1,7 @@
 #nullable enable
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Localization.Settings;
@@ -25,13 +26,14 @@ namespace UnpaidCeo.Game.Bootstrap
     /// <summary>
     /// The game's single entry point (Boot scene): loads content and the Bronx, builds UI, audio and
     /// dialogue, then runs onboarding for a new player or resumes a save, and drives the month loop:
-    /// Next month → report + timelapse → this month's scenes → save.
+    /// Next month → report + timelapse → this month's scenes → save. Manual months come from the daily turn
+    /// budget; offline autopilot runs on launch; daily missions count manual play.
     /// </summary>
     public sealed class GameBootstrap : MonoBehaviour
     {
         public enum Phase { Loading, Onboarding, Playing, Failed }
 
-        public static readonly string[] ContentFiles = { "industries", "balance", "free_actions", "storylets_ch1", "npcs", "lessons" };
+        public static readonly string[] ContentFiles = { "industries", "balance", "free_actions", "storylets_ch1", "npcs", "lessons", "missions" };
         public static string ContentAddress(string file) => "content/" + file;
 
         [SerializeField] YarnProject? yarnProject;
@@ -48,7 +50,10 @@ namespace UnpaidCeo.Game.Bootstrap
         AudioDirector? _audio;
         YarnBridge? _yarn;
         HeroView? _hero;
+        PlayerMeta? _meta;
         bool _busy;
+        float _nextTick;
+        int _ticks;
 
         void Start() => StartCoroutine(Boot());
 
@@ -81,6 +86,7 @@ namespace UnpaidCeo.Game.Bootstrap
             bool resume = saved?.State != null && (saved.Status == LoadStatus.Ok || saved.Status == LoadStatus.Migrated);
             var seed = resume ? saved!.State!.Seed : (ulong)DateTime.UtcNow.Ticks;
             _state = resume ? saved!.State! : _engine.NewGame(seed, new HeroAppearance());
+            _meta = SaveService.LoadMeta();
 
             Ui = new GameObject("UI").AddComponent<UiRoot>();
             Ui.transform.SetParent(transform);
@@ -90,11 +96,13 @@ namespace UnpaidCeo.Game.Bootstrap
             _yarn!.SetLanguage(Ui.Language);
             Ui.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
             Ui.ResetRequested += () => { SaveService.Delete(); SceneManager.LoadScene(0); };
+            Ui.QuizAnswered += OnQuizAnswered;
             _city?.Sync(_state);
 
             if (resume)
             {
                 StartCoroutine(_hero.Apply(_state.Hero));
+                RunLaunchAutopilot();
                 StartPlaying();
                 PlayScenes();
                 yield break;
@@ -108,6 +116,9 @@ namespace UnpaidCeo.Game.Bootstrap
             {
                 _city?.Sync(_state);
                 SaveService.Save(_state);
+                TurnBudget.Refresh(_meta.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes(), _engine.Content.Balance);
+                DailyMissions.Sync(_meta.Meta, _meta.Turns, _state, _engine.Content);
+                SaveService.SaveMeta(_meta);
                 StartPlaying();
                 PlayScenes();
             };
@@ -127,7 +138,7 @@ namespace UnpaidCeo.Game.Bootstrap
             done(ContentDb.FromJson(new ContentFiles
             {
                 Industries = texts[0], Balance = texts[1], FreeActions = texts[2],
-                Storylets = texts[3], Npcs = texts[4], Lessons = texts[5],
+                Storylets = texts[3], Npcs = texts[4], Lessons = texts[5], Missions = texts[6],
             }));
         }
 
@@ -179,14 +190,33 @@ namespace UnpaidCeo.Game.Bootstrap
         {
             Current = Phase.Playing;
             Ui!.NextMonthRequested += () => { if (!_busy) StartCoroutine(NextMonth()); };
+            RefreshTurnsUi();
+            RefreshMissionsUi();
+        }
+
+        /// <summary>Offline months since the last visit (no manual turns used), then today's refill.</summary>
+        void RunLaunchAutopilot()
+        {
+            DailyMissions.Sync(_meta!.Meta, _meta.Turns, _state!, _engine!.Content);
+            var reports = TurnBudget.OnLaunch(_engine, _state!, _meta.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes());
+            DailyMissions.SkipLog(_meta.Meta, _state!);
+            if (reports.Count > 0)
+            {
+                _city?.Sync(_state!);
+                Ui!.ShowReport(reports[reports.Count - 1]);
+                SaveService.Save(_state!);
+            }
+            SaveService.SaveMeta(_meta);
         }
 
         IEnumerator NextMonth()
         {
             _busy = true;
+            TurnBudget.Refresh(_meta!.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes(), _engine!.Content.Balance);
+            if (!TurnBudget.TryConsume(_meta.Turns)) { RefreshTurnsUi(); _busy = false; yield break; }
             MonthReport report;
             try { report = _engine!.EndMonth(_state!, Ui!.CurrentDecisions()); }
-            catch (Exception e) { Debug.LogException(e); _busy = false; yield break; }
+            catch (Exception e) { Debug.LogException(e); _meta.Turns.ManualLeft++; _busy = false; yield break; }
             _city?.Sync(_state!);
             if (_timelapse != null)
             {
@@ -198,6 +228,7 @@ namespace UnpaidCeo.Game.Bootstrap
             _hero?.React(report);
             Ui.Open(UiRoot.Company);
             SaveService.Save(_state!);
+            AfterAction();
             _busy = false;
             PlayScenes();
         }
@@ -213,9 +244,68 @@ namespace UnpaidCeo.Game.Bootstrap
                 await _yarn.PlayPendingAsync();
                 Ui?.RefreshHud();
                 SaveService.Save(_state);
+                AfterAction();
             }
             catch (Exception e) { Debug.LogException(e); }
             finally { _busy = false; }
+        }
+
+        void OnQuizAnswered(string lessonId, int question)
+        {
+            if (_meta == null || _state == null || _engine == null) return;
+            DailyMissions.RecordQuiz(_meta.Meta, _meta.Turns, _state.Seed, _engine.Content, lessonId, question);
+            AfterAction();
+        }
+
+        /// <summary>After a manual action: count it toward today's missions, update the turn bar, save the meta record.</summary>
+        void AfterAction()
+        {
+            if (_meta == null || _state == null || _engine == null) return;
+            DailyMissions.Sync(_meta.Meta, _meta.Turns, _state, _engine.Content);
+            RefreshTurnsUi();
+            RefreshMissionsUi();
+            SaveService.SaveMeta(_meta);
+        }
+
+        void RefreshTurnsUi()
+        {
+            if (Ui == null || _meta == null || _engine == null) return;
+            Ui.SetTurns(_meta.Turns.ManualLeft, _engine.Content.Balance.DailyManualMonths,
+                TurnBudget.SecondsToRefill(_meta.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes()));
+        }
+
+        void RefreshMissionsUi()
+        {
+            if (Ui == null || _meta == null || _engine == null || _state == null) return;
+            var views = new List<MissionView>();
+            foreach (var m in DailyMissions.For(_meta.Turns.Day, _state.Seed, _engine.Content))
+                views.Add(new MissionView(m.TitleKey, DailyMissions.Progress(_meta.Meta, _meta.Turns, m.Id), m.Target,
+                    DailyMissions.IsDone(_meta.Meta, _meta.Turns, m.Id)));
+            Ui.SetMissions(views, _meta.Turns.Streak, _meta.Meta.CeoPoints);
+        }
+
+        /// <summary>Once a second: the countdown, and the midnight refill while the game stays open.</summary>
+        void Update()
+        {
+            if (Current != Phase.Playing || _meta == null || _engine == null || Time.unscaledTime < _nextTick) return;
+            _nextTick = Time.unscaledTime + 1f;
+            int day = _meta.Turns.Day;
+            TurnBudget.Refresh(_meta.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes(), _engine.Content.Balance);
+            RefreshTurnsUi();
+            if (_meta.Turns.Day != day) RefreshMissionsUi();
+            // Keep the last-seen time fresh for offline autopilot (the web player may close without warning).
+            if (_meta.Turns.Day != day || ++_ticks % 30 == 0) SaveService.SaveMeta(_meta);
+        }
+
+        void OnApplicationPause(bool paused) { if (paused) SaveMetaNow(); }
+
+        void OnApplicationQuit() => SaveMetaNow();
+
+        void SaveMetaNow()
+        {
+            if (_meta == null || _engine == null || Current != Phase.Playing) return;
+            TurnBudget.Refresh(_meta.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes(), _engine.Content.Balance);
+            SaveService.SaveMeta(_meta);
         }
 
         void Fail(string why)

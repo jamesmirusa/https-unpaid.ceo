@@ -390,6 +390,66 @@ MonoBehaviour:
     m_Localized: Tired-out mistake
     m_Metadata:
       m_Items: []
+  - m_Id: 82149070856192
+    m_Localized: Months today
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244800
+    m_Localized: New months in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244801
+    m_Localized: Daily missions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244802
+    m_Localized: Streak, days
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244803
+    m_Localized: CEO points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244804
+    m_Localized: Play 1 month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244805
+    m_Localized: Play 3 months
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244806
+    m_Localized: Play all 6 months of the day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244807
+    m_Localized: Make a choice in a scene
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244808
+    m_Localized: Make choices in 3 scenes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244809
+    m_Localized: Answer a quiz question in the Academy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244810
+    m_Localized: Answer 3 quiz questions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244811
+    m_Localized: Answer 5 quiz questions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244812
+    m_Localized: Take 2 free actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244813
+    m_Localized: Take 5 free actions
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

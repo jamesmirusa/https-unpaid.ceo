@@ -82,6 +82,17 @@ namespace UnpaidCeo.Core.Content
             foreach (var (where, e) in demandEffects)
                 if (e is DemandModifierEffect dm && dm.IndustryId != DemandModifier.CurrentBusiness && !db.Industries.ContainsKey(dm.IndustryId))
                     r.Errors.Add($"{where}: demand effect names unknown industry '{dm.IndustryId}'");
+            foreach (var g in db.MissionList.GroupBy(x => x.Id).Where(g => g.Count() > 1))
+                r.Errors.Add($"mission {g.Key}: duplicate id");
+            foreach (var m in db.MissionList)
+            {
+                if (string.IsNullOrEmpty(m.Id)) r.Errors.Add("mission: missing id");
+                if (!UnpaidCeo.Core.Game.MissionDef.Kinds.Contains(m.Kind)) r.Errors.Add($"mission {m.Id}: unknown kind '{m.Kind}'");
+                if (m.Target < 1) r.Errors.Add($"mission {m.Id}: target must be at least 1");
+                if (!FounderSkills.IsKnown(m.Skill)) r.Errors.Add($"mission {m.Id}: unknown skill '{m.Skill}'");
+                if (m.Xp < 0 || m.CeoPoints < 0) r.Errors.Add($"mission {m.Id}: xp and ceoPoints must not be negative");
+                if (string.IsNullOrEmpty(m.TitleKey)) r.Errors.Add($"mission {m.Id}: missing titleKey");
+            }
             foreach (var g in db.Storylets.GroupBy(x => x.Id).Where(g => g.Count() > 1))
                 r.Errors.Add($"storylet {g.Key}: duplicate id");
             foreach (var st in db.Storylets)
