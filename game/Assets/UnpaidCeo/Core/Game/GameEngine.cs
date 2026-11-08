@@ -135,7 +135,7 @@ namespace UnpaidCeo.Core.Game
             var report = new MonthReport { Month = s.Month, CashStart = s.Cash };
             report.Storylets.AddRange(s.StoryletLastMonth.Where(kv => kv.Value == s.Month).Select(kv => kv.Key).OrderBy(x => x, StringComparer.Ordinal));
 
-            ApplyLevers(s, d);
+            ApplyLevers(s, d, report);
 
             // Free actions spend action points available at the start of the month.
             int ap = LifeSimulator.ActionPoints(s.Life, 0, b.Life);
@@ -244,15 +244,65 @@ namespace UnpaidCeo.Core.Game
             return s;
         }
 
-        void ApplyLevers(GameState s, MonthDecisions d)
+        const int MaxUnits = 100;
+
+        void ApplyLevers(GameState s, MonthDecisions d, MonthReport report)
         {
             foreach (var lever in d.Levers)
             {
                 var bs = s.Businesses.FirstOrDefault(x => x.Id == lever.BusinessId);
                 if (bs == null || lever.ValueCents < 0) continue;
-                if (lever.Lever == "price") bs.Price = Money.FromCents(lever.ValueCents);
-                else if (lever.Lever == "marketing") bs.Marketing = Money.FromCents(lever.ValueCents);
+                _c.Industries.TryGetValue(bs.IndustryId, out var def);
+                bool business = def != null && def.Kind == IndustryKind.Business;
+                switch (lever.Lever)
+                {
+                    case "price":
+                        bs.Price = Money.FromCents(lever.ValueCents);
+                        if (business && bs.Price != def.Price) SetOnce(s, "price_changed");
+                        break;
+                    case "marketing":
+                        bs.Marketing = Money.FromCents(lever.ValueCents);
+                        if (business && bs.Marketing.Cents > 0) SetOnce(s, "marketing_started");
+                        break;
+                    case "units":
+                        if (business) SetUnits(s, bs, def, (int)Math.Min(lever.ValueCents, MaxUnits), report);
+                        break;
+                    case "staff":
+                        if (!business) break;
+                        int target = (int)Math.Min(lever.ValueCents, MaxStaff(bs, def));
+                        if (target > bs.Employees) SetOnce(s, "first_hire");
+                        bs.Employees = target;
+                        break;
+                }
             }
+        }
+
+        static int MaxStaff(BusinessState bs, IndustryDef def) => Math.Max(0, bs.Units) * Math.Max(1, def.StaffPerUnit) * 2;
+
+        void SetUnits(GameState s, BusinessState bs, IndustryDef def, int target, MonthReport report)
+        {
+            if (target > bs.Units)
+            {
+                var cost = Money.FromCents(def.Capex.Cents * (target - bs.Units));
+                if (s.Cash < cost) { report.RejectedLevers.Add($"units:{bs.Id}"); return; }
+                s.Cash -= cost;
+                report.Capex += cost;
+                bs.Units = target;
+                if (bs.Units >= 2) SetOnce(s, "second_unit");
+            }
+            else if (target < bs.Units)
+            {
+                var refund = Money.FromCents(def.Capex.MulRound(_c.Balance.AssetResaleRate).Cents * (bs.Units - target));
+                s.Cash += refund;
+                report.AssetSales += refund;
+                bs.Units = target;
+                bs.Employees = Math.Min(bs.Employees, MaxStaff(bs, def));
+            }
+        }
+
+        static void SetOnce(GameState s, string fact)
+        {
+            if (!s.Facts.Has(fact)) s.Facts.Set(fact, s.Month);
         }
 
         void QueueTriggeredLessons(GameState s)
@@ -276,7 +326,11 @@ namespace UnpaidCeo.Core.Game
                 AddJournal(s, "consequence", "journal.first_bills");
             }
 
-            if ((r.NetProfit.Cents < 0 || r.CashEnd.Cents < r.CashStart.Cents) && !s.Facts.Has("first_loss"))
+            if (s.Businesses.Any(x => x.Employees > 0)) SetOnce(s, "first_payroll");
+
+            // Buying or selling units moves cash but is an investment, not a profit or loss.
+            var operatingCashEnd = r.CashEnd + r.Capex - r.AssetSales;
+            if ((r.NetProfit.Cents < 0 || operatingCashEnd.Cents < r.CashStart.Cents) && !s.Facts.Has("first_loss"))
             {
                 s.Facts.Set("first_loss", s.Month);
                 AddJournal(s, "consequence", "journal.first_loss");

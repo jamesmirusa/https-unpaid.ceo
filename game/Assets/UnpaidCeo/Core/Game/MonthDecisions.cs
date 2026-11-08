@@ -6,7 +6,7 @@ namespace UnpaidCeo.Core.Game
     public sealed class LeverChange
     {
         public string BusinessId { get; set; }
-        /// <summary>"price" or "marketing".</summary>
+        /// <summary>"price", "marketing" (cents), "units" (target owned units) or "staff" (target employees).</summary>
         public string Lever { get; set; }
         public long ValueCents { get; set; }
     }

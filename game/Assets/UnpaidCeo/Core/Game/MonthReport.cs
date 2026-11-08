@@ -25,6 +25,12 @@ namespace UnpaidCeo.Core.Game
         public List<string> Lessons { get; set; } = new List<string>();
         public bool BurnoutMistake { get; set; }
         public List<string> RejectedActions { get; set; } = new List<string>();
+        /// <summary>Levers that could not be applied, as "lever:businessId" (e.g. "units:shop" when cash was short).</summary>
+        public List<string> RejectedLevers { get; set; } = new List<string>();
+        /// <summary>Paid this month for new units (investment, not an expense).</summary>
+        public Money Capex { get; set; }
+        /// <summary>Received this month for units sold off.</summary>
+        public Money AssetSales { get; set; }
     }
 
     public readonly struct ChapterStatus
