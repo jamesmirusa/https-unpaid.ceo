@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="hud" class="hud">
+        <ui:VisualElement class="hud__block">
+            <ui:Label name="hud-cash-caption" class="hud__caption" />
+            <ui:Label name="hud-cash" class="hud__value value" />
+        </ui:VisualElement>
+        <ui:VisualElement class="hud__block">
+            <ui:Label name="hud-month-caption" class="hud__caption" />
+            <ui:Label name="hud-month" class="hud__value hud__value--plain value" />
+        </ui:VisualElement>
+        <ui:VisualElement class="hud__block">
+            <ui:Label name="hud-energy-caption" class="hud__caption" />
+            <ui:VisualElement name="hud-energy" class="energy-bar">
+                <ui:VisualElement name="hud-energy-fill" class="energy-bar__fill" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement class="hud__spacer" />
+        <ui:Button name="hud-journal" class="icon-button" />
+        <ui:Button name="hud-settings" class="icon-button" />
+    </ui:VisualElement>
+</ui:UXML>

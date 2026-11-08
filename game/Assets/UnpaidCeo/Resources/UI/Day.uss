@@ -1,0 +1,14 @@
+/* Day: tilt-shift diorama, warm paper panels. */
+.theme-day {
+    --text: #1E2230;
+    --text-dim: #5B6275;
+    --panel: rgba(255, 250, 242, 0.94);
+    --panel-strong: #FFF6E8;
+    --accent: #F2C14E;
+    --on-accent: #1E2230;
+    --money: #2E9E5B;
+    --positive: #2E9E5B;
+    --negative: #D9483B;
+    --track: #E3DCCF;
+    --energy: #F2994A;
+}

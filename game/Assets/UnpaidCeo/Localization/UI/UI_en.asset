@@ -1,0 +1,343 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UI_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 661c3a022ed3f4bdc9f82e73c65bb011, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 514842624
+    m_Localized: City
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425536
+    m_Localized: Company
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425537
+    m_Localized: Decisions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425538
+    m_Localized: Academy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425539
+    m_Localized: Ranking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425540
+    m_Localized: Cash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425541
+    m_Localized: Reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425542
+    m_Localized: Month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425543
+    m_Localized: Energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425544
+    m_Localized: Next month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425545
+    m_Localized: Journal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425546
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425547
+    m_Localized: Company
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425548
+    m_Localized: Finish your first month to see the report.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425549
+    m_Localized: Revenue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425550
+    m_Localized: Cost of goods
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425551
+    m_Localized: Gross profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425552
+    m_Localized: Fixed costs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425553
+    m_Localized: Marketing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425554
+    m_Localized: Tax reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425555
+    m_Localized: Net profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425556
+    m_Localized: Living costs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425557
+    m_Localized: Cash at month end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425558
+    m_Localized: Money in this game is simulated. This is not financial advice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425559
+    m_Localized: Decisions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425560
+    m_Localized: CEO time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425561
+    m_Localized: Work
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425562
+    m_Localized: Family
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425563
+    m_Localized: Rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425564
+    m_Localized: Study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425565
+    m_Localized: Work split
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425566
+    m_Localized: Free actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425567
+    m_Localized: Action points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425568
+    m_Localized: Delivery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425569
+    m_Localized: Resale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425570
+    m_Localized: AI freelance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425571
+    m_Localized: Overtime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425572
+    m_Localized: Rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425573
+    m_Localized: Study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425574
+    m_Localized: Networking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425575
+    m_Localized: Family time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425576
+    m_Localized: Hobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425577
+    m_Localized: Gray scheme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425578
+    m_Localized: Loan from Mr. Fins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425579
+    m_Localized: Move to reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425580
+    m_Localized: Your company's story
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425581
+    m_Localized: Your story starts this month.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425582
+    m_Localized: Month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425583
+    m_Localized: You made a choice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425584
+    m_Localized: First money earned.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425585
+    m_Localized: First bills paid.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425586
+    m_Localized: First losing month.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425587
+    m_Localized: Your balance went negative.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425588
+    m_Localized: 'Two months deep in debt: bankrupt.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425589
+    m_Localized: Chapter 1 goal reached.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425590
+    m_Localized: A tired mistake cost you money.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425591
+    m_Localized: Your first gig.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425592
+    m_Localized: You worked overtime.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425593
+    m_Localized: You took time to rest.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425594
+    m_Localized: You studied.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425595
+    m_Localized: You went networking.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425596
+    m_Localized: You spent time with family.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425597
+    m_Localized: You made time for a hobby.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425598
+    m_Localized: You ran a gray scheme.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425599
+    m_Localized: You borrowed from Mr. Fins.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425600
+    m_Localized: You moved money to the reserve.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425601
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425602
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425603
+    m_Localized: Graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425604
+    m_Localized: Eco
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425605
+    m_Localized: Optimal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425606
+    m_Localized: Max
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425607
+    m_Localized: Look
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425608
+    m_Localized: Day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425609
+    m_Localized: Neon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425610
+    m_Localized: Start over
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425611
+    m_Localized: Tap again to erase your progress.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425612
+    m_Localized: Ranking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425613
+    m_Localized: Weekly challenges and the leaderboard are coming soon.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425614
+    m_Localized: Your block in the Bronx
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

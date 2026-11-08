@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="bottom-nav" class="bottom-nav">
+        <ui:Button name="nav-city" class="nav-button" />
+        <ui:Button name="nav-company" class="nav-button" />
+        <ui:Button name="nav-decisions" class="nav-button" />
+        <ui:Button name="nav-academy" class="nav-button" />
+        <ui:Button name="nav-ranking" class="nav-button" />
+    </ui:VisualElement>
+</ui:UXML>

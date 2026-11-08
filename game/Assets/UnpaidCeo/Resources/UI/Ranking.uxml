@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="ranking" class="screen screen--panel">
+        <ui:Label name="ranking-title" class="screen__title" />
+        <ui:Label name="ranking-soon" class="hint" />
+    </ui:VisualElement>
+</ui:UXML>

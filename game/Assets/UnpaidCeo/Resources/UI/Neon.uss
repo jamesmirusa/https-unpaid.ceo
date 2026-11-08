@@ -1,0 +1,14 @@
+/* Night and late chapters: neon-noir. */
+.theme-neon {
+    --text: #F4F1FF;
+    --text-dim: #A49CC9;
+    --panel: rgba(20, 18, 31, 0.92);
+    --panel-strong: #1B1730;
+    --accent: #FF3EA5;
+    --on-accent: #FFFFFF;
+    --money: #3DDC84;
+    --positive: #2DE2E6;
+    --negative: #FF5C7A;
+    --track: #2B2545;
+    --energy: #F9F871;
+}

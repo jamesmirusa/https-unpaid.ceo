@@ -1,7 +1,3 @@
-using System;
-using UnityEngine.Localization;
-using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;
 using UnityEngine.UIElements;
 using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Game;
@@ -9,93 +5,72 @@ using UnpaidCeo.Core.Game;
 namespace UnpaidCeo.Game.Ui
 {
     /// <summary>
-    /// CEO Academy tab (UI/Academy.uxml): unlocked lessons, the mentor's explanation and a 3-question quiz.
-    /// All text comes from the "Academy" string table; answers go through <see cref="GameEngine.AnswerQuiz"/>.
+    /// CEO Academy tab: unlocked lessons, the mentor's explanation and a 3-question quiz.
+    /// Text is bound to the "Academy" string table; answers go through <see cref="GameEngine.AnswerQuiz"/>.
     /// </summary>
-    public sealed class AcademyScreen : IDisposable
+    public sealed class AcademyScreen
     {
         public const string Table = "Academy";
 
         readonly GameEngine _engine;
         readonly GameState _state;
-        readonly Label _title, _lessonTitle, _lessonBody, _quizTitle, _feedback, _disclaimer;
+        readonly Label _lessonTitle, _lessonBody, _quizTitle, _feedback;
         readonly ScrollView _list;
         readonly VisualElement _quiz;
-        StringTable _strings;
         string _selected;
 
         public AcademyScreen(VisualElement root, GameEngine engine, GameState state)
         {
             _engine = engine;
             _state = state;
-            _title = root.Q<Label>("academy-title");
+            UiText.Bind(root.Q<Label>("academy-title"), "academy.title", Table);
+            UiText.Bind(root.Q<Label>("academy-disclaimer"), "academy.disclaimer", Table);
             _list = root.Q<ScrollView>("lesson-list");
             _lessonTitle = root.Q<Label>("lesson-title");
             _lessonBody = root.Q<Label>("lesson-body");
-            _quizTitle = root.Q<Label>("quiz-title");
+            _quizTitle = UiText.Bind(root.Q<Label>("quiz-title"), "academy.quiz.title", Table);
             _quiz = root.Q<VisualElement>("quiz");
             _feedback = root.Q<Label>("quiz-feedback");
-            _disclaimer = root.Q<Label>("academy-disclaimer");
-            LocalizationSettings.SelectedLocaleChanged += OnLocaleChanged;
-            LoadStrings();
-        }
-
-        public void Dispose() => LocalizationSettings.SelectedLocaleChanged -= OnLocaleChanged;
-
-        void OnLocaleChanged(Locale _) => LoadStrings();
-
-        // Async on purpose: WebGL cannot load string tables synchronously.
-        void LoadStrings()
-        {
-            var op = LocalizationSettings.StringDatabase.GetTableAsync(Table);
-            if (op.IsDone) OnLoaded(op.Result);
-            else op.Completed += h => OnLoaded(h.Result);
-        }
-
-        void OnLoaded(StringTable table)
-        {
-            _strings = table;
             Refresh();
         }
-
-        string T(string key) => _strings?.GetEntry(key)?.GetLocalizedString() ?? key;
 
         /// <summary>Redraws the lesson list and the selected lesson; call after a month ends.</summary>
         public void Refresh()
         {
-            _title.text = T("academy.title");
-            _disclaimer.text = T("academy.disclaimer");
             _list.Clear();
             foreach (var lesson in _engine.Content.LessonsInOrder)
             {
                 bool unlocked = _state.LessonsSeen.ContainsKey(lesson.Id);
                 if (_selected == null && unlocked) _selected = lesson.Id;
                 var id = lesson.Id;
-                var item = new Button(() => { _selected = id; _feedback.text = string.Empty; Refresh(); })
-                {
-                    text = unlocked ? T(lesson.TitleKey) : "🔒 " + T(lesson.TitleKey),
-                };
+                var item = UiText.Bind(new Button(() => { _selected = id; Hide(_feedback); Refresh(); }) { name = "lesson-" + id }, lesson.TitleKey, Table);
                 item.SetEnabled(unlocked);
                 item.AddToClassList("academy__item");
+                item.EnableInClassList("academy__item--locked", !unlocked);
                 item.EnableInClassList("academy__item--selected", id == _selected);
                 _list.Add(item);
             }
             ShowSelected();
         }
 
+        static void Hide(VisualElement e) => e.style.display = DisplayStyle.None;
+        static void Show(VisualElement e) => e.style.display = DisplayStyle.Flex;
+
         void ShowSelected()
         {
             _quiz.Clear();
             if (_selected == null || !_engine.Content.Lessons.TryGetValue(_selected, out var lesson))
             {
-                _lessonTitle.text = string.Empty;
-                _lessonBody.text = T("academy.locked");
-                _quizTitle.text = string.Empty;
+                Hide(_lessonTitle);
+                Hide(_quizTitle);
+                Hide(_feedback);
+                UiText.Bind(_lessonBody, "academy.locked", Table);
                 return;
             }
-            _lessonTitle.text = T(lesson.TitleKey);
-            _lessonBody.text = T(lesson.BodyKey);
-            _quizTitle.text = T("academy.quiz.title");
+            Show(_lessonTitle);
+            Show(_quizTitle);
+            UiText.Bind(_lessonTitle, lesson.TitleKey, Table);
+            UiText.Bind(_lessonBody, lesson.BodyKey, Table);
             for (int q = 0; q < lesson.Quiz.Count; q++) _quiz.Add(Question(lesson, q));
         }
 
@@ -103,15 +78,13 @@ namespace UnpaidCeo.Game.Ui
         {
             var box = new VisualElement();
             box.AddToClassList("academy__question");
-            var label = new Label(T(lesson.Quiz[q].QuestionKey));
-            label.style.whiteSpace = WhiteSpace.Normal;
-            box.Add(label);
+            box.Add(UiText.Label(lesson.Quiz[q].QuestionKey, "academy__question-text", Table));
 
             bool answered = _state.QuizAnswers.TryGetValue(lesson.Id + "/" + q, out int chosen);
             for (int o = 0; o < lesson.Quiz[q].OptionKeys.Count; o++)
             {
                 int option = o;
-                var button = new Button(() => Answer(lesson, q, option)) { text = T(lesson.Quiz[q].OptionKeys[o]) };
+                var button = UiText.Bind(new Button(() => Answer(lesson, q, option)), lesson.Quiz[q].OptionKeys[o], Table);
                 button.AddToClassList("academy__option");
                 if (answered)
                 {
@@ -126,7 +99,8 @@ namespace UnpaidCeo.Game.Ui
         void Answer(LessonDef lesson, int q, int option)
         {
             bool correct = _engine.AnswerQuiz(_state, lesson.Id, q, option);
-            _feedback.text = T(correct ? "academy.quiz.correct" : "academy.quiz.wrong");
+            UiText.Bind(_feedback, correct ? "academy.quiz.correct" : "academy.quiz.wrong", Table);
+            Show(_feedback);
             ShowSelected();
         }
     }

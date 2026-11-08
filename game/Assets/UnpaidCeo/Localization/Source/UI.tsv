@@ -1,0 +1,81 @@
+key	en	ru
+nav.city	City	Город
+nav.company	Company	Компания
+nav.decisions	Decisions	Решения
+nav.academy	Academy	Академия
+nav.ranking	Ranking	Рейтинг
+hud.cash	Cash	Деньги
+hud.reserve	Reserve	Резерв
+hud.month	Month	Месяц
+hud.energy	Energy	Энергия
+hud.next_month	Next month	Следующий месяц
+hud.journal	Journal	Журнал
+hud.settings	Settings	Настройки
+company.title	Company	Компания
+company.empty	Finish your first month to see the report.	Заверши первый месяц, чтобы увидеть отчёт.
+company.revenue	Revenue	Выручка
+company.cogs	Cost of goods	Себестоимость
+company.gross	Gross profit	Валовая прибыль
+company.fixed	Fixed costs	Постоянные расходы
+company.marketing	Marketing	Маркетинг
+company.tax	Tax reserve	Резерв на налоги
+company.net	Net profit	Чистая прибыль
+company.personal	Living costs	Расходы на жизнь
+company.cash_end	Cash at month end	Деньги на конец месяца
+company.disclaimer	Money in this game is simulated. This is not financial advice.	Деньги в игре симулированные. Это не финансовый совет.
+decisions.title	Decisions	Решения
+decisions.time	CEO time	Время CEO
+decisions.work	Work	Работа
+decisions.family	Family	Семья
+decisions.rest	Rest	Отдых
+decisions.study	Study	Учёба
+decisions.split	Work split	Распределение работы
+decisions.actions	Free actions	Свободные действия
+decisions.ap	Action points	Очки действий
+gig.gig_delivery	Delivery	Доставка
+gig.gig_resale	Resale	Перепродажа
+gig.gig_ai_freelance	AI freelance	ИИ-фриланс
+action.overtime	Overtime	Сверхурочно
+action.rest	Rest	Отдых
+action.study	Study	Учёба
+action.networking	Networking	Нетворкинг
+action.family_time	Family time	Время с семьёй
+action.hobby	Hobby	Хобби
+action.gray_scheme	Gray scheme	Серая схема
+action.loan_shark_loan	Loan from Mr. Fins	Заём у мистера Финса
+action.reserve_transfer	Move to reserve	Перевести в резерв
+journal.title	Your company's story	История твоей компании
+journal.empty	Your story starts this month.	Твоя история начинается в этом месяце.
+journal.month	Month	Месяц
+journal.decision	You made a choice.	Ты сделал выбор.
+journal.first_income	First money earned.	Первые заработанные деньги.
+journal.first_bills	First bills paid.	Первые оплаченные счета.
+journal.first_loss	First losing month.	Первый убыточный месяц.
+journal.in_debt	Your balance went negative.	Баланс ушёл в минус.
+journal.bankrupt	Two months deep in debt: bankrupt.	Два месяца в глубоком минусе: банкротство.
+journal.chapter1_done	Chapter 1 goal reached.	Цель первой главы достигнута.
+journal.burnout_mistake	A tired mistake cost you money.	Ошибка от усталости стоила денег.
+journal.tutorial_gig	Your first gig.	Твоя первая подработка.
+journal.action.overtime	You worked overtime.	Ты работал сверхурочно.
+journal.action.rest	You took time to rest.	Ты отдыхал.
+journal.action.study	You studied.	Ты учился.
+journal.action.networking	You went networking.	Ты занимался нетворкингом.
+journal.action.family_time	You spent time with family.	Ты провёл время с семьёй.
+journal.action.hobby	You made time for a hobby.	Ты нашёл время для хобби.
+journal.action.gray_scheme	You ran a gray scheme.	Ты провернул серую схему.
+journal.action.loan_shark_loan	You borrowed from Mr. Fins.	Ты занял у мистера Финса.
+journal.action.reserve_transfer	You moved money to the reserve.	Ты перевёл деньги в резерв.
+settings.title	Settings	Настройки
+settings.language	Language	Язык
+settings.graphics	Graphics	Графика
+settings.graphics.eco	Eco	Эко
+settings.graphics.optimal	Optimal	Оптимальный
+settings.graphics.max	Max	Макс
+settings.theme	Look	Оформление
+settings.theme.day	Day	День
+settings.theme.neon	Neon	Неон
+settings.reset	Start over	Начать заново
+settings.reset.confirm	Tap again to erase your progress.	Нажми ещё раз, чтобы стереть прогресс.
+ranking.title	Ranking	Рейтинг
+ranking.soon	Weekly challenges and the leaderboard are coming soon.	Недельные челленджи и рейтинг скоро появятся.
+city.hint	Your block in the Bronx	Твой квартал в Бронксе

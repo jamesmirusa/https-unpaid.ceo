@@ -50,6 +50,18 @@ namespace UnpaidCeo.Game.Narrative
             if (lineProvider != null) lineProvider.LocaleCode = languageCode == "ru" ? "ru" : "en";
         }
 
+        /// <summary>Text of a Yarn line in the current dialogue language (used by the journal to quote chosen options).</summary>
+        public string LineText(string lineId)
+        {
+            var project = runner != null ? runner.YarnProject : null;
+            if (project == null) return null;
+            string code = lineProvider != null ? lineProvider.LocaleCode : "en";
+            var text = project.GetLocalization(code)?.GetLocalizedString(lineId) ?? project.GetLocalization("en")?.GetLocalizedString(lineId);
+            if (text == null) return null;
+            int colon = text.IndexOf(": ", System.StringComparison.Ordinal);
+            return colon > 0 && colon < 24 ? text.Substring(colon + 2) : text;
+        }
+
         /// <summary>Plays every storylet still pending this month, one after another.</summary>
         public async YarnTask PlayPendingAsync()
         {
