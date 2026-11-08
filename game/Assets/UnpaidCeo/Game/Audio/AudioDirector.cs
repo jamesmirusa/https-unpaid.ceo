@@ -44,6 +44,7 @@ namespace UnpaidCeo.Game.Audio
             _mix = Mathf.Clamp01(_nightAmount());
             _day!.clip = day;
             _night!.clip = night;
+            if (FindFirstObjectByType<AudioListener>() == null) gameObject.AddComponent<AudioListener>();
             _day.Play();
             _night.Play();
             _musicStarted = true;

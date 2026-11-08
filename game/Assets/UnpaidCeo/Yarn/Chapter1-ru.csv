@@ -276,3 +276,6 @@ ru,line:ch1_ai_rush_02,Взяться. Кофе и клавиатура.,ch1_cit
 ru,line:ch1_ai_rush_03,Готово к шести. Клиент платит за срочность и обещает ещё заказы.,ch1_city,ch1_ai_rush,145,8d305a28,
 ru,line:ch1_ai_rush_04,Вежливо отказаться и лечь спать.,ch1_city,ch1_ai_rush,146,033fbcd4,
 ru,line:ch1_ai_rush_05,Почта молчит. Подушка благодарна.,ch1_city,ch1_ai_rush,148,312cf583,
+ru,line:ch1_onboarding_01,"Unpaid CEO: Эй, новенький. Нулевой урок — бесплатно. Приложению доставки прямо сейчас нужен курьер. Бери заказ.",ch1_onboarding,ch1_onboarding,6,332753ce,
+ru,line:ch1_onboarding_02,"Unpaid CEO: Сорок баксов. Это выручка — деньги, которые пришли. Прибыль — то, что останется после велосипеда, связи и налогов.",ch1_onboarding,ch1_onboarding,7,0a020598,
+ru,line:ch1_onboarding_03,"Unpaid CEO: Теперь жми «Следующий месяц». Город пришлёт счёт, и посмотрим, что у тебя осталось на самом деле.",ch1_onboarding,ch1_onboarding,8,e6577a13,

@@ -81,6 +81,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
+  - m_GUID: 1503297eae23845349c749a60ae71f14
+    m_Address: line_en_ch1_onboarding_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 15ee97d5abcd34943bd8044227568945
     m_Address: line_en_ch1_friend_birthday_05
     m_ReadOnly: 0
@@ -335,6 +341,12 @@ MonoBehaviour:
     m_FolderGuid: 
   - m_GUID: 4f12b7ff2d67147728ca27838ab7e666
     m_Address: line_en_ch1_shark_apr_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 50d8db57692b54ae087a3fd1809c7de3
+    m_Address: line_en_ch1_onboarding_01
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -875,6 +887,12 @@ MonoBehaviour:
     m_FolderGuid: 
   - m_GUID: c4200b929f1864e2884ad65aa0760697
     m_Address: line_en_ch1_friend_intro_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: c7e74caa01f0b4d43b1a4d14f939b377
+    m_Address: line_en_ch1_onboarding_03
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

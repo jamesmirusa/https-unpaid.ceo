@@ -64,18 +64,29 @@ def chunk(items, lang):
 
 
 def main():
+    """--add <file.yarn>: append batches for one new Yarn file to the existing manifest, keeping every
+    batch that already has a recorded take untouched."""
     cfg = json.load(open(os.path.join(HERE, "voices.json"), encoding="utf-8"))
     sep = " %s " % cfg["separator"]
     lines = spoken_lines()
+    only = sys.argv[sys.argv.index("--add") + 1] if "--add" in sys.argv else None
+    if only:
+        lines = [l for l in lines if l["file"] == only]
+    tag = re.sub(r"\W+", "", os.path.splitext(only)[0]) if only else None
     batches = []
     for lang in ("en", "ru"):
         for speaker in cfg["voices"]:
             mine = [l for l in lines if l["speaker"] == speaker]
             for i, b in enumerate(chunk(mine, lang)):
-                batches.append({"id": "%s_%s_%02d" % (lang, re.sub(r"\W+", "", speaker).lower(), i), "lang": lang,
+                bid = "%s_%s_%02d" % (lang, re.sub(r"\W+", "", speaker).lower(), i)
+                if tag:
+                    bid = "%s_%s_%02d" % (lang, tag, i)
+                batches.append({"id": bid, "lang": lang,
                                 "speaker": speaker, "voice": cfg["voices"][speaker][lang][0], "kind": "yarn",
                                 "lines": [l["id"] for l in b], "texts": [l[lang] for l in b],
                                 "prompt": sep.join(l[lang] for l in b)})
+        if only:
+            continue
         ls = lessons()
         batches.append({"id": "%s_lessons" % lang, "lang": lang, "speaker": cfg["lessonVoice"],
                         "voice": cfg["voices"][cfg["lessonVoice"]][lang][0], "kind": "lesson",
@@ -84,6 +95,10 @@ def main():
     unknown = sorted({l["speaker"] for l in lines} - set(cfg["voices"]))
     if unknown:
         sys.exit("speakers without a voice: %s" % unknown)
+    if only:
+        old = json.load(open(os.path.join(HERE, "manifest.json"), encoding="utf-8"))
+        new_ids = {b["id"] for b in batches}
+        batches = [b for b in old["batches"] if b["id"] not in new_ids] + batches
     json.dump({"model": cfg["model"], "batches": batches}, open(os.path.join(HERE, "manifest.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=1)
     total = sum(len(b["prompt"]) for b in batches)

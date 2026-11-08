@@ -92,3 +92,10 @@
 .hero-creator { position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 24px 24px 8px 24px; background-color: var(--panel); border-radius: 32px; }
 .swatch { width: 80px; height: 80px; margin: 6px 16px 6px 0; border-radius: 40px; border-width: 5px; border-color: var(--track); }
 .swatch--selected { border-color: var(--accent); }
+
+/* Onboarding coach marks */
+.onboarding-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; justify-content: center; background-color: rgba(16, 21, 33, 0.92); }
+.coach { position: absolute; left: 32px; right: 32px; bottom: 300px; padding: 32px 8px 8px 8px; border-radius: 32px; background-color: var(--panel); border-width: 4px; border-color: var(--accent); }
+.coach__speaker { margin: 0 32px 8px 32px; font-size: 32px; -unity-font-style: bold; color: var(--accent); }
+.coach__text { margin: 0 32px 24px 32px; font-size: 40px; white-space: normal; color: var(--text); }
+.app .coach-target { border-width: 8px; border-color: #FFD24A; scale: 1.04 1.04; }

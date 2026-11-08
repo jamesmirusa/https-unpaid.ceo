@@ -111,6 +111,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
+  - m_GUID: 19bb9332db41b4573ab95e53959eb09d
+    m_Address: line_ru_ch1_onboarding_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 1a375ce449ae04278ac2ed7f71bf4213
     m_Address: line_ru_ch1_mentor_burnout_01
     m_ReadOnly: 0
@@ -267,6 +273,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
+  - m_GUID: 4398fb3e312f547818a4b46fb490d6af
+    m_Address: line_ru_ch1_onboarding_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 450d4375ee2344dcbb896309a9666fba
     m_Address: line_ru_ch1_friend_needs_help_06
     m_ReadOnly: 0
@@ -365,6 +377,12 @@ MonoBehaviour:
     m_FolderGuid: 
   - m_GUID: 5816d4781afca41e48ba7f5fb12f923e
     m_Address: line_ru_ch1_mentor_burnout_04
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 581ef5e30d40d486ebed406d33baa28d
+    m_Address: line_ru_ch1_onboarding_03
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -375,6 +375,14 @@ MonoBehaviour:
     m_Key: hero.outfit.blazer
     m_Metadata:
       m_Items: []
+  - m_Id: 23114053312512
+    m_Key: onboarding.gig
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23114061701120
+    m_Key: onboarding.continue
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

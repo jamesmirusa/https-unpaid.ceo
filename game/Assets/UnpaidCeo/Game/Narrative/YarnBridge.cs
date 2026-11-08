@@ -30,6 +30,7 @@ namespace UnpaidCeo.Game.Narrative
         void Awake()
         {
             if (runner == null) runner = GetComponent<DialogueRunner>();
+            if (lineProvider == null) lineProvider = GetComponent<LineProviderBehaviour>();
             runner.AddCommandHandler("choose", (Action<string>)Choose);
         }
 
