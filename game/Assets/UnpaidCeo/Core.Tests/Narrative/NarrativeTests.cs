@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Life;
 using UnpaidCeo.Core.Narrative;
@@ -168,6 +169,74 @@ namespace UnpaidCeo.Core.Tests.Narrative
             var s = new GameState { StudyXp = 5 };
             EffectApplier.Apply(e, s);
             Assert.AreEqual(15, s.StudyXp);
+        }
+    
+        // ---- Stage 2A Task 5: demand modifiers ----
+
+        static (UnpaidCeo.Core.Game.GameEngine e, UnpaidCeo.Core.Game.GameState s) DemandLimitedShop()
+        {
+            var industries = UnpaidCeo.Core.Tests.Game.Stage2Content.Industries.Replace(
+                "\"baseDemand\": 1000000, \"elasticity\": 1.0, \"marketingA\": 0.0, \"marketingK\": 10000, \"capacityPerUnit\": 100",
+                "\"baseDemand\": 50, \"elasticity\": 1.0, \"marketingA\": 0.0, \"marketingK\": 10000, \"capacityPerUnit\": 100");
+            var db = ContentDb.FromJson(new ContentFiles { Industries = industries, Balance = UnpaidCeo.Core.Tests.Game.Stage2Content.Balance(true) });
+            var e = new UnpaidCeo.Core.Game.GameEngine(db);
+            var s = e.NewGame(7, new UnpaidCeo.Core.Game.HeroAppearance());
+            s.Chapter = 2;
+            s.Life.Reputation = 50; // reputation factor 0.8 + 0.004 × 50 = 1.0
+            s.Businesses.RemoveAll(b => b.IndustryId == "gig_test"); // only the shop earns, so revenue counts its sales
+            s.Cash = UnpaidCeo.Core.Primitives.Money.FromCents(1_000_000);
+            s.Businesses.Add(new UnpaidCeo.Core.Economy.BusinessState { Id = "shop", IndustryId = "shop", Price = db.Industries["shop"].Price, Units = 1 });
+            return (e, s);
+        }
+
+        static int ShopUnits(UnpaidCeo.Core.Game.GameEngine e, UnpaidCeo.Core.Game.GameState s)
+        {
+            var r = e.EndMonth(s, UnpaidCeo.Core.Tests.Game.Stage2Content.Plan());
+            return (int)(r.Revenue.Cents / 1000); // the shop sells at $10
+
+        }
+
+        static Effect Demand(double factor, int months, string industry = "current") =>
+            Effect.Parse(Newtonsoft.Json.Linq.JObject.Parse($"{{ \"demand\": {{ \"factor\": {factor.ToString(System.Globalization.CultureInfo.InvariantCulture)}, \"months\": {months}, \"industry\": \"{industry}\" }} }}"));
+
+        [Test]
+        public void Demand_effect_scales_demand_for_its_months()
+        {
+            var (e, s) = DemandLimitedShop();
+            Assert.AreEqual(50, ShopUnits(e, s));
+            EffectApplier.Apply(Demand(0.8, 2), s);
+            Assert.AreEqual(40, ShopUnits(e, s));
+            Assert.AreEqual(40, ShopUnits(e, s));
+            Assert.AreEqual(50, ShopUnits(e, s));
+        }
+
+        [Test]
+        public void Modifiers_expire()
+        {
+            var (e, s) = DemandLimitedShop();
+            EffectApplier.Apply(Demand(0.8, 3), s);
+            Assert.AreEqual(1, s.Modifiers.Count);
+            for (int i = 0; i < 3; i++) ShopUnits(e, s);
+            Assert.IsEmpty(s.Modifiers);
+        }
+
+        [Test]
+        public void Two_modifiers_multiply()
+        {
+            var (e, s) = DemandLimitedShop();
+            EffectApplier.Apply(Demand(0.8, 1), s);
+            EffectApplier.Apply(Demand(0.5, 1, "shop"), s);
+            Assert.AreEqual(20, ShopUnits(e, s));
+        }
+
+        [Test]
+        public void Unknown_industry_in_demand_effect_fails_at_load()
+        {
+            const string storylets = @"{ ""storylets"": [ { ""id"": ""war"", ""yarnNode"": ""war"",
+  ""choices"": { ""ignore"": [ { ""demand"": { ""factor"": 0.8, ""months"": 3, ""industry"": ""nope"" } } ] } } ] }";
+            var db = ContentDb.FromJson(new ContentFiles { Industries = UnpaidCeo.Core.Tests.Game.Stage2Content.Industries,
+                Balance = UnpaidCeo.Core.Tests.Game.Stage2Content.Balance(), Storylets = storylets });
+            Assert.That(db.Validate().Errors, Has.Some.Contains("nope"));
         }
     }
 }

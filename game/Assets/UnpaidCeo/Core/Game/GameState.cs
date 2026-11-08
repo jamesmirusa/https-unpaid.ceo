@@ -41,6 +41,7 @@ namespace UnpaidCeo.Core.Game
         public NpcRelations Npcs { get; set; } = new NpcRelations();
         public List<BusinessState> Businesses { get; set; } = new List<BusinessState>();
         public List<LoanState> Loans { get; set; } = new List<LoanState>();
+        public List<DemandModifier> Modifiers { get; set; } = new List<DemandModifier>();
         public HeroAppearance Hero { get; set; } = new HeroAppearance();
         /// <summary>Month whose scenes were already rolled (0 = none yet).</summary>
         public int ScenesRolledMonth { get; set; }

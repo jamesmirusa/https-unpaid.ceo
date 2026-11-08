@@ -25,6 +25,9 @@ namespace UnpaidCeo.Core.Narrative
                     break;
                 case LessonEffect l: s.PendingLessons.Add(l.LessonId); break;
                 case StudyXpEffect x: s.StudyXp += x.Amount; break;
+                case DemandModifierEffect d:
+                    s.Modifiers.Add(new UnpaidCeo.Core.Economy.DemandModifier { Factor = d.Factor, MonthsLeft = d.Months, IndustryId = d.IndustryId });
+                    break;
             }
         }
 

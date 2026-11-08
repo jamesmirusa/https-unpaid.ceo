@@ -225,7 +225,9 @@ namespace UnpaidCeo.Core.Game
                     share = (int)Math.Round(time.Work * Math.Max(0, split) / (double)splitTotal, MidpointRounding.AwayFromZero);
                 double season = def.Seasonality != null && def.Seasonality.Length == 12 ? def.Seasonality[(s.Month - 1) % 12] : 1.0;
                 double district = b.DistrictDemand.TryGetValue(Chapters.District(s.Chapter), out var df) ? df : 1.0;
-                var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, 1.0, share, district, b.PayrollOverhead));
+                double events = 1.0;
+                foreach (var m in s.Modifiers) if (m.AppliesTo(def)) events *= m.Factor;
+                var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, events, share, district, b.PayrollOverhead));
                 revenue += r.Revenue; cogs += r.Cogs; fixedCosts += r.Fixed; marketing += r.Marketing; collected += r.CashCollected;
             }
 
@@ -266,6 +268,8 @@ namespace UnpaidCeo.Core.Game
             }
             s.PendingLessons.Clear();
             s.PendingStorylets.Clear();
+            foreach (var m in s.Modifiers) m.MonthsLeft--;
+            s.Modifiers.RemoveAll(m => m.MonthsLeft <= 0);
             s.LastDecisions = d;
             Log(s, DecisionLogEntry.EndMonth, JObject.FromObject(d));
             s.Rng = rng.State;

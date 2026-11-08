@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnpaidCeo.Core.Economy;
+using UnpaidCeo.Core.Narrative;
 
 namespace UnpaidCeo.Core.Content
 {
@@ -76,6 +77,11 @@ namespace UnpaidCeo.Core.Content
                     r.Errors.Add($"lesson {l.Id}: unknown skill '{l.SkillReward?.Skill}'");
             }
 
+            var demandEffects = db.Storylets.SelectMany(st => st.Choices.Values.SelectMany(c => c).Select(e => (where: $"storylet {st.Id}", e)))
+                .Concat(db.FreeActionList.SelectMany(a => a.Effects.Select(e => (where: $"freeAction {a.Id}", e))));
+            foreach (var (where, e) in demandEffects)
+                if (e is DemandModifierEffect dm && dm.IndustryId != DemandModifier.CurrentBusiness && !db.Industries.ContainsKey(dm.IndustryId))
+                    r.Errors.Add($"{where}: demand effect names unknown industry '{dm.IndustryId}'");
             foreach (var g in db.Storylets.GroupBy(x => x.Id).Where(g => g.Count() > 1))
                 r.Errors.Add($"storylet {g.Key}: duplicate id");
             foreach (var st in db.Storylets)

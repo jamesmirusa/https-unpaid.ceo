@@ -28,6 +28,8 @@ namespace UnpaidCeo.Core.Narrative
             else if (j["reserve"] != null) e = new ReserveEffect(Money.FromCents((long)j["reserve"]));
             else if (j["lesson"] != null) e = new LessonEffect((string)j["lesson"]);
             else if (j["studyXp"] != null) e = new StudyXpEffect((int)j["studyXp"]);
+            else if (j["demand"] is JObject dm)
+                e = new DemandModifierEffect((double)dm["factor"], (int)dm["months"], (string)dm["industry"] ?? "current");
             else throw new FormatException($"unknown effect {j.ToString(Formatting.None)}");
             e.Raw = j;
             return e;
@@ -42,6 +44,14 @@ namespace UnpaidCeo.Core.Narrative
     /// <summary>Moves money from cash into the reserve account (negative moves it back).</summary>
     public sealed class ReserveEffect : Effect { public Money Amount { get; } public ReserveEffect(Money a) { Amount = a; } }
     public sealed class LessonEffect : Effect { public string LessonId { get; } public LessonEffect(string id) { LessonId = id; } }
+    /// <summary>Multiplies demand for an industry ("current" = the player's business) for some months.</summary>
+    public sealed class DemandModifierEffect : Effect
+    {
+        public double Factor { get; }
+        public int Months { get; }
+        public string IndustryId { get; }
+        public DemandModifierEffect(double factor, int months, string industryId) { Factor = factor; Months = months; IndustryId = industryId; }
+    }
     public sealed class StudyXpEffect : Effect { public int Amount { get; } public StudyXpEffect(int a) { Amount = a; } }
 
     public sealed class EffectJsonConverter : JsonConverter<Effect>
