@@ -42,7 +42,7 @@ namespace UnpaidCeo.Editor
             foreach (var guid in AssetDatabase.FindAssets("", new[] { folder }))
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
-                if (!path.EndsWith(".glb")) continue;
+                if (!path.EndsWith(".glb") || path.Contains($"/{GlbPrefabBuilder.ClipsFolder}/")) continue;
                 string name = Path.GetFileNameWithoutExtension(path);
                 long bytes = new FileInfo(path).Length;
                 string prefabPath;

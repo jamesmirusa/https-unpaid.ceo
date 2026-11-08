@@ -11,7 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: 502da43ccb24644ef8caa3c646322e40, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _NORMALMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -27,6 +28,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 710185870b0bc430082f750f337a13be, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: f0205a45067584680a4e39ce0df0d911, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -34,6 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Bands: 3
+    - _BumpScale: 1
     - _RimPower: 3
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

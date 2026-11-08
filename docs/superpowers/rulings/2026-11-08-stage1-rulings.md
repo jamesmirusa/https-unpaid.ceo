@@ -129,3 +129,14 @@ Every `Ruling:` from the execution ledger (plan: docs/superpowers/plans/2026-11-
 - Final: fixed comeback re-bankrupting at once and stale "bankrupt" while solvent — Clearing_bankrupt_restarts_the_deep_debt_count, Solvent_player_drops_a_stale_bankrupt_fact RED→GREEN, suite 158/158.
 - Final: fixed saves that broke the month loop on every launch (invalid decisions, null facts, businesses without industry) + EndMonth guarded in GameBootstrap — Decode_repairs_nested_state_that_would_break_the_month RED→GREEN, suite 158/158.
 - Final: fixed month report not adding up after a burnout mistake (MistakeLoss row and waterfall bar) — Report_adds_up_when_a_burnout_mistake_costs_money RED→GREEN, suite 158/158; PlayMode 23/23.
+
+## Post-plan: Bronx restyle and max-quality pass (2026-11-08)
+
+- Restyle: Ruling: GPT Image 2.6 concepts with the owner-chosen pilot bodega as style reference, standard Tripo textures (detailed costs +3 cr and is downscaled to 1024 anyway) — cost if wrong: re-run a model at detailed.
+- Restyle: Ruling: new business buildings (coffee shop, barbershop, bakery, car wash) are prefabs only, not in the Bronx scene or CityCatalog, so they do not grow the chapter-1 download — cost if wrong: one catalog entry each when chapter 2 lands.
+- Max: Ruling: Meshy unrigged + four 3d_rigging takes instead of Meshy's built-in rig + 3 takes — same skeleton in every take (verified: identical node lists), 1.5 cr cheaper per character — cost if wrong: none observed.
+- Max: Ruling: character budget 15–20k → 15–22k — rigged ultra takes land at ~20.2k triangles — cost if wrong: ~10% more vertex work per character on screen.
+- Max: Ruling: Prepare keeps textures at app size (2048) and the WebGL import override caps the web build (1024; normal maps 512); the old "Prefab_builder_downscales_textures_for_the_web_budget" test now asserts app size — cost if wrong: none for the web build (override), larger app bundles by design.
+- Max: Ruling: animation takes stripped to animation-only GLBs and key-building textures shrunk to 2048 before commit — keeps Git LFS under the free 1 GB — cost if wrong: re-download from the URLs in tools/art/max/max-jobs.json.
+- Max: Ruling: HeroView reacts to the month report (cheer on profit, think otherwise), thinks while a dialogue choice is open, and strolls ±1.8 m in front of home with the walk clip — cost if wrong: tune or remove one component.
+- Max: Ruling: HeroAnimationSmokeTests written after the feature (it verifies the imported assets end to end, it was never red) — cost if wrong: weaker evidence than test-first.

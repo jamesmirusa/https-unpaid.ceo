@@ -17,6 +17,9 @@ namespace UnpaidCeo.Game.Narrative
         /// <summary>Plays each line's voice clip (Yarn's localised line asset) and stops it on continue.</summary>
         public UnpaidCeo.Game.Audio.AudioDirector? Audio { get; set; }
 
+        /// <summary>Raised when the player is about to choose (the hero plays its think clip).</summary>
+        public System.Action? OptionsShown { get; set; }
+
         VisualElement? _panel;
         Label? _speaker;
         Label? _text;
@@ -85,6 +88,7 @@ namespace UnpaidCeo.Game.Narrative
 
         public override async YarnTask<DialogueOption?> RunOptionsAsync(DialogueOption[] dialogueOptions, LineCancellationToken cancellationToken)
         {
+            OptionsShown?.Invoke();
             if (_options == null) return null;
             if (_continue != null) _continue.style.display = DisplayStyle.None;
             _options.Clear();

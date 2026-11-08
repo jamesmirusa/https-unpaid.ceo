@@ -10,6 +10,8 @@ Shader "UnpaidCeo/Stylized"
         _Bands ("Light Bands", Range(1, 6)) = 3
         _RimColor ("Rim Color", Color) = (1, 0.85, 0.6, 1)
         _RimPower ("Rim Power", Range(0.5, 8)) = 3
+        [Normal] _BumpMap ("Normal Map", 2D) = "bump" {}
+        _BumpScale ("Normal Strength", Float) = 1
         _EmissionMap ("Emission Map", 2D) = "white" {}
         [HDR] _EmissionColor ("Neon Emission", Color) = (0, 0, 0, 1)
     }
@@ -30,10 +32,13 @@ Shader "UnpaidCeo/Stylized"
             half _RimPower;
             float4 _EmissionMap_ST;
             half4 _EmissionColor;
+            float4 _BumpMap_ST;
+            half _BumpScale;
         CBUFFER_END
 
         TEXTURE2D(_BaseMap);     SAMPLER(sampler_BaseMap);
         TEXTURE2D(_EmissionMap); SAMPLER(sampler_EmissionMap);
+        TEXTURE2D(_BumpMap);     SAMPLER(sampler_BumpMap);
         half _UnpaidNight;
         ENDHLSL
 
@@ -51,12 +56,14 @@ Shader "UnpaidCeo/Stylized"
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             #pragma multi_compile_fog
             #pragma multi_compile_instancing
+            #pragma shader_feature_local _NORMALMAP
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
             struct Attributes
             {
                 float4 positionOS : POSITION;
                 float3 normalOS   : NORMAL;
+                float4 tangentOS  : TANGENT;
                 float2 uv         : TEXCOORD0;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
@@ -68,6 +75,7 @@ Shader "UnpaidCeo/Stylized"
                 float3 positionWS : TEXCOORD1;
                 half3  normalWS   : TEXCOORD2;
                 half   fog        : TEXCOORD3;
+                half4  tangentWS  : TEXCOORD4;
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
@@ -79,7 +87,9 @@ Shader "UnpaidCeo/Stylized"
                 VertexPositionInputs p = GetVertexPositionInputs(i.positionOS.xyz);
                 o.positionCS = p.positionCS;
                 o.positionWS = p.positionWS;
-                o.normalWS = TransformObjectToWorldNormal(i.normalOS);
+                VertexNormalInputs ni = GetVertexNormalInputs(i.normalOS, i.tangentOS);
+                o.normalWS = ni.normalWS;
+                o.tangentWS = half4(ni.tangentWS, i.tangentOS.w * GetOddNegativeScale());
                 o.uv = TRANSFORM_TEX(i.uv, _BaseMap);
                 o.fog = ComputeFogFactor(p.positionCS.z);
                 return o;
@@ -96,6 +106,14 @@ Shader "UnpaidCeo/Stylized"
                 UNITY_SETUP_INSTANCE_ID(i);
                 half4 albedo = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, i.uv) * _BaseColor;
                 half3 n = normalize(i.normalWS);
+                #if defined(_NORMALMAP)
+                if (dot(i.tangentWS.xyz, i.tangentWS.xyz) > 0.01h)
+                {
+                    half3 nTS = UnpackNormalScale(SAMPLE_TEXTURE2D(_BumpMap, sampler_BumpMap, i.uv), _BumpScale);
+                    half3 bitangent = i.tangentWS.w * cross(i.normalWS, i.tangentWS.xyz);
+                    n = normalize(TransformTangentToWorld(nTS, half3x3(i.tangentWS.xyz, bitangent, i.normalWS)));
+                }
+                #endif
 
                 Light mainLight = GetMainLight(TransformWorldToShadowCoord(i.positionWS));
                 half lit = Band(saturate(dot(n, mainLight.direction)) * mainLight.shadowAttenuation);

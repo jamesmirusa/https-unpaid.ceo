@@ -74,6 +74,7 @@ namespace UnpaidCeo.Game.Bootstrap
             StartCoroutine(_audio.LoadMusic(_light));
             BuildDialogue();
             _hero = new GameObject("Hero").AddComponent<HeroView>();
+            _hero.gameObject.AddComponent<HeroStroll>();
             if (_city != null && _city.HomeAnchor != null) _hero.transform.SetPositionAndRotation(_city.HomeAnchor.position, _city.HomeAnchor.rotation);
 
             var saved = SaveService.Load();
@@ -145,6 +146,7 @@ namespace UnpaidCeo.Game.Bootstrap
             go.AddComponent<UIDocument>().panelSettings = panel;
             var presenter = go.AddComponent<UitkDialoguePresenter>();
             presenter.Audio = _audio;
+            presenter.OptionsShown = () => _hero?.Think();
             var provider = go.AddComponent<BuiltinLocalisedLineProvider>();
             var runner = go.AddComponent<DialogueRunner>();
             // Assign before activation so DialogueRunner.Awake sees them (the serialized fields are not public).
@@ -193,6 +195,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 while (_timelapse.IsPlaying) yield return null;
             }
             Ui.ShowReport(report);
+            _hero?.React(report);
             Ui.Open(UiRoot.Company);
             SaveService.Save(_state!);
             _busy = false;

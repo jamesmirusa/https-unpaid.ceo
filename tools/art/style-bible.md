@@ -18,7 +18,7 @@
 - Anthropomorphic animals, ~1.6 m, big heads (≈1:4), readable silhouettes from the isometric camera.
 - Player species (stage 1): raccoon, fox, cat; 2 outfits each (hustler hoodie, thrift blazer).
 - NPCs: mentor raccoon in a thrifted blazer (brand face), Tony the bulldog (bodega apron), Mr. Fins the shark (pinstripe suit), Jay the otter (streetwear), Mom (player's species, cardigan), Mr. Whiskerton the fat cat (huge coat, top hat).
-- Pipeline: concept (A-pose, front view, plain background) → Meshy 7 image-to-3D, quad topology, rig + idle/walk/celebrate/think. Budget 15–20k triangles.
+- Pipeline: concept (A-pose, front view, plain background) → Meshy 7 image-to-3D, quad topology, rig + idle/walk/celebrate/think. Budget 15–22k triangles (max-quality takes land ~20.2k after rigging).
 
 ## Buildings and props
 - Bronx walk-ups (4–6 storeys, fire escapes, water tanks), bodega with awning, laundromat, pawn shop, elevated subway segment, stoop, basketball court, bus stop.
@@ -53,3 +53,9 @@ Decision: key buildings → Tripo P2; background buildings and props → Tripo H
 - `restyle/concepts/01_keyart_bodega_night.png` is night key art for promo and the neon look; in game, night is still lighting on the same meshes.
 - New business buildings (coffee shop, barbershop, bakery, car wash) are imported as prefabs but not referenced by the Bronx scene or the CityCatalog, so they do not ship in the chapter-1 download; they go into the catalog with the chapter-2 (Brooklyn) industries.
 - Known issue: the concepts' warm side light is baked into the textures (strongest on Tripo P2 models). Fix if needed: re-run Tripo P2 with `texture_version` v3.5 + `delight` (34 credits per building).
+
+## Max-quality pass (2026-11-08; owner: "max quality for key buildings and characters")
+- 8 key buildings (bodega, walk-up, laundromat, pawn shop, coffee shop, barbershop, bakery, car wash): Tripo P2, texture_quality extreme, PBR, texture v3.5 + delight (baked light removed) — 40 cr each. Embedded textures shrunk to 2048 with `max/shrink_glb_images.py` (8192/4096 → 2048, the game's app cap) to keep LFS small.
+- 11 characters: Meshy 7 ultra, PBR, 19.5k triangles, A-pose (44 cr) + 4 × 3d_rigging takes (idle 0, walk 30 Casual_Walk, cheer 59 Victory_Cheer, think 36 Confused_Scratch; 8 cr each). The idle take is the model; the other takes are stripped to node hierarchy + animation (`max/strip_anim.py`, ~100-250 KB) in `Art/Imported/Characters/Clips/`. Fox and cat hoodie concepts re-made from their blazer twins so each species looks the same in both outfits.
+- Textures: apps/desktop 2048 (props 1024), WebGL override 1024 (props 512); normal maps kept (WebGL 512) and used by `UnpaidCeo/Stylized` (`_NORMALMAP`). Character budget 15–22k (rigged takes land ~20.2k).
+- Jobs, URLs and the per-step spend: `max/max-jobs.json`.

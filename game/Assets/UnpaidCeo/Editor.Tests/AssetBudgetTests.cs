@@ -102,7 +102,7 @@ namespace UnpaidCeo.Editor.Tests
         }
 
         [Test]
-        public void Character_outside_15k_to_20k_is_reported()
+        public void Character_outside_15k_to_22k_is_reported()
         {
             var low = new GameObject("character");
             _created.Add(low);
@@ -113,6 +113,13 @@ namespace UnpaidCeo.Editor.Tests
 
             smr.sharedMesh = Grid(17000);
             CollectionAssert.IsEmpty(AssetBudgetValidator.Check(low, AssetKind.Character));
+
+            // A rigged max-quality take lands a little above 20k (Meshy ultra at 19.5k + rigging).
+            smr.sharedMesh = Grid(21000);
+            CollectionAssert.IsEmpty(AssetBudgetValidator.Check(low, AssetKind.Character));
+
+            smr.sharedMesh = Grid(23000);
+            Assert.That(AssetBudgetValidator.Check(low, AssetKind.Character), Has.Some.Contains("22000"));
         }
 
         [Test]
@@ -134,10 +141,11 @@ namespace UnpaidCeo.Editor.Tests
             CollectionAssert.IsEmpty(AssetBudgetValidator.Check(built, AssetKind.Building));
         }
 
-        [TestCase(AssetKind.Building, 1024)]
-        [TestCase(AssetKind.Prop, 512)]
-        [TestCase(AssetKind.Character, 1024)]
-        public void Prefab_builder_downscales_textures_for_the_web_budget(AssetKind kind, int max)
+        // Prepare keeps the app-size texture; the web cap comes from the WebGL import override (MaxQualityArtTests).
+        [TestCase(AssetKind.Building, 2048, 1024)]
+        [TestCase(AssetKind.Prop, 1024, 512)]
+        [TestCase(AssetKind.Character, 2048, 1024)]
+        public void Prefab_builder_keeps_textures_at_app_size(AssetKind kind, int max, int web)
         {
             var big = new Texture2D(2048, 2048, TextureFormat.RGBA32, false);
             var pixels = new Color32[2048 * 2048];
@@ -153,7 +161,8 @@ namespace UnpaidCeo.Editor.Tests
             var built = GlbPrefabBuilder.Prepare(source, kind);
             _created.Add(built);
             var tex = built.GetComponentInChildren<MeshRenderer>().sharedMaterial.GetTexture("_BaseMap");
-            Assert.AreEqual(max, GlbPrefabBuilder.MaxTextureSize(kind));
+            Assert.AreEqual(web, GlbPrefabBuilder.MaxTextureSize(kind));
+            Assert.AreEqual(max, GlbPrefabBuilder.AppTextureSize(kind));
             Assert.AreEqual(max, tex.width);
             Assert.AreEqual(max, tex.height);
             var c = ((Texture2D)tex).GetPixel(max / 2, max / 2);

@@ -26,3 +26,9 @@ crashlytics-build.properties
 .DS_Store
 tools/voice/raw/
 game/Builds/
+
+# raw generation downloads (the stripped/imported copies live under game/Assets)
+tools/art/max/glb/
+tools/art/max/rig-full/
+tools/art/max/rig/
+tools/art/restyle/glb/

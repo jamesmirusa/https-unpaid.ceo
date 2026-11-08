@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnpaidCeo.Core.Game;
+using UnpaidCeo.Core.Primitives;
 using UnpaidCeo.Game.City;
 
 namespace UnpaidCeo.Game.Hero
@@ -51,6 +52,13 @@ namespace UnpaidCeo.Game.Hero
             }
             Tint(a.ColorIndex);
         }
+
+        /// <summary>Cheers after a month that made money, thinks after one that did not.</summary>
+        public void React(MonthReport report) =>
+            GetComponentInChildren<CharacterAnimator>()?.PlayOnce(report.NetProfit > Money.Zero ? CharacterAnimator.State.Cheer : CharacterAnimator.State.Think);
+
+        /// <summary>Plays the think clip, e.g. while the player picks a dialogue option.</summary>
+        public void Think() => GetComponentInChildren<CharacterAnimator>()?.PlayOnce(CharacterAnimator.State.Think);
 
         void Tint(int index)
         {

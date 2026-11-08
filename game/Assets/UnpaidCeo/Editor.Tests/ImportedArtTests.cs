@@ -38,6 +38,40 @@ namespace UnpaidCeo.Editor.Tests
         [Test] public void All_imported_props_within_budget() => AssertBudget(Load("prop_"), AssetKind.Prop, 14);
         [Test] public void All_characters_within_budget() => AssertBudget(Load("hero_", "npc_"), AssetKind.Character, 11);
 
+        static readonly string[] KeyBuildings =
+        {
+            "building_bodega", "building_walkup", "building_laundromat", "building_pawn_shop",
+            "building_coffee_shop", "building_barbershop", "building_bakery", "building_car_wash",
+        };
+
+        [Test]
+        public void Every_character_has_idle_walk_cheer_think()
+        {
+            var characters = Load("hero_", "npc_");
+            Assert.GreaterOrEqual(characters.Count, 11);
+            foreach (var p in characters)
+            {
+                var animator = p.GetComponent<UnpaidCeo.Game.Hero.CharacterAnimator>();
+                Assert.IsNotNull(animator, $"{p.name} has no CharacterAnimator");
+                foreach (UnpaidCeo.Game.Hero.CharacterAnimator.State s in System.Enum.GetValues(typeof(UnpaidCeo.Game.Hero.CharacterAnimator.State)))
+                    Assert.IsNotNull(animator.Clip(s), $"{p.name} is missing its {s} clip");
+            }
+        }
+
+        [Test]
+        public void Key_buildings_and_characters_have_normal_maps()
+        {
+            var prefabs = Load("hero_", "npc_");
+            prefabs.AddRange(KeyBuildings.Select(n => AssetDatabase.LoadAssetAtPath<GameObject>($"{Prefabs}/{n}.prefab")));
+            foreach (var p in prefabs)
+            {
+                Assert.IsNotNull(p);
+                var mats = p.GetComponentsInChildren<Renderer>(true).SelectMany(r => r.sharedMaterials).Where(m => m != null).ToList();
+                Assert.IsTrue(mats.Count > 0 && mats.All(m => m.GetTexture("_BumpMap") != null && m.IsKeywordEnabled("_NORMALMAP")),
+                    $"{p.name} has a material without a normal map");
+            }
+        }
+
         [Test]
         public void Every_hero_species_has_both_outfits()
         {

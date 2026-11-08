@@ -1,0 +1,363 @@
+{
+  "note": "Max-quality pass (owner: 'max quality for key buildings and characters', 2026-11-08). Estimate shown: ~1,160 credits. Buildings: Tripo P2, face_limit 8000, texture_quality extreme, PBR, texture_version v3.5-20260815, delight (40 cr). Characters: Meshy 7 ultra, PBR, triangle 19.5k, A-pose, unrigged (44 cr) + 4 x 3d_rigging clips idle 0 / walk 30 / cheer 59 / think 36 (8 cr each).",
+  "buildings": {
+    "building_bodega": {
+      "concept": "65678306-bd8a-492a-add8-635a0b6ae131",
+      "job": "0db21067-7dc3-4202-9cb2-0c9d706596a1",
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220850_0db21067-7dc3-4202-9cb2-0c9d706596a1.glb"
+    },
+    "building_coffee_shop": {
+      "concept": "6bad87bd-237f-4ca3-b87e-52433f4671e9",
+      "job": "9ad43faa-9385-4d09-beaa-ff474eed9d04",
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220853_9ad43faa-9385-4d09-beaa-ff474eed9d04.glb"
+    },
+    "building_barbershop": {
+      "concept": "76c32592-f044-4364-be69-eff6e36d44c2",
+      "job": "4dedf021-ca7c-4f64-a7bf-65c6d6abba87",
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220854_4dedf021-ca7c-4f64-a7bf-65c6d6abba87.glb"
+    },
+    "building_bakery": {
+      "concept": "c742080d-4192-4bf0-85c5-bfcf8b3cec56",
+      "job": "b9da4117-eb6e-4bbc-89c3-e852428140bb",
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220856_b9da4117-eb6e-4bbc-89c3-e852428140bb.glb"
+    },
+    "building_car_wash": {
+      "concept": "e805c9b8-791e-4101-91ef-f5daebf39aee",
+      "job": "4fb00346-850e-4734-a4a8-6970c2469dc4",
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220857_4fb00346-850e-4734-a4a8-6970c2469dc4.glb"
+    },
+    "building_walkup": {
+      "concept": "3194b527-afff-463b-a8a7-507bfaa2b705",
+      "job": "f2e67ddc-24ca-4d05-8a86-d0ca104874f3",
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220858_f2e67ddc-24ca-4d05-8a86-d0ca104874f3.glb"
+    },
+    "building_laundromat": {
+      "concept": "14f08922-e447-4c24-bf7a-a9fc0a2cc1a5",
+      "job": "dab1b7df-2748-4af7-bc98-77f581d78c44",
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220900_dab1b7df-2748-4af7-bc98-77f581d78c44.glb"
+    },
+    "building_pawn_shop": {
+      "concept": "b0d64a8f-23f8-4120-97e5-edddc5275b35",
+      "job": "a841537e-8652-46ff-8e94-18cf668cf98e",
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220902_a841537e-8652-46ff-8e94-18cf668cf98e.glb"
+    }
+  },
+  "characters": {
+    "npc_mentor_raccoon": {
+      "concept": "9fd831c2-c263-4fb2-bfa2-3fee8bb46feb",
+      "mesh": "8c466901-d8dd-403d-a58e-d9c690905183",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220919_8c466901-d8dd-403d-a58e-d9c690905183.glb",
+      "rig": {
+        "idle": {
+          "job": "6039a0d3-7132-477e-89e6-890c7776febd",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221840_6039a0d3-7132-477e-89e6-890c7776febd.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221840_6039a0d3-7132-477e-89e6-890c7776febd.glb"
+        },
+        "walk": {
+          "job": "f955f3fa-c06d-4b2f-8c23-4c26471ffe87",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222150_f955f3fa-c06d-4b2f-8c23-4c26471ffe87.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222150_f955f3fa-c06d-4b2f-8c23-4c26471ffe87.glb"
+        },
+        "cheer": {
+          "job": "2b09a6d6-33bc-4c40-ad4e-7f7930457226",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222228_2b09a6d6-33bc-4c40-ad4e-7f7930457226.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222228_2b09a6d6-33bc-4c40-ad4e-7f7930457226.glb"
+        },
+        "think": {
+          "job": "71775117-df2f-40fc-9360-5f585f21355e",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222305_71775117-df2f-40fc-9360-5f585f21355e.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222305_71775117-df2f-40fc-9360-5f585f21355e.glb"
+        }
+      }
+    },
+    "npc_tony_bulldog": {
+      "concept": "1dd52aeb-b14a-4ac0-8692-9f2160751a6e",
+      "mesh": "45e0818b-5e31-4bb3-8729-627ab2aacb19",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220920_45e0818b-5e31-4bb3-8729-627ab2aacb19.glb",
+      "rig": {
+        "idle": {
+          "job": "be8ca560-e259-4699-a8d9-b525a21ef802",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221841_be8ca560-e259-4699-a8d9-b525a21ef802.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221841_be8ca560-e259-4699-a8d9-b525a21ef802.glb"
+        },
+        "walk": {
+          "job": "0d2cd9b2-e8e8-4239-82f8-e637a4ca08c7",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222151_0d2cd9b2-e8e8-4239-82f8-e637a4ca08c7.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222151_0d2cd9b2-e8e8-4239-82f8-e637a4ca08c7.glb"
+        },
+        "cheer": {
+          "job": "c2387ae3-4dbc-4ee8-aba9-3077d8493b1b",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222229_c2387ae3-4dbc-4ee8-aba9-3077d8493b1b.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222229_c2387ae3-4dbc-4ee8-aba9-3077d8493b1b.glb"
+        },
+        "think": {
+          "job": "0d9bb420-2fe0-439f-b0d4-20d1ccc379bc",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222306_0d9bb420-2fe0-439f-b0d4-20d1ccc379bc.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222306_0d9bb420-2fe0-439f-b0d4-20d1ccc379bc.glb"
+        }
+      }
+    },
+    "npc_mr_fins_shark": {
+      "concept": "43396c2b-c895-49b2-86b5-4aa85deb616c",
+      "mesh": "1c22725a-8f8f-4a70-b5d9-ca1c2ad0789c",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220922_1c22725a-8f8f-4a70-b5d9-ca1c2ad0789c.glb",
+      "rig": {
+        "idle": {
+          "job": "d77e5b1c-bd77-4863-8168-110623300b69",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221841_d77e5b1c-bd77-4863-8168-110623300b69.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221841_d77e5b1c-bd77-4863-8168-110623300b69.glb"
+        },
+        "walk": {
+          "job": "c720e9ea-fa78-4584-a462-15b0b4b41a0c",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222152_c720e9ea-fa78-4584-a462-15b0b4b41a0c.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222152_c720e9ea-fa78-4584-a462-15b0b4b41a0c.glb"
+        },
+        "cheer": {
+          "job": "2a01be57-07b5-4011-a994-13c846160d25",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222230_2a01be57-07b5-4011-a994-13c846160d25.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222230_2a01be57-07b5-4011-a994-13c846160d25.glb"
+        },
+        "think": {
+          "job": "0252ee38-a138-4a53-ab46-cf63c9eea728",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222306_0252ee38-a138-4a53-ab46-cf63c9eea728.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222306_0252ee38-a138-4a53-ab46-cf63c9eea728.glb"
+        }
+      }
+    },
+    "npc_jay_otter": {
+      "concept": "c926f2a0-96c6-45d8-8b3d-471f229c5c2b",
+      "mesh": "b08ac540-60e6-4ed7-baf9-ec1c7bfc4c3b",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220923_b08ac540-60e6-4ed7-baf9-ec1c7bfc4c3b.glb",
+      "rig": {
+        "idle": {
+          "job": "f60ee477-4540-45d2-8410-f2c20fb2da57",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221842_f60ee477-4540-45d2-8410-f2c20fb2da57.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221842_f60ee477-4540-45d2-8410-f2c20fb2da57.glb"
+        },
+        "walk": {
+          "job": "78974885-c04c-4344-ac26-b865b3d89efe",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222153_78974885-c04c-4344-ac26-b865b3d89efe.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222153_78974885-c04c-4344-ac26-b865b3d89efe.glb"
+        },
+        "cheer": {
+          "job": "2413ff81-d06b-452f-a9fe-81d26ad57343",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222231_2413ff81-d06b-452f-a9fe-81d26ad57343.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222231_2413ff81-d06b-452f-a9fe-81d26ad57343.glb"
+        },
+        "think": {
+          "job": "4d3ac3bb-4bce-45bc-9698-6ab88212ef73",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222307_4d3ac3bb-4bce-45bc-9698-6ab88212ef73.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222307_4d3ac3bb-4bce-45bc-9698-6ab88212ef73.glb"
+        }
+      }
+    },
+    "npc_whiskerton_cat": {
+      "concept": "0e490ff4-6692-49c1-a32e-086cec084b83",
+      "mesh": "8b6a24ab-9536-420b-a75c-c9f9a69b267d",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220925_8b6a24ab-9536-420b-a75c-c9f9a69b267d.glb",
+      "rig": {
+        "idle": {
+          "job": "32c9237b-09a6-486c-b6b7-11e0a5eb39a8",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221843_32c9237b-09a6-486c-b6b7-11e0a5eb39a8.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221843_32c9237b-09a6-486c-b6b7-11e0a5eb39a8.glb"
+        },
+        "walk": {
+          "job": "935febe7-ff88-4994-b975-819ae6328332",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222154_935febe7-ff88-4994-b975-819ae6328332.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222154_935febe7-ff88-4994-b975-819ae6328332.glb"
+        },
+        "cheer": {
+          "job": "27bd4eab-bc29-41e7-9860-06105e2414f1",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222232_27bd4eab-bc29-41e7-9860-06105e2414f1.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222232_27bd4eab-bc29-41e7-9860-06105e2414f1.glb"
+        },
+        "think": {
+          "job": "99981abf-a9f4-4314-a4f7-2bb1536cb785",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222308_99981abf-a9f4-4314-a4f7-2bb1536cb785.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222308_99981abf-a9f4-4314-a4f7-2bb1536cb785.glb"
+        }
+      }
+    },
+    "hero_raccoon_hoodie": {
+      "concept": "5960923e-092f-45de-8cc1-821f08d70527",
+      "mesh": "db7c213b-2118-4cd8-a91e-389bbf97dd8e",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220926_db7c213b-2118-4cd8-a91e-389bbf97dd8e.glb",
+      "rig": {
+        "idle": {
+          "job": "5b702185-8f03-48a2-8efb-fafd68272904",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221844_5b702185-8f03-48a2-8efb-fafd68272904.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221844_5b702185-8f03-48a2-8efb-fafd68272904.glb"
+        },
+        "walk": {
+          "job": "42f30b4a-8489-44f8-af40-d7eb50fc619e",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222156_42f30b4a-8489-44f8-af40-d7eb50fc619e.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222156_42f30b4a-8489-44f8-af40-d7eb50fc619e.glb"
+        },
+        "cheer": {
+          "job": "665f11b0-e15f-4127-b672-bfdfb9ae76b8",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222233_665f11b0-e15f-4127-b672-bfdfb9ae76b8.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222233_665f11b0-e15f-4127-b672-bfdfb9ae76b8.glb"
+        },
+        "think": {
+          "job": "30086146-3985-4f98-905c-19617ace3221",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222309_30086146-3985-4f98-905c-19617ace3221.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222309_30086146-3985-4f98-905c-19617ace3221.glb"
+        }
+      }
+    },
+    "hero_raccoon_blazer": {
+      "concept": "c291dd13-1b18-40eb-a54b-ad6e3a585787",
+      "mesh": "a445c09d-22c0-4a90-ae28-29fb47846730",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220928_a445c09d-22c0-4a90-ae28-29fb47846730.glb",
+      "rig": {
+        "idle": {
+          "job": "8cbe4cb3-ce78-40df-848c-fbb4a2fa81bc",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221844_8cbe4cb3-ce78-40df-848c-fbb4a2fa81bc.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221844_8cbe4cb3-ce78-40df-848c-fbb4a2fa81bc.glb"
+        },
+        "walk": {
+          "job": "57b2c228-1594-47c9-b431-6b0349bcf27e",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222156_57b2c228-1594-47c9-b431-6b0349bcf27e.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222156_57b2c228-1594-47c9-b431-6b0349bcf27e.glb"
+        },
+        "cheer": {
+          "job": "e4cb5443-b395-4cb2-868a-49d8551691b3",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222233_e4cb5443-b395-4cb2-868a-49d8551691b3.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222233_e4cb5443-b395-4cb2-868a-49d8551691b3.glb"
+        },
+        "think": {
+          "job": "89aa724e-2c17-439a-a794-960608d25b81",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222309_89aa724e-2c17-439a-a794-960608d25b81.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222309_89aa724e-2c17-439a-a794-960608d25b81.glb"
+        }
+      }
+    },
+    "hero_fox_blazer": {
+      "concept": "e48ba295-1d26-4fd0-a8f3-e7936930fda5",
+      "mesh": "7b07fce9-e362-491e-ac09-588912527459",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220929_7b07fce9-e362-491e-ac09-588912527459.glb",
+      "rig": {
+        "idle": {
+          "job": "db20ad87-94fc-461c-b78b-3ba4c05a5a09",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221845_db20ad87-94fc-461c-b78b-3ba4c05a5a09.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221845_db20ad87-94fc-461c-b78b-3ba4c05a5a09.glb"
+        },
+        "walk": {
+          "job": "84807d96-6271-4a40-9899-0d816d037643",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222158_84807d96-6271-4a40-9899-0d816d037643.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222158_84807d96-6271-4a40-9899-0d816d037643.glb"
+        },
+        "cheer": {
+          "job": "007c18c7-bd69-4db8-8655-719c15438dff",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222234_007c18c7-bd69-4db8-8655-719c15438dff.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222234_007c18c7-bd69-4db8-8655-719c15438dff.glb"
+        },
+        "think": {
+          "job": "45cf5148-0cb8-4b4d-ac1b-32d6b5d17207",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222310_45cf5148-0cb8-4b4d-ac1b-32d6b5d17207.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222310_45cf5148-0cb8-4b4d-ac1b-32d6b5d17207.glb"
+        }
+      }
+    },
+    "hero_cat_blazer": {
+      "concept": "bafe0d80-1efd-463e-af57-c6851800348d",
+      "mesh": "6ae05295-3219-461e-9713-34b7ed5a4f50",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_220931_6ae05295-3219-461e-9713-34b7ed5a4f50.glb",
+      "rig": {
+        "idle": {
+          "job": "c8f98c93-71c1-4c1b-a179-dbf08867ed1d",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221846_c8f98c93-71c1-4c1b-a179-dbf08867ed1d.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221846_c8f98c93-71c1-4c1b-a179-dbf08867ed1d.glb"
+        },
+        "walk": {
+          "job": "da369cca-ea0a-4655-8657-a7673c73f162",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222158_da369cca-ea0a-4655-8657-a7673c73f162.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222158_da369cca-ea0a-4655-8657-a7673c73f162.glb"
+        },
+        "cheer": {
+          "job": "5012f874-2719-49d1-8047-e83d12e7b39c",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222235_5012f874-2719-49d1-8047-e83d12e7b39c.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222235_5012f874-2719-49d1-8047-e83d12e7b39c.glb"
+        },
+        "think": {
+          "job": "dd8cbb3b-d57e-418c-9a6f-8363d45e4c5f",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222311_dd8cbb3b-d57e-418c-9a6f-8363d45e4c5f.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222311_dd8cbb3b-d57e-418c-9a6f-8363d45e4c5f.glb"
+        }
+      }
+    },
+    "hero_fox_hoodie": {
+      "concept": "936767aa-0e73-45e9-8cff-c66fff43c502",
+      "mesh": "8c02bc4e-b8a7-4931-98ec-43d667a668f4",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221021_8c02bc4e-b8a7-4931-98ec-43d667a668f4.glb",
+      "rig": {
+        "idle": {
+          "job": "ea9d9ac2-b828-4eed-8a51-3ca10dc46540",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221847_ea9d9ac2-b828-4eed-8a51-3ca10dc46540.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221847_ea9d9ac2-b828-4eed-8a51-3ca10dc46540.glb"
+        },
+        "walk": {
+          "job": "f69e18c2-e054-48a4-8439-2841e2469542",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222159_f69e18c2-e054-48a4-8439-2841e2469542.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222159_f69e18c2-e054-48a4-8439-2841e2469542.glb"
+        },
+        "cheer": {
+          "job": "cfe7691f-de9c-45d9-9970-a2e3c65871f1",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222236_cfe7691f-de9c-45d9-9970-a2e3c65871f1.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222236_cfe7691f-de9c-45d9-9970-a2e3c65871f1.glb"
+        },
+        "think": {
+          "job": "c07aa524-224d-4527-a2f0-e472cf8f3de1",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222312_c07aa524-224d-4527-a2f0-e472cf8f3de1.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222312_c07aa524-224d-4527-a2f0-e472cf8f3de1.glb"
+        }
+      }
+    },
+    "hero_cat_hoodie": {
+      "concept": "9679debd-9fea-4630-8d98-ca17c2b3d751",
+      "mesh": "c13a48d0-3b71-4249-8d89-dccd49c22549",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221023_c13a48d0-3b71-4249-8d89-dccd49c22549.glb",
+      "rig": {
+        "idle": {
+          "job": "5c4c2b0c-7260-4734-906d-54998ebebae4",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221847_5c4c2b0c-7260-4734-906d-54998ebebae4.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_221847_5c4c2b0c-7260-4734-906d-54998ebebae4.glb"
+        },
+        "walk": {
+          "job": "acfb2765-8a84-4ab4-bb5b-b621ac06319c",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222200_acfb2765-8a84-4ab4-bb5b-b621ac06319c.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222200_acfb2765-8a84-4ab4-bb5b-b621ac06319c.glb"
+        },
+        "cheer": {
+          "job": "8e6abc38-c1a6-4a84-877b-4841a489a5fe",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222236_8e6abc38-c1a6-4a84-877b-4841a489a5fe.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222236_8e6abc38-c1a6-4a84-877b-4841a489a5fe.glb"
+        },
+        "think": {
+          "job": "72ebbd2d-37f7-4117-a693-f003c51e65e5",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222313_72ebbd2d-37f7-4117-a693-f003c51e65e5.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222313_72ebbd2d-37f7-4117-a693-f003c51e65e5.glb"
+        }
+      }
+    }
+  },
+  "clips": {
+    "idle": 0,
+    "walk": 30,
+    "cheer": 59,
+    "think": 36
+  },
+  "order": [
+    "npc_mentor_raccoon",
+    "npc_tony_bulldog",
+    "npc_mr_fins_shark",
+    "npc_jay_otter",
+    "npc_whiskerton_cat",
+    "hero_raccoon_hoodie",
+    "hero_raccoon_blazer",
+    "hero_fox_blazer",
+    "hero_cat_blazer",
+    "hero_fox_hoodie",
+    "hero_cat_hoodie"
+  ]
+}
