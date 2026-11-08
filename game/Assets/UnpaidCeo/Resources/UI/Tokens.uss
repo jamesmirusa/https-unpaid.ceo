@@ -1,3 +1,4 @@
+:root, .app, .dialogue { -unity-font-definition: url("Fonts/Inter-Regular-SDF.asset"); }
 /* Layout tokens and components. Sizes are for the 1080×1920 reference panel. */
 .app {
     flex-grow: 1;

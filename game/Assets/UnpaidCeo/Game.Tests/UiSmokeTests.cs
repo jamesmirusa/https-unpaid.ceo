@@ -155,7 +155,7 @@ namespace UnpaidCeo.Game.Tests
                 foreach (var t in Texts(_ui.Root))
                 {
                     if (string.IsNullOrEmpty(t.text) || t.ClassListContains(UiRoot.ValueClass)) continue;
-                    if (!(t.TryGetBinding("text", out var binding) && binding is LocalizedString))
+                    if (!UiText.IsLocalized(t))
                         hardcoded.Add($"{tab}/{t.name} ({t.GetType().Name}): '{t.text}'");
                 }
             }

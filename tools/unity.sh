@@ -42,7 +42,7 @@ case "$CMD" in
     exit $code
     ;;
   build-web)
-    "$UNITY" -batchmode -quit -projectPath "$PROJECT" \
+    "$UNITY" -batchmode -quit -buildTarget WebGL -projectPath "$PROJECT" \
       -executeMethod UnpaidCeo.Editor.BuildScript.BuildWeb -logFile "$PROJECT/Logs/build-web.log"
     code=$?
     grep -E "error CS[0-9]+|Build (succeeded|failed)|\[build\]" "$PROJECT/Logs/build-web.log" | tail -20

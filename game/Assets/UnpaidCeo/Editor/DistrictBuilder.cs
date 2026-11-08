@@ -331,15 +331,20 @@ namespace UnpaidCeo.Editor
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 var name = Path.GetFileNameWithoutExtension(path);
-                if (name.StartsWith("hero_") || name.StartsWith("npc_")) MakeAddressable(path, name, "characters");
+                if (name.StartsWith("hero_") || name.StartsWith("npc_")) MakeAddressable(path, name, CharactersGroup);
             }
         }
+
+        public const string CharactersGroup = "characters";
 
         static void MakeAddressable(string assetPath, string address, string groupName)
         {
             var settings = AddressableAssetSettingsDefaultObject.GetSettings(true);
             var group = settings.FindGroup(groupName) ?? settings.CreateGroup(groupName, false, false, true, null,
                 typeof(BundledAssetGroupSchema), typeof(ContentUpdateGroupSchema));
+            // One bundle per character: the web build downloads only the hero the player picked (~2 MB, not ~18 MB).
+            if (groupName == CharactersGroup)
+                group.GetSchema<BundledAssetGroupSchema>().BundleMode = BundledAssetGroupSchema.BundlePackingMode.PackSeparately;
             var entry = settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(assetPath), group);
             entry.address = address;
             settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryMoved, entry, true);
