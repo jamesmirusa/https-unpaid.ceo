@@ -133,5 +133,31 @@ namespace UnpaidCeo.Editor.Tests
             Assert.GreaterOrEqual(built.GetComponentInChildren<MeshFilter>().sharedMesh.lodCount, 3);
             CollectionAssert.IsEmpty(AssetBudgetValidator.Check(built, AssetKind.Building));
         }
+
+        [TestCase(AssetKind.Building, 1024)]
+        [TestCase(AssetKind.Prop, 512)]
+        [TestCase(AssetKind.Character, 1024)]
+        public void Prefab_builder_downscales_textures_for_the_web_budget(AssetKind kind, int max)
+        {
+            var big = new Texture2D(2048, 2048, TextureFormat.RGBA32, false);
+            var pixels = new Color32[2048 * 2048];
+            for (int i = 0; i < pixels.Length; i++) pixels[i] = new Color32(200, 80, 60, 255);
+            big.SetPixels32(pixels);
+            big.Apply();
+            _created.Add(big);
+            var src = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+            src.SetTexture("_BaseMap", big);
+            _created.Add(src);
+            var source = Building(Grid(kind == AssetKind.Prop ? 1000 : 5000), src, collider: false);
+
+            var built = GlbPrefabBuilder.Prepare(source, kind);
+            _created.Add(built);
+            var tex = built.GetComponentInChildren<MeshRenderer>().sharedMaterial.GetTexture("_BaseMap");
+            Assert.AreEqual(max, GlbPrefabBuilder.MaxTextureSize(kind));
+            Assert.AreEqual(max, tex.width);
+            Assert.AreEqual(max, tex.height);
+            var c = ((Texture2D)tex).GetPixel(max / 2, max / 2);
+            Assert.AreEqual(200f / 255f, c.r, 0.03f, "colour must survive the downscale");
+        }
     }
 }

@@ -40,3 +40,9 @@ Concept: Nano Banana Pro chosen over GPT Image 2.6 — chunkier, closer to the t
 | Meshy 7 | 38 | 5 547 | lost storefront detail, 10.6 MB file — **characters only** (it rigs and animates) |
 
 Decision: key buildings → Tripo P2; background buildings and props → Tripo H3.1; characters → Meshy 7 (quad, A-pose, rig, animations). Concepts → Nano Banana Pro. The Tripo P2 bodega is kept as `Art/Imported/Buildings/building_bodega.glb`.
+
+## Chapter 1 batch (2026-11-08, 911.5 credits; owner approved the full batch ≈ 906)
+- 37 concepts (Nano Banana Pro) → 36 models: 11 rigged characters (Meshy 7, idle clip, ~18.5k triangles), 3 key buildings (Tripo P2) + bodega from the pilot, 8 background buildings and 14 props (Tripo H3.1). Job ids and result URLs: `batch-jobs.json`; concepts: `concepts/`; in-engine previews: `previews/`; budget report: `import-report.md`.
+- QC re-dos: `building_pizza` concept (background clutter), `building_court` concept and model (a see-through chain-link fence broke reconstruction — use solid barriers), `prop_phone` dropped from 3D (it is a UI element).
+- Lesson for prompts: keep subjects solid and isolated — no see-through fences or nets, no pedestals, no depth-of-field background.
+- Textures are capped on import by `GlbPrefabBuilder` (buildings and characters 1024, props 512, compressed); only base colour and emission are kept — the house shader supplies the style.

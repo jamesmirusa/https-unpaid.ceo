@@ -22,7 +22,7 @@ namespace UnpaidCeo.Editor
             AssetDatabase.Refresh();
             var report = new StringBuilder("# Art import report\n\n");
             foreach (var (folder, kind) in new[] { ("Buildings", AssetKind.Building), ("Props", AssetKind.Prop), ("Characters", AssetKind.Character) })
-                report.Append(ImportFolder($"{ImportedRoot}/{folder}", kind, null));
+                report.Append(ImportFolder($"{ImportedRoot}/{folder}", kind, "../tools/art/previews"));
             File.WriteAllText("../tools/art/import-report.md", report.ToString());
         }
 

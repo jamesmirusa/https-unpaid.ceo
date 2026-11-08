@@ -1,0 +1,344 @@
+{
+ "note": "Chapter 1 art batch (owner approved full batch ≈ 905.5 credits on 2026-11-08). concept = Nano Banana Pro image job; model3d = image-to-3D job submitted from that concept.",
+ "assets": [
+  {
+   "index": 0,
+   "id": "npc_mentor_raccoon",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "9fd831c2-c263-4fb2-bfa2-3fee8bb46feb",
+   "model3d": "973789ab-e65a-417e-8377-a20bec2937a9",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183855_973789ab-e65a-417e-8377-a20bec2937a9.glb"
+  },
+  {
+   "index": 1,
+   "id": "npc_tony_bulldog",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "1dd52aeb-b14a-4ac0-8692-9f2160751a6e",
+   "model3d": "26c188e4-6fd0-4d6f-8435-1331d7a4eae8",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183857_26c188e4-6fd0-4d6f-8435-1331d7a4eae8.glb"
+  },
+  {
+   "index": 2,
+   "id": "npc_mr_fins_shark",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "43396c2b-c895-49b2-86b5-4aa85deb616c",
+   "model3d": "1325fb5e-69ea-4652-9031-2753ad9df483",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183859_1325fb5e-69ea-4652-9031-2753ad9df483.glb"
+  },
+  {
+   "index": 3,
+   "id": "npc_jay_otter",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "c926f2a0-96c6-45d8-8b3d-471f229c5c2b",
+   "model3d": "84f67957-ec17-4289-aef1-e674ec4f79ff",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183900_84f67957-ec17-4289-aef1-e674ec4f79ff.glb"
+  },
+  {
+   "index": 4,
+   "id": "npc_whiskerton_cat",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "0e490ff4-6692-49c1-a32e-086cec084b83",
+   "model3d": "c9fdf104-e972-4d33-8a8b-4409636cafc3",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183903_c9fdf104-e972-4d33-8a8b-4409636cafc3.glb"
+  },
+  {
+   "index": 5,
+   "id": "hero_raccoon_hoodie",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "5960923e-092f-45de-8cc1-821f08d70527",
+   "model3d": "fd07f078-c2bc-472a-bbed-b520ef0474fd",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183904_fd07f078-c2bc-472a-bbed-b520ef0474fd.glb"
+  },
+  {
+   "index": 6,
+   "id": "hero_raccoon_blazer",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "c291dd13-1b18-40eb-a54b-ad6e3a585787",
+   "model3d": "432ae3f8-92f2-4b91-ba9a-d4e657765afb",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183919_432ae3f8-92f2-4b91-ba9a-d4e657765afb.glb"
+  },
+  {
+   "index": 7,
+   "id": "hero_fox_hoodie",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "0cebc721-6322-4158-a8dd-2fd4cc1a7c5f",
+   "model3d": "e447bf32-914b-42e1-b6c3-c915c3fc3e8a",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183921_e447bf32-914b-42e1-b6c3-c915c3fc3e8a.glb"
+  },
+  {
+   "index": 8,
+   "id": "hero_fox_blazer",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "e48ba295-1d26-4fd0-a8f3-e7936930fda5",
+   "model3d": "c47ccfd9-5a8f-4928-8079-fb662993b07f",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183922_c47ccfd9-5a8f-4928-8079-fb662993b07f.glb"
+  },
+  {
+   "index": 9,
+   "id": "hero_cat_hoodie",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "a28d4d4c-27f5-4903-bcfd-c41b57272150",
+   "model3d": "267c0ffe-9050-4905-b334-da142c3c454f",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183924_267c0ffe-9050-4905-b334-da142c3c454f.glb"
+  },
+  {
+   "index": 10,
+   "id": "hero_cat_blazer",
+   "kind": "Character",
+   "model": "meshy_v7_image_to_3d",
+   "concept": "bafe0d80-1efd-463e-af57-c6851800348d",
+   "model3d": "35c6a0ad-0649-443d-b70d-cae2ad014a1e",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183926_35c6a0ad-0649-443d-b70d-cae2ad014a1e.glb"
+  },
+  {
+   "index": 20,
+   "id": "building_walkup",
+   "kind": "Building",
+   "model": "tripo_p2_image_to_3d",
+   "concept": "87ee2fef-f732-4b75-a192-96ccd5c80cf5",
+   "model3d": "49efae95-bd23-4770-8e04-fd3b207876d8",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183928_49efae95-bd23-4770-8e04-fd3b207876d8.glb"
+  },
+  {
+   "index": 21,
+   "id": "building_laundromat",
+   "kind": "Building",
+   "model": "tripo_p2_image_to_3d",
+   "concept": "5bc9ce47-ba06-4cd5-93a5-2f9e75483933",
+   "model3d": "bf2fbb0f-a81a-4747-94d4-153574357ae6",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183929_bf2fbb0f-a81a-4747-94d4-153574357ae6.glb"
+  },
+  {
+   "index": 22,
+   "id": "building_pawn_shop",
+   "kind": "Building",
+   "model": "tripo_p2_image_to_3d",
+   "concept": "b65e05dd-8643-4640-9755-d02be7984617",
+   "model3d": "9b7b8f88-6177-4d82-908d-eb47b307ef20",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183932_9b7b8f88-6177-4d82-908d-eb47b307ef20.glb"
+  },
+  {
+   "index": 30,
+   "id": "building_el_subway",
+   "kind": "Building",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "c5008f51-24e5-4c13-bced-183380984269",
+   "model3d": "3802ddb9-7fc3-4abd-9079-0a3deb5cd225",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183945_3802ddb9-7fc3-4abd-9079-0a3deb5cd225.glb"
+  },
+  {
+   "index": 31,
+   "id": "building_pizza",
+   "kind": "Building",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "14180c35-da77-4995-ba33-c54de1f0e7ea",
+   "model3d": "238df534-b7ea-40b8-8b9c-cad5f8585e8b",
+   "note": "concept re-generated (first had background clutter)",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184107_238df534-b7ea-40b8-8b9c-cad5f8585e8b.glb"
+  },
+  {
+   "index": 32,
+   "id": "building_check_cashing",
+   "kind": "Building",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "4d3ec5a4-c298-45ea-b837-ac28ec8a13f3",
+   "model3d": "c89f4778-d0b8-43c3-8c97-1ebfc99fe400",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183947_c89f4778-d0b8-43c3-8c97-1ebfc99fe400.glb"
+  },
+  {
+   "index": 33,
+   "id": "building_garden_lot",
+   "kind": "Building",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "b46f3a51-85dd-4241-a8bf-595de274a14e",
+   "model3d": "7f18b67b-db70-4305-a9e2-a8bf2078fd8a",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183949_7f18b67b-db70-4305-a9e2-a8bf2078fd8a.glb"
+  },
+  {
+   "index": 34,
+   "id": "building_court",
+   "kind": "Building",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "d29c47cb-9537-429e-8856-d37a546441b5",
+   "model3d": "ccd015f2-342f-4b66-8967-75830718ad64",
+   "failed": {
+    "concept": "121ba087-8741-4038-b930-3f70b7b07519",
+    "model3d": "3b45eab6-be5a-43f0-b401-c5ac2a88b387",
+    "reason": "see-through chain-link fence: Tripo H3.1 produced a crumpled shell without the court"
+   },
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184646_ccd015f2-342f-4b66-8967-75830718ad64.glb"
+  },
+  {
+   "index": 35,
+   "id": "building_bus_shelter",
+   "kind": "Building",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "e2686681-8e20-40e2-bf41-ef5fa602a225",
+   "model3d": "ff7ec9ce-be9f-4ae4-9665-6f6dbd58c648",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183951_ff7ec9ce-be9f-4ae4-9665-6f6dbd58c648.glb"
+  },
+  {
+   "index": 36,
+   "id": "building_garage",
+   "kind": "Building",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "04b16214-696a-4ef6-9cda-41b979f5cb00",
+   "model3d": "c5a410f5-541e-47e2-86f6-fd58daa8d6d3",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183953_c5a410f5-541e-47e2-86f6-fd58daa8d6d3.glb"
+  },
+  {
+   "index": 37,
+   "id": "building_church",
+   "kind": "Building",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "7b7b3f79-bc90-4efb-b6b9-a4dca3f59ab6",
+   "model3d": "b01b7af9-9c0e-4eb2-a673-71b7cf811981",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_183954_b01b7af9-9c0e-4eb2-a673-71b7cf811981.glb"
+  },
+  {
+   "index": 40,
+   "id": "prop_delivery_bike",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "7915b92f-410a-472b-b871-21897b435f78",
+   "model3d": "cd6df155-61c8-4ea3-a3fd-ba727ee7c8ad",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184006_cd6df155-61c8-4ea3-a3fd-ba727ee7c8ad.glb"
+  },
+  {
+   "index": 41,
+   "id": "prop_hydrant",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "ecf736c4-9bba-4737-9983-463de59f150a",
+   "model3d": "62c1d6f6-2492-453a-9cc0-f0f742b2752a",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184007_62c1d6f6-2492-453a-9cc0-f0f742b2752a.glb"
+  },
+  {
+   "index": 42,
+   "id": "prop_street_lamp",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "a6b172a6-3a5e-4bb1-be21-af6f5657254c",
+   "model3d": "c8d93d68-0abc-41a7-b835-39e0b9127372",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184010_c8d93d68-0abc-41a7-b835-39e0b9127372.glb"
+  },
+  {
+   "index": 43,
+   "id": "prop_trash_cans",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "ca0a069a-352b-492e-83ea-51dd5b257bb4",
+   "model3d": "f2049cf8-9db1-4f35-8ada-e3be46db0592",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184011_f2049cf8-9db1-4f35-8ada-e3be46db0592.glb"
+  },
+  {
+   "index": 44,
+   "id": "prop_newspaper_box",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "51a71e55-4ee5-4d2e-be8d-2cf931983eb6",
+   "model3d": "3bd57d6e-4345-48ba-85d5-bf60f830c1fc",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184013_3bd57d6e-4345-48ba-85d5-bf60f830c1fc.glb"
+  },
+  {
+   "index": 45,
+   "id": "prop_food_cart",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "5de97b0e-c004-4f9c-aad6-a14bc7e75a7d",
+   "model3d": "4a19864e-5325-407d-b535-5cff427472b3",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184018_4a19864e-5325-407d-b535-5cff427472b3.glb"
+  },
+  {
+   "index": 46,
+   "id": "prop_taxi",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "ec1d796f-2538-49f2-bea7-99ecd0ade674",
+   "model3d": "91db279a-b021-4556-b693-61639e9250fa",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184020_91db279a-b021-4556-b693-61639e9250fa.glb"
+  },
+  {
+   "index": 47,
+   "id": "prop_stoop",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "25ad6ccf-236a-4969-8924-c7c4ac79fe6e",
+   "model3d": "aa2e70b4-fb33-4fd8-9f60-fb59b679b0cf",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184033_aa2e70b4-fb33-4fd8-9f60-fb59b679b0cf.glb"
+  },
+  {
+   "index": 48,
+   "id": "prop_bed",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "9b569724-532b-4487-816f-70b4793dedc6",
+   "model3d": "a3dc9249-c25f-4978-a7df-62ba942c4edb",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184034_a3dc9249-c25f-4978-a7df-62ba942c4edb.glb"
+  },
+  {
+   "index": 49,
+   "id": "prop_desk",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "faa70936-9a42-406a-8c94-f1af30d0cbcc",
+   "model3d": "30b4eb39-2e98-4531-9183-cc0171673388",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184036_30b4eb39-2e98-4531-9183-cc0171673388.glb"
+  },
+  {
+   "index": 50,
+   "id": "prop_kitchenette",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "7363918c-255a-4054-a29d-5261bc2fbfc3",
+   "model3d": "f331c5b7-9fa1-4987-aec4-ba4e372da2cd",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184038_f331c5b7-9fa1-4987-aec4-ba4e372da2cd.glb"
+  },
+  {
+   "index": 51,
+   "id": "prop_sofa",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "a9ff465b-a5c3-442c-b16e-65d5a50e936e",
+   "model3d": "e68d1069-5abe-46f7-a7cc-e015b14a951a",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184039_e68d1069-5abe-46f7-a7cc-e015b14a951a.glb"
+  },
+  {
+   "index": 52,
+   "id": "prop_window_ac",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "e5ae8901-530e-467a-bad2-f0165f60ecab",
+   "model3d": "a16d1f5b-154a-4c5e-8dfb-81e326118508",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184040_a16d1f5b-154a-4c5e-8dfb-81e326118508.glb"
+  },
+  {
+   "index": 53,
+   "id": "prop_shoe_rack",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "fde43439-916f-4baa-a885-97ef67012317",
+   "model3d": "b617d45b-bac9-4d29-b6dc-47e196288db7",
+   "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_184043_b617d45b-bac9-4d29-b6dc-47e196288db7.glb"
+  },
+  {
+   "index": 54,
+   "id": "prop_phone",
+   "kind": "Prop",
+   "model": "tripo_h3_1_image_to_3d",
+   "concept": "7ec60aef-3e61-482d-92ce-ecb3b84e4331",
+   "model3d": null,
+   "note": "dropped from 3D: re-generated concept sits on a pedestal; the phone is a UI element"
+  }
+ ]
+}
