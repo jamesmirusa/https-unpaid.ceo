@@ -30,4 +30,13 @@
 ## Pilot (decides the model for the batch)
 One building (bodega walk-up) through Tripo H3.1, Tripo P2 and Meshy 7; concepts from Nano Banana Pro and GPT Image 2.6. Compare in Unity under `UnpaidCeo/Stylized`: silhouette, texture fidelity, triangle count after LOD, import errors. Result and the chosen model are recorded here.
 
-_Pilot result: pending owner approval of the estimate._
+## Pilot result (2026-11-08, 84.5 credits)
+Concept: Nano Banana Pro chosen over GPT Image 2.6 — chunkier, closer to the toy-diorama look, no baked-in sidewalk or props (better for image-to-3D). Same concept fed to all three 3D models; all imported cleanly and passed the budget (`tools/art/pilot/report.md`, previews in `tools/art/pilot/*.jpg`).
+
+| Model | Credits | LOD0 tris | Result |
+|---|---|---|---|
+| **Tripo P2** | 34 | 4 351 | closest to the concept: awning, storefront, fire escape, tank, rich colour; smallest file — **key buildings** |
+| Tripo H3.1 | 9 | 5 430 | good silhouette and fire escape, weaker awning/storefront, washed-out colour — **background buildings and props** |
+| Meshy 7 | 38 | 5 547 | lost storefront detail, 10.6 MB file — **characters only** (it rigs and animates) |
+
+Decision: key buildings → Tripo P2; background buildings and props → Tripo H3.1; characters → Meshy 7 (quad, A-pose, rig, animations). Concepts → Nano Banana Pro. The Tripo P2 bodega is kept as `Art/Imported/Buildings/building_bodega.glb`.

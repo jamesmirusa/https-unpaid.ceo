@@ -2,43 +2,120 @@
   "promptTemplate": "stylized 3D game asset, {subject}, chunky toy-like proportions, tilt-shift diorama style, warm daylight, clean PBR materials, isometric 3/4 view, plain light-grey background, no text, no logos",
   "creditsPerStep": {
     "concept_nano_banana_pro": 2,
-    "tripo_h3_1": 12,
-    "tripo_p2": 37,
+    "tripo_h3_1": 9,
+    "tripo_p2": 34,
     "meshy_7_rig_anim_pbr": 47.5
   },
   "pilot": [
-    { "id": "pilot_bodega", "kind": "Building", "subject": "Bronx corner bodega in a 4-storey brick walk-up with a green awning and fire escape",
-      "steps": ["concept_nano_banana_pro", "concept_gpt_image_2_6", "tripo_h3_1", "tripo_p2", "meshy_7"], "estimate": 101.5, "status": "awaiting approval" }
+    {
+      "id": "pilot_bodega",
+      "kind": "Building",
+      "subject": "Bronx corner bodega in a 4-storey brick walk-up with a green awning and fire escape",
+      "steps": [
+        "concept_nano_banana_pro",
+        "concept_gpt_image_2_6",
+        "tripo_h3_1",
+        "tripo_p2",
+        "meshy_7"
+      ],
+      "estimate": 84.5,
+      "status": "done 2026-11-08: 84.5 credits; Tripo P2 kept as building_bodega"
+    }
   ],
   "batch": {
     "characters": [
-      { "id": "npc_mentor_raccoon", "subject": "raccoon mentor in a thrifted tweed blazer, confident smile, A-pose" },
-      { "id": "npc_tony_bulldog", "subject": "bulldog bodega owner in a stained apron, A-pose" },
-      { "id": "npc_mr_fins_shark", "subject": "shark loan shark in a pinstripe suit, too many teeth, A-pose" },
-      { "id": "npc_jay_otter", "subject": "otter best friend in streetwear and a cap, A-pose" },
-      { "id": "npc_whiskerton_cat", "subject": "very large cat landlord in a huge fur coat and top hat, A-pose" },
-      { "id": "hero_raccoon_hoodie", "subject": "young raccoon hustler in a hoodie and sneakers, A-pose" },
-      { "id": "hero_raccoon_blazer", "subject": "young raccoon in a thrift-store blazer over a t-shirt, A-pose" },
-      { "id": "hero_fox_hoodie", "subject": "young fox hustler in a hoodie and sneakers, A-pose" },
-      { "id": "hero_fox_blazer", "subject": "young fox in a thrift-store blazer over a t-shirt, A-pose" },
-      { "id": "hero_cat_hoodie", "subject": "young cat hustler in a hoodie and sneakers, A-pose" },
-      { "id": "hero_cat_blazer", "subject": "young cat in a thrift-store blazer over a t-shirt, A-pose" }
+      {
+        "id": "npc_mentor_raccoon",
+        "subject": "raccoon mentor in a thrifted tweed blazer, confident smile, A-pose"
+      },
+      {
+        "id": "npc_tony_bulldog",
+        "subject": "bulldog bodega owner in a stained apron, A-pose"
+      },
+      {
+        "id": "npc_mr_fins_shark",
+        "subject": "shark loan shark in a pinstripe suit, too many teeth, A-pose"
+      },
+      {
+        "id": "npc_jay_otter",
+        "subject": "otter best friend in streetwear and a cap, A-pose"
+      },
+      {
+        "id": "npc_whiskerton_cat",
+        "subject": "very large cat landlord in a huge fur coat and top hat, A-pose"
+      },
+      {
+        "id": "hero_raccoon_hoodie",
+        "subject": "young raccoon hustler in a hoodie and sneakers, A-pose"
+      },
+      {
+        "id": "hero_raccoon_blazer",
+        "subject": "young raccoon in a thrift-store blazer over a t-shirt, A-pose"
+      },
+      {
+        "id": "hero_fox_hoodie",
+        "subject": "young fox hustler in a hoodie and sneakers, A-pose"
+      },
+      {
+        "id": "hero_fox_blazer",
+        "subject": "young fox in a thrift-store blazer over a t-shirt, A-pose"
+      },
+      {
+        "id": "hero_cat_hoodie",
+        "subject": "young cat hustler in a hoodie and sneakers, A-pose"
+      },
+      {
+        "id": "hero_cat_blazer",
+        "subject": "young cat in a thrift-store blazer over a t-shirt, A-pose"
+      }
     ],
     "buildings": [
-      "bodega walk-up", "brick walk-up 5 storeys with water tank", "laundromat", "pawn shop", "elevated subway segment with stairs",
-      "corner pizza place", "check-cashing store", "community garden lot", "basketball court with fence", "bus shelter",
-      "auto repair garage", "church with small steeple"
+      "elevated subway segment with stairs",
+      "corner pizza place",
+      "check-cashing store",
+      "community garden lot",
+      "basketball court with fence",
+      "bus shelter",
+      "auto repair garage",
+      "church with small steeple"
     ],
     "props": [
-      "delivery bike", "fire hydrant", "street lamp", "trash cans", "newspaper box", "food cart", "yellow taxi", "stoop with railings",
-      "bed", "desk with laptop", "kitchenette", "sofa", "window AC unit", "shoe rack", "phone"
+      "delivery bike",
+      "fire hydrant",
+      "street lamp",
+      "trash cans",
+      "newspaper box",
+      "food cart",
+      "yellow taxi",
+      "stoop with railings",
+      "bed",
+      "desk with laptop",
+      "kitchenette",
+      "sofa",
+      "window AC unit",
+      "shoe rack",
+      "phone"
     ],
     "estimate": {
       "characters": "11 × (2 + 47.5) = 544.5",
-      "buildings": "12 × (2 + model chosen by pilot; 12 with Tripo H3.1) = 168",
-      "props": "15 × (2 + 12) = 210",
-      "total": "≈ 920 with Tripo H3.1 for buildings and props; reduce by reusing one rig per species (outfits as retextures) if the owner prefers ≈ 600",
-      "status": "not started — needs the pilot result and owner approval"
-    }
+      "keyBuildings": "3 × (2 + 34) = 108",
+      "backgroundBuildings": "8 × (2 + 9) = 88",
+      "props": "15 × (2 + 9) = 165",
+      "full": "905.5",
+      "economy": "757 — one outfit per hero species now (3 hero meshes instead of 6), second outfits later",
+      "status": "awaiting owner approval"
+    },
+    "models": {
+      "keyBuildings": "tripo_p2",
+      "backgroundBuildings": "tripo_h3_1",
+      "props": "tripo_h3_1",
+      "characters": "meshy_7 (quad, A-pose, rig, idle)"
+    },
+    "keyBuildings": [
+      "bodega walk-up (done)",
+      "brick walk-up 5 storeys with water tank",
+      "laundromat",
+      "pawn shop"
+    ]
   }
 }
