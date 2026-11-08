@@ -46,6 +46,16 @@ namespace UnpaidCeo.Core.Content
             foreach (var a in db.FreeActionList.Where(a => a.ActionPoints < 0))
                 r.Errors.Add($"freeAction {a.Id}: negative actionPoints");
 
+            foreach (var g in db.Storylets.GroupBy(x => x.Id).Where(g => g.Count() > 1))
+                r.Errors.Add($"storylet {g.Key}: duplicate id");
+            foreach (var st in db.Storylets)
+            {
+                if (string.IsNullOrEmpty(st.Id)) r.Errors.Add("storylet: missing id");
+                if (string.IsNullOrEmpty(st.YarnNode)) r.Errors.Add($"storylet {st.Id}: missing yarnNode");
+                if (st.Weight <= 0) r.Errors.Add($"storylet {st.Id}: weight must be > 0");
+                if (st.Choices == null || st.Choices.Count == 0) r.Errors.Add($"storylet {st.Id}: needs at least one choice");
+            }
+
             return r;
         }
     }

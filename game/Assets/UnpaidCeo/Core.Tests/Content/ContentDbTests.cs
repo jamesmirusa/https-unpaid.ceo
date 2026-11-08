@@ -2,6 +2,7 @@ using System.IO;
 using NUnit.Framework;
 using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Economy;
+using UnpaidCeo.Core.Narrative;
 
 namespace UnpaidCeo.Core.Tests.Content
 {
@@ -58,13 +59,23 @@ namespace UnpaidCeo.Core.Tests.Content
         }
 
         [Test]
-        public void Free_actions_load_with_raw_effects()
+        public void Free_actions_load_with_typed_effects()
         {
             var db = Load(freeActions: @"{ ""freeActions"": [ { ""id"": ""rest"", ""actionPoints"": 1, ""cost"": 0,
                 ""effects"": [ { ""stat"": ""energy"", ""delta"": 15 } ], ""journalKey"": ""journal.rest"" } ] }");
             Assert.AreEqual(1, db.FreeActions.Count);
             Assert.AreEqual(1, db.FreeActions["rest"].ActionPoints);
-            Assert.AreEqual(15, (int)db.FreeActions["rest"].Effects[0]["delta"]);
+            var effect = (StatEffect)db.FreeActions["rest"].Effects[0];
+            Assert.AreEqual("energy", effect.Stat);
+            Assert.AreEqual(15, effect.Delta);
+        }
+
+        [Test]
+        public void Storylet_validation_reports_missing_choices()
+        {
+            var db = ContentDb.FromJson(new ContentFiles { Industries = IndustriesJson, Balance = BalanceJson,
+                Storylets = @"{ ""storylets"": [ { ""id"": ""empty"", ""yarnNode"": ""empty"", ""choices"": {} } ] }" });
+            StringAssert.Contains("empty", string.Join("\n", db.Validate().Errors));
         }
 
         [Test]
@@ -77,6 +88,7 @@ namespace UnpaidCeo.Core.Tests.Content
                 Industries = Read("industries.json"),
                 Balance = Read("balance.json"),
                 FreeActions = Read("free_actions.json"),
+                Storylets = Read("storylets_ch1.json"),
             });
             var result = db.Validate();
             Assert.IsTrue(result.IsValid, string.Join("\n", result.Errors));
