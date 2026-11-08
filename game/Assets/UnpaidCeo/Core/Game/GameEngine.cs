@@ -177,7 +177,31 @@ namespace UnpaidCeo.Core.Game
             return (payments, interest);
         }
 
-        public ChapterStatus Chapter(GameState s) => new ChapterStatus(s.Chapter, Chapters.Chapter1GoalMet(s, _c.Balance));
+        public ChapterStatus Chapter(GameState s) => new ChapterStatus(s.Chapter, Chapters.GoalMet(s, _c), Chapters.Progress(s, _c));
+
+        /// <summary>Picks the chapter-2 business (once): it starts with no units, at its reference price.</summary>
+        public bool ChooseIndustry(GameState s, string industryId)
+        {
+            if (s.Chapter < 2 || industryId == null || !_c.Balance.Chapter2Industries.Contains(industryId)
+                || !_c.Industries.TryGetValue(industryId, out var def) || def.Kind != IndustryKind.Business) return false;
+            if (s.Businesses.Any(b => _c.Industries.TryGetValue(b.IndustryId, out var d) && d.Kind == IndustryKind.Business)) return false;
+            s.Businesses.Add(new BusinessState { Id = industryId, IndustryId = industryId, Units = 0, Price = def.Price });
+            SetOnce(s, "industry_chosen");
+            AddJournal(s, "decision", "journal.choose_industry", ("industry", industryId));
+            Log(s, DecisionLogEntry.ChooseIndustry, new JObject { ["industry"] = industryId });
+            return true;
+        }
+
+        /// <summary>Moves to the next chapter (and district) once the current goal is met. Chapter 3 is the last one in this stage.</summary>
+        public bool AdvanceChapter(GameState s)
+        {
+            if (s.Chapter >= Chapters.LastChapter || !Chapters.GoalMet(s, _c)) return false;
+            s.Chapter++;
+            SetOnce(s, $"chapter{s.Chapter}_start");
+            AddJournal(s, "decision", $"journal.chapter{s.Chapter}_start", ("district", s.District));
+            Log(s, DecisionLogEntry.AdvanceChapter, null);
+            return true;
+        }
 
         public MonthReport EndMonth(GameState s, MonthDecisions d)
         {
@@ -228,6 +252,8 @@ namespace UnpaidCeo.Core.Game
                 double events = 1.0;
                 foreach (var m in s.Modifiers) if (m.AppliesTo(def)) events *= m.Factor;
                 var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, events, share, district, b.PayrollOverhead));
+                if (def.Kind == IndustryKind.Business && bs.Units >= 1 && (r.Revenue - r.Cogs - r.Fixed - r.Marketing).Cents >= 0)
+                    SetOnce(s, "break_even");
                 revenue += r.Revenue; cogs += r.Cogs; fixedCosts += r.Fixed; marketing += r.Marketing; collected += r.CashCollected;
             }
 
@@ -251,7 +277,7 @@ namespace UnpaidCeo.Core.Game
             report.NetProfit = report.OperatingProfit - report.Interest - report.TaxReserve;
 
             s.LifetimeEarnings += revenue;
-            report.PersonalCosts = s.LifetimeEarnings >= b.BillsStartAfter ? b.PersonalCosts.Total : Money.Zero;
+            report.PersonalCosts = s.LifetimeEarnings >= b.BillsStartAfter ? b.PersonalCostsFor(s.Chapter).Total : Money.Zero;
 
             s.Cash += collected - cogs - fixedCosts - marketing - mistakeLoss - report.TaxReserve - report.PersonalCosts - report.LoanPayments;
             report.CashEnd = s.Cash;
@@ -298,6 +324,10 @@ namespace UnpaidCeo.Core.Game
                         var l = JObject.Parse(entry.Payload);
                         e.TakeLoan(s, Money.FromCents((long)l["principal"]), (int)l["months"]);
                         break;
+                    case DecisionLogEntry.ChooseIndustry:
+                        e.ChooseIndustry(s, (string)JObject.Parse(entry.Payload)["industry"]);
+                        break;
+                    case DecisionLogEntry.AdvanceChapter: e.AdvanceChapter(s); break;
                     case DecisionLogEntry.QuizAnswer:
                         var q = JObject.Parse(entry.Payload);
                         e.AnswerQuiz(s, (string)q["lesson"], (int)q["question"], (int)q["option"]);
@@ -422,6 +452,16 @@ namespace UnpaidCeo.Core.Game
             {
                 s.Facts.Set("chapter1_done", s.Month);
                 AddJournal(s, "consequence", "journal.chapter1_done");
+            }
+            if (s.Chapter == 2 && !s.Facts.Has("chapter2_done") && Chapters.Chapter2GoalMet(s, _c))
+            {
+                s.Facts.Set("chapter2_done", s.Month);
+                AddJournal(s, "consequence", "journal.chapter2_done");
+            }
+            if (s.Chapter == 3 && !s.Facts.Has("chapter3_done") && Chapters.Chapter3GoalMet(s, _c))
+            {
+                s.Facts.Set("chapter3_done", s.Month);
+                AddJournal(s, "consequence", "journal.chapter3_done");
             }
         }
 

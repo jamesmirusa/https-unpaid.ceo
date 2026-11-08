@@ -39,7 +39,21 @@ namespace UnpaidCeo.Core.Content
     {
         public double TaxRate { get; set; }
         public Money BillsStartAfter { get; set; }
+        /// <summary>Chapter-1 living costs (a shared room in the Bronx).</summary>
         public PersonalCosts PersonalCosts { get; set; } = new PersonalCosts();
+        /// <summary>Living costs from a chapter on (housing follows the district): chapter → costs.</summary>
+        public Dictionary<int, PersonalCosts> PersonalCostsByChapter { get; set; } = new Dictionary<int, PersonalCosts>();
+
+        /// <summary>The costs of the latest listed chapter not after this one; chapter 1 (or none listed) uses PersonalCosts.</summary>
+        public PersonalCosts PersonalCostsFor(int chapter)
+        {
+            var best = PersonalCosts;
+            int bestChapter = 1;
+            if (PersonalCostsByChapter != null)
+                foreach (var kv in PersonalCostsByChapter)
+                    if (kv.Key > bestChapter && kv.Key <= chapter && kv.Value != null) { best = kv.Value; bestChapter = kv.Key; }
+            return best;
+        }
         public Money Chapter1CashGoal { get; set; }
         public Money DebtBankruptLine { get; set; }
         public int[] EventsPerMonthWeights { get; set; } = { 1, 2, 1 };

@@ -34,7 +34,10 @@ namespace UnpaidCeo.Core.Tests.Game
   ""loans"": { ""baseApr"": 0.12, ""aprPerMissingReputation"": 0.001, ""lowHonestyAprAdd"": 0.03, ""lowHonestyBelow"": 40,
                ""maxBase"": 1000000, ""maxPerReputation"": 50000, ""termsMonths"": [12, 24, 36] },
   ""dailyManualMonths"": 6,
-  ""sources"": []");
+" + (noPersonalCosts ? "" : @"  ""personalCostsByChapter"": {
+    ""2"": { ""room"": 150000, ""food"": 33000, ""transit"": 16500, ""essentials"": 5500 },
+    ""3"": { ""room"": 200000, ""food"": 36300, ""transit"": 18150, ""essentials"": 6050 } },
+") + @"  ""sources"": []");
 
         public static ContentDb Db(string lessons = null, string storylets = null, bool noPersonalCosts = false) => ContentDb.FromJson(new ContentFiles
         {

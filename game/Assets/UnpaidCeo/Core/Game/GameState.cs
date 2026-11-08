@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnpaidCeo.Core.Economy;
 using UnpaidCeo.Core.Life;
 using UnpaidCeo.Core.Narrative;
@@ -25,13 +26,16 @@ namespace UnpaidCeo.Core.Game
     /// <summary>Everything that defines a running game. Serialized whole for saves and hashed for replay checks.</summary>
     public sealed class GameState
     {
-        public const int CurrentVersion = 1;
+        /// <summary>2: chapters 2–3 (loans, demand modifiers, staff).</summary>
+        public const int CurrentVersion = 2;
 
         public int Version { get; set; } = CurrentVersion;
         public ulong Seed { get; set; }
         /// <summary>The month currently being played, starting at 1.</summary>
         public int Month { get; set; }
         public int Chapter { get; set; } = 1;
+        /// <summary>Where the chapter is played: bronx, brooklyn or queens. Derived, not saved.</summary>
+        [JsonIgnore] public string District => Chapters.District(Chapter);
         public Money Cash { get; set; }
         public Money Reserve { get; set; }
         public Money LifetimeEarnings { get; set; }

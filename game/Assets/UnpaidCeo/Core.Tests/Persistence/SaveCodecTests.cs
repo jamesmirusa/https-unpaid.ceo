@@ -45,6 +45,24 @@ namespace UnpaidCeo.Core.Tests.Persistence
         }
 
         [Test]
+        public void Version1_save_loads_as_version2()
+        {
+            var j = JObject.Parse(SaveCodec.Encode(Played()));
+            j["Version"] = 1;
+            j.Remove("Loans");
+            j.Remove("Modifiers");
+            foreach (var b in (JArray)j["Businesses"]) ((JObject)b).Remove("Employees");
+            var r = SaveCodec.Decode(j.ToString());
+            Assert.AreEqual(LoadStatus.Migrated, r.Status);
+            Assert.AreEqual(2, GameState.CurrentVersion);
+            Assert.AreEqual(GameState.CurrentVersion, r.State.Version);
+            Assert.IsNotNull(r.State.Loans);
+            Assert.IsEmpty(r.State.Loans);
+            Assert.IsNotNull(r.State.Modifiers);
+            Assert.IsTrue(r.State.Businesses.All(b => b.Employees == 0));
+        }
+
+        [Test]
         public void Future_version_is_not_loaded()
         {
             var j = JObject.Parse(SaveCodec.Encode(Played()));

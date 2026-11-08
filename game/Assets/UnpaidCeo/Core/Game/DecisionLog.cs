@@ -9,6 +9,8 @@ namespace UnpaidCeo.Core.Game
         public const string EndMonth = "endMonth";
         public const string QuizAnswer = "quizAnswer";
         public const string TakeLoan = "takeLoan";
+        public const string ChooseIndustry = "chooseIndustry";
+        public const string AdvanceChapter = "advanceChapter";
 
         public int Month { get; set; }
         public string Kind { get; set; }

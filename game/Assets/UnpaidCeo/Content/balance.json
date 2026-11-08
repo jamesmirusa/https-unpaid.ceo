@@ -7,6 +7,10 @@
     "transit": 15200,
     "essentials": 15000
   },
+  "personalCostsByChapter": {
+    "2": { "room": 190000, "food": 34320, "transit": 16720, "essentials": 16500 },
+    "3": { "room": 230000, "food": 37752, "transit": 18392, "essentials": 18150 }
+  },
   "chapter1CashGoal": 100000,
   "debtBankruptLine": -50000,
   "eventsPerMonthWeights": [
@@ -35,6 +39,24 @@
     "burnoutErrorChance": 0.25
   },
   "sources": [
+    {
+      "field": "personalCostsByChapter.2.room",
+      "url": "https://www.apartmentlist.com/renter-life/average-rent-in-brooklyn",
+      "checkedOn": "2026-11-08",
+      "note": "Most affordable Brooklyn neighborhoods by average 1-bedroom rent: Crown Heights $1,973, Bedford-Stuyvesant $2,182, Flatbush $2,220. Chose $1,900 for a studio in one of them."
+    },
+    {
+      "field": "personalCostsByChapter.3.room",
+      "url": "https://apartments.com/rent-market-trends/jamaica-ny",
+      "checkedOn": "2026-11-08",
+      "note": "Jamaica, Queens averages (Dec 2025): studio $1,752, one-bedroom $2,208. Chose $2,300 for a one-bedroom apartment."
+    },
+    {
+      "field": "personalCostsByChapter.food|transit|essentials",
+      "url": "",
+      "checkedOn": "2026-11-08",
+      "note": "Design rule (spec 3a): food, transit and essentials grow 10% a chapter, compounded from the chapter-1 values and rounded to the cent."
+    },
     {
       "field": "personalCosts.room",
       "url": "https://trulia.com/for_rent/10466_zip/SINGLE-FAMILY_HOME_type/",

@@ -41,6 +41,8 @@ namespace UnpaidCeo.Core.Game
     {
         public readonly int Chapter;
         public readonly bool GoalMet;
-        public ChapterStatus(int chapter, bool goalMet) { Chapter = chapter; GoalMet = goalMet; }
+        /// <summary>0..1 toward the chapter goal, for the HUD bar.</summary>
+        public readonly double Progress;
+        public ChapterStatus(int chapter, bool goalMet, double progress) { Chapter = chapter; GoalMet = goalMet; Progress = progress; }
     }
 }
