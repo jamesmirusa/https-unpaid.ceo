@@ -47,6 +47,10 @@ namespace UnpaidCeo.Core.Game
         public List<string> PendingStorylets { get; set; } = new List<string>();
         public List<string> PendingLessons { get; set; } = new List<string>();
         public Dictionary<string, int> LessonsSeen { get; set; } = new Dictionary<string, int>();
+        /// <summary>Founder skill XP: sales, operations, finance, marketing, leadership.</summary>
+        public Dictionary<string, int> Skills { get; set; } = new Dictionary<string, int>();
+        /// <summary>First answer given to each quiz question: "lessonId/questionIndex" → option index.</summary>
+        public Dictionary<string, int> QuizAnswers { get; set; } = new Dictionary<string, int>();
         public PcgState Rng { get; set; }
         public List<JournalEntry> Journal { get; set; } = new List<JournalEntry>();
         public List<DecisionLogEntry> Log { get; set; } = new List<DecisionLogEntry>();

@@ -31,7 +31,7 @@ namespace UnpaidCeo.Core.Persistence
         {
             nameof(GameState.Journal), nameof(GameState.Log), nameof(GameState.StoryletsSeen),
             nameof(GameState.PendingStorylets), nameof(GameState.PendingLessons), nameof(GameState.LessonsSeen),
-            nameof(GameState.LastDecisions),
+            nameof(GameState.LastDecisions), nameof(GameState.Skills), nameof(GameState.QuizAnswers),
         };
 
         public static string Encode(GameState s) => JsonConvert.SerializeObject(s, Formatting.None, Settings);
@@ -72,6 +72,8 @@ namespace UnpaidCeo.Core.Persistence
             s.PendingStorylets = s.PendingStorylets ?? new System.Collections.Generic.List<string>();
             s.PendingLessons = s.PendingLessons ?? new System.Collections.Generic.List<string>();
             s.LessonsSeen = s.LessonsSeen ?? new System.Collections.Generic.Dictionary<string, int>();
+            s.Skills = s.Skills ?? new System.Collections.Generic.Dictionary<string, int>();
+            s.QuizAnswers = s.QuizAnswers ?? new System.Collections.Generic.Dictionary<string, int>();
             s.Businesses = s.Businesses ?? new System.Collections.Generic.List<Economy.BusinessState>();
             s.Facts = s.Facts ?? new Narrative.FactStore();
             s.Npcs = s.Npcs ?? new Narrative.NpcRelations();

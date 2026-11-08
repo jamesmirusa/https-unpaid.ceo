@@ -41,13 +41,14 @@ namespace UnpaidCeo.Core.Tests.Game
   { ""id"": ""save"", ""actionPoints"": 0, ""cost"": 0, ""effects"": [ { ""reserve"": 50000 } ], ""journalKey"": ""journal.save"" }
 ] }";
 
-        public static ContentDb Db(double capacityPerWorkPoint = 1.0, double errorChance = 0.0, string weights = "[0, 1, 0]") =>
+        public static ContentDb Db(double capacityPerWorkPoint = 1.0, double errorChance = 0.0, string weights = "[0, 1, 0]", string lessons = null) =>
             ContentDb.FromJson(new ContentFiles
             {
                 Industries = Industries(capacityPerWorkPoint),
                 Balance = Balance(errorChance, weights),
                 Storylets = Storylets,
                 FreeActions = FreeActions,
+                Lessons = lessons,
             });
 
         public static MonthDecisions Decisions(int work, int family, int rest, int study, params string[] freeActions)

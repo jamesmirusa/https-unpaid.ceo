@@ -72,5 +72,17 @@ namespace UnpaidCeo.Core.Tests.Persistence
             Assert.IsNotNull(r.State.Journal);
             Assert.AreEqual(0, r.State.Journal.Count);
         }
+
+        [Test]
+        public void Save_from_before_skills_migrates_with_empty_skills()
+        {
+            var j = JObject.Parse(SaveCodec.Encode(Played()));
+            j.Remove("Skills");
+            j.Remove("QuizAnswers");
+            var r = SaveCodec.Decode(j.ToString());
+            Assert.AreEqual(LoadStatus.Migrated, r.Status);
+            Assert.IsNotNull(r.State.Skills);
+            Assert.IsNotNull(r.State.QuizAnswers);
+        }
     }
 }

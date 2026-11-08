@@ -3,7 +3,9 @@
     "rootNamespace": "UnpaidCeo.Game",
     "references": [
         "UnpaidCeo.Core",
-        "YarnSpinner.Unity"
+        "YarnSpinner.Unity",
+        "Unity.Localization",
+        "Unity.ResourceManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

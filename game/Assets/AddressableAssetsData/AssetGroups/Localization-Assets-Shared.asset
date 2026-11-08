@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Localization-Assets-Shared
+  m_GUID: 7da2ba6c53ae2433bb6d28d0438b406b
+  m_SerializeEntries:
+  - m_GUID: 7f396f1f5ce534da68445c68f9fa4252
+    m_Address: Assets/UnpaidCeo/Localization/Academy/Academy Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: af0bedfd9ca3d4b4a9a555cf73b1e4ce, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f18be30c7a8af41438b5c67950f4c0d2, type: 2}
+    - {fileID: 11400000, guid: 036d1e40f21f047459034e513d276c75, type: 2}
+    - {fileID: 11400000, guid: 1cdfb03decda046ba9cfa54057f36dd8, type: 2}
+    m_SchemaDisplayOrder:
+    - Localization-Assets-Shared_BundledAssetGroupSchema
+    - Localization-Assets-Shared_ContentUpdateGroupSchema
+    - Localization-Assets-Shared_LocalizationGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1

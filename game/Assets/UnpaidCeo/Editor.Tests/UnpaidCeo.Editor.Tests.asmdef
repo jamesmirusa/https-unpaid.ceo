@@ -8,7 +8,9 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "YarnSpinner.Unity",
-        "YarnSpinner.Unity.Editor"
+        "YarnSpinner.Unity.Editor",
+        "Unity.Localization",
+        "Unity.Localization.Editor"
     ],
     "includePlatforms": [
         "Editor"

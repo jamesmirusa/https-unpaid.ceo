@@ -89,6 +89,36 @@ namespace UnpaidCeo.Core.Game
             Log(s, DecisionLogEntry.StoryletChoice, new JObject { ["storylet"] = storyletId, ["choice"] = choiceId });
         }
 
+        /// <summary>
+        /// Checks a quiz answer for an unlocked lesson. Only the first answer to each question counts:
+        /// it is recorded and logged, and earns the lesson's skill XP if correct. Later answers are checked but change nothing.
+        /// </summary>
+        public bool AnswerQuiz(GameState s, string lessonId, int question, int option)
+        {
+            if (lessonId == null || !_c.Lessons.TryGetValue(lessonId, out var lesson))
+                throw new ArgumentException($"unknown lesson '{lessonId}'", nameof(lessonId));
+            if (!s.LessonsSeen.ContainsKey(lessonId))
+                throw new ArgumentException($"lesson '{lessonId}' is not unlocked", nameof(lessonId));
+            if (question < 0 || question >= lesson.Quiz.Count)
+                throw new ArgumentException($"lesson '{lessonId}' has no question {question}", nameof(question));
+            var q = lesson.Quiz[question];
+            if (option < 0 || option >= q.OptionKeys.Count)
+                throw new ArgumentException($"question {question} of '{lessonId}' has no option {option}", nameof(option));
+
+            bool correct = option == q.CorrectIndex;
+            string key = lessonId + "/" + question;
+            if (s.QuizAnswers.ContainsKey(key)) return correct;
+
+            s.QuizAnswers[key] = option;
+            if (correct)
+            {
+                var skill = lesson.SkillReward.Skill;
+                s.Skills[skill] = (s.Skills.TryGetValue(skill, out var xp) ? xp : 0) + lesson.SkillReward.Xp;
+            }
+            Log(s, DecisionLogEntry.QuizAnswer, new JObject { ["lesson"] = lessonId, ["question"] = question, ["option"] = option });
+            return correct;
+        }
+
         public ChapterStatus Chapter(GameState s) => new ChapterStatus(s.Chapter, Chapters.Chapter1GoalMet(s, _c.Balance));
 
         public MonthReport EndMonth(GameState s, MonthDecisions d)
@@ -156,8 +186,15 @@ namespace UnpaidCeo.Core.Game
             report.CashEnd = s.Cash;
 
             UpdateConsequenceFacts(s, report, b);
+            QueueTriggeredLessons(s);
 
-            report.Lessons.AddRange(s.PendingLessons);
+            // Each lesson reaches the player once, whether a fact or a storylet effect queued it.
+            foreach (var id in s.PendingLessons)
+            {
+                if (s.LessonsSeen.ContainsKey(id)) continue;
+                s.LessonsSeen[id] = s.Month;
+                report.Lessons.Add(id);
+            }
             s.PendingLessons.Clear();
             s.PendingStorylets.Clear();
             s.LastDecisions = d;
@@ -184,6 +221,10 @@ namespace UnpaidCeo.Core.Game
                     case DecisionLogEntry.EndMonth:
                         e.EndMonth(s, JsonConvert.DeserializeObject<MonthDecisions>(entry.Payload));
                         break;
+                    case DecisionLogEntry.QuizAnswer:
+                        var q = JObject.Parse(entry.Payload);
+                        e.AnswerQuiz(s, (string)q["lesson"], (int)q["question"], (int)q["option"]);
+                        break;
                     default: throw new FormatException($"unknown log entry kind '{entry.Kind}'");
                 }
             }
@@ -201,8 +242,27 @@ namespace UnpaidCeo.Core.Game
             }
         }
 
+        void QueueTriggeredLessons(GameState s)
+        {
+            foreach (var l in _c.LessonsInOrder)
+                if (s.Facts.Has(l.TriggerFact) && !s.LessonsSeen.ContainsKey(l.Id) && !s.PendingLessons.Contains(l.Id))
+                    s.PendingLessons.Add(l.Id);
+        }
+
         void UpdateConsequenceFacts(GameState s, MonthReport r, Balance b)
         {
+            if (r.Revenue.Cents > 0 && !s.Facts.Has("first_income"))
+            {
+                s.Facts.Set("first_income", s.Month);
+                AddJournal(s, "consequence", "journal.first_income");
+            }
+
+            if (r.PersonalCosts.Cents > 0 && !s.Facts.Has("first_bills"))
+            {
+                s.Facts.Set("first_bills", s.Month);
+                AddJournal(s, "consequence", "journal.first_bills");
+            }
+
             if (r.NetProfit.Cents < 0 && !s.Facts.Has("first_loss"))
             {
                 s.Facts.Set("first_loss", s.Month);

@@ -1,0 +1,327 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: Academy_en
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 7f396f1f5ce534da68445c68f9fa4252, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 456122368
+    m_Localized: CEO Academy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705280
+    m_Localized: Money in this game is simulated. This is not financial advice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705281
+    m_Localized: Keep playing to unlock this lesson.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705282
+    m_Localized: Correct!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705283
+    m_Localized: Not quite. Read the lesson again.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705284
+    m_Localized: Quiz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705285
+    m_Localized: Revenue vs. profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705286
+    m_Localized: 'Revenue is every dollar that comes in. Profit is what stays after you pay for everything it took to earn it: supplies, app fees, the bike, your phone, taxes. A courier can bring in $3,000 a month and keep far less once all of that is paid. Big companies live by the same math: in 2012 Amazon sold $61 billion of goods and still posted a small loss, because it poured almost everything back into growth. Rule of thumb: brag about revenue, plan with profit.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705287
+    m_Localized: You earned $2,000 from gigs and spent $600 on costs. What is your profit before tax?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705288
+    m_Localized: $2,000
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705289
+    m_Localized: $1,400
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705290
+    m_Localized: $2,600
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705291
+    m_Localized: Which number pays your rent?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705292
+    m_Localized: Profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705293
+    m_Localized: Revenue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705294
+    m_Localized: The number of orders
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705295
+    m_Localized: Revenue keeps growing, but the company is losing money. What is most likely true?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705296
+    m_Localized: 'All is fine: revenue is all that matters'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705297
+    m_Localized: It doesn't pay taxes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705298
+    m_Localized: Its costs grow as fast as its sales, or faster
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705299
+    m_Localized: Your reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705300
+    m_Localized: 'The first bills just hit. Rent, food and the subway fare come every month, whether you earned anything or not. A reserve is money you set aside only for the months when income doesn''t show up. Many advisors suggest building three to six months of expenses. Start smaller: even one month of bills is freedom, because it lets you say no to bad deals, like a loan shark''s. In this game the reserve sits apart from your cash, and you need one month of bills in it to finish chapter one.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705301
+    m_Localized: Why keep the reserve apart from your spending money?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705302
+    m_Localized: So it earns more interest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705303
+    m_Localized: So you don't spend it on everyday things
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705304
+    m_Localized: Because the bank requires it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705305
+    m_Localized: Your bills are $1,700 a month. What is a solid first reserve goal?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705306
+    m_Localized: $170
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705307
+    m_Localized: $17,000 before you can start anything
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705308
+    m_Localized: $1,700
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705309
+    m_Localized: When is it right to spend the reserve?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705310
+    m_Localized: When income drops and bills are due
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705311
+    m_Localized: To catch a sale on a new phone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705312
+    m_Localized: Never, under any circumstances
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705313
+    m_Localized: Reading a loss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705314
+    m_Localized: 'A loss means the month cost more than it earned. It is not a verdict, it is data. Open the P&L and ask three questions. Did sales drop, or did costs rise? Which cost grew fastest? Was it a one-time hit, like a repair, or will it repeat every month? Even giants post losses: Uber lost money for years before it reported its first full-year operating profit in 2023. The difference between a loss and a disaster is knowing where it came from.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705315
+    m_Localized: Your month ended with a loss. What should you do first?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705316
+    m_Localized: Find which costs grew faster than sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705317
+    m_Localized: Quit the business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705318
+    m_Localized: Raise every price right away
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705319
+    m_Localized: A $200 bike repair caused this month's loss. What kind of cost is it?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705320
+    m_Localized: A recurring cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705321
+    m_Localized: A one-time cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705322
+    m_Localized: A tax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705323
+    m_Localized: Which statement is true?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705324
+    m_Localized: Profitable companies never have losing months
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705325
+    m_Localized: A loss means revenue was zero
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705326
+    m_Localized: 'A loss is data: it shows what to fix'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705327
+    m_Localized: Cash gap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705328
+    m_Localized: 'A cash gap happens when money has to go out before money comes in. Rent is due on the first, but a client pays in thirty days. On paper you are profitable; in your account you are negative. That is how profitable small businesses still go under: they run out of cash. Three tools close the gap: a reserve, getting paid sooner, and paying suppliers later on agreed terms. Expensive debt, like a loan shark''s, is the worst tool: it closes the gap today and opens a bigger one tomorrow.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705329
+    m_Localized: You're profitable on paper, but your balance is negative. What is this called?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705330
+    m_Localized: Bankruptcy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705331
+    m_Localized: A cash gap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705332
+    m_Localized: Inflation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705333
+    m_Localized: Which move closes a cash gap without new debt?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705334
+    m_Localized: Asking customers to pay sooner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705335
+    m_Localized: A loan from Mr. Fins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705336
+    m_Localized: Buying more stock
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705337
+    m_Localized: Why is a loan shark the worst way to close a gap?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705338
+    m_Localized: It's slow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705339
+    m_Localized: He only lends small amounts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705340
+    m_Localized: The interest makes the next gap bigger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705341
+    m_Localized: Break-even point
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705342
+    m_Localized: 'Break-even is the number of sales at which you stop losing money. The formula: fixed costs divided by what each sale leaves after its own cost. Say a food truck pays $3,000 a month for parking, insurance and its loan. A meal sells for $12 and costs $4 to make, so it leaves $8. $3,000 divided by $8 is 375 meals a month. Meal number 376 is the first that earns a profit. In Brooklyn you''ll have rent and staff, so know your break-even before you sign anything.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705343
+    m_Localized: Fixed costs are $2,000 a month. Each sale leaves $10 after its own cost. What is the break-even?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705344
+    m_Localized: 20 sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705345
+    m_Localized: 200 sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705346
+    m_Localized: 2,000 sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705347
+    m_Localized: What happens after you pass break-even?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705348
+    m_Localized: Each extra sale adds profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705349
+    m_Localized: Costs disappear
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705350
+    m_Localized: Taxes stop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705351
+    m_Localized: "Your supplier raises the cost of each item. Your break-even point\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705352
+    m_Localized: goes down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705353
+    m_Localized: stays the same
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705354
+    m_Localized: goes up
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

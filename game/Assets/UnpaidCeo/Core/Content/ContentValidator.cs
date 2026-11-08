@@ -49,6 +49,23 @@ namespace UnpaidCeo.Core.Content
             foreach (var g in db.NpcList.GroupBy(n => n.Id).Where(g => g.Count() > 1))
                 r.Errors.Add($"npc {g.Key}: duplicate id");
 
+            foreach (var g in db.LessonList.GroupBy(l => l.Id).Where(g => g.Count() > 1))
+                r.Errors.Add($"lesson {g.Key}: duplicate id");
+            foreach (var l in db.LessonList)
+            {
+                if (string.IsNullOrEmpty(l.TriggerFact)) r.Errors.Add($"lesson {l.Id}: missing triggerFact");
+                if (l.Quiz == null || l.Quiz.Count != 3) r.Errors.Add($"lesson {l.Id}: quiz needs 3 questions");
+                for (int q = 0; l.Quiz != null && q < l.Quiz.Count; q++)
+                {
+                    var qq = l.Quiz[q];
+                    if (qq.OptionKeys == null || qq.OptionKeys.Count != 3) r.Errors.Add($"lesson {l.Id}: question {q} needs 3 options");
+                    if (qq.OptionKeys == null || qq.CorrectIndex < 0 || qq.CorrectIndex >= qq.OptionKeys.Count)
+                        r.Errors.Add($"lesson {l.Id}: question {q} correctIndex out of range");
+                }
+                if (l.SkillReward == null || !Content.FounderSkills.IsKnown(l.SkillReward.Skill))
+                    r.Errors.Add($"lesson {l.Id}: unknown skill '{l.SkillReward?.Skill}'");
+            }
+
             foreach (var g in db.Storylets.GroupBy(x => x.Id).Where(g => g.Count() > 1))
                 r.Errors.Add($"storylet {g.Key}: duplicate id");
             foreach (var st in db.Storylets)
