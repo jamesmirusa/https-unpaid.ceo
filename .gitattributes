@@ -4,3 +4,5 @@
 *.wav filter=lfs diff=lfs merge=lfs -text
 *.mp3 filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
+game/Assets/UnpaidCeo/Art/Textures/*.png filter=lfs diff=lfs merge=lfs -text
+game/Assets/UnpaidCeo/Art/Textures/*.jpg filter=lfs diff=lfs merge=lfs -text

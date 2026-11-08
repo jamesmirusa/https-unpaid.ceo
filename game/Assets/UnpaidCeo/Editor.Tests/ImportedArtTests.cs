@@ -73,6 +73,18 @@ namespace UnpaidCeo.Editor.Tests
         }
 
         [Test]
+        public void Generated_colour_maps_are_jpg_and_normal_maps_png()
+        {
+            var textures = AssetDatabase.FindAssets("t:Texture2D", new[] { "Assets/UnpaidCeo/Art/Textures" }).Select(AssetDatabase.GUIDToAssetPath).ToList();
+            Assert.IsNotEmpty(textures);
+            foreach (var path in textures)
+            {
+                bool normal = ((TextureImporter)AssetImporter.GetAtPath(path)).textureType == TextureImporterType.NormalMap;
+                StringAssert.EndsWith(normal ? ".png" : ".jpg", path, "colour maps are stored as JPEG (4x smaller in the repo), normal maps as lossless PNG");
+            }
+        }
+
+        [Test]
         public void Every_hero_species_has_both_outfits()
         {
             var names = Load("hero_").Select(p => p.name).ToList();

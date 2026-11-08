@@ -161,8 +161,10 @@ namespace UnpaidCeo.Editor
                             var readable = tex as Texture2D;
                             if (readable == null || !readable.isReadable || Mathf.Max(tex.width, tex.height) > maxSize)
                                 readable = Copy(tex, Mathf.Min(maxSize, Mathf.Max(tex.width, tex.height)), !normal);
-                            var path = $"{pathPrefix}_{n++}.png";
-                            File.WriteAllBytes(path, readable.EncodeToPNG());
+                            // Colour maps as JPEG (a quarter of the PNG size in the repo; the GPU format is the same),
+                            // normal maps as lossless PNG.
+                            var path = $"{pathPrefix}_{n++}{(normal ? ".png" : ".jpg")}";
+                            File.WriteAllBytes(path, normal ? readable.EncodeToPNG() : readable.EncodeToJPG(92));
                             AssetDatabase.ImportAsset(path);
                             ConfigureTexture((TextureImporter)AssetImporter.GetAtPath(path), kind, normal);
                             asset = AssetDatabase.LoadAssetAtPath<Texture2D>(path);
