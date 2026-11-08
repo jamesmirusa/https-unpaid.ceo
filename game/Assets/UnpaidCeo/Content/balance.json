@@ -1,31 +1,126 @@
 {
   "taxRate": 0.25,
   "billsStartAfter": 10000,
-  "personalCosts": { "room": 110000, "food": 31200, "transit": 15200, "essentials": 15000 },
+  "personalCosts": {
+    "room": 110000,
+    "food": 31200,
+    "transit": 15200,
+    "essentials": 15000
+  },
   "chapter1CashGoal": 100000,
   "debtBankruptLine": -50000,
-  "eventsPerMonthWeights": [1, 2, 1],
+  "eventsPerMonthWeights": [
+    1,
+    2,
+    1
+  ],
   "autopilotHoursPerMonth": 4,
   "autopilotMaxMonths": 2,
   "tutorialGigPay": 4000,
-  "chapter1Gigs": ["gig_delivery", "gig_resale", "gig_ai_freelance"],
+  "chapter1Gigs": [
+    "gig_delivery",
+    "gig_resale",
+    "gig_ai_freelance"
+  ],
   "life": {
-    "restBaseline": 25, "restCoef": 0.4, "workSafe": 60, "burnCoef": 0.5,
-    "familyBaseline": 15, "familyCoef": 0.5, "studyCoef": 1.0,
-    "baseActionPoints": 3, "burnoutThreshold": 30, "burnoutErrorChance": 0.25
+    "restBaseline": 25,
+    "restCoef": 0.4,
+    "workSafe": 60,
+    "burnCoef": 0.5,
+    "familyBaseline": 15,
+    "familyCoef": 0.5,
+    "studyCoef": 1.0,
+    "baseActionPoints": 3,
+    "burnoutThreshold": 30,
+    "burnoutErrorChance": 0.25
   },
   "sources": [
-    { "field": "personalCosts.room", "url": "https://trulia.com/for_rent/10466_zip/SINGLE-FAMILY_HOME_type/", "checkedOn": "2026-11-08",
-      "note": "Rooms in Bronx 10466 listed at $1,000-$1,250/mo; Zumper Bronx room average $1,700 (https://www.zumper.com/rent-research/the-bronx-ny). Chose $1,100 for a shared starter room." },
-    { "field": "personalCosts.transit", "url": "https://new2stg.mta.info/fares-tolls/2025-changes", "checkedOn": "2026-11-08",
-      "note": "OMNY 7-day fare cap $35 from Jan 4, 2026; monthly = 35 x 52 / 12 = $151.67, rounded to $152." },
-    { "field": "personalCosts.food", "url": "https://scienceinsights.org/what-is-the-thrifty-food-plan-and-why-does-it-matter/", "checkedOn": "2026-11-08",
-      "note": "USDA Thrifty Food Plan Jan 2026, single adult male 20-50: $311.70/mo (official reports: https://www.fns.usda.gov/cnpp/usda-food-plans-cost-food-monthly-reports)." },
-    { "field": "industries.gig_delivery.price", "url": "https://www.nyc.gov/site/dca/news/009-26/major-victory-nyc-", "checkedOn": "2026-11-08",
-      "note": "NYC app delivery minimum pay $22.13/hour from Apr 1, 2026 (excludes tips). Game price $26/hour adds a $3.87/hour tips assumption." },
-    { "field": "personalCosts.essentials", "url": "", "checkedOn": "2026-11-08",
-      "note": "Game assumption: phone, toiletries, laundry $150/mo." },
-    { "field": "industries.gig_resale, industries.gig_ai_freelance, taxRate", "url": "", "checkedOn": "2026-11-08",
-      "note": "Game assumptions for balance; taxRate 25% is a budgeting reserve per spec, not a tax calculation." }
-  ]
+    {
+      "field": "personalCosts.room",
+      "url": "https://trulia.com/for_rent/10466_zip/SINGLE-FAMILY_HOME_type/",
+      "checkedOn": "2026-11-08",
+      "note": "Rooms in Bronx 10466 listed at $1,000-$1,250/mo; Zumper Bronx room average $1,700 (https://www.zumper.com/rent-research/the-bronx-ny). Chose $1,100 for a shared starter room."
+    },
+    {
+      "field": "personalCosts.transit",
+      "url": "https://new2stg.mta.info/fares-tolls/2025-changes",
+      "checkedOn": "2026-11-08",
+      "note": "OMNY 7-day fare cap $35 from Jan 4, 2026; monthly = 35 x 52 / 12 = $151.67, rounded to $152."
+    },
+    {
+      "field": "personalCosts.food",
+      "url": "https://scienceinsights.org/what-is-the-thrifty-food-plan-and-why-does-it-matter/",
+      "checkedOn": "2026-11-08",
+      "note": "USDA Thrifty Food Plan Jan 2026, single adult male 20-50: $311.70/mo (official reports: https://www.fns.usda.gov/cnpp/usda-food-plans-cost-food-monthly-reports)."
+    },
+    {
+      "field": "industries.gig_delivery.price",
+      "url": "https://www.nyc.gov/site/dca/news/009-26/major-victory-nyc-",
+      "checkedOn": "2026-11-08",
+      "note": "NYC app delivery minimum pay $22.13/hour from Apr 1, 2026 (excludes tips). Game price $26/hour adds a $3.87/hour tips assumption."
+    },
+    {
+      "field": "personalCosts.essentials",
+      "url": "",
+      "checkedOn": "2026-11-08",
+      "note": "Game assumption: phone, toiletries, laundry $150/mo."
+    },
+    {
+      "field": "industries.gig_resale, industries.gig_ai_freelance, taxRate",
+      "url": "",
+      "checkedOn": "2026-11-08",
+      "note": "Game assumptions for balance; taxRate 25% is a budgeting reserve per spec, not a tax calculation."
+    },
+    {
+      "field": "industries.json chapter-2 businesses (capex, price, unitCost, capacity, fixed, salary, demand)",
+      "url": "",
+      "checkedOn": "2026-11-08",
+      "note": "game assumption from typical NYC small-business figures (coffee cart, online resale, food truck, AI agency, cleaning, box-truck freight); tuned by BalanceSimulationTests (stage 2A Task 15)"
+    },
+    {
+      "field": "payrollOverhead 0.10",
+      "url": "",
+      "checkedOn": "2026-11-08",
+      "note": "simplified employer payroll taxes and insurance on top of salary"
+    },
+    {
+      "field": "loans.baseApr 0.12",
+      "url": "",
+      "checkedOn": "2026-11-08",
+      "note": "game assumption close to small-business term loan rates; labelled as a simulation"
+    }
+  ],
+  "chapter2Industries": [
+    "coffee_cart",
+    "resale_store",
+    "food_truck",
+    "ai_agency",
+    "cleaning",
+    "logistics_box_truck"
+  ],
+  "districtDemand": {
+    "bronx": 1.0,
+    "brooklyn": 1.0,
+    "queens": 1.15
+  },
+  "chapter2CapitalGoal": 2500000,
+  "chapter3CapitalGoal": 25000000,
+  "chapter3EmployeesGoal": 10,
+  "chapter3UnitsGoal": 2,
+  "assetResaleRate": 0.5,
+  "payrollOverhead": 0.1,
+  "loans": {
+    "baseApr": 0.12,
+    "aprPerMissingReputation": 0.001,
+    "lowHonestyAprAdd": 0.03,
+    "lowHonestyBelow": 40,
+    "maxBase": 1000000,
+    "maxPerReputation": 50000,
+    "termsMonths": [
+      12,
+      24,
+      36
+    ]
+  },
+  "dailyManualMonths": 6
 }

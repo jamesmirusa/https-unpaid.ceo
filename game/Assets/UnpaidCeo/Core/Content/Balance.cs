@@ -21,6 +21,19 @@ namespace UnpaidCeo.Core.Content
         public string Note { get; set; }
     }
 
+    /// <summary>Bank loan rules (chapters 2–3).</summary>
+    public sealed class LoanBalance
+    {
+        public double BaseApr { get; set; } = 0.12;
+        /// <summary>APR added per reputation point below 50.</summary>
+        public double AprPerMissingReputation { get; set; } = 0.001;
+        public double LowHonestyAprAdd { get; set; } = 0.03;
+        public int LowHonestyBelow { get; set; } = 40;
+        public Money MaxBase { get; set; } = Money.FromCents(1_000_000);
+        public Money MaxPerReputation { get; set; } = Money.FromCents(50_000);
+        public int[] TermsMonths { get; set; } = { 12, 24, 36 };
+    }
+
     /// <summary>Global balance constants (balance.json). Values in cents where money.</summary>
     public sealed class Balance
     {
@@ -34,6 +47,20 @@ namespace UnpaidCeo.Core.Content
         public int AutopilotMaxMonths { get; set; } = 2;
         public Money TutorialGigPay { get; set; }
         public List<string> Chapter1Gigs { get; set; } = new List<string>();
+        public List<string> Chapter2Industries { get; set; } = new List<string>();
+        /// <summary>Demand multiplier per district (bronx, brooklyn, queens).</summary>
+        public Dictionary<string, double> DistrictDemand { get; set; } = new Dictionary<string, double>();
+        public Money Chapter2CapitalGoal { get; set; }
+        public Money Chapter3CapitalGoal { get; set; }
+        public int Chapter3EmployeesGoal { get; set; }
+        public int Chapter3UnitsGoal { get; set; }
+        /// <summary>Share of capex a unit is worth when sold (and in net worth).</summary>
+        public double AssetResaleRate { get; set; }
+        /// <summary>Employer costs on top of salaries (payroll taxes, insurance).</summary>
+        public double PayrollOverhead { get; set; }
+        public LoanBalance Loans { get; set; } = new LoanBalance();
+        /// <summary>Months a player can play by hand per local calendar day.</summary>
+        public int DailyManualMonths { get; set; } = 6;
         public LifeBalance Life { get; set; } = new LifeBalance();
         public List<SourceRef> Sources { get; set; } = new List<SourceRef>();
     }

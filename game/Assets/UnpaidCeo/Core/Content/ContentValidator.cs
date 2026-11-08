@@ -29,6 +29,14 @@ namespace UnpaidCeo.Core.Content
                     r.Errors.Add($"industry {i.Id}: gig needs capacityPerWorkPoint > 0");
                 if (i.Kind == IndustryKind.Business && i.CapacityPerUnit <= 0)
                     r.Errors.Add($"industry {i.Id}: business needs capacityPerUnit > 0");
+                if (i.Kind == IndustryKind.Business)
+                {
+                    if (i.Capex.Cents <= 0) r.Errors.Add($"industry {i.Id}: business needs capex > 0");
+                    if (i.StaffPerUnit < 1) r.Errors.Add($"industry {i.Id}: business needs staffPerUnit >= 1");
+                    if (i.ScaleNameKeys == null || i.ScaleNameKeys.Count != 3) r.Errors.Add($"industry {i.Id}: business needs 3 scaleNameKeys");
+                }
+                if (i.Seasonality == null || i.Seasonality.Length != 12 || i.Seasonality.Any(v => v < 0))
+                    r.Errors.Add($"industry {i.Id}: seasonality needs 12 non-negative values");
             }
 
             var b = db.Balance;
@@ -40,6 +48,8 @@ namespace UnpaidCeo.Core.Content
             if (b.AutopilotMaxMonths < 0) r.Errors.Add("balance.autopilotMaxMonths: must be >= 0");
             foreach (var id in b.Chapter1Gigs.Where(id => !db.Industries.ContainsKey(id)))
                 r.Errors.Add($"balance.chapter1Gigs: unknown industry '{id}'");
+            foreach (var id in b.Chapter2Industries.Where(id => !db.Industries.TryGetValue(id, out var d) || d.Kind != IndustryKind.Business))
+                r.Errors.Add($"balance.chapter2Industries: '{id}' is not a business industry");
 
             foreach (var g in db.FreeActionList.GroupBy(a => a.Id).Where(g => g.Count() > 1))
                 r.Errors.Add($"freeAction {g.Key}: duplicate id");
