@@ -122,6 +122,61 @@ namespace UnpaidCeo.Core.Game
             return correct;
         }
 
+        /// <summary>How much more the bank lends: a base amount plus reputation, minus what is still owed.</summary>
+        public Money MaxLoan(GameState s)
+        {
+            var l = _c.Balance.Loans;
+            var max = l.MaxBase + Money.FromCents(l.MaxPerReputation.Cents * Math.Max(0, s.Life.Reputation));
+            foreach (var loan in s.Loans) max -= loan.Balance;
+            return max.Cents < 0 ? Money.Zero : max;
+        }
+
+        /// <summary>Base APR, plus a premium for reputation below 50 and for low honesty.</summary>
+        public double LoanApr(GameState s)
+        {
+            var l = _c.Balance.Loans;
+            return l.BaseApr + Math.Max(0, 50 - s.Life.Reputation) * l.AprPerMissingReputation
+                + (s.Life.Honesty < l.LowHonestyBelow ? l.LowHonestyAprAdd : 0.0);
+        }
+
+        /// <summary>Takes a bank loan: cash now, annuity payments from the end of this month.</summary>
+        public bool TakeLoan(GameState s, Money principal, int months)
+        {
+            if (principal.Cents <= 0 || principal > MaxLoan(s) || Array.IndexOf(_c.Balance.Loans.TermsMonths, months) < 0) return false;
+            double apr = LoanApr(s);
+            s.Loans.Add(new LoanState
+            {
+                Id = $"loan_{s.Month}_{s.Loans.Count}",
+                Principal = principal,
+                Balance = principal,
+                Apr = apr,
+                MonthsLeft = months,
+                Payment = EconomyFormulas.LoanPayment(principal, apr, months),
+            });
+            s.Cash += principal;
+            if (!s.Facts.Has("first_loan")) s.Facts.Set("first_loan", s.Month);
+            AddJournal(s, "decision", "journal.take_loan", ("amount", principal.Cents.ToString()), ("months", months.ToString()));
+            Log(s, DecisionLogEntry.TakeLoan, new JObject { ["principal"] = principal.Cents, ["months"] = months });
+            return true;
+        }
+
+        /// <summary>Pays every loan's monthly instalment; returns (payments, interest).</summary>
+        static (Money payments, Money interest) PayLoans(GameState s)
+        {
+            Money payments = Money.Zero, interest = Money.Zero;
+            foreach (var loan in s.Loans)
+            {
+                var i = loan.Balance.MulRound(loan.Apr / 12.0);
+                var pay = loan.MonthsLeft <= 1 ? loan.Balance + i : Money.FromCents(Math.Min(loan.Payment.Cents, (loan.Balance + i).Cents));
+                loan.Balance -= pay - i;
+                loan.MonthsLeft--;
+                payments += pay;
+                interest += i;
+            }
+            s.Loans.RemoveAll(l => l.Balance.Cents <= 0 || l.MonthsLeft <= 0);
+            return (payments, interest);
+        }
+
         public ChapterStatus Chapter(GameState s) => new ChapterStatus(s.Chapter, Chapters.Chapter1GoalMet(s, _c.Balance));
 
         public MonthReport EndMonth(GameState s, MonthDecisions d)
@@ -189,13 +244,14 @@ namespace UnpaidCeo.Core.Game
             report.Marketing = marketing;
             report.MistakeLoss = mistakeLoss;
             report.OperatingProfit = report.GrossProfit - fixedCosts - marketing - mistakeLoss;
-            report.TaxReserve = EconomyFormulas.TaxReserve(report.OperatingProfit, b.TaxRate);
-            report.NetProfit = report.OperatingProfit - report.TaxReserve;
+            (report.LoanPayments, report.Interest) = PayLoans(s);
+            report.TaxReserve = EconomyFormulas.TaxReserve(report.OperatingProfit - report.Interest, b.TaxRate);
+            report.NetProfit = report.OperatingProfit - report.Interest - report.TaxReserve;
 
             s.LifetimeEarnings += revenue;
             report.PersonalCosts = s.LifetimeEarnings >= b.BillsStartAfter ? b.PersonalCosts.Total : Money.Zero;
 
-            s.Cash += collected - cogs - fixedCosts - marketing - mistakeLoss - report.TaxReserve - report.PersonalCosts;
+            s.Cash += collected - cogs - fixedCosts - marketing - mistakeLoss - report.TaxReserve - report.PersonalCosts - report.LoanPayments;
             report.CashEnd = s.Cash;
 
             UpdateConsequenceFacts(s, report, b);
@@ -233,6 +289,10 @@ namespace UnpaidCeo.Core.Game
                         break;
                     case DecisionLogEntry.EndMonth:
                         e.EndMonth(s, JsonConvert.DeserializeObject<MonthDecisions>(entry.Payload));
+                        break;
+                    case DecisionLogEntry.TakeLoan:
+                        var l = JObject.Parse(entry.Payload);
+                        e.TakeLoan(s, Money.FromCents((long)l["principal"]), (int)l["months"]);
                         break;
                     case DecisionLogEntry.QuizAnswer:
                         var q = JObject.Parse(entry.Payload);
@@ -329,7 +389,8 @@ namespace UnpaidCeo.Core.Game
             if (s.Businesses.Any(x => x.Employees > 0)) SetOnce(s, "first_payroll");
 
             // Buying or selling units moves cash but is an investment, not a profit or loss.
-            var operatingCashEnd = r.CashEnd + r.Capex - r.AssetSales;
+            // Repaying loan principal is financing, not a loss either.
+            var operatingCashEnd = r.CashEnd + r.Capex - r.AssetSales + (r.LoanPayments - r.Interest);
             if ((r.NetProfit.Cents < 0 || operatingCashEnd.Cents < r.CashStart.Cents) && !s.Facts.Has("first_loss"))
             {
                 s.Facts.Set("first_loss", s.Month);

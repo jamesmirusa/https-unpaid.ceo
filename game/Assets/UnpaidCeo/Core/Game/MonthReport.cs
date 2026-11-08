@@ -31,6 +31,10 @@ namespace UnpaidCeo.Core.Game
         public Money Capex { get; set; }
         /// <summary>Received this month for units sold off.</summary>
         public Money AssetSales { get; set; }
+        /// <summary>Loan payments made this month (interest + principal).</summary>
+        public Money LoanPayments { get; set; }
+        /// <summary>Interest part of the loan payments (an expense before the tax reserve).</summary>
+        public Money Interest { get; set; }
     }
 
     public readonly struct ChapterStatus

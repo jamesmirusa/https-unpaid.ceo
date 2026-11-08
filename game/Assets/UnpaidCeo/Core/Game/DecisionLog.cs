@@ -8,6 +8,7 @@ namespace UnpaidCeo.Core.Game
         public const string StoryletChoice = "storyletChoice";
         public const string EndMonth = "endMonth";
         public const string QuizAnswer = "quizAnswer";
+        public const string TakeLoan = "takeLoan";
 
         public int Month { get; set; }
         public string Kind { get; set; }
