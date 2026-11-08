@@ -1,0 +1,31 @@
+{
+  "taxRate": 0.25,
+  "billsStartAfter": 10000,
+  "personalCosts": { "room": 110000, "food": 31200, "transit": 15200, "essentials": 15000 },
+  "chapter1CashGoal": 100000,
+  "debtBankruptLine": -50000,
+  "eventsPerMonthWeights": [1, 2, 1],
+  "autopilotHoursPerMonth": 4,
+  "autopilotMaxMonths": 2,
+  "tutorialGigPay": 4000,
+  "chapter1Gigs": ["gig_delivery", "gig_resale", "gig_ai_freelance"],
+  "life": {
+    "restBaseline": 25, "restCoef": 0.4, "workSafe": 60, "burnCoef": 0.5,
+    "familyBaseline": 15, "familyCoef": 0.5, "studyCoef": 1.0,
+    "baseActionPoints": 3, "burnoutThreshold": 30, "burnoutErrorChance": 0.25
+  },
+  "sources": [
+    { "field": "personalCosts.room", "url": "https://trulia.com/for_rent/10466_zip/SINGLE-FAMILY_HOME_type/", "checkedOn": "2026-11-08",
+      "note": "Rooms in Bronx 10466 listed at $1,000-$1,250/mo; Zumper Bronx room average $1,700 (https://www.zumper.com/rent-research/the-bronx-ny). Chose $1,100 for a shared starter room." },
+    { "field": "personalCosts.transit", "url": "https://new2stg.mta.info/fares-tolls/2025-changes", "checkedOn": "2026-11-08",
+      "note": "OMNY 7-day fare cap $35 from Jan 4, 2026; monthly = 35 x 52 / 12 = $151.67, rounded to $152." },
+    { "field": "personalCosts.food", "url": "https://scienceinsights.org/what-is-the-thrifty-food-plan-and-why-does-it-matter/", "checkedOn": "2026-11-08",
+      "note": "USDA Thrifty Food Plan Jan 2026, single adult male 20-50: $311.70/mo (official reports: https://www.fns.usda.gov/cnpp/usda-food-plans-cost-food-monthly-reports)." },
+    { "field": "industries.gig_delivery.price", "url": "https://www.nyc.gov/site/dca/news/009-26/major-victory-nyc-", "checkedOn": "2026-11-08",
+      "note": "NYC app delivery minimum pay $22.13/hour from Apr 1, 2026 (excludes tips). Game price $26/hour adds a $3.87/hour tips assumption." },
+    { "field": "personalCosts.essentials", "url": "", "checkedOn": "2026-11-08",
+      "note": "Game assumption: phone, toiletries, laundry $150/mo." },
+    { "field": "industries.gig_resale, industries.gig_ai_freelance, taxRate", "url": "", "checkedOn": "2026-11-08",
+      "note": "Game assumptions for balance; taxRate 25% is a budgeting reserve per spec, not a tax calculation." }
+  ]
+}

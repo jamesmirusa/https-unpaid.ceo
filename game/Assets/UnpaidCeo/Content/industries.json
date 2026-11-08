@@ -1,0 +1,22 @@
+{
+  "industries": [
+    {
+      "id": "gig_delivery", "kind": "Gig",
+      "price": 2600, "refPrice": 2600, "unitCost": 150,
+      "baseDemand": 100000, "elasticity": 0.5, "marketingA": 0.0, "marketingK": 10000,
+      "capacityPerWorkPoint": 1.73
+    },
+    {
+      "id": "gig_resale", "kind": "Gig",
+      "price": 4500, "refPrice": 4500, "unitCost": 2400,
+      "baseDemand": 40, "elasticity": 1.8, "marketingA": 0.3, "marketingK": 10000,
+      "capacityPerWorkPoint": 0.5
+    },
+    {
+      "id": "gig_ai_freelance", "kind": "Gig",
+      "price": 4500, "refPrice": 4500, "unitCost": 300,
+      "baseDemand": 15, "elasticity": 1.2, "marketingA": 0.4, "marketingK": 10000,
+      "capacityPerWorkPoint": 0.35, "requiredStudy": 30
+    }
+  ]
+}
