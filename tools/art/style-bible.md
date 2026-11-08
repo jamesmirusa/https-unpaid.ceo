@@ -46,3 +46,10 @@ Decision: key buildings → Tripo P2; background buildings and props → Tripo H
 - QC re-dos: `building_pizza` concept (background clutter), `building_court` concept and model (a see-through chain-link fence broke reconstruction — use solid barriers), `prop_phone` dropped from 3D (it is a UI element).
 - Lesson for prompts: keep subjects solid and isolated — no see-through fences or nets, no pedestals, no depth-of-field background.
 - Textures are capped on import by `GlbPrefabBuilder` (buildings and characters 1024, props 512, compressed); only base colour and emission are kept — the house shader supplies the style.
+
+## Restyle (2026-11-08, 390.75 credits; owner approved the full restyle ≈ 415)
+- Owner picked the detailed GPT Image 2.6 pilot bodega as the look for the whole district. All buildings re-made in that style: 17 concepts (GPT Image 2.6, high, 2k, the pilot bodega as style reference) → 16 models (Tripo P2, `face_limit` 8000, no PBR, standard texture: bodega, walk-up, laundromat, pawn shop + new coffee shop, barbershop, bakery, car wash; Tripo H3.1, `face_limit` 8000: the 8 background buildings). Jobs, URLs and spend: `restyle/restyle-jobs.json`; concepts and contact sheets: `restyle/`.
+- Concept rule (updated): **concepts → GPT Image 2.6 with the pilot bodega as the style reference**; isolate the subject (no sidewalk slab, no street props), keep solid forms.
+- `restyle/concepts/01_keyart_bodega_night.png` is night key art for promo and the neon look; in game, night is still lighting on the same meshes.
+- New business buildings (coffee shop, barbershop, bakery, car wash) are imported as prefabs but not referenced by the Bronx scene or the CityCatalog, so they do not ship in the chapter-1 download; they go into the catalog with the chapter-2 (Brooklyn) industries.
+- Known issue: the concepts' warm side light is baked into the textures (strongest on Tripo P2 models). Fix if needed: re-run Tripo P2 with `texture_version` v3.5 + `delight` (34 credits per building).

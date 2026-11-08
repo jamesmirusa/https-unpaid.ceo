@@ -4,18 +4,22 @@
 
 | asset | file | LOD0 tris | LOD levels | materials | textures | budget |
 |---|---|---|---|---|---|---|
-| building_bodega | 2826 KB | 4351 | 3 | 1 | 1024×1024 | OK |
-| building_bus_shelter | 2398 KB | 4317 | 3 | 1 | 1024×1024 | OK |
-| building_check_cashing | 2379 KB | 4594 | 3 | 1 | 1024×1024 | OK |
-| building_church | 3024 KB | 5554 | 3 | 1 | 1024×1024 | OK |
-| building_court | 2467 KB | 5264 | 3 | 1 | 1024×1024 | OK |
-| building_el_subway | 2386 KB | 4975 | 3 | 1 | 1024×1024 | OK |
-| building_garage | 2489 KB | 5094 | 3 | 1 | 1024×1024 | OK |
-| building_garden_lot | 2948 KB | 5442 | 3 | 1 | 1024×1024 | OK |
-| building_laundromat | 3442 KB | 4811 | 3 | 1 | 1024×1024 | OK |
-| building_pawn_shop | 3616 KB | 6182 | 3 | 1 | 1024×1024 | OK |
-| building_pizza | 2786 KB | 5395 | 3 | 1 | 1024×1024 | OK |
-| building_walkup | 3215 KB | 5396 | 3 | 1 | 1024×1024 | OK |
+| building_bakery | 1611 KB | 6550 | 3 | 1 | 1024×1024 | OK |
+| building_barbershop | 1707 KB | 7076 | 3 | 1 | 1024×1024 | OK |
+| building_bodega | 1533 KB | 5781 | 3 | 1 | 1024×1024 | OK |
+| building_bus_shelter | 1263 KB | 6268 | 3 | 1 | 1024×1024 | OK |
+| building_car_wash | 1668 KB | 6790 | 3 | 1 | 1024×1024 | OK |
+| building_check_cashing | 1598 KB | 7463 | 3 | 1 | 1024×1024 | OK |
+| building_church | 1654 KB | 7439 | 3 | 1 | 1024×1024 | OK |
+| building_coffee_shop | 1589 KB | 6420 | 3 | 1 | 1024×1024 | OK |
+| building_court | 943 KB | 6604 | 3 | 1 | 1024×1024 | OK |
+| building_el_subway | 1388 KB | 7346 | 3 | 1 | 1024×1024 | OK |
+| building_garage | 1409 KB | 6946 | 3 | 1 | 1024×1024 | OK |
+| building_garden_lot | 1487 KB | 6597 | 3 | 1 | 1024×1024 | OK |
+| building_laundromat | 1575 KB | 6407 | 3 | 1 | 1024×1024 | OK |
+| building_pawn_shop | 1754 KB | 6932 | 3 | 1 | 1024×1024 | OK |
+| building_pizza | 1498 KB | 7055 | 3 | 1 | 1024×1024 | OK |
+| building_walkup | 1733 KB | 6490 | 3 | 1 | 1024×1024 | OK |
 
 ## Props (Prop)
 
