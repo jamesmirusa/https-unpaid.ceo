@@ -1,12 +1,18 @@
 {
     "name": "UnpaidCeo.Game",
     "rootNamespace": "UnpaidCeo.Game",
-    "references": ["UnpaidCeo.Core"],
+    "references": [
+        "UnpaidCeo.Core",
+        "YarnSpinner.Unity"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
-    "precompiledReferences": ["Newtonsoft.Json.dll"],
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll",
+        "YarnSpinner.dll"
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],

@@ -1,0 +1,88 @@
+// Chapter 1, Jay the otter, best friend since second grade.
+// Every option runs <<choose "id">>; its effects live in Content/storylets_ch1.json.
+// Russian text lives in Chapter1-ru.csv; keep #line ids stable.
+
+title: ch1_friend_intro
+---
+Someone's banging on your door with a pizza box. It's Jay, the otter you've known since second grade. #line:ch1_friend_intro_01
+Jay: You moved and didn't tell me? Cold. Pepperoni or friendship, pick one. Kidding, both. #line:ch1_friend_intro_02
+-> Hang out all night like old times. #line:ch1_friend_intro_03
+    <<choose "hang_out">>
+    You laugh about middle school until three in the morning. Worth it. #line:ch1_friend_intro_04
+-> Grab a slice and get back to work. #line:ch1_friend_intro_05
+    <<choose "busy">>
+    Jay: Workaholic. I'll allow it. For now. #line:ch1_friend_intro_06
+===
+
+title: ch1_friend_coin
+---
+Jay: Okay, hear me out. OtterCoin. It's a coin. For otters. It's up four hundred percent this week. #line:ch1_friend_coin_01
+Jay: Put in three hundred. We'll be rich by summer. #line:ch1_friend_coin_02
+-> I'm in. #line:ch1_friend_coin_03
+    <<choose "invest">>
+    Jay: That's my CEO! #line:ch1_friend_coin_04
+-> Hard pass. #line:ch1_friend_coin_05
+    <<choose "decline">>
+    Jay: Your loss, future billionaire. #line:ch1_friend_coin_06
+-> Jay, this sounds like a scam. Don't put your rent in it. #line:ch1_friend_coin_07
+    <<choose "warn">>
+    Jay: Relax, Mom. Okay, maybe I'll only put in half. #line:ch1_friend_coin_08
+===
+
+title: ch1_friend_coin_crash
+---
+OtterCoin is now worth less than the pizza box it was pitched over. The founders deleted their accounts. #line:ch1_friend_coin_crash_01
+Jay: I'm so sorry. I really believed it. #line:ch1_friend_coin_crash_02
+-> We both got played. Lesson learned. #line:ch1_friend_coin_crash_03
+    <<choose "forgive">>
+    Jay: Next pizza's on me. For a year. #line:ch1_friend_coin_crash_04
+-> You cost me three hundred dollars, Jay. #line:ch1_friend_coin_crash_05
+    <<choose "blame">>
+    Jay looks at the floor. He doesn't call for a while. #line:ch1_friend_coin_crash_06
+===
+
+title: ch1_friend_needs_help
+---
+Jay: So, the warehouse let me go. Rent's due Friday. I hate asking. #line:ch1_friend_needs_help_01
+Jay: Could you spot me two hundred? I'll pay you back, I swear. #line:ch1_friend_needs_help_02
+-> Lend him the money. #line:ch1_friend_needs_help_03
+    <<choose "lend">>
+    Jay: You're the best. Seriously. #line:ch1_friend_needs_help_04
+-> Get him a delivery shift instead. #line:ch1_friend_needs_help_05
+    <<choose "refer">>
+    Jay: Teach a man to fish. Or an otter. Thanks. #line:ch1_friend_needs_help_06
+-> Can't right now, sorry. #line:ch1_friend_needs_help_07
+    <<choose "refuse">>
+    Jay: Yeah. No, I get it. #line:ch1_friend_needs_help_08
+===
+
+title: ch1_friend_repays
+---
+Jay shows up with an envelope and a grin. #line:ch1_friend_repays_01
+Jay: Two hundred, plus fifty for being patient. Don't argue. #line:ch1_friend_repays_02
+-> Take it. Thanks, Jay. #line:ch1_friend_repays_03
+    <<choose "thanks">>
+    Friends who pay back are friends for life. #line:ch1_friend_repays_04
+===
+
+title: ch1_friend_partner
+---
+Jay: Real talk. You're good at this. I'm good at talking to people. What if we did resale together? #line:ch1_friend_partner_01
+-> Partners. Fifty-fifty on the work, fifty-fifty on the profit. #line:ch1_friend_partner_02
+    <<choose "partner">>
+    Jay: I'm making business cards. They're going to be terrible. #line:ch1_friend_partner_03
+-> I need to stay solo for now. #line:ch1_friend_partner_04
+    <<choose "solo">>
+    Jay: Respect. Offer's open. #line:ch1_friend_partner_05
+===
+
+title: ch1_friend_birthday
+---
+Jay: It's my birthday. Rooftop, nine o'clock. If you don't come I'll tell everyone about the haircut. #line:ch1_friend_birthday_01
+-> Go. It's Jay's birthday. #line:ch1_friend_birthday_02
+    <<choose "go">>
+    The city glitters below the roof. For one night, nobody talks about money. #line:ch1_friend_birthday_03
+-> Skip it for a late shift. #line:ch1_friend_birthday_04
+    <<choose "work">>
+    You make fifty bucks. Jay posts thirty photos. You're in none of them. #line:ch1_friend_birthday_05
+===

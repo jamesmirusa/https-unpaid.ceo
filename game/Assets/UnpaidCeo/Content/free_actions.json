@@ -1,0 +1,20 @@
+{ "freeActions": [
+  { "id": "overtime",        "actionPoints": 1, "cost": 0,    "journalKey": "journal.action.overtime",
+    "effects": [ { "cash": 6000 }, { "stat": "energy", "delta": -10 } ] },
+  { "id": "rest",            "actionPoints": 1, "cost": 0,    "journalKey": "journal.action.rest",
+    "effects": [ { "stat": "energy", "delta": 12 } ] },
+  { "id": "study",           "actionPoints": 1, "cost": 0,    "journalKey": "journal.action.study",
+    "effects": [ { "studyXp": 10 }, { "stat": "energy", "delta": -3 } ] },
+  { "id": "networking",      "actionPoints": 1, "cost": 2000, "journalKey": "journal.action.networking",
+    "effects": [ { "stat": "connections", "delta": 4 }, { "stat": "reputation", "delta": 1 } ] },
+  { "id": "family_time",     "actionPoints": 1, "cost": 0,    "journalKey": "journal.action.family_time",
+    "effects": [ { "stat": "relationships", "delta": 8 }, { "npc": "mom", "delta": 3 } ] },
+  { "id": "hobby",           "actionPoints": 1, "cost": 1500, "journalKey": "journal.action.hobby",
+    "effects": [ { "stat": "energy", "delta": 6 }, { "stat": "relationships", "delta": 2 } ] },
+  { "id": "gray_scheme",     "actionPoints": 1, "cost": 0,    "journalKey": "journal.action.gray_scheme",
+    "effects": [ { "cash": 15000 }, { "stat": "honesty", "delta": -10 }, { "setFact": "gray_scheme" } ] },
+  { "id": "loan_shark_loan", "actionPoints": 0, "cost": 0,    "journalKey": "journal.action.loan_shark_loan",
+    "effects": [ { "cash": 100000 }, { "setFact": "shark_debt" }, { "npc": "loan_shark", "delta": 5 } ] },
+  { "id": "reserve_transfer", "actionPoints": 0, "cost": 0,   "journalKey": "journal.action.reserve_transfer",
+    "effects": [ { "reserve": 10000 } ] }
+] }

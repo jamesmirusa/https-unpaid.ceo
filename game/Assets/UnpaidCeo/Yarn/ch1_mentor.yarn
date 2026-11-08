@@ -1,0 +1,108 @@
+// Chapter 1, the raccoon mentor (Unpaid CEO): onboarding, lessons, cash gap, bankrupt comeback.
+// Every option runs <<choose "id">>; its effects live in Content/storylets_ch1.json.
+// Russian text lives in Chapter1-ru.csv; keep #line ids stable.
+
+title: ch1_mentor_welcome
+---
+A raccoon in a thrifted blazer sits on your fire escape like he owns the building. #line:ch1_mentor_welcome_01
+Unpaid CEO: Relax, I'm not here for your trash. I'm here for your future. #line:ch1_mentor_welcome_02
+Unpaid CEO: I built three companies and lost two. Now I teach. No salary, hence the name. #line:ch1_mentor_welcome_03
+Unpaid CEO: Rule one. Money in is not money kept. Want the rest of the rules? #line:ch1_mentor_welcome_04
+-> Teach me everything. #line:ch1_mentor_welcome_05
+    <<choose "listen">>
+    Unpaid CEO: Good. Class starts every month you survive. #line:ch1_mentor_welcome_06
+-> I'll figure it out myself. #line:ch1_mentor_welcome_07
+    <<choose "solo">>
+    Unpaid CEO: Bold. I'll be around when the city teaches you first. #line:ch1_mentor_welcome_08
+===
+
+title: ch1_mentor_profit
+---
+Unpaid CEO: Your first month of gigs. Feels rich, right? #line:ch1_mentor_profit_01
+Unpaid CEO: That number in the app is revenue. Subtract the bike, the phone plan and the taxes. What's left is profit. #line:ch1_mentor_profit_02
+Unpaid CEO: Profit is the only number that pays rent. #line:ch1_mentor_profit_03
+-> Put fifty bucks aside. #line:ch1_mentor_profit_04
+    <<choose "save">>
+    Unpaid CEO: Small reserve, big habit. #line:ch1_mentor_profit_05
+-> Celebrate with a burger. #line:ch1_mentor_profit_06
+    <<choose "treat">>
+    Unpaid CEO: Enjoy it. Just know which number paid for it. #line:ch1_mentor_profit_07
+===
+
+title: ch1_mentor_first_loss
+---
+You stare at the month. More went out than came in. #line:ch1_mentor_first_loss_01
+Unpaid CEO: Welcome to your first loss. Every founder has one. Most hide it. #line:ch1_mentor_first_loss_02
+Unpaid CEO: Don't hide it. Read it. Which cost grew faster than sales? #line:ch1_mentor_first_loss_03
+-> Go through every expense line. #line:ch1_mentor_first_loss_04
+    <<choose "review">>
+    Unpaid CEO: That's the job. The boring part is the CEO part. #line:ch1_mentor_first_loss_05
+-> Blame the city and move on. #line:ch1_mentor_first_loss_06
+    <<choose "blame">>
+    Unpaid CEO: The city doesn't read your books. You do. #line:ch1_mentor_first_loss_07
+===
+
+title: ch1_mentor_in_debt
+---
+Your banking app shows a minus sign in front of your balance. #line:ch1_mentor_in_debt_01
+Unpaid CEO: Negative cash is a cash gap. The bills arrived before the income did. #line:ch1_mentor_in_debt_02
+Unpaid CEO: You can cut costs, borrow from people who love you, or hope. Hope is not a plan. #line:ch1_mentor_in_debt_03
+-> Cut every cost I can. #line:ch1_mentor_in_debt_04
+    <<choose "cut">>
+    Unpaid CEO: Rice and beans have built empires. #line:ch1_mentor_in_debt_05
+-> Call Mom and ask for two hundred dollars. #line:ch1_mentor_in_debt_06
+    <<choose "mom">>
+    Mom: Of course, baby. Just pay me back when you can. #line:ch1_mentor_in_debt_07
+-> Ignore it. Next month will be better. #line:ch1_mentor_in_debt_08
+    <<choose "ignore">>
+    Unpaid CEO: Next month heard you. It's bringing interest. #line:ch1_mentor_in_debt_09
+===
+
+title: ch1_bankrupt_comeback
+---
+The phone is cut off. The bike is in the pawn shop. Two months deep in the red. #line:ch1_bankrupt_comeback_01
+Unpaid CEO: So. This is the basement chapter. Every real story has one. #line:ch1_bankrupt_comeback_02
+Unpaid CEO: Bankrupt is a status, not a personality. Let's build it again, smaller and smarter. #line:ch1_bankrupt_comeback_03
+-> Sell my stuff and start over lean. #line:ch1_bankrupt_comeback_04
+    <<choose "sell">>
+    Unpaid CEO: Sneakers, console, the fancy headphones. Gone. Runway, back. #line:ch1_bankrupt_comeback_05
+-> Ask the family to help me restart. #line:ch1_bankrupt_comeback_06
+    <<choose "family">>
+    Mom: We're family. You fall, we catch. Then you climb. #line:ch1_bankrupt_comeback_07
+===
+
+title: ch1_mentor_reserve
+---
+Unpaid CEO: Five hundred in the account. Nice. Now, how much of it is yours to spend? #line:ch1_mentor_reserve_01
+Unpaid CEO: A reserve is a month of life you've already paid for. It buys calm decisions. #line:ch1_mentor_reserve_02
+-> Move two hundred fifty into the reserve. #line:ch1_mentor_reserve_03
+    <<choose "reserve">>
+    Unpaid CEO: Future you just exhaled. #line:ch1_mentor_reserve_04
+-> Keep it all liquid for now. #line:ch1_mentor_reserve_05
+    <<choose "later">>
+    Unpaid CEO: Liquid money evaporates. Remember I said that. #line:ch1_mentor_reserve_06
+===
+
+title: ch1_mentor_burnout
+---
+You fall asleep on the train and miss your stop. Twice. #line:ch1_mentor_burnout_01
+Unpaid CEO: Tired founders make expensive mistakes. That's not wellness talk, that's accounting. #line:ch1_mentor_burnout_02
+-> Take a real day off. #line:ch1_mentor_burnout_03
+    <<choose "rest">>
+    You sleep twelve hours. The city did not collapse without you. #line:ch1_mentor_burnout_04
+-> Push through. Sleep is for later. #line:ch1_mentor_burnout_05
+    <<choose "push">>
+    Unpaid CEO: Then double-check every order today. #line:ch1_mentor_burnout_06
+===
+
+title: ch1_mentor_chapter_end
+---
+Unpaid CEO: Look at you. A thousand in the bank and a reserve for the bad months. #line:ch1_mentor_chapter_end_01
+Unpaid CEO: The Bronx taught you to survive. Brooklyn will teach you to build. #line:ch1_mentor_chapter_end_02
+-> Brooklyn, here I come. #line:ch1_mentor_chapter_end_03
+    <<choose "go">>
+    Unpaid CEO: Pack light. Bring the habits. #line:ch1_mentor_chapter_end_04
+-> One more month here first. #line:ch1_mentor_chapter_end_05
+    <<choose "stay">>
+    Unpaid CEO: Sure. Brooklyn isn't going anywhere. #line:ch1_mentor_chapter_end_06
+===

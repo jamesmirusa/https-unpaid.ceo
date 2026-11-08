@@ -27,6 +27,7 @@ namespace UnpaidCeo.Core.Narrative
             else if (j["clearFact"] != null) e = new ClearFactEffect((string)j["clearFact"]);
             else if (j["reserve"] != null) e = new ReserveEffect(Money.FromCents((long)j["reserve"]));
             else if (j["lesson"] != null) e = new LessonEffect((string)j["lesson"]);
+            else if (j["studyXp"] != null) e = new StudyXpEffect((int)j["studyXp"]);
             else throw new FormatException($"unknown effect {j.ToString(Formatting.None)}");
             e.Raw = j;
             return e;
@@ -41,6 +42,7 @@ namespace UnpaidCeo.Core.Narrative
     /// <summary>Moves money from cash into the reserve account (negative moves it back).</summary>
     public sealed class ReserveEffect : Effect { public Money Amount { get; } public ReserveEffect(Money a) { Amount = a; } }
     public sealed class LessonEffect : Effect { public string LessonId { get; } public LessonEffect(string id) { LessonId = id; } }
+    public sealed class StudyXpEffect : Effect { public int Amount { get; } public StudyXpEffect(int a) { Amount = a; } }
 
     public sealed class EffectJsonConverter : JsonConverter<Effect>
     {

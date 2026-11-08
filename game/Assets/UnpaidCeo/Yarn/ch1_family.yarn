@@ -1,0 +1,62 @@
+// Chapter 1, Mom and the family.
+// Every option runs <<choose "id">>; its effects live in Content/storylets_ch1.json.
+// Russian text lives in Chapter1-ru.csv; keep #line ids stable.
+
+title: ch1_mom_call
+---
+Your phone buzzes. Mom. #line:ch1_mom_call_01
+Mom: Are you eating? You sound thin. Tell me everything. #line:ch1_mom_call_02
+-> Talk for an hour. #line:ch1_mom_call_03
+    <<choose "talk">>
+    You hang up lighter than you've felt in weeks. #line:ch1_mom_call_04
+-> Mom, I'm busy. I'll call you later. #line:ch1_mom_call_05
+    <<choose "later">>
+    Mom: Later. Okay. Love you. #line:ch1_mom_call_06
+===
+
+title: ch1_mom_rent
+---
+Mom: Don't worry about it, but the landlord raised my rent and I'm a little short this month. #line:ch1_mom_rent_01
+Mom: Only a hundred fifty. I wouldn't ask if... well. #line:ch1_mom_rent_02
+-> Send it right now. #line:ch1_mom_rent_03
+    <<choose "send">>
+    Mom: You were always my good one. Don't tell your cousins. #line:ch1_mom_rent_04
+-> I can't this month, Mom. I'm sorry. #line:ch1_mom_rent_05
+    <<choose "cant">>
+    Mom: I understand. I'll figure it out. #line:ch1_mom_rent_06
+===
+
+title: ch1_mom_visit
+---
+Mom shows up unannounced with three containers of food and opinions about your curtains. #line:ch1_mom_visit_01
+Mom: So. Show me this business of yours. #line:ch1_mom_visit_02
+-> Show her everything, the good and the bad. #line:ch1_mom_visit_03
+    <<choose "honest">>
+    Mom: You're tired. But you're building something. I'm proud. #line:ch1_mom_visit_04
+-> Say everything is going great. #line:ch1_mom_visit_05
+    <<choose "pretend">>
+    She smiles. You're pretty sure she saw the overdue notice on the fridge. #line:ch1_mom_visit_06
+===
+
+title: ch1_mom_repay
+---
+Mom: I'm not asking about the money. I'm just saying the money exists. #line:ch1_mom_repay_01
+-> Pay her back today. #line:ch1_mom_repay_02
+    <<choose "repay">>
+    Mom: Look at you, paying debts like a grown-up. #line:ch1_mom_repay_03
+-> Ask for another month. #line:ch1_mom_repay_04
+    <<choose "later">>
+    Mom: Another month. Sure. #line:ch1_mom_repay_05
+===
+
+title: ch1_family_missed
+---
+You missed your little brother's graduation. You were finishing a delivery run. #line:ch1_family_missed_01
+Mom: He kept looking at the door. #line:ch1_family_missed_02
+-> Go see him tonight. Take him out for wings. #line:ch1_family_missed_03
+    <<choose "visit">>
+    He pretends he's not happy to see you. He's terrible at pretending. #line:ch1_family_missed_04
+-> Send a gift card and a text. #line:ch1_family_missed_05
+    <<choose "gift">>
+    He replies with a thumbs-up. Just a thumbs-up. #line:ch1_family_missed_06
+===

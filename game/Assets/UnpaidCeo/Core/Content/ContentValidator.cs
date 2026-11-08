@@ -46,6 +46,9 @@ namespace UnpaidCeo.Core.Content
             foreach (var a in db.FreeActionList.Where(a => a.ActionPoints < 0))
                 r.Errors.Add($"freeAction {a.Id}: negative actionPoints");
 
+            foreach (var g in db.NpcList.GroupBy(n => n.Id).Where(g => g.Count() > 1))
+                r.Errors.Add($"npc {g.Key}: duplicate id");
+
             foreach (var g in db.Storylets.GroupBy(x => x.Id).Where(g => g.Count() > 1))
                 r.Errors.Add($"storylet {g.Key}: duplicate id");
             foreach (var st in db.Storylets)

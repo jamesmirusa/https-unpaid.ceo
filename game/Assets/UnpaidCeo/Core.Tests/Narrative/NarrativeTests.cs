@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Life;
 using UnpaidCeo.Core.Narrative;
 using UnpaidCeo.Core.Primitives;
@@ -158,6 +159,15 @@ namespace UnpaidCeo.Core.Tests.Narrative
                 return string.Join(",", ids);
             }
             Assert.AreEqual(Run(), Run());
+        }
+
+        [Test]
+        public void StudyXp_effect_parses_and_adds_study_xp()
+        {
+            var e = Effect.Parse(JObject.Parse("{\"studyXp\": 10}"));
+            var s = new GameState { StudyXp = 5 };
+            EffectApplier.Apply(e, s);
+            Assert.AreEqual(15, s.StudyXp);
         }
     }
 }

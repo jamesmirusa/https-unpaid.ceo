@@ -1,0 +1,67 @@
+// Chapter 1, Mr. Fins the loan shark.
+// Every option runs <<choose "id">>; its effects live in Content/storylets_ch1.json.
+// Russian text lives in Chapter1-ru.csv; keep #line ids stable.
+
+title: ch1_shark_offer
+---
+A shark in a pinstripe suit leans against your building. His smile has too many rows. #line:ch1_shark_offer_01
+Mr. Fins: Rough month? I can help. A thousand dollars, right now, no paperwork. #line:ch1_shark_offer_02
+Mr. Fins: You pay back thirteen hundred in two months. Easy. #line:ch1_shark_offer_03
+-> Take the thousand. #line:ch1_shark_offer_04
+    <<choose "take">>
+    Mr. Fins: Pleasure doing business. I'll find you. I always do. #line:ch1_shark_offer_05
+-> No thanks. #line:ch1_shark_offer_06
+    <<choose "refuse">>
+    Mr. Fins: The offer swims by again. They always do. #line:ch1_shark_offer_07
+===
+
+title: ch1_shark_apr
+---
+Unpaid CEO: Three hundred on a thousand for two months. Do the math with me. #line:ch1_shark_apr_01
+Unpaid CEO: That's fifteen percent a month. Over a year, a hundred and eighty percent. A credit card is around twenty-two. #line:ch1_shark_apr_02
+Unpaid CEO: Sharks don't sell money. They sell time, at the worst possible price. #line:ch1_shark_apr_03
+-> Pay him back as fast as I can. #line:ch1_shark_apr_04
+    <<choose "repay_fast">>
+    Unpaid CEO: Good. Interest is a race you only win by quitting early. #line:ch1_shark_apr_05
+-> It's just one loan. Relax. #line:ch1_shark_apr_06
+    <<choose "relax">>
+    Unpaid CEO: That's what everyone says before the second one. #line:ch1_shark_apr_07
+===
+
+title: ch1_shark_collect
+---
+Mr. Fins: Two months. Clock's up. Thirteen hundred. #line:ch1_shark_collect_01
+-> Pay in full. #line:ch1_shark_collect_02
+    <<choose "pay">>
+    Mr. Fins: Clean. I like clean. #line:ch1_shark_collect_03
+-> Pay two hundred interest and beg for more time. #line:ch1_shark_collect_04
+    <<choose "extend">>
+    Mr. Fins: Two more months. The thirteen hundred doesn't shrink, kid. #line:ch1_shark_collect_05
+-> Refuse to pay. #line:ch1_shark_collect_06
+    <<choose "refuse">>
+    Mr. Fins: Wrong answer. We'll talk again. Soon. #line:ch1_shark_collect_07
+===
+
+title: ch1_shark_threat
+---
+Your delivery bike is gone. In its place, a business card with a fin on it. #line:ch1_shark_threat_01
+Mr. Fins: Fifteen hundred and you get the bike back. Or enjoy walking. #line:ch1_shark_threat_02
+-> Pay the fifteen hundred. #line:ch1_shark_threat_03
+    <<choose "pay">>
+    Mr. Fins: See? We're friends again. #line:ch1_shark_threat_04
+-> Let the bike go. The debt is settled. #line:ch1_shark_threat_05
+    <<choose "let_go">>
+    Mr. Fins: Fair trade. Nice bike, by the way. #line:ch1_shark_threat_06
+===
+
+title: ch1_shark_job
+---
+Mr. Fins: You paid on time. That makes you rare. I could use a reliable face. #line:ch1_shark_job_01
+Mr. Fins: Collections. You knock, they pay, you keep ten percent. #line:ch1_shark_job_02
+-> Take the job. #line:ch1_shark_job_03
+    <<choose "accept">>
+    The money is fast. The looks on people's faces stay with you longer. #line:ch1_shark_job_04
+-> Not my kind of business. #line:ch1_shark_job_05
+    <<choose "decline">>
+    Mr. Fins: Principles. Expensive hobby. #line:ch1_shark_job_06
+===

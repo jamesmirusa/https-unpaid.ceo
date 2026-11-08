@@ -79,6 +79,21 @@ namespace UnpaidCeo.Core.Tests.Content
         }
 
         [Test]
+        public void Npcs_load_and_duplicates_are_reported()
+        {
+            var db = ContentDb.FromJson(new ContentFiles
+            {
+                Npcs = @"{ ""npcs"": [
+  { ""id"": ""tony"", ""species"": ""bulldog"", ""role"": ""neighbor"", ""name"": { ""en"": ""Tony"", ""ru"": ""Тони"" } },
+  { ""id"": ""tony"", ""species"": ""bulldog"", ""role"": ""neighbor"", ""name"": { ""en"": ""Tony"" } }
+] }",
+            });
+            Assert.AreEqual("Тони", db.Npcs["tony"].Name["ru"]);
+            Assert.AreEqual("bulldog", db.Npcs["tony"].Species);
+            Assert.That(db.Validate().Errors, Has.Some.Contains("npc tony: duplicate id"));
+        }
+
+        [Test]
         public void Real_content_is_valid()
         {
             string dir = Path.Combine(UnityEngine.Application.dataPath, "UnpaidCeo/Content");
@@ -89,6 +104,7 @@ namespace UnpaidCeo.Core.Tests.Content
                 Balance = Read("balance.json"),
                 FreeActions = Read("free_actions.json"),
                 Storylets = Read("storylets_ch1.json"),
+                Npcs = Read("npcs.json"),
             });
             var result = db.Validate();
             Assert.IsTrue(result.IsValid, string.Join("\n", result.Errors));

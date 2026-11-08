@@ -15,6 +15,16 @@ namespace UnpaidCeo.Core.Content
         public string Balance { get; set; }
         public string FreeActions { get; set; }
         public string Storylets { get; set; }
+        public string Npcs { get; set; }
+    }
+
+    /// <summary>A named character; Name maps a language code to the display name.</summary>
+    public sealed class NpcDef
+    {
+        public string Id { get; set; }
+        public string Species { get; set; }
+        public string Role { get; set; }
+        public Dictionary<string, string> Name { get; set; } = new Dictionary<string, string>();
     }
 
     /// <summary>A player action available in any month.</summary>
@@ -33,9 +43,11 @@ namespace UnpaidCeo.Core.Content
         public Balance Balance { get; private set; }
         public IReadOnlyDictionary<string, FreeActionDef> FreeActions { get; private set; }
         public IReadOnlyList<StoryletDef> Storylets { get; private set; }
+        public IReadOnlyDictionary<string, NpcDef> Npcs { get; private set; }
 
         internal List<IndustryDef> IndustryList { get; private set; }
         internal List<FreeActionDef> FreeActionList { get; private set; }
+        internal List<NpcDef> NpcList { get; private set; }
 
         static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
@@ -45,12 +57,14 @@ namespace UnpaidCeo.Core.Content
         class IndustriesFile { public List<IndustryDef> Industries { get; set; } = new List<IndustryDef>(); }
         class FreeActionsFile { public List<FreeActionDef> FreeActions { get; set; } = new List<FreeActionDef>(); }
         class StoryletsFile { public List<StoryletDef> Storylets { get; set; } = new List<StoryletDef>(); }
+        class NpcsFile { public List<NpcDef> Npcs { get; set; } = new List<NpcDef>(); }
 
         public static ContentDb FromJson(ContentFiles files)
         {
             var industries = Parse<IndustriesFile>(files.Industries)?.Industries ?? new List<IndustryDef>();
             var actions = Parse<FreeActionsFile>(files.FreeActions)?.FreeActions ?? new List<FreeActionDef>();
             var storylets = Parse<StoryletsFile>(files.Storylets)?.Storylets ?? new List<StoryletDef>();
+            var npcs = Parse<NpcsFile>(files.Npcs)?.Npcs ?? new List<NpcDef>();
             return new ContentDb
             {
                 IndustryList = industries,
@@ -58,6 +72,8 @@ namespace UnpaidCeo.Core.Content
                 Industries = ToDict(industries, i => i.Id),
                 FreeActions = ToDict(actions, a => a.Id),
                 Storylets = storylets,
+                NpcList = npcs,
+                Npcs = ToDict(npcs, n => n.Id),
                 Balance = Parse<Balance>(files.Balance) ?? new Balance(),
             };
         }

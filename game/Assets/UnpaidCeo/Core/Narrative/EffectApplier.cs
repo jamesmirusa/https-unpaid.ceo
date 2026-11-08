@@ -24,6 +24,7 @@ namespace UnpaidCeo.Core.Narrative
                     s.Reserve += Money.FromCents(move);
                     break;
                 case LessonEffect l: s.PendingLessons.Add(l.LessonId); break;
+                case StudyXpEffect x: s.StudyXp += x.Amount; break;
             }
         }
 

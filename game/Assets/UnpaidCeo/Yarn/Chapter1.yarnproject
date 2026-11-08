@@ -1,0 +1,11 @@
+{
+  "projectFileVersion": 4,
+  "sourceFiles": ["**/*.yarn"],
+  "excludeFiles": ["**/*~/*"],
+  "localisation": {
+    "ru": { "strings": "Chapter1-ru.csv", "assets": null }
+  },
+  "baseLanguage": "en",
+  "definitions": null,
+  "compilerOptions": {}
+}
