@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Localization.Settings;
@@ -10,6 +11,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Game;
+using UnpaidCeo.Core.Online;
 using UnpaidCeo.Core.Persistence;
 using UnpaidCeo.Core.Platform;
 using UnpaidCeo.Game.Audio;
@@ -47,6 +49,9 @@ namespace UnpaidCeo.Game.Bootstrap
 
         GameEngine? _engine;
         GameState? _state;
+        string? _contentVersion;
+        CloudSync? _sync;
+        SubmissionQueue? _queue;
         CityView? _city;
         DayNeonController? _light;
         TimelapseDirector? _timelapse;
@@ -120,10 +125,59 @@ namespace UnpaidCeo.Game.Bootstrap
             if (this == null) return;   // the boot scene went away meanwhile
             Online = online;
             if (Ui != null) Ui.Online = online;
+            if (online.Available) await SyncOnline(online);
+        }
+
+        /// <summary>
+        /// Once the game is loaded: tells the server we are here (pacing counts from the first visit), settles device vs
+        /// cloud save — a longer cloud game is downloaded and the game restarts on it — then sends queued runs.
+        /// </summary>
+        async Task SyncOnline(IOnlineServices online)
+        {
+            while (this != null && Current == Phase.Loading) await Awaitable.NextFrameAsync();
+            if (this == null || _state == null || Current == Phase.Failed) return;
+            await online.Runs.Hello();
+            _sync = new CloudSync(online.Saves, DeviceClock.NowUnix);
+            var adopt = await _sync.Pull(CloudSync.Envelope(_state, _meta, DeviceClock.NowUnix()));
+            if (this == null) return;
+            if (adopt?.SaveJson != null && Adopt(adopt)) return;
+            await FlushQueue();
+        }
+
+        /// <summary>Makes the cloud save the device save and restarts on it; false if it cannot be read.</summary>
+        bool Adopt(CloudSaveEnvelope cloud)
+        {
+            var loaded = SaveCodec.Decode(cloud.SaveJson!);
+            if (loaded.State == null || (loaded.Status != LoadStatus.Ok && loaded.Status != LoadStatus.Migrated)) return false;
+            SaveService.Save(loaded.State);
+            if (cloud.MetaJson != null) SaveService.SaveMeta(SaveCodec.DecodeMeta(cloud.MetaJson));
+            SceneManager.LoadScene(0);
+            return true;
+        }
+
+        /// <summary>After the device save is written: the cloud copy follows (debounced).</summary>
+        void PushCloud()
+        {
+            if (_sync != null && _state != null) _ = _sync.Push(CloudSync.Envelope(_state, _meta, DeviceClock.NowUnix()));
+        }
+
+        /// <summary>The career so far goes to the server for the capital and market boards (queued while offline).</summary>
+        void SubmitCareer()
+        {
+            if (_state == null || _contentVersion == null || _queue == null) return;
+            var start = new RunStart { Kind = RunStart.Career, Seed = _state.Seed, Hero = _state.Hero };
+            _queue.EnqueueCareer(RunSubmission.From(start, _state, _contentVersion));
+            _ = FlushQueue();
+        }
+
+        async Task FlushQueue()
+        {
+            if (_queue != null && Online.Available) await _queue.Flush(Online.Runs);
         }
 
         IEnumerator Boot()
         {
+            _queue = new SubmissionQueue();
             StartOnline();
             yield return LocalizationSettings.InitializationOperation;
             GraphicsModeService.Apply(GraphicsModeService.TryLoadSaved(out var mode) ? mode : GraphicsMode.Optimal);
@@ -158,7 +212,7 @@ namespace UnpaidCeo.Game.Bootstrap
             yield return Ui.SetLanguage(UiRoot.PickLanguage());
             _yarn!.SetLanguage(Ui.Language);
             Ui.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
-            Ui.ResetRequested += () => { SaveService.Delete(); SceneManager.LoadScene(0); };
+            Ui.ResetRequested += () => { CloudSync.MarkReset(); SaveService.Delete(); SceneManager.LoadScene(0); };
             Ui.QuizAnswered += OnQuizAnswered;
             Ui.ChapterAdvanced += chapter => { SaveService.Save(_state); AfterAction(); StartCoroutine(SwapDistrict(chapter)); };
             Ui.IndustryChosen += _ => { SaveService.Save(_state); AfterAction(); };
@@ -201,6 +255,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 texts[i] = h.Status == AsyncOperationStatus.Succeeded ? h.Result.text : null;
             }
             if (Array.Exists(texts, t => t == null)) { done(null); yield break; }
+            _contentVersion = ContentVersion.Of(texts!);
             done(UnpaidCeo.Core.Online.ContentPack.Load(texts!));
         }
 
@@ -267,6 +322,8 @@ namespace UnpaidCeo.Game.Bootstrap
                 _city?.Sync(_state!);
                 Ui!.ShowReport(reports[reports.Count - 1]);
                 SaveService.Save(_state!);
+                PushCloud();
+                SubmitCareer();
             }
             SaveService.SaveMeta(_meta);
         }
@@ -290,6 +347,7 @@ namespace UnpaidCeo.Game.Bootstrap
             _hero?.React(report);
             Ui.Open(Ui.HomeTab);
             SaveService.Save(_state!);
+            PushCloud();
             AfterAction();
             _busy = false;
             PlayScenes();
@@ -307,6 +365,8 @@ namespace UnpaidCeo.Game.Bootstrap
                 if (this == null || !isActiveAndEnabled) return; // destroyed mid-scene (reset deleted the save): do not write it back
                 Ui?.AfterScenes();
                 SaveService.Save(_state);
+                PushCloud();
+                SubmitCareer();   // the month and its scenes are complete: a stable point to rank
                 AfterAction();
             }
             catch (Exception e) { Debug.LogException(e); }
@@ -360,9 +420,9 @@ namespace UnpaidCeo.Game.Bootstrap
             if (_meta.Turns.Day != day || ++_ticks % 30 == 0) SaveService.SaveMeta(_meta);
         }
 
-        void OnApplicationPause(bool paused) { if (paused) SaveMetaNow(); }
+        void OnApplicationPause(bool paused) { if (paused) { SaveMetaNow(); _ = _sync?.FlushPending(); } }
 
-        void OnApplicationQuit() => SaveMetaNow();
+        void OnApplicationQuit() { SaveMetaNow(); _ = _sync?.FlushPending(); }
 
         void SaveMetaNow()
         {
