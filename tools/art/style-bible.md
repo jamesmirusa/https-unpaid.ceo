@@ -59,3 +59,8 @@ Decision: key buildings → Tripo P2; background buildings and props → Tripo H
 - 11 characters: Meshy 7 ultra, PBR, 19.5k triangles, A-pose (44 cr) + 4 × 3d_rigging takes (idle 0, walk 30 Casual_Walk, cheer 59 Victory_Cheer, think 36 Confused_Scratch; 8 cr each). The idle take is the model; the other takes are stripped to node hierarchy + animation (`max/strip_anim.py`, ~100-250 KB) in `Art/Imported/Characters/Clips/`. Fox and cat hoodie concepts re-made from their blazer twins so each species looks the same in both outfits.
 - Textures: apps/desktop 2048 (props 1024), WebGL override 1024 (props 512); normal maps kept (WebGL 512) and used by `UnpaidCeo/Stylized` (`_NORMALMAP`). Character budget 15–22k (rigged takes land ~20.2k).
 - Jobs, URLs and the per-step spend: `max/max-jobs.json`.
+
+## Brooklyn and Queens (2026-11-08, 210 credits; owner approved option b)
+- 8 concepts (GPT Image 2.6, high, 2k, pilot bodega style reference; all passed QC first time) → key buildings warehouse and office on Tripo P2 max (as the max pass, 40 cr); cleaning company, brownstone row, Queens house, food truck, box truck and coffee cart on Tripo H3.1 detailed (texture + geometry detailed, PBR, `face_limit` 8000; 18 cr).
+- Props must land at 0.2–3k triangles: `stage2/fetch_stage2.py` simplifies them with meshoptimizer (`npx @gltf-transform/cli simplify`, UVs and textures kept; ~7k → ~2.7k) before import, then shrinks textures (buildings 2048, props 1024). Next time, ask Tripo for `face_limit` 3000 on props and skip the simplify step.
+- Jobs, URLs and spend: `stage2/jobs.json`; concepts: `stage2/concepts/`; in-engine previews: `previews/`.

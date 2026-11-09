@@ -34,14 +34,15 @@ namespace UnpaidCeo.Editor.Tests
             Assert.IsEmpty(oversized, "textures above the web cap:\n" + string.Join("\n", oversized));
         }
 
-        [Test] public void All_imported_buildings_within_budget() => AssertBudget(Load("building_"), AssetKind.Building, 12);
-        [Test] public void All_imported_props_within_budget() => AssertBudget(Load("prop_"), AssetKind.Prop, 14);
+        [Test] public void All_imported_buildings_within_budget() => AssertBudget(Load("building_"), AssetKind.Building, 21);
+        [Test] public void All_imported_props_within_budget() => AssertBudget(Load("prop_"), AssetKind.Prop, 17);
         [Test] public void All_characters_within_budget() => AssertBudget(Load("hero_", "npc_"), AssetKind.Character, 11);
 
         static readonly string[] KeyBuildings =
         {
             "building_bodega", "building_walkup", "building_laundromat", "building_pawn_shop",
             "building_coffee_shop", "building_barbershop", "building_bakery", "building_car_wash",
+            "building_warehouse", "building_office",
         };
 
         [Test]

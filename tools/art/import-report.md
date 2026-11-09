@@ -7,28 +7,36 @@
 | building_bakery | 3453 KB | 6335 | 3 | 1 | 1024×1024 | OK |
 | building_barbershop | 3871 KB | 6663 | 3 | 1 | 1024×1024 | OK |
 | building_bodega | 4100 KB | 6364 | 3 | 1 | 1024×1024 | OK |
+| building_brownstone_row | 4899 KB | 7404 | 3 | 1 | 1024×1024 | OK |
 | building_bus_shelter | 1263 KB | 6268 | 3 | 1 | 1024×1024 | OK |
 | building_car_wash | 3293 KB | 5992 | 3 | 1 | 1024×1024 | OK |
 | building_check_cashing | 1598 KB | 7463 | 3 | 1 | 1024×1024 | OK |
 | building_church | 1654 KB | 7439 | 3 | 1 | 1024×1024 | OK |
+| building_cleaning_co | 4669 KB | 7149 | 3 | 1 | 1024×1024 | OK |
 | building_coffee_shop | 3584 KB | 6437 | 3 | 1 | 1024×1024 | OK |
 | building_court | 943 KB | 6604 | 3 | 1 | 1024×1024 | OK |
 | building_el_subway | 1388 KB | 7346 | 3 | 1 | 1024×1024 | OK |
 | building_garage | 1409 KB | 6946 | 3 | 1 | 1024×1024 | OK |
 | building_garden_lot | 1487 KB | 6597 | 3 | 1 | 1024×1024 | OK |
 | building_laundromat | 3397 KB | 5953 | 3 | 1 | 1024×1024 | OK |
+| building_office | 4187 KB | 5401 | 3 | 1 | 1024×1024 | OK |
 | building_pawn_shop | 3794 KB | 6759 | 3 | 1 | 1024×1024 | OK |
 | building_pizza | 1498 KB | 7055 | 3 | 1 | 1024×1024 | OK |
+| building_queens_house | 4254 KB | 6990 | 3 | 1 | 1024×1024 | OK |
 | building_walkup | 4416 KB | 5622 | 3 | 1 | 1024×1024 | OK |
+| building_warehouse | 4288 KB | 7330 | 3 | 1 | 1024×1024 | OK |
 
 ## Props (Prop)
 
 | asset | file | LOD0 tris | LOD levels | materials | textures | budget |
 |---|---|---|---|---|---|---|
 | prop_bed | 2792 KB | 2301 | 3 | 1 | 512×512 | OK |
+| prop_box_truck | 1242 KB | 2713 | 3 | 1 | 512×512 | OK |
+| prop_coffee_cart | 1183 KB | 2713 | 3 | 1 | 512×512 | OK |
 | prop_delivery_bike | 2078 KB | 2305 | 3 | 1 | 512×512 | OK |
 | prop_desk | 2012 KB | 2310 | 3 | 1 | 512×512 | OK |
 | prop_food_cart | 2016 KB | 2242 | 3 | 1 | 512×512 | OK |
+| prop_food_truck | 1352 KB | 2710 | 3 | 1 | 512×512 | OK |
 | prop_hydrant | 2346 KB | 2410 | 3 | 1 | 512×512 | OK |
 | prop_kitchenette | 2025 KB | 2062 | 3 | 1 | 512×512 | OK |
 | prop_newspaper_box | 1756 KB | 2040 | 3 | 1 | 512×512 | OK |
