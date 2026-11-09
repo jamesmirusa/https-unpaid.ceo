@@ -7,7 +7,7 @@ namespace UnpaidCeo.Core.Online
 {
     /// <summary>
     /// Fingerprint of the shipped content: SHA-256 of each file's canonical JSON (formatting and key order ignored), in
-    /// GameBootstrap.ContentFiles order. A run only counts against the content the server embeds.
+    /// ContentPack.Files order. A run only counts against the content the server embeds.
     /// </summary>
     public static class ContentVersion
     {
