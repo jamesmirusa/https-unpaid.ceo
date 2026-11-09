@@ -18,6 +18,7 @@ using UnpaidCeo.Game.Graphics;
 using UnpaidCeo.Game.Hero;
 using UnpaidCeo.Game.Narrative;
 using UnpaidCeo.Game.Services;
+using UnpaidCeo.Game.Services.Online;
 using UnpaidCeo.Game.Ui;
 using Yarn.Unity;
 
@@ -41,6 +42,8 @@ namespace UnpaidCeo.Game.Bootstrap
         public Phase Current { get; private set; } = Phase.Loading;
         public UiRoot? Ui { get; private set; }
         public OnboardingFlow? Onboarding { get; private set; }
+        /// <summary>Offline until the background connection to Unity Gaming Services answers (it never holds up play).</summary>
+        public IOnlineServices Online { get; private set; } = new OfflineServices();
 
         GameEngine? _engine;
         GameState? _state;
@@ -110,8 +113,18 @@ namespace UnpaidCeo.Game.Bootstrap
                 _hero.transform.SetPositionAndRotation(_city.HomeAnchor.position, _city.HomeAnchor.rotation);
         }
 
+        /// <summary>Connects in the background; screens see the result through <see cref="UiRoot.Online"/>.</summary>
+        async void StartOnline()
+        {
+            var online = await OnlineBootstrap.Start();
+            if (this == null) return;   // the boot scene went away meanwhile
+            Online = online;
+            if (Ui != null) Ui.Online = online;
+        }
+
         IEnumerator Boot()
         {
+            StartOnline();
             yield return LocalizationSettings.InitializationOperation;
             GraphicsModeService.Apply(GraphicsModeService.TryLoadSaved(out var mode) ? mode : GraphicsMode.Optimal);
 
@@ -140,6 +153,7 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui = new GameObject("UI").AddComponent<UiRoot>();
             Ui.transform.SetParent(transform);
             Ui.Initialize(_engine, _state);
+            Ui.Online = Online;
             Ui.LineText = id => _yarn != null ? _yarn.LineText(id) : null;
             yield return Ui.SetLanguage(UiRoot.PickLanguage());
             _yarn!.SetLanguage(Ui.Language);

@@ -53,6 +53,15 @@ namespace UnpaidCeo.Game.Tests
             var done = boot.Ui.Root.Q<Button>("hero-done");
             Assert.IsNotNull(done, "hero creator is on screen");
             Assert.IsNotNull(Object.FindFirstObjectByType<Yarn.Unity.DialogueRunner>(), "dialogue is wired");
+
+            Assert.IsNotNull(boot.Ui.Online, "screens always have online services (offline until UGS answers)");
+            if (string.IsNullOrEmpty(Application.cloudProjectId))
+            {
+                yield return null;
+                yield return null;
+                Assert.IsFalse(boot.Online.Available, "an unlinked project plays offline");
+                Assert.AreSame(boot.Online, boot.Ui.Online);
+            }
         }
     }
 }

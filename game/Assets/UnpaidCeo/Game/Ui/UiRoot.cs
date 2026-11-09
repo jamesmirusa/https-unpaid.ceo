@@ -9,6 +9,7 @@ using UnityEngine.UIElements;
 using UnpaidCeo.Core.Format;
 using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Platform;
+using UnpaidCeo.Game.Services.Online;
 
 namespace UnpaidCeo.Game.Ui
 {
@@ -64,6 +65,15 @@ namespace UnpaidCeo.Game.Ui
         public string CurrentTab { get; private set; }
         public string Language { get; private set; } = "en";
         public bool IsNeon { get; private set; }
+
+        IOnlineServices _online = new OfflineServices();
+        /// <summary>Online services for the screens: offline until the background connection answers.</summary>
+        public IOnlineServices Online
+        {
+            get => _online;
+            set { _online = value ?? new OfflineServices(); OnlineChanged?.Invoke(_online); }
+        }
+        public event Action<IOnlineServices> OnlineChanged;
 
         public Button NextMonthButton => _next;
         /// <summary>Chapter 2's business choice (also a tab: <see cref="Industry"/>).</summary>
