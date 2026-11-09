@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: city_ch2
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: city_ch2
+  m_GUID: 7545c4150ba94457a83c43a158fea36e
+  m_SerializeEntries:
+  - m_GUID: 112f761f73e014c6d9286c7fdb3116d7
+    m_Address: city/building_cleaning_co
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2514ac07088b94874ad0866af1520d57
+    m_Address: city/building_warehouse
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2d05679f467f74d78b36482ad8594212
+    m_Address: city/building_bakery
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 4687d630a457345be9b3e631807b4ce6
+    m_Address: city/building_coffee_shop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 5cfd2284a378346a1bc83609f3766549
+    m_Address: city/prop_box_truck
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 82cd74b175e2a4439a5c8c059c288a08
+    m_Address: city/prop_coffee_cart
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 887b360234ace463ca7c2c4164e0e475
+    m_Address: city/building_office
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b481db01e4c3842b28d9dee2a7f8868b
+    m_Address: city/building_car_wash
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: b9c18dc757e2e43e29c88aa5906332cf
+    m_Address: city/prop_food_truck
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: af0bedfd9ca3d4b4a9a555cf73b1e4ce, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: fc4b4bf1be54948bc9c1973bcecdc3d2, type: 2}
+    - {fileID: 11400000, guid: 5763df0988fc14d5d996ab234b11458c, type: 2}
+    m_SchemaDisplayOrder:
+    - city_ch2_BundledAssetGroupSchema
+    - city_ch2_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1

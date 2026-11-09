@@ -21,15 +21,17 @@ namespace UnpaidCeo.Game.City
             emptyMarker = marker;
         }
 
-        public void Place(GameObject prefab, string businessId)
+        /// <param name="size">Largest horizontal side in metres (a cart or truck is smaller than the lot); 0 = the lot's footprint.</param>
+        /// <param name="yaw">Turn in degrees so the model's front faces the street.</param>
+        public void Place(GameObject prefab, string businessId, float size = 0f, float yaw = 0f)
         {
             Clear();
             if (prefab == null) return;
             Building = Instantiate(prefab, transform);
             Building.name = prefab.name;
             Building.transform.localPosition = Vector3.zero;
-            Building.transform.localRotation = Quaternion.identity;
-            ModelFit.ToFootprint(Building, footprint);
+            Building.transform.localRotation = Quaternion.Euler(0f, yaw, 0f);
+            ModelFit.ToFootprint(Building, size > 0f ? Mathf.Min(size, footprint) : footprint);
             BusinessId = businessId;
             if (emptyMarker != null) emptyMarker.SetActive(false);
         }

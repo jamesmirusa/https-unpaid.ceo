@@ -21,12 +21,6 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
-  - m_GUID: 945330f5e7c254e1da7b1479c5703503
-    m_Address: room
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-    m_FolderGuid: 
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: af0bedfd9ca3d4b4a9a555cf73b1e4ce, type: 2}
   m_SchemaSet:

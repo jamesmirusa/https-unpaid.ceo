@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: city_common
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: city_common
+  m_GUID: 904549c9066734c52984d79c42224db4
+  m_SerializeEntries:
+  - m_GUID: 02f5022846782415f8b277f0ee628651
+    m_Address: city/building_pizza
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 06be82fc330c2470094213b835439454
+    m_Address: city/building_garden_lot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 0b43cdec969a14325b34a336f5c52e87
+    m_Address: city/prop_food_cart
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 1afd3e6dbb04746558898b36956cfc2f
+    m_Address: city/building_church
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 2520df91f88834890a4c3875cf57d9e1
+    m_Address: city/prop_hydrant
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 28ffc044742f74b10b8d8988f0cc2d81
+    m_Address: city/prop_delivery_bike
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 3071e25f4c4e14dae8e168b44be386b0
+    m_Address: city/building_bus_shelter
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 3bc7b20746c874b218268abb5491f3b4
+    m_Address: city/building_laundromat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 58b2d6978cd77425e9a986d32c424735
+    m_Address: city/prop_trash_cans
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 645d0817e5c074d0abcb4cef6d0ee8a7
+    m_Address: city/prop_street_lamp
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 70a97b4cae22841029c275b06afbbac4
+    m_Address: city/prop_newspaper_box
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 70aab082142fd4973ae7df03265b14f2
+    m_Address: city/building_bodega
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 7b3df9982e17c463d9d6e0f97588176a
+    m_Address: city/building_garage
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 9c3ec416c36e34db890a662cd80d7fa2
+    m_Address: city/building_walkup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: ad02a32b0ccd64fbcb3998cd6bc171fa
+    m_Address: city/building_pawn_shop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: ca19989b0000b4ada9d2427811974880
+    m_Address: city/building_el_subway
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f12bbb9f1776342c8bd1d964a457ddce
+    m_Address: city/prop_taxi
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: af0bedfd9ca3d4b4a9a555cf73b1e4ce, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: e2a9c505a31f14e9b99ebf97d363beb3, type: 2}
+    - {fileID: 11400000, guid: 65bd1b813d4514ed1875c0166b94d781, type: 2}
+    m_SchemaDisplayOrder:
+    - city_common_BundledAssetGroupSchema
+    - city_common_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1

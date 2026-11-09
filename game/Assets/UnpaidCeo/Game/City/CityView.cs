@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnpaidCeo.Core.Economy;
 using UnpaidCeo.Core.Game;
 
 namespace UnpaidCeo.Game.City
@@ -16,6 +17,7 @@ namespace UnpaidCeo.Game.City
         [SerializeField] Transform homeAnchor;
 
         public IReadOnlyList<LotView> Lots => lots;
+        public CityCatalog Catalog => catalog;
         public Transform HomeAnchor => homeAnchor;
 
         public void Configure(CityCatalog c, List<LotView> l, Transform home)
@@ -25,15 +27,37 @@ namespace UnpaidCeo.Game.City
             homeAnchor = home;
         }
 
+        /// <summary>
+        /// A business with a fixed lot stands there; one without takes a lot once its first unit opens (the lot it
+        /// already stands on, else the first free one). The model follows the number of units (cart → shop).
+        /// </summary>
         public void Sync(GameState s)
         {
-            var byLot = s.Businesses.Where(b => !string.IsNullOrEmpty(b.LotId))
-                .GroupBy(b => b.LotId).ToDictionary(g => g.Key, g => g.First());
+            var byLot = new Dictionary<string, BusinessState>();
+            foreach (var b in s.Businesses)
+                if (!string.IsNullOrEmpty(b.LotId) && !byLot.ContainsKey(b.LotId)) byLot[b.LotId] = b;
+            var pending = new List<BusinessState>();
+            foreach (var b in s.Businesses.Where(b => string.IsNullOrEmpty(b.LotId) && b.Units > 0))
+            {
+                var current = lots.FirstOrDefault(l => l.BusinessId == b.Id && !byLot.ContainsKey(l.LotId));
+                if (current != null) byLot[current.LotId] = b; else pending.Add(b);
+            }
+            foreach (var b in pending)
+            {
+                var free = lots.FirstOrDefault(l => !byLot.ContainsKey(l.LotId));
+                if (free == null) break;
+                byLot[free.LotId] = b;
+            }
+
             foreach (var lot in lots)
             {
                 if (byLot.TryGetValue(lot.LotId, out var business))
                 {
-                    if (lot.BusinessId != business.Id) lot.Place(catalog != null ? catalog.BuildingFor(business.IndustryId) : null, business.Id);
+                    var prefab = catalog != null ? catalog.BuildingFor(business.IndustryId, business.Units) : null;
+                    bool same = lot.BusinessId == business.Id && (prefab == null ? lot.Building == null : lot.Building != null && lot.Building.name == prefab.name);
+                    if (!same && catalog != null)
+                        lot.Place(prefab, business.Id, catalog.FootprintFor(business.IndustryId, business.Units), catalog.YawFor(business.IndustryId, business.Units));
+                    else if (!same) lot.Place(null, business.Id);
                 }
                 else if (lot.Building != null) lot.Clear();
             }

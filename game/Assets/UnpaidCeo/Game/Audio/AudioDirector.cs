@@ -52,14 +52,17 @@ namespace UnpaidCeo.Game.Audio
         }
 
         /// <summary>Loads both themes through Addressables and follows the city's light.</summary>
-        public IEnumerator LoadMusic(DayNeonController? light)
+        public IEnumerator LoadMusic(DayNeonController? light) => LoadMusic(() => light != null ? light.NightAmount : 0f);
+
+        /// <summary>Loads both themes and follows <paramref name="nightAmount"/> (0 day … 1 neon), which may switch districts.</summary>
+        public IEnumerator LoadMusic(Func<float> nightAmount)
         {
             var day = Addressables.LoadAssetAsync<AudioClip>(AudioAddresses.MusicDay);
             var night = Addressables.LoadAssetAsync<AudioClip>(AudioAddresses.MusicNeon);
             yield return day;
             yield return night;
             if (day.Status == AsyncOperationStatus.Succeeded && night.Status == AsyncOperationStatus.Succeeded)
-                Configure(day.Result, night.Result, () => light != null ? light.NightAmount : 0f);
+                Configure(day.Result, night.Result, nightAmount);
             else
                 Debug.LogWarning("Music themes failed to load; the game continues without music.");
         }

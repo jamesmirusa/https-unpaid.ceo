@@ -51,11 +51,61 @@ namespace UnpaidCeo.Game.Bootstrap
         YarnBridge? _yarn;
         HeroView? _hero;
         PlayerMeta? _meta;
-        bool _busy;
+        AsyncOperationHandle<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance> _district;
+        bool _busy, _swapping;
         float _nextTick;
         int _ticks;
 
         void Start() => StartCoroutine(Boot());
+
+        /// <summary>Addressable scene of the chapter's district: Bronx (1), Brooklyn (2), Queens (3).</summary>
+        public static string DistrictAddress(int chapter) => "district_" + Chapters.District(chapter);
+
+        /// <summary>Loads the district for <paramref name="chapter"/>, then unloads the current one (behind the chapter card).</summary>
+        public IEnumerator SwapDistrict(int chapter)
+        {
+            _swapping = true;
+            var old = _district;
+            yield return LoadDistrict(chapter);
+            bool loaded = !old.IsValid() || !_district.Equals(old);
+            if (loaded && old.IsValid()) yield return Addressables.UnloadSceneAsync(old);
+            if (loaded)
+            {
+                if (_state != null) _city?.Sync(_state);
+                if (_light != null && Ui != null) _light.Set(Ui.IsNeon ? TimeOfDay.Night : TimeOfDay.Day);
+                PlaceHeroAtHome();
+            }
+            _swapping = false;
+        }
+
+        /// <summary>Loads a district additively; on success its city, light and timelapse become current.</summary>
+        IEnumerator LoadDistrict(int chapter)
+        {
+            var handle = Addressables.LoadSceneAsync(DistrictAddress(chapter), LoadSceneMode.Additive);
+            yield return handle;
+            if (handle.Status != AsyncOperationStatus.Succeeded) { Debug.LogError($"{DistrictAddress(chapter)} failed to load"); yield break; }
+            _district = handle;
+            var scene = handle.Result.Scene;
+            _city = InScene<CityView>(scene);
+            _light = InScene<DayNeonController>(scene);
+            _timelapse = InScene<TimelapseDirector>(scene);
+        }
+
+        static T? InScene<T>(Scene scene) where T : Component
+        {
+            foreach (var root in scene.GetRootGameObjects())
+            {
+                var c = root.GetComponentInChildren<T>(true);
+                if (c != null) return c;
+            }
+            return null;
+        }
+
+        void PlaceHeroAtHome()
+        {
+            if (_hero != null && _city != null && _city.HomeAnchor != null)
+                _hero.transform.SetPositionAndRotation(_city.HomeAnchor.position, _city.HomeAnchor.rotation);
+        }
 
         IEnumerator Boot()
         {
@@ -67,26 +117,22 @@ namespace UnpaidCeo.Game.Bootstrap
             if (content == null) { Fail("content failed to load"); yield break; }
             _engine = new GameEngine(content);
 
-            var district = Addressables.LoadSceneAsync(CityView.BronxAddress, LoadSceneMode.Additive);
-            yield return district;
-            if (district.Status != AsyncOperationStatus.Succeeded) { Fail("Bronx failed to load"); yield break; }
-            _city = FindFirstObjectByType<CityView>();
-            _light = FindFirstObjectByType<DayNeonController>();
-            _timelapse = FindFirstObjectByType<TimelapseDirector>();
-
-            _audio = new GameObject("Audio").AddComponent<AudioDirector>();
-            _audio.transform.SetParent(transform);
-            StartCoroutine(_audio.LoadMusic(_light));
-            BuildDialogue();
-            _hero = new GameObject("Hero").AddComponent<HeroView>();
-            _hero.gameObject.AddComponent<HeroStroll>();
-            if (_city != null && _city.HomeAnchor != null) _hero.transform.SetPositionAndRotation(_city.HomeAnchor.position, _city.HomeAnchor.rotation);
-
             var saved = SaveService.Load();
             bool resume = saved?.State != null && (saved.Status == LoadStatus.Ok || saved.Status == LoadStatus.Migrated);
             var seed = resume ? saved!.State!.Seed : (ulong)DateTime.UtcNow.Ticks;
             _state = resume ? saved!.State! : _engine.NewGame(seed, new HeroAppearance());
             _meta = SaveService.LoadMeta();
+
+            yield return LoadDistrict(_state.Chapter);
+            if (_city == null) { Fail(DistrictAddress(_state.Chapter) + " failed to load"); yield break; }
+
+            _audio = new GameObject("Audio").AddComponent<AudioDirector>();
+            _audio.transform.SetParent(transform);
+            StartCoroutine(_audio.LoadMusic(() => _light != null ? _light.NightAmount : 0f));
+            BuildDialogue();
+            _hero = new GameObject("Hero").AddComponent<HeroView>();
+            _hero.gameObject.AddComponent<HeroStroll>();
+            PlaceHeroAtHome();
 
             Ui = new GameObject("UI").AddComponent<UiRoot>();
             Ui.transform.SetParent(transform);
@@ -97,7 +143,7 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
             Ui.ResetRequested += () => { SaveService.Delete(); SceneManager.LoadScene(0); };
             Ui.QuizAnswered += OnQuizAnswered;
-            Ui.ChapterAdvanced += _ => { SaveService.Save(_state); AfterAction(); };
+            Ui.ChapterAdvanced += chapter => { SaveService.Save(_state); AfterAction(); StartCoroutine(SwapDistrict(chapter)); };
             Ui.IndustryChosen += _ => { SaveService.Save(_state); AfterAction(); };
             Ui.LoanTaken += () => SaveService.Save(_state);
             _city?.Sync(_state);
@@ -193,7 +239,7 @@ namespace UnpaidCeo.Game.Bootstrap
         void StartPlaying()
         {
             Current = Phase.Playing;
-            Ui!.NextMonthRequested += () => { if (!_busy) StartCoroutine(NextMonth()); };
+            Ui!.NextMonthRequested += () => { if (!_busy && !_swapping) StartCoroutine(NextMonth()); };
             RefreshTurnsUi();
             RefreshMissionsUi();
         }

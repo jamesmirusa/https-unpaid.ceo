@@ -15,12 +15,27 @@ MonoBehaviour:
   defaultBuilding: {fileID: 8993866054636292085, guid: 70aab082142fd4973ae7df03265b14f2, type: 3}
   entries:
   - industryId: resale_shop
+    minUnits: 1
     building: {fileID: 1738662315868886837, guid: ad02a32b0ccd64fbcb3998cd6bc171fa, type: 3}
+    footprint: 0
+    yaw: 0
   - industryId: laundromat
+    minUnits: 1
     building: {fileID: 33350079869749169, guid: 3bc7b20746c874b218268abb5491f3b4, type: 3}
+    footprint: 0
+    yaw: 0
   - industryId: pizza
+    minUnits: 1
     building: {fileID: 8953506065256456944, guid: 02f5022846782415f8b277f0ee628651, type: 3}
+    footprint: 0
+    yaw: 0
   - industryId: check_cashing
+    minUnits: 1
     building: {fileID: 2789976550552193983, guid: b77b5135c7f084a3aafa2e3426f2701e, type: 3}
+    footprint: 0
+    yaw: 0
   - industryId: repair_shop
+    minUnits: 1
     building: {fileID: 8519417762910679597, guid: 7b3df9982e17c463d9d6e0f97588176a, type: 3}
+    footprint: 0
+    yaw: 0
