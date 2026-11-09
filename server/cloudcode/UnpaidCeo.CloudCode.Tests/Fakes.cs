@@ -35,9 +35,16 @@ namespace UnpaidCeo.CloudCode.Tests
     {
         readonly Dictionary<string, Dictionary<string, double>> _best = new Dictionary<string, Dictionary<string, double>>();
         public readonly List<(string Board, string Player, double Score)> Submissions = new List<(string, string, double)>();
+        /// <summary>The next Submit throws, as a Leaderboards call that times out would.</summary>
+        public bool FailNext;
 
         public Task Submit(string boardId, string playerId, double score)
         {
+            if (FailNext)
+            {
+                FailNext = false;
+                throw new System.InvalidOperationException("leaderboards unavailable");
+            }
             Submissions.Add((boardId, playerId, score));
             if (!_best.TryGetValue(boardId, out var board)) _best[boardId] = board = new Dictionary<string, double>();
             if (!board.TryGetValue(playerId, out var old) || score > old) board[playerId] = score;

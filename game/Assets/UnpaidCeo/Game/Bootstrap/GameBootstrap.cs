@@ -139,7 +139,7 @@ namespace UnpaidCeo.Game.Bootstrap
             while (this != null && Current == Phase.Loading) await Awaitable.NextFrameAsync();
             if (this == null || _state == null || Current == Phase.Failed) return;
             await online.Runs.Hello();
-            _sync = new CloudSync(online.Saves, DeviceClock.NowUnix);
+            _sync = new CloudSync(online.Saves, DeviceClock.NowUnix, () => online.Auth.PlayerId);
             var adopt = await _sync.Pull(CloudSync.Envelope(_state, _meta, DeviceClock.NowUnix()));
             if (this == null) return;
             if (adopt?.SaveJson != null && Adopt(adopt)) return;
@@ -169,7 +169,7 @@ namespace UnpaidCeo.Game.Bootstrap
         {
             if (_state == null || _contentVersion == null || _queue == null) return;
             var start = new RunStart { Kind = RunStart.Career, Seed = _state.Seed, Hero = _state.Hero };
-            _queue.EnqueueCareer(RunSubmission.From(start, _state, _contentVersion));
+            _queue.EnqueueCareer(RunSubmission.From(start, _state, _contentVersion), Online.Auth.PlayerId);
             _ = FlushQueue();
         }
 
@@ -179,6 +179,7 @@ namespace UnpaidCeo.Game.Bootstrap
         /// </summary>
         async void OnAccountChanged(AccountChange change)
         {
+            if (change == AccountChange.SignedIn || change == AccountChange.SignedOut) _sync = null;   // the old player's sync, before any await
             if (!Online.Available || _state == null) return;
             if (change == AccountChange.SignedUp) { PushCloud(); if (_sync != null) await _sync.FlushPending(); }
             else if (change == AccountChange.SignedIn || change == AccountChange.SignedOut) await SyncOnline(Online);
@@ -186,7 +187,7 @@ namespace UnpaidCeo.Game.Bootstrap
 
         async Task FlushQueue()
         {
-            if (_queue != null && Online.Available) await _queue.Flush(Online.Runs);
+            if (_queue != null && Online.Available) await _queue.Flush(Online.Runs, Online.Auth.PlayerId);
         }
 
         /// <summary>The career screens' events (also after a run, when the career screens are rebuilt).</summary>
@@ -245,6 +246,7 @@ namespace UnpaidCeo.Game.Bootstrap
             if (run != null)
             {
                 Ui.ThemeChanged += on => { if (_light != null) _light.Set(on ? TimeOfDay.Night : TimeOfDay.Day); };
+                Ui.AccountChanged += OnAccountChanged;   // Settings is reachable in a run too
                 Ui.NextMonthRequested += () => { if (!_busy) StartCoroutine(NextRunMonth()); };
                 Ui.LoanTaken += () => _runs?.Save();
                 _banner = new RunBanner(run.Start.Kind == RunStart.Duel ? "run.duel" : "run.challenge");

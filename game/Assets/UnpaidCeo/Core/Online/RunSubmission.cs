@@ -30,5 +30,7 @@ namespace UnpaidCeo.Core.Online
         public long NetWorthCents { get; set; }
         public string League { get; set; }
         public int Rank { get; set; } = -1;
+        /// <summary>The career is further ahead than real time allows; only its first allowed months were ranked.</summary>
+        public bool Paced { get; set; }
     }
 }

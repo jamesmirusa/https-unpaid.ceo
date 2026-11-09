@@ -373,13 +373,15 @@ namespace UnpaidCeo.Core.Game
         /// Server-side replay: every logged action must succeed exactly as it did when it was logged. Stops at the first
         /// entry that is refused (<c>refused:&lt;kind&gt;</c>) or unreadable (<c>bad_payload…</c>).
         /// </summary>
+        /// <param name="beforeEntry">Sees the state before each entry is applied (the server's pacing snapshot).</param>
         public static ReplayResult ReplayStrict(ContentDb c, RunStart start, Func<RunStart, ScenarioDef> scenarioFor,
-            IReadOnlyList<DecisionLogEntry> log)
+            IReadOnlyList<DecisionLogEntry> log, Action<GameState, DecisionLogEntry> beforeEntry = null)
         {
             var e = new GameEngine(c);
             GameState s;
             try { s = StartFor(e, start, scenarioFor); }
             catch (ArgumentException ex) { return new ReplayResult { FailedAt = 0, Error = "bad_start:" + ex.Message }; }
+            bool scenario = start.Kind != RunStart.Career;
             MonthReport last = null;
             for (int i = 0; i < (log?.Count ?? 0); i++)
             {
@@ -387,6 +389,8 @@ namespace UnpaidCeo.Core.Game
                 try
                 {
                     if (entry == null) return Fail(i, "bad_payload:null entry");
+                    if (scenario && !ScenarioActions.Contains(entry.Kind)) return Fail(i, "refused:" + entry.Kind);
+                    beforeEntry?.Invoke(s, entry);
                     if (!Apply(e, s, entry, ref last)) return Fail(i, "refused:" + entry.Kind);
                 }
                 catch (JsonException ex) { return Fail(i, "bad_payload:" + ex.GetType().Name); }
@@ -401,6 +405,12 @@ namespace UnpaidCeo.Core.Game
 
             ReplayResult Fail(int at, string error) => new ReplayResult { State = s, LastReport = last, FailedAt = at, Error = error };
         }
+
+        /// <summary>
+        /// What a challenge or duel run may log: the client's RunController plays month plans and loans only — no scenes,
+        /// quizzes or chapter moves, so every player of a scenario meets the same market.
+        /// </summary>
+        static readonly HashSet<string> ScenarioActions = new HashSet<string> { DecisionLogEntry.EndMonth, DecisionLogEntry.TakeLoan };
 
         /// <summary>Applies one logged action; false when the engine refuses it (a strict replay rejects the log).</summary>
         static bool Apply(GameEngine e, GameState s, DecisionLogEntry entry, ref MonthReport last)

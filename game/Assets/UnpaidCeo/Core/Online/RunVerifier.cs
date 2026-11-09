@@ -18,6 +18,10 @@ namespace UnpaidCeo.Core.Online
         /// <summary>The chapter-2+ business, or null before one is chosen.</summary>
         public string IndustryId { get; set; }
         public long LastMonthRevenueCents { get; set; }
+        /// <summary>The run has more months than the pace limit allowed.</summary>
+        public bool Paced { get; set; }
+        /// <summary>Net worth at the start of the first month past the pace limit (equals NetWorthCents when not paced).</summary>
+        public long PacedNetWorthCents { get; set; }
     }
 
     /// <summary>
@@ -26,11 +30,22 @@ namespace UnpaidCeo.Core.Online
     /// </summary>
     public static class RunVerifier
     {
-        public static VerifyResult Verify(ContentDb c, string serverContentVersion, RunSubmission s, Func<RunStart, ScenarioDef> scenarioFor)
+        /// <param name="paceLimit">
+        /// Months real time allows. The whole log is still verified, but a longer run also reports its net worth as it stood
+        /// when month <paramref name="paceLimit"/> + 1 began (before that month's scenes or plan), so it can rank that far.
+        /// </param>
+        public static VerifyResult Verify(ContentDb c, string serverContentVersion, RunSubmission s, Func<RunStart, ScenarioDef> scenarioFor,
+            int paceLimit = int.MaxValue)
         {
             if (s == null || s.Start == null) return new VerifyResult { Error = "bad_submission" };
             if (s.ContentVersion != serverContentVersion) return new VerifyResult { Error = "content_version" };
-            var r = GameEngine.ReplayStrict(c, s.Start, scenarioFor, s.Log);
+            long? atLimit = null;
+            var r = GameEngine.ReplayStrict(c, s.Start, scenarioFor, s.Log, (state, entry) =>
+            {
+                if (atLimit == null && state.Month > paceLimit
+                    && (entry.Kind == DecisionLogEntry.BeginMonth || entry.Kind == DecisionLogEntry.EndMonth))
+                    atLimit = Chapters.NetWorth(state, c).Cents;
+            });
             if (!r.Ok) return new VerifyResult { Error = $"replay:{r.FailedAt}:{r.Error}" };
             if (Primitives.StateHash.Compute(r.State) != s.StateHash) return new VerifyResult { Error = "hash_mismatch" };
 
@@ -38,14 +53,18 @@ namespace UnpaidCeo.Core.Online
             long revenue = 0;
             if (business != null && r.LastReport != null && r.LastReport.BusinessResults.TryGetValue(business.Id, out var month))
                 revenue = month.Revenue.Cents;
+            long netWorth = Chapters.NetWorth(r.State, c).Cents;
+            bool paced = r.State.Month - 1 > paceLimit;
             return new VerifyResult
             {
                 Ok = true,
                 State = r.State,
-                NetWorthCents = Chapters.NetWorth(r.State, c).Cents,
+                NetWorthCents = netWorth,
                 Months = r.State.Month - 1,
                 IndustryId = business?.IndustryId,
                 LastMonthRevenueCents = revenue,
+                Paced = paced,
+                PacedNetWorthCents = paced ? atLimit.Value : netWorth,
             };
         }
     }

@@ -141,5 +141,7 @@ namespace UnpaidCeo.Game.Services.Online
     {
         public const string Offline = "offline";
         public const string Failed = "failed";
+        /// <summary>The server was reached but failed on the request (a module error or a timeout on the run).</summary>
+        public const string ServerError = "server_error";
     }
 }

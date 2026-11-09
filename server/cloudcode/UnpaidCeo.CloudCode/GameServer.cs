@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using UnpaidCeo.Core.Content;
@@ -15,7 +16,10 @@ namespace UnpaidCeo.CloudCode
     public sealed class GameServer
     {
         const string FirstSeenKey = "first_seen", DuelsKey = "duels";
-        const int MaxListedDuels = 20;
+        const int MaxListedDuels = 20, MaxDuelsPerDay = 10;
+        const long Day = 86400;
+        /// <summary>UGS player ids are short URL-safe strings; anything else is not a player.</summary>
+        static readonly Regex PlayerIdPattern = new Regex(@"^[A-Za-z0-9_-]{1,64}\z", RegexOptions.CultureInvariant);
 
         readonly ContentDb _c;
         readonly string _version;
@@ -44,7 +48,7 @@ namespace UnpaidCeo.CloudCode
             await FirstSeen(playerId);
             long now = _clock.NowUnix;
             int week = WeeklyChallenge.WeekIndex(now);
-            int.TryParse(await _players.Get(playerId, AttemptsKey(week)), out int used);
+            int used = (await ChallengeRuns(playerId, week)).Count;
             return new HelloResult { ServerUnix = now, Week = week, Challenge = WeeklyChallenge.For(week, _c.Balance), ChallengeAttemptsUsed = used };
         }
 
@@ -52,17 +56,20 @@ namespace UnpaidCeo.CloudCode
         {
             if (s?.Start == null) return Refused("bad_submission");
             if (s.Start.Kind != RunStart.Career) return Refused("wrong_kind");
-            var v = RunVerifier.Verify(_c, _version, s, ScenarioFor);
-            if (!v.Ok) return Refused(v.Error);
+            // A day of slack: first_seen starts at the first online visit, which can follow a day of offline play.
             long firstSeen = await FirstSeen(playerId);
-            if (v.Months > Pacing.MaxCareerMonths(firstSeen, _clock.NowUnix, _c.Balance)) return Refused("too_many_months");
+            int limit = Pacing.MaxCareerMonths(firstSeen - Day, _clock.NowUnix, _c.Balance);
+            var v = RunVerifier.Verify(_c, _version, s, ScenarioFor, limit);
+            if (!v.Ok) return Refused(v.Error);
 
-            await _boards.Submit(GameBoards.Capital, playerId, v.NetWorthCents / 100.0);
-            if (v.IndustryId != null && v.Months > 0)
+            // A career ahead of real time still ranks — as far as real time allows — and its market share waits.
+            long netWorth = v.PacedNetWorthCents;
+            await _boards.Submit(GameBoards.Capital, playerId, netWorth / 100.0);
+            if (!v.Paced && v.IndustryId != null && v.Months > 0)
                 await _boards.Submit(GameBoards.Market(v.IndustryId), playerId, v.LastMonthRevenueCents / 100.0);
             return new SubmitResult
             {
-                Ok = true, NetWorthCents = v.NetWorthCents, League = Leagues.For(v.NetWorthCents),
+                Ok = true, NetWorthCents = netWorth, League = Leagues.For(netWorth), Paced = v.Paced,
                 Rank = await _boards.RankOf(GameBoards.Capital, playerId),
             };
         }
@@ -82,18 +89,22 @@ namespace UnpaidCeo.CloudCode
             if (week == current && inGrace) return Refused("too_early");
             if (!(week == current || (week == current - 1 && inGrace))) return Refused("week_ended");
 
-            string attemptsKey = AttemptsKey(week);
-            int.TryParse(await _players.Get(playerId, attemptsKey), out int used);
-            if (used >= WeeklyChallenge.AttemptsPerWeek) return Refused("attempts_used");
-
             var v = RunVerifier.Verify(_c, _version, s, ScenarioFor);
             if (!v.Ok) return Refused(v.Error);
             int months = WeeklyChallenge.For(week, _c.Balance).Months;
             if (v.Months < months) return Refused("not_finished");
             if (v.Months > months) return Refused("too_long");
 
-            await _players.Set(playerId, attemptsKey, (used + 1).ToString());
-            await _boards.Submit(GameBoards.WeeklyChallenge, playerId, v.NetWorthCents / 100.0);
+            // An attempt is a distinct finished run (by state hash): a run the queue resends after a lost answer is the same
+            // attempt, and an attempt is only spent once its score is on the board.
+            var counted = await ChallengeRuns(playerId, week);
+            if (!counted.Contains(s.StateHash))
+            {
+                if (counted.Count >= WeeklyChallenge.AttemptsPerWeek) return Refused("attempts_used");
+                await _boards.Submit(GameBoards.WeeklyChallenge, playerId, v.NetWorthCents / 100.0);
+                counted.Add(s.StateHash);
+                await _players.Set(playerId, ChallengeRunsKey(week), JsonConvert.SerializeObject(counted));
+            }
             return new SubmitResult
             {
                 Ok = true, NetWorthCents = v.NetWorthCents, League = Leagues.For(v.NetWorthCents),
@@ -103,8 +114,14 @@ namespace UnpaidCeo.CloudCode
 
         public async Task<DuelView> CreateDuel(string playerId, string opponentId, string industryId)
         {
-            if (string.IsNullOrEmpty(opponentId) || opponentId == playerId) return new DuelView { Error = "bad_opponent" };
+            if (opponentId == null || opponentId == playerId || !PlayerIdPattern.IsMatch(opponentId)) return new DuelView { Error = "bad_opponent" };
             if (industryId == null || !_c.Balance.Chapter2Industries.Contains(industryId)) return new DuelView { Error = "bad_industry" };
+            // Each duel lands in the opponent's list too, so one player cannot flood other lists: a few challenges a day.
+            string createdKey = DuelsCreatedKey(_clock.NowUnix / Day);
+            int.TryParse(await _players.Get(playerId, createdKey), out int created);
+            if (created >= MaxDuelsPerDay) return new DuelView { Error = "duel_limit" };
+            await _players.Set(playerId, createdKey, (created + 1).ToString());
+
             var d = new DuelRecord { Id = _newId(), A = playerId, B = opponentId, IndustryId = industryId, CreatedUnix = _clock.NowUnix };
             await _duels.Create(d);
             await AddDuelId(playerId, d.Id);
@@ -164,7 +181,15 @@ namespace UnpaidCeo.CloudCode
 
         static SubmitResult Refused(string error) => new SubmitResult { Ok = false, Error = error };
 
-        static string AttemptsKey(int week) => "challenge_attempts_" + week;
+        static string ChallengeRunsKey(int week) => "challenge_runs_" + week;
+        static string DuelsCreatedKey(long day) => "duels_created_" + day;
+
+        /// <summary>State hashes of this week's counted challenge runs; their count is the attempts used.</summary>
+        async Task<List<string>> ChallengeRuns(string playerId, int week)
+        {
+            var json = await _players.Get(playerId, ChallengeRunsKey(week));
+            return string.IsNullOrEmpty(json) ? new List<string>() : JsonConvert.DeserializeObject<List<string>>(json) ?? new List<string>();
+        }
 
         async Task<long> FirstSeen(string playerId)
         {

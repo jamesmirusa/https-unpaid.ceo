@@ -156,34 +156,64 @@ namespace UnpaidCeo.Game.Services.Online
 
         // ---- Runs (Cloud Code module; arguments and results are OnlineJson text) ----
 
-        public async Task<HelloResult?> Hello() => await Call<HelloResult>("Hello", new Dictionary<string, object>());
+        public async Task<HelloResult?> Hello() => (await Call<HelloResult>("Hello", new Dictionary<string, object>())).Value;
 
-        public async Task<SubmitResult> SubmitCareer(RunSubmission s) =>
-            await Call<SubmitResult>("SubmitCareer", Args(("submission", OnlineJson.Serialize(s)))) ?? Refused();
+        public async Task<SubmitResult> SubmitCareer(RunSubmission s)
+        {
+            var (r, error) = await Call<SubmitResult>("SubmitCareer", Args(("submission", OnlineJson.Serialize(s))));
+            return r ?? Refused(error);
+        }
 
-        public async Task<SubmitResult> SubmitChallenge(RunSubmission s) =>
-            await Call<SubmitResult>("SubmitChallenge", Args(("submission", OnlineJson.Serialize(s)))) ?? Refused();
+        public async Task<SubmitResult> SubmitChallenge(RunSubmission s)
+        {
+            var (r, error) = await Call<SubmitResult>("SubmitChallenge", Args(("submission", OnlineJson.Serialize(s))));
+            return r ?? Refused(error);
+        }
 
-        public async Task<DuelView> CreateDuel(string opponentId, string industryId) =>
-            await Call<DuelView>("CreateDuel", Args(("opponentId", opponentId), ("industryId", industryId)))
-            ?? new DuelView { Error = OnlineErrors.Offline };
+        public async Task<DuelView> CreateDuel(string opponentId, string industryId)
+        {
+            var (d, error) = await Call<DuelView>("CreateDuel", Args(("opponentId", opponentId), ("industryId", industryId)));
+            return d ?? new DuelView { Error = error };
+        }
 
-        public async Task<DuelView> SubmitDuel(string duelId, RunSubmission s) =>
-            await Call<DuelView>("SubmitDuel", Args(("duelId", duelId), ("submission", OnlineJson.Serialize(s))))
-            ?? new DuelView { Id = duelId, Error = OnlineErrors.Offline };
+        public async Task<DuelView> SubmitDuel(string duelId, RunSubmission s)
+        {
+            var (d, error) = await Call<DuelView>("SubmitDuel", Args(("duelId", duelId), ("submission", OnlineJson.Serialize(s))));
+            return d ?? new DuelView { Id = duelId, Error = error };
+        }
 
         public async Task<DuelView[]> ListDuels() =>
-            await Call<DuelView[]>("ListDuels", new Dictionary<string, object>()) ?? Array.Empty<DuelView>();
+            (await Call<DuelView[]>("ListDuels", new Dictionary<string, object>())).Value ?? Array.Empty<DuelView>();
 
-        static async Task<T?> Call<T>(string function, Dictionary<string, object> args) where T : class
+        /// <summary>The module's answer, or why there is none (<see cref="ErrorFor"/>; an unreadable answer is a server error).</summary>
+        static async Task<(T? Value, string Error)> Call<T>(string function, Dictionary<string, object> args) where T : class
         {
-            try { return OnlineJson.Deserialize<T>(await CloudCodeService.Instance.CallModuleEndpointAsync<string>(Module, function, args)); }
-            catch (Exception e) { Warn(e); return null; }
+            try
+            {
+                var value = OnlineJson.Deserialize<T>(await CloudCodeService.Instance.CallModuleEndpointAsync<string>(Module, function, args));
+                return (value, OnlineErrors.ServerError);
+            }
+            catch (Exception e) { Warn(e); return (null, ErrorFor(e)); }
         }
+
+        /// <summary>Failures that mean "not reachable right now" (retry later); any other answer is the server failing.</summary>
+        static readonly HashSet<int> Unreachable = new HashSet<int>
+        {
+            CommonErrorCodes.TransportError, CommonErrorCodes.Timeout, CommonErrorCodes.ServiceUnavailable,
+            CommonErrorCodes.TooManyRequests, CommonErrorCodes.InvalidToken, CommonErrorCodes.TokenExpired,
+        };
+
+        /// <summary>
+        /// Why a module call failed, as the submission queue reads it: offline (kept and retried whenever online) or a
+        /// server error (a module exception or a run that timed out; retried a few times, then given up). Anything that is
+        /// not a service answer — the services not initialized, no player — counts as offline.
+        /// </summary>
+        public static string ErrorFor(Exception e) =>
+            e is RequestFailedException r && !Unreachable.Contains(r.ErrorCode) ? OnlineErrors.ServerError : OnlineErrors.Offline;
 
         static Dictionary<string, object> Args(params (string Key, object Value)[] pairs) => pairs.ToDictionary(p => p.Key, p => p.Value);
 
-        static SubmitResult Refused() => new SubmitResult { Ok = false, Error = OnlineErrors.Offline };
+        static SubmitResult Refused(string error) => new SubmitResult { Ok = false, Error = error };
 
         // ---- Leaderboards (the API ranks from 0; the game shows ranks from 1) ----
 

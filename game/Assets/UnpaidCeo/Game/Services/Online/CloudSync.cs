@@ -12,7 +12,8 @@ namespace UnpaidCeo.Game.Services.Online
     /// <summary>
     /// Keeps the device save and the cloud save in step. The longer game wins (months played), then the newer one; so a
     /// fresh install downloads real progress instead of uploading a newcomer over it. Nothing is written before the cloud
-    /// has been read, and writes are debounced to one per <see cref="DebounceSeconds"/>.
+    /// has been read for the player signed in now, nothing after the cloud won (the device restarts on it), and a write
+    /// never replaces a longer cloud game; writes are debounced to one per <see cref="DebounceSeconds"/>.
     /// </summary>
     public sealed class CloudSync
     {
@@ -22,13 +23,16 @@ namespace UnpaidCeo.Game.Services.Online
 
         readonly ICloudSaves _saves;
         readonly Func<long> _now;
+        readonly Func<string?> _player;
         long _lastWrite = long.MinValue;
         CloudSaveEnvelope? _pending;
+        string? _pulledFor;
 
-        public CloudSync(ICloudSaves saves, Func<long> nowUnix) { _saves = saves; _now = nowUnix; }
+        /// <param name="playerId">The signed-in player now (the cloud save belongs to them).</param>
+        public CloudSync(ICloudSaves saves, Func<long> nowUnix, Func<string?> playerId) { _saves = saves; _now = nowUnix; _player = playerId; }
 
-        /// <summary>The cloud has been read this session, so writing to it is safe.</summary>
-        public bool Pulled { get; private set; }
+        /// <summary>The cloud of the player signed in now has been read and the device game kept, so writing to it is safe.</summary>
+        public bool Pulled => _pulledFor != null && _pulledFor == _player();
 
         public static SyncChoice Choose(CloudSaveEnvelope? local, CloudSaveEnvelope? cloud)
         {
@@ -58,13 +62,15 @@ namespace UnpaidCeo.Game.Services.Online
         /// </summary>
         public async Task<CloudSaveEnvelope?> Pull(CloudSaveEnvelope local)
         {
+            string? player = _player();
+            _pulledFor = null;
             var load = await _saves.Load();
-            if (!load.Reachable) return null;
-            Pulled = true;
+            if (!load.Reachable || player == null) return null;
             bool reset = PlayerPrefs.GetInt(ResetKey, 0) == 1;
             var choice = reset ? SyncChoice.UseLocal : Choose(local, load.Envelope);
-            if (choice == SyncChoice.UseCloud) return load.Envelope;
-            if (choice == SyncChoice.UseLocal && await Write(local) && reset) { PlayerPrefs.DeleteKey(ResetKey); PlayerPrefs.Save(); }
+            if (choice == SyncChoice.UseCloud) return load.Envelope;   // writes stay off: the device restarts on the cloud game
+            _pulledFor = player;
+            if (choice == SyncChoice.UseLocal && await Write(local, checkCloud: false) && reset) { PlayerPrefs.DeleteKey(ResetKey); PlayerPrefs.Save(); }
             return null;
         }
 
@@ -82,14 +88,25 @@ namespace UnpaidCeo.Game.Services.Online
             if (!Pulled || _pending == null) return false;
             var e = _pending;
             _pending = null;
-            if (await Write(e)) return true;
+            if (await Write(e, checkCloud: true)) return true;
             _pending ??= e;   // keep it for the next try unless a newer one arrived meanwhile
             return false;
         }
 
-        async Task<bool> Write(CloudSaveEnvelope e)
+        /// <param name="checkCloud">
+        /// Read the cloud first: if another device has gone further since the pull, nothing is written and writes stay off
+        /// until the next pull (which adopts that game).
+        /// </param>
+        async Task<bool> Write(CloudSaveEnvelope e, bool checkCloud)
         {
             _lastWrite = _now();
+            if (checkCloud)
+            {
+                var load = await _saves.Load();
+                if (!load.Reachable) return false;
+                if (Choose(e, load.Envelope) == SyncChoice.UseCloud) { _pulledFor = null; return false; }
+            }
+            if (!Pulled) return false;   // the player changed meanwhile
             return await _saves.Save(e);
         }
     }

@@ -92,15 +92,9 @@ namespace UnpaidCeo.Core.Tests.Online
             Assert.AreEqual(0, business[0].Units);
             Assert.IsEmpty(s.Log, "the start is not part of the log: RunStart rebuilds it");
 
-            var chapter1 = new HashSet<string>(JObject.Parse(File.ReadAllText(Path.Combine(
-                UnityEngine.Application.dataPath, "UnpaidCeo", "Content", "storylets_ch1.json")))["storylets"].Select(t => (string)t["id"]));
-            for (int m = 0; m < 6; m++)
-            {
-                var scenes = e.BeginMonth(s).ToList();
-                Assert.IsFalse(scenes.Any(st => chapter1.Contains(st.Id)), $"month {s.Month}: no chapter-1 scene");
-                foreach (var st in scenes) e.ChooseStoryletOption(s, st.Id, st.Choices.Keys.OrderBy(k => k).First());
-                e.EndMonth(s, Stage2Content.Plan());
-            }
+            // A run is a business sprint (stage 2B review fix): month plans and loans, no scenes.
+            Assert.IsTrue(e.TakeLoan(s, Money.FromCents(200_000), 12));
+            for (int m = 0; m < 6; m++) e.EndMonth(s, Stage2Content.Plan());
 
             // The same RunStart replays the scenario run exactly.
             var start = new RunStart { Kind = RunStart.Challenge, ContextId = "w", IndustryId = "coffee_cart", Hero = TestContent.Hero };

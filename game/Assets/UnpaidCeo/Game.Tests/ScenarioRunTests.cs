@@ -164,7 +164,7 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual(0, fake.Challenges.Count);
 
             fake.Online = true;
-            await queue.Flush(fake.Runs);
+            await queue.Flush(fake.Runs, fake.Auth.PlayerId);
             Assert.AreEqual(1, fake.Challenges.Count);
         });
 

@@ -114,12 +114,13 @@ namespace UnpaidCeo.Game.Bootstrap
             _queue.DuelSubmitted += OnDuel;
             try
             {
-                if (run.Start.Kind == RunStart.Duel) _queue.EnqueueDuel(run.Start.ContextId ?? "", submission);
-                else _queue.EnqueueChallenge(submission);
+                var online = _online();
+                string? player = online.Auth.PlayerId;
+                if (run.Start.Kind == RunStart.Duel) _queue.EnqueueDuel(run.Start.ContextId ?? "", submission, player);
+                else _queue.EnqueueChallenge(submission, player);
                 SaveService.DeleteRun();
                 Current = null;
-                var online = _online();
-                if (online.Available) await _queue.Flush(online.Runs);
+                if (online.Available) await _queue.Flush(online.Runs, player);
             }
             finally
             {

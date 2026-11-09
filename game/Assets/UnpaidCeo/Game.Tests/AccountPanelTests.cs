@@ -87,7 +87,7 @@ namespace UnpaidCeo.Game.Tests
             _ui.AccountChanged += c => change = c;
             yield return Run(async () =>
             {
-                var sync = new CloudSync(fake.Saves, () => 1_000);
+                var sync = new CloudSync(fake.Saves, () => 1_000, () => fake.Auth.PlayerId);
                 await sync.Pull(new CloudSaveEnvelope { SaveJson = "{}", Months = 3, UpdatedUnix = 1_000 });   // the guest's 3 months are in the cloud
 
                 _ui.Account.User.value = "ceo_one";

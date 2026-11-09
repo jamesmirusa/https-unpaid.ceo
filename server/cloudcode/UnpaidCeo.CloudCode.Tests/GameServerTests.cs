@@ -36,12 +36,13 @@ namespace UnpaidCeo.CloudCode.Tests
         {
             var h = new Harness(Wednesday);
             await h.Server.Hello("p1");
-            h.Clock.NowUnix += 7 * Day;   // a week of play allows 2 + 8 × 8 = 66 months
+            h.Clock.NowUnix += 7 * Day;   // a week of play, plus a day of slack, allows 2 + 8 × 9 = 74 months
             var (e, s, last) = OnlineRuns.PlayCareer(41, 40);
 
             var r = await h.Server.SubmitCareer("p1", Career(s));
 
             Assert.True(r.Ok, r.Error);
+            Assert.False(r.Paced);
             long netWorth = Chapters.NetWorth(s, e.Content).Cents;
             Assert.Equal(netWorth, r.NetWorthCents);
             Assert.Equal(Leagues.For(netWorth), r.League);
@@ -85,13 +86,26 @@ namespace UnpaidCeo.CloudCode.Tests
                 Assert.False(r.Ok, c.Name);
                 Assert.Equal(c.Error, r.Error);
             }
-
-            var fresh = new Harness(Wednesday);   // first seen just now: 2 + 8 × 1 = 10 months allowed
-            var tooFast = await fresh.Server.SubmitCareer("p2", Career(s));
-            Assert.Equal("too_many_months", tooFast.Error);
-
             Assert.Empty(h.Boards.Submissions);
-            Assert.Empty(fresh.Boards.Submissions);
+        }
+
+        [Fact]
+        public async Task Careers_ahead_of_real_time_rank_their_paced_months()
+        {
+            var h = new Harness(Wednesday);   // first seen just now; a day of slack allows 2 + 8 × 2 = 18 months
+            var (e, s, _) = OnlineRuns.PlayCareer(41, 40);
+            var (_, s18, _) = OnlineRuns.PlayCareer(41, 18);   // the same career, stopped where real time allows
+            long paced = Chapters.NetWorth(s18, e.Content).Cents;
+            Assert.NotEqual(Chapters.NetWorth(s, e.Content).Cents, paced);
+
+            var r = await h.Server.SubmitCareer("p1", Career(s));
+
+            Assert.True(r.Ok, r.Error);
+            Assert.True(r.Paced);
+            Assert.Equal(paced, r.NetWorthCents);
+            Assert.Equal(Leagues.For(paced), r.League);
+            Assert.Equal(paced / 100.0, h.Boards.Score("capital", "p1"));
+            Assert.Equal(new[] { "capital" }, h.Boards.Submissions.Select(x => x.Board).ToArray());   // no market share ahead of time
         }
 
         [Fact]
@@ -112,14 +126,91 @@ namespace UnpaidCeo.CloudCode.Tests
             var second = await h.Server.SubmitChallenge("p1", optimal.Sub);
             Assert.True(second.Ok, second.Error);
             Assert.Equal(optimal.NetWorthCents, second.NetWorthCents);
-            Assert.True((await h.Server.SubmitChallenge("p1", casual.Sub)).Ok, "attempt 3");
-            Assert.Equal("attempts_used", (await h.Server.SubmitChallenge("p1", optimal.Sub)).Error);
+            Assert.True((await h.Server.SubmitChallenge("p1", PlayScenario(start, 12, new MixedBot()).Sub)).Ok, "attempt 3");
+            Assert.Equal("attempts_used", (await h.Server.SubmitChallenge("p1", PlayScenario(start, 12, new CasualBot(), withLoan: true).Sub)).Error);
 
-            Assert.Equal("3", await h.Players.Get("p1", "challenge_attempts_" + Week));
             Assert.Equal(3, (await h.Server.Hello("p1")).ChallengeAttemptsUsed);
             Assert.Equal(0, (await h.Server.Hello("p2")).ChallengeAttemptsUsed);
             Assert.Equal(System.Math.Max(casual.NetWorthCents, optimal.NetWorthCents) / 100.0, h.Boards.Score("weekly_challenge", "p1"));
             Assert.Equal(3, h.Boards.Submissions.Count);
+        }
+
+        [Fact]
+        public async Task Scenario_runs_accept_only_month_plans_and_loans()
+        {
+            var h = new Harness(Wednesday);
+            var honest = PlayScenario(ChallengeStart(Week), 12, new OptimalBot()).Sub;
+            var actions = new (string Kind, string Payload)[]
+            {
+                (DecisionLogEntry.BeginMonth, null),   // a modified client rolling scenes and keeping the lucky ones
+                (DecisionLogEntry.StoryletChoice, "{\"storylet\":\"x\",\"choice\":\"y\"}"),
+                (DecisionLogEntry.QuizAnswer, "{\"lesson\":\"x\",\"question\":0,\"option\":0}"),
+                (DecisionLogEntry.TutorialGig, null),
+                (DecisionLogEntry.ChooseIndustry, "{\"industry\":\"food_truck\"}"),
+                (DecisionLogEntry.AdvanceChapter, null),
+            };
+            foreach (var a in actions)
+            {
+                var sub = OnlineJson.Deserialize<RunSubmission>(OnlineJson.Serialize(honest));
+                sub.Log.Insert(0, new DecisionLogEntry { Month = 1, Kind = a.Kind, Payload = a.Payload });
+                Assert.Equal("replay:0:refused:" + a.Kind, (await h.Server.SubmitChallenge("p1", sub)).Error);
+            }
+            Assert.Empty(h.Boards.Submissions);
+            Assert.True((await h.Server.SubmitChallenge("p1", honest)).Ok);
+        }
+
+        [Fact]
+        public async Task A_resent_challenge_run_counts_once()
+        {
+            var h = new Harness(Wednesday);
+            var start = ChallengeStart(Week);
+            var runs = new[] { new OptimalBot(), new CasualBot(), (IBot)new MixedBot() }
+                .Select(bot => PlayScenario(start, 12, bot).Sub).ToArray();
+
+            var first = await h.Server.SubmitChallenge("p1", runs[0]);
+            var resent = await h.Server.SubmitChallenge("p1", runs[0]);   // the answer was lost and the queue sent it again
+            Assert.True(first.Ok, first.Error);
+            Assert.True(resent.Ok, resent.Error);
+            Assert.Equal(first.NetWorthCents, resent.NetWorthCents);
+            Assert.Equal(1, (await h.Server.Hello("p1")).ChallengeAttemptsUsed);
+
+            Assert.True((await h.Server.SubmitChallenge("p1", runs[1])).Ok);
+            Assert.True((await h.Server.SubmitChallenge("p1", runs[2])).Ok);
+            var lastResent = await h.Server.SubmitChallenge("p1", runs[2]);
+            Assert.True(lastResent.Ok, lastResent.Error);   // the third attempt resent is still that attempt, not a fourth
+            Assert.Equal(3, (await h.Server.Hello("p1")).ChallengeAttemptsUsed);
+        }
+
+        [Fact]
+        public async Task A_failed_board_write_does_not_spend_an_attempt()
+        {
+            var h = new Harness(Wednesday);
+            var run = PlayScenario(ChallengeStart(Week), 12, new OptimalBot()).Sub;
+
+            h.Boards.FailNext = true;
+            await Assert.ThrowsAnyAsync<System.Exception>(() => h.Server.SubmitChallenge("p1", run));
+            Assert.Equal(0, (await h.Server.Hello("p1")).ChallengeAttemptsUsed);
+
+            var retried = await h.Server.SubmitChallenge("p1", run);
+            Assert.True(retried.Ok, retried.Error);
+            Assert.Equal(1, (await h.Server.Hello("p1")).ChallengeAttemptsUsed);
+        }
+
+        [Fact]
+        public async Task Duel_creation_is_capped_per_day()
+        {
+            var h = new Harness(Wednesday);
+            for (int i = 0; i < 10; i++)
+                Assert.Null((await h.Server.CreateDuel("a", "b" + i, "coffee_cart")).Error);
+            Assert.Equal("duel_limit", (await h.Server.CreateDuel("a", "z", "coffee_cart")).Error);
+            Assert.Empty(await h.Server.ListDuels("z"));
+            Assert.Null((await h.Server.CreateDuel("b0", "a", "coffee_cart")).Error);   // a's cap is a's alone
+
+            h.Clock.NowUnix += Day;
+            Assert.Null((await h.Server.CreateDuel("a", "z", "coffee_cart")).Error);
+
+            Assert.Equal("bad_opponent", (await h.Server.CreateDuel("a", "../duels", "coffee_cart")).Error);
+            Assert.Equal("bad_opponent", (await h.Server.CreateDuel("a", new string('x', 65), "coffee_cart")).Error);
         }
 
         [Fact]

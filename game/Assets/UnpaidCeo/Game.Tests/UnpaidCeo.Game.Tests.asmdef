@@ -4,6 +4,7 @@
     "references": [
         "UnpaidCeo.Core",
         "UnpaidCeo.Game",
+        "Unity.Services.Core",
         "UnityEngine.TestRunner",
         "Unity.Localization",
         "Unity.ResourceManager",

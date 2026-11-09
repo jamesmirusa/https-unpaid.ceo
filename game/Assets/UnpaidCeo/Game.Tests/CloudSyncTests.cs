@@ -4,6 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using Unity.Services.Core;
 using UnpaidCeo.Core.Online;
 using UnpaidCeo.Game.Services.Online;
 using UnpaidCeo.Game.Tests.Fakes;
@@ -32,7 +33,104 @@ namespace UnpaidCeo.Game.Tests
         {
             var f = new FakeOnlineServices();
             f.SignInAnonymously().Wait();
-            return (f, new CloudSync(f.Saves, () => _now));
+            return (f, new CloudSync(f.Saves, () => _now, () => f.Auth.PlayerId));
+        }
+
+        static RunSubmission Challenge(string hash) =>
+            new RunSubmission { Start = new RunStart { Kind = RunStart.Challenge, ContextId = "2950" }, StateHash = hash };
+
+        [UnityTest]
+        public IEnumerator Writes_stop_when_the_player_changes() => Run(async () =>
+        {
+            var f = new FakeOnlineServices();
+            await f.SignInAnonymously();
+            await f.SignUp("alice", "Secret#123");
+            string alice = f.Auth.PlayerId!;
+            f.PutCloudSave(alice, Save(40, 500));   // alice's long game
+            await f.SignOut();                       // a new guest plays on this device
+            var sync = new CloudSync(f.Saves, () => _now, () => f.Auth.PlayerId);
+            Assert.IsNull(await sync.Pull(Save(3, _now)));
+
+            await f.SignIn("alice", "Secret#123");   // e.g. from Settings during a run: no new pull yet
+            _now += CloudSync.DebounceSeconds;
+            Assert.IsFalse(await sync.Push(Save(4, _now)), "the guest's game is not written into alice's cloud");
+            Assert.IsFalse(await sync.FlushPending());
+            Assert.AreEqual(40, f.CloudSaveOf(alice)!.Months);
+        });
+
+        [UnityTest]
+        public IEnumerator After_the_cloud_wins_nothing_is_written_until_a_new_pull() => Run(async () =>
+        {
+            var (f, sync) = Online();
+            f.PutCloudSave(f.Auth.PlayerId!, Save(39, 500));
+            Assert.IsNotNull(await sync.Pull(Save(2, 900)), "the device is about to restart on the cloud game");
+
+            _now += CloudSync.DebounceSeconds;
+            Assert.IsFalse(await sync.Push(Save(3, _now)), "a month finished before the restart (or a failed adopt) is not pushed");
+            Assert.IsFalse(await sync.FlushPending());
+            Assert.AreEqual(39, f.CloudSaveOf(f.Auth.PlayerId!)!.Months);
+        });
+
+        [UnityTest]
+        public IEnumerator A_push_never_replaces_a_longer_cloud_game() => Run(async () =>
+        {
+            var (f, sync) = Online();
+            Assert.IsNull(await sync.Pull(Save(5, _now)));
+            f.PutCloudSave(f.Auth.PlayerId!, Save(30, _now + 1));   // another device played on meanwhile
+
+            _now += CloudSync.DebounceSeconds;
+            Assert.IsFalse(await sync.Push(Save(6, _now)));
+            Assert.AreEqual(30, f.CloudSaveOf(f.Auth.PlayerId!)!.Months);
+        });
+
+        [UnityTest]
+        public IEnumerator A_failing_run_is_retried_without_blocking_the_others() => Run(async () =>
+        {
+            var f = new FakeOnlineServices { ChallengeResult = _ => new SubmitResult { Ok = false, Error = OnlineErrors.ServerError } };
+            await f.SignInAnonymously();
+            string me = f.Auth.PlayerId!;
+            var q = new SubmissionQueue(QueueKey);
+            q.EnqueueChallenge(Challenge("c"), me);
+            q.EnqueueCareer(Career("k"), me);
+
+            await q.Flush(f.Runs, me);
+            Assert.AreEqual(1, f.Careers.Count, "the career behind the failing run is sent");
+            Assert.AreEqual("c", q.Entries.Single().Submission!.StateHash, "the failing run waits for another try");
+
+            for (int i = 1; i < SubmissionQueue.MaxFailures; i++) await q.Flush(f.Runs, me);
+            Assert.AreEqual(SubmissionQueue.MaxFailures, f.Challenges.Count);
+            Assert.IsEmpty(q.Entries, "…and is given up after the last try");
+        });
+
+        [UnityTest]
+        public IEnumerator Entries_wait_for_the_player_who_played_them() => Run(async () =>
+        {
+            var f = new FakeOnlineServices();
+            await f.SignInAnonymously();
+            string first = f.Auth.PlayerId!;
+            var q = new SubmissionQueue(QueueKey);
+            q.EnqueueChallenge(Challenge("mine"), first);
+            await f.SignOut();
+            string second = f.Auth.PlayerId!;
+
+            await q.Flush(f.Runs, second);
+            Assert.IsEmpty(f.Challenges, "a run is never sent under another player's account");
+            q.EnqueueChallenge(Challenge("theirs"), second);
+            await q.Flush(f.Runs, second);
+            Assert.AreEqual("theirs", f.Challenges.Single().StateHash);
+            Assert.AreEqual("mine", q.Entries.Single().Submission!.StateHash, "kept for its player");
+        });
+
+        [Test]
+        public void Server_failures_are_told_apart_from_being_offline()
+        {
+            Assert.AreEqual(OnlineErrors.Offline, UgsOnlineServices.ErrorFor(new RequestFailedException(CommonErrorCodes.TransportError, "no network")));
+            Assert.AreEqual(OnlineErrors.Offline, UgsOnlineServices.ErrorFor(new RequestFailedException(CommonErrorCodes.Timeout, "slow")));
+            Assert.AreEqual(OnlineErrors.Offline, UgsOnlineServices.ErrorFor(new RequestFailedException(CommonErrorCodes.ServiceUnavailable, "down")));
+            Assert.AreEqual(OnlineErrors.Offline, UgsOnlineServices.ErrorFor(new RequestFailedException(CommonErrorCodes.TooManyRequests, "later")));
+            Assert.AreEqual(OnlineErrors.Offline, UgsOnlineServices.ErrorFor(new System.InvalidOperationException("not initialized")));
+            Assert.AreEqual(OnlineErrors.ServerError, UgsOnlineServices.ErrorFor(new RequestFailedException(9009, "module threw")));
+            Assert.AreEqual(OnlineErrors.ServerError, UgsOnlineServices.ErrorFor(new RequestFailedException(CommonErrorCodes.InvalidRequest, "bad")));
         }
 
         [UnityTest]
@@ -102,17 +200,17 @@ namespace UnpaidCeo.Game.Tests
         {
             var f = new FakeOnlineServices { Online = false };
             var q = new SubmissionQueue(QueueKey);
-            q.EnqueueCareer(Career("h5"));
+            q.EnqueueCareer(Career("h5"), null);
 
-            await q.Flush(f.Runs);
+            await q.Flush(f.Runs, null);
             Assert.AreEqual(1, q.Entries.Count, "kept while offline");
             Assert.AreEqual(0, f.Careers.Count);
 
             f.Online = true;
-            await q.Flush(f.Runs);
-            Assert.AreEqual(1, f.Careers.Count);
+            await q.Flush(f.Runs, "p1");
+            Assert.AreEqual(1, f.Careers.Count, "played before anyone signed in: sent by the player who comes online");
             Assert.IsEmpty(q.Entries);
-            await q.Flush(f.Runs);
+            await q.Flush(f.Runs, "p1");
             Assert.AreEqual(1, f.Careers.Count, "flushed once");
             Assert.IsEmpty(new SubmissionQueue(QueueKey).Entries, "the emptied queue was saved");
         });
@@ -121,9 +219,9 @@ namespace UnpaidCeo.Game.Tests
         public void Only_the_latest_career_submission_is_kept()
         {
             var q = new SubmissionQueue(QueueKey);
-            q.EnqueueCareer(Career("a"));
-            q.EnqueueChallenge(new RunSubmission { Start = new RunStart { Kind = RunStart.Challenge, ContextId = "2950" }, StateHash = "c" });
-            q.EnqueueCareer(Career("b"));
+            q.EnqueueCareer(Career("a"), "p1");
+            q.EnqueueChallenge(Challenge("c"), "p1");
+            q.EnqueueCareer(Career("b"), "p1");
 
             foreach (var queue in new[] { q, new SubmissionQueue(QueueKey) })
             {
