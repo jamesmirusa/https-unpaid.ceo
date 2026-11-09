@@ -69,8 +69,12 @@ namespace UnpaidCeo.Game.Tests.Fakes
             return Task.FromResult(AuthResult.Ok);
         }
 
+        /// <summary>Sign-up requests that reached the "server".</summary>
+        public int SignUpCalls { get; private set; }
+
         public Task<AuthResult> SignUp(string user, string pass)
         {
+            SignUpCalls++;
             if (!Online) return Task.FromResult(AuthResult.Offline);
             if (!AccountRules.UsernameOk(user)) return Task.FromResult(AuthResult.InvalidCredentials);
             if (!AccountRules.PasswordOk(pass)) return Task.FromResult(AuthResult.WeakPassword);

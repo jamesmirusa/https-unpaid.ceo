@@ -7,6 +7,31 @@
         <ui:VisualElement name="settings-graphics" class="choice-row" />
         <ui:Label name="settings-theme-caption" class="section-title" />
         <ui:VisualElement name="settings-theme" class="choice-row" />
+        <ui:Label name="account-caption" class="section-title" />
+        <ui:VisualElement name="account" class="account">
+            <ui:Label name="account-status" class="hint" />
+            <ui:Label name="account-player" class="value account__player" />
+            <ui:VisualElement name="account-guest" class="account__form">
+                <ui:Label name="account-user-caption" class="hint" />
+                <ui:TextField name="account-user" max-length="20" class="text-input" />
+                <ui:Label name="account-pass-caption" class="hint" />
+                <ui:TextField name="account-pass" max-length="30" password="true" class="text-input" />
+                <ui:Label name="account-rules" class="hint" />
+                <ui:VisualElement class="choice-row">
+                    <ui:Button name="account-signup" class="choice-button" />
+                    <ui:Button name="account-signin" class="choice-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="account-signed" class="account__form">
+                <ui:Label name="account-name-caption" class="hint" />
+                <ui:TextField name="account-name" max-length="30" class="text-input" />
+                <ui:VisualElement class="choice-row">
+                    <ui:Button name="account-setname" class="choice-button" />
+                    <ui:Button name="account-signout" class="choice-button" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label name="account-message" class="hint account__message" />
+        </ui:VisualElement>
         <ui:Button name="settings-reset" class="danger-button" />
         <ui:Label name="settings-reset-confirm" class="hint" />
     </ui:ScrollView>

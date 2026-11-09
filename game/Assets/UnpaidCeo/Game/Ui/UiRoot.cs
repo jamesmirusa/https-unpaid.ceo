@@ -75,6 +75,12 @@ namespace UnpaidCeo.Game.Ui
         }
         public event Action<IOnlineServices> OnlineChanged;
 
+        AccountPanel _account;
+        /// <summary>Settings → Account.</summary>
+        public AccountPanel Account => _account;
+        /// <summary>The player signed up, in or out, or renamed: the game re-syncs its cloud save.</summary>
+        public event Action<AccountChange> AccountChanged;
+
         public Button NextMonthButton => _next;
         /// <summary>Chapter 2's business choice (also a tab: <see cref="Industry"/>).</summary>
         public IndustryScreen IndustryChoice => _industry;
@@ -221,6 +227,8 @@ namespace UnpaidCeo.Game.Ui
             _journal = new JournalScreen(_screens[Journal], engine, state);
             _settings = new SettingsScreen(_screens[Settings], this);
             _settings.ResetRequested += () => ResetRequested?.Invoke();
+            _account = new AccountPanel(_screens[Settings], this);
+            _account.Changed += change => AccountChanged?.Invoke(change);
 
             _turnsBar = new VisualElement { name = "turns-bar" };
             _turnsBar.AddToClassList("turns-bar");
@@ -297,7 +305,7 @@ namespace UnpaidCeo.Game.Ui
             CurrentTab = tab;
             if (tab == Academy) _academy.Refresh();
             if (tab == Journal) _journal.Refresh();
-            if (tab == Settings) _settings.Refresh();
+            if (tab == Settings) { _settings.Refresh(); _account.Refresh(); }
             if (tab == Industry) _industry.Show(_engine, _state);
             if (tab == Company) _company.Refresh();
         }

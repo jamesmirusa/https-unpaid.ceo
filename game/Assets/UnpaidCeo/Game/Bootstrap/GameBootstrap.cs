@@ -170,6 +170,17 @@ namespace UnpaidCeo.Game.Bootstrap
             _ = FlushQueue();
         }
 
+        /// <summary>
+        /// A new account keeps the same player and cloud save (write it now); signing in or out changes the player, so
+        /// the cloud is read again — the longer game wins, a new guest's empty cloud is filled from this device.
+        /// </summary>
+        async void OnAccountChanged(AccountChange change)
+        {
+            if (!Online.Available || _state == null) return;
+            if (change == AccountChange.SignedUp) { PushCloud(); if (_sync != null) await _sync.FlushPending(); }
+            else if (change == AccountChange.SignedIn || change == AccountChange.SignedOut) await SyncOnline(Online);
+        }
+
         async Task FlushQueue()
         {
             if (_queue != null && Online.Available) await _queue.Flush(Online.Runs);
@@ -213,6 +224,7 @@ namespace UnpaidCeo.Game.Bootstrap
             _yarn!.SetLanguage(Ui.Language);
             Ui.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
             Ui.ResetRequested += () => { CloudSync.MarkReset(); SaveService.Delete(); SceneManager.LoadScene(0); };
+            Ui.AccountChanged += OnAccountChanged;
             Ui.QuizAnswered += OnQuizAnswered;
             Ui.ChapterAdvanced += chapter => { SaveService.Save(_state); AfterAction(); StartCoroutine(SwapDistrict(chapter)); };
             Ui.IndustryChosen += _ => { SaveService.Save(_state); AfterAction(); };

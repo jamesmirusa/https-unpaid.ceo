@@ -183,3 +183,26 @@ journal.chapter3_start	You moved to Queens.	Ты переехал в Квинс.
 journal.chapter2_done	Chapter 2 goal reached.	Цель второй главы достигнута.
 journal.chapter3_done	Chapter 3 goal reached.	Цель третьей главы достигнута.
 decisions.owner_time	Your work time now runs your business. At 60% work you count as one full-time staff member; gigs no longer pay.	Твоё рабочее время теперь уходит на бизнес. При 60% работы ты — полноценный сотрудник, а подработки больше не платят.
+account.title	Account	Аккаунт
+account.status.guest	You're playing as a guest. Create an account to keep your progress on any device.	Ты играешь как гость. Создай аккаунт, чтобы прогресс был с тобой на любом устройстве.
+account.status.signed	Signed in as	Вход выполнен:
+account.status.offline	Accounts need the internet. The game keeps playing offline.	Для аккаунта нужен интернет. Игра продолжается офлайн.
+account.user	Username	Имя пользователя
+account.pass	Password	Пароль
+account.rules	Username: 3–20 letters, digits or . - @ _. Password: 8–30 characters with an upper- and a lowercase letter, a digit and a symbol.	Имя: 3–20 латинских букв, цифр или . - @ _. Пароль: 8–30 символов, заглавная и строчная буква, цифра и символ.
+account.name	Name in the rankings	Имя в рейтинге
+account.signup	Create account	Создать аккаунт
+account.signin	Sign in	Войти
+account.setname	Change name	Сменить имя
+account.signout	Sign out	Выйти
+account.created	Account created. Your progress is saved in the cloud.	Аккаунт создан. Прогресс сохранён в облаке.
+account.welcome	Signed in. Loading your cloud save.	Вход выполнен. Загружаем облачное сохранение.
+account.renamed	Name changed.	Имя изменено.
+account.signed_out	Signed out. You're a new guest, and this device keeps its save.	Выход выполнен. Теперь ты новый гость, сохранение на устройстве осталось.
+account.invalid	Wrong username or password.	Неверное имя или пароль.
+account.taken	That username is taken.	Это имя уже занято.
+account.weak	The password needs 8–30 characters with an upper- and a lowercase letter, a digit and a symbol.	Пароль: 8–30 символов, заглавная и строчная буква, цифра и символ.
+account.bad_user	The username needs 3–20 letters, digits or . - @ _.	Имя: 3–20 латинских букв, цифр или . - @ _.
+account.bad_name	Enter a name first.	Сначала введи имя.
+account.offline	You're offline. Accounts need the internet; the game keeps playing.	Нет связи. Для аккаунта нужен интернет, а игра продолжается.
+account.error	Something went wrong. Try again later.	Что-то пошло не так. Попробуй позже.

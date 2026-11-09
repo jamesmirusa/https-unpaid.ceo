@@ -754,6 +754,98 @@ MonoBehaviour:
     m_Localized: Marketing a month
     m_Metadata:
       m_Items: []
+  - m_Id: 163872378970112
+    m_Localized: Account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358720
+    m_Localized: You're playing as a guest. Create an account to keep your progress on any device.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358721
+    m_Localized: Signed in as
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358722
+    m_Localized: Accounts need the internet. The game keeps playing offline.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358723
+    m_Localized: Username
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358724
+    m_Localized: Password
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358725
+    m_Localized: "Username: 3\u201320 letters, digits or . - @ _. Password: 8\u201330 characters with an upper- and a lowercase letter, a digit and a symbol."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358726
+    m_Localized: Name in the rankings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358727
+    m_Localized: Create account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358728
+    m_Localized: Sign in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358729
+    m_Localized: Change name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358730
+    m_Localized: Sign out
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358731
+    m_Localized: Account created. Your progress is saved in the cloud.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358732
+    m_Localized: Signed in. Loading your cloud save.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358733
+    m_Localized: Name changed.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358734
+    m_Localized: Signed out. You're a new guest, and this device keeps its save.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358735
+    m_Localized: Wrong username or password.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358736
+    m_Localized: That username is taken.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358737
+    m_Localized: "The password needs 8\u201330 characters with an upper- and a lowercase letter, a digit and a symbol."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358738
+    m_Localized: "The username needs 3\u201320 letters, digits or . - @ _."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358739
+    m_Localized: Enter a name first.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358740
+    m_Localized: You're offline. Accounts need the internet; the game keeps playing.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163872387358741
+    m_Localized: Something went wrong. Try again later.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
