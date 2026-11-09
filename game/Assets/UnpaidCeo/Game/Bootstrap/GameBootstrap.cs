@@ -351,6 +351,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 RunLaunchAutopilot();
                 StartPlaying();
                 PlayScenes();
+                Ui.AskConsent();
                 yield break;
             }
 
@@ -367,6 +368,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 SaveService.SaveMeta(_meta);
                 StartPlaying();
                 PlayScenes();
+                Ui.AskConsent();   // once, after onboarding
             };
             Onboarding.Start();
         }

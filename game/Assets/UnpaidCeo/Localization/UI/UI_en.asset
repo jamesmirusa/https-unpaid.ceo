@@ -1062,6 +1062,34 @@ MonoBehaviour:
     m_Localized: Open
     m_Metadata:
       m_Items: []
+  - m_Id: 170424712290304
+    m_Localized: Help improve the game?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678912
+    m_Localized: May we collect anonymous play statistics (tutorial steps, months played, lessons)? No personal data. You can change this in Settings.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678913
+    m_Localized: Allow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678914
+    m_Localized: No thanks
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678915
+    m_Localized: Anonymous statistics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678916
+    m_Localized: On
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678917
+    m_Localized: Off
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

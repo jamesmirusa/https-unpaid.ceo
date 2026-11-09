@@ -24,7 +24,6 @@ namespace UnpaidCeo.Game.Services.Online
     public sealed class UgsOnlineServices : IOnlineServices, IOnlineAuth, ICloudSaves, IRunBackend, ILeaderboards, IFriends, IGameAnalytics
     {
         public const string Module = "UnpaidCeo";
-        const string ConsentKey = "unpaid.analytics_consent";
 
         static IAuthenticationService A => AuthenticationService.Instance;
 
@@ -35,7 +34,7 @@ namespace UnpaidCeo.Game.Services.Online
         {
             Flags = flags;
             _hasAccount = !string.IsNullOrEmpty(A.PlayerInfo?.Username);
-            Consented = PlayerPrefs.GetInt(ConsentKey, 0) == 1;
+            Consented = AnalyticsConsent.Granted;
             if (Consented) Try(() => AnalyticsService.Instance.StartDataCollection());
         }
 
@@ -261,8 +260,7 @@ namespace UnpaidCeo.Game.Services.Online
         public void SetConsent(bool on)
         {
             Consented = on;
-            PlayerPrefs.SetInt(ConsentKey, on ? 1 : 0);
-            PlayerPrefs.Save();
+            AnalyticsConsent.Set(on);
             Try(() => { if (on) AnalyticsService.Instance.StartDataCollection(); else AnalyticsService.Instance.StopDataCollection(); });
         }
 

@@ -58,9 +58,9 @@ namespace UnpaidCeo.Game.Services.Online
         public Task<bool> Decline(string playerId) => Task.FromResult(false);
         public Task<bool> Remove(string playerId) => Task.FromResult(false);
 
-        // Analytics: the choice is kept for the session; nothing is recorded offline.
-        public bool Consented { get; private set; }
-        public void SetConsent(bool on) => Consented = on;
+        // Analytics: the choice is remembered on the device for when the game is online; nothing is recorded offline.
+        public bool Consented => AnalyticsConsent.Granted;
+        public void SetConsent(bool on) => AnalyticsConsent.Set(on);
         public void Record(string name, IDictionary<string, object>? args = null) { }
 
         static SubmitResult Refused() => new SubmitResult { Ok = false, Error = OnlineErrors.Offline };

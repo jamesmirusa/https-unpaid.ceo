@@ -1059,6 +1059,34 @@ MonoBehaviour:
     m_Key: duel.open
     m_Metadata:
       m_Items: []
+  - m_Id: 170424712290304
+    m_Key: consent.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678912
+    m_Key: consent.text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678913
+    m_Key: consent.allow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678914
+    m_Key: consent.deny
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678915
+    m_Key: settings.analytics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678916
+    m_Key: settings.analytics.on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170424720678917
+    m_Key: settings.analytics.off
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

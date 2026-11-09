@@ -5,6 +5,8 @@ using UnpaidCeo.Core.Game;
 using UnpaidCeo.Game.Hero;
 using UnpaidCeo.Game.Ui;
 
+using UnpaidCeo.Game.Services.Online;
+
 namespace UnpaidCeo.Game.Bootstrap
 {
     /// <summary>
@@ -62,6 +64,7 @@ namespace UnpaidCeo.Game.Bootstrap
             _ui.Root.Add(_heroOverlay);
             var creator = new HeroCreator(_heroOverlay, _view, _seed);
             creator.Confirmed += OnHeroChosen;
+            AnalyticsEvents.TutorialStep(_ui.Online.Analytics, (int)Step.Hero);
         }
 
         void OnHeroChosen(HeroAppearance hero)
@@ -94,6 +97,7 @@ namespace UnpaidCeo.Game.Bootstrap
         void Show(Step step, string lineId, string? actionKey)
         {
             Current = step;
+            AnalyticsEvents.TutorialStep(_ui.Online.Analytics, (int)step);
             _text!.text = _lineText(lineId) ?? string.Empty;
             if (actionKey != null) UiText.Bind(_action!, actionKey);
             _action!.style.display = actionKey != null ? DisplayStyle.Flex : DisplayStyle.None;
@@ -127,6 +131,7 @@ namespace UnpaidCeo.Game.Bootstrap
             _ui.ShowReport(Report);
             _ui.Open(UiRoot.Company);
             Current = Step.Done;
+            AnalyticsEvents.TutorialStep(_ui.Online.Analytics, (int)Step.Done);
             Completed?.Invoke(Report);
         }
     }

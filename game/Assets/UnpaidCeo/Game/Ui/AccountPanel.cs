@@ -74,6 +74,7 @@ namespace UnpaidCeo.Game.Ui
             var r = await auth.SignUp(User.value, Password.value);
             if (r != AuthResult.Ok) return Key(r);
             Password.value = "";
+            AnalyticsEvents.Signup(Online.Analytics, "username");
             Changed?.Invoke(AccountChange.SignedUp);
             return "account.created";
         });

@@ -260,3 +260,10 @@ duel.created	Duel created. Play your 6 months!	Дуэль создана. Сыг
 duel.failed	Could not create the duel.	Не удалось создать дуэль.
 duel.waiting	A duel is waiting for you.	Тебя ждёт дуэль.
 duel.open	Open	Открыть
+consent.title	Help improve the game?	Помочь улучшить игру?
+consent.text	May we collect anonymous play statistics (tutorial steps, months played, lessons)? No personal data. You can change this in Settings.	Можно собирать анонимную статистику игры (шаги обучения, сыгранные месяцы, уроки)? Без личных данных. Это можно изменить в Настройках.
+consent.allow	Allow	Разрешить
+consent.deny	No thanks	Нет, спасибо
+settings.analytics	Anonymous statistics	Анонимная статистика
+settings.analytics.on	On	Вкл
+settings.analytics.off	Off	Выкл

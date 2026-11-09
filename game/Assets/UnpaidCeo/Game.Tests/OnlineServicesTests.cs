@@ -63,8 +63,10 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsFalse(await o.Friends.Remove("p2"));
 
             o.Analytics.Record("month_completed");
+            bool asked = AnalyticsConsent.Asked, granted = AnalyticsConsent.Granted;
             o.Analytics.SetConsent(true);
-            Assert.IsTrue(o.Analytics.Consented);
+            Assert.IsTrue(o.Analytics.Consented, "the choice is kept on the device for later");
+            if (asked) AnalyticsConsent.Set(granted); else PlayerPrefs.DeleteKey(AnalyticsConsent.Key);
         });
 
         [UnityTest]

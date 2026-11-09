@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnpaidCeo.Core.Platform;
 using UnpaidCeo.Game.Graphics;
+using UnpaidCeo.Game.Services.Online;
 
 namespace UnpaidCeo.Game.Ui
 {
@@ -14,7 +15,7 @@ namespace UnpaidCeo.Game.Ui
         readonly UiRoot _ui;
         readonly Dictionary<string, Button> _languages = new Dictionary<string, Button>();
         readonly Dictionary<GraphicsMode, Button> _modes = new Dictionary<GraphicsMode, Button>();
-        readonly Button _day, _neon;
+        readonly Button _day, _neon, _analyticsOn, _analyticsOff;
         readonly Label _confirm;
         bool _armed;
 
@@ -31,7 +32,7 @@ namespace UnpaidCeo.Game.Ui
             var languages = root.Q("settings-language");
             foreach (var (code, nativeName) in LanguageNames)
             {
-                var b = UiText.Value(new Button(() => _ui.StartCoroutine(_ui.SetLanguage(code))), nativeName);
+                var b = UiText.Value(new Button(() => { _ui.StartCoroutine(_ui.SetLanguage(code)); AnalyticsEvents.Language(_ui.Online.Analytics, code); }), nativeName);
                 b.AddToClassList("choice-button");
                 _languages[code] = b;
                 languages.Add(b);
@@ -41,7 +42,13 @@ namespace UnpaidCeo.Game.Ui
             foreach (GraphicsMode mode in Enum.GetValues(typeof(GraphicsMode)))
             {
                 var m = mode;
-                var b = UiText.Bind(new Button(() => { GraphicsModeService.Save(m); GraphicsModeService.Apply(m); Refresh(); }),
+                var b = UiText.Bind(new Button(() =>
+                    {
+                        GraphicsModeService.Save(m);
+                        GraphicsModeService.Apply(m);
+                        AnalyticsEvents.GraphicsMode(_ui.Online.Analytics, m.ToString().ToLowerInvariant());
+                        Refresh();
+                    }),
                     "settings.graphics." + mode.ToString().ToLowerInvariant());
                 b.AddToClassList("choice-button");
                 _modes[mode] = b;
@@ -52,6 +59,12 @@ namespace UnpaidCeo.Game.Ui
             _day = UiText.Bind(new Button(() => { _ui.SetTheme(false); Refresh(); }), "settings.theme.day");
             _neon = UiText.Bind(new Button(() => { _ui.SetTheme(true); Refresh(); }), "settings.theme.neon");
             foreach (var b in new[] { _day, _neon }) { b.AddToClassList("choice-button"); theme.Add(b); }
+
+            UiText.Bind(root.Q<Label>("settings-analytics-caption"), "settings.analytics");
+            var analytics = root.Q("settings-analytics");
+            _analyticsOn = UiText.Bind(new Button(() => SetAnalytics(true)) { name = "settings-analytics-on" }, "settings.analytics.on");
+            _analyticsOff = UiText.Bind(new Button(() => SetAnalytics(false)) { name = "settings-analytics-off" }, "settings.analytics.off");
+            foreach (var b in new[] { _analyticsOn, _analyticsOff }) { b.AddToClassList("choice-button"); analytics.Add(b); }
 
             var reset = UiText.Bind(root.Q<Button>("settings-reset"), "settings.reset");
             _confirm = UiText.Bind(root.Q<Label>("settings-reset-confirm"), "settings.reset.confirm");
@@ -71,6 +84,17 @@ namespace UnpaidCeo.Game.Ui
             _day.EnableInClassList("choice-button--selected", !_ui.IsNeon);
             _neon.EnableInClassList("choice-button--selected", _ui.IsNeon);
             _confirm.style.display = _armed ? DisplayStyle.Flex : DisplayStyle.None;
+            bool granted = AnalyticsConsent.Granted;
+            _analyticsOn.EnableInClassList("choice-button--selected", granted);
+            _analyticsOff.EnableInClassList("choice-button--selected", AnalyticsConsent.Asked && !granted);
+        }
+
+        /// <summary>Gives or withdraws analytics consent (also answers the one-time question).</summary>
+        public void SetAnalytics(bool on)
+        {
+            AnalyticsConsent.Set(on);
+            _ui.Online.Analytics.SetConsent(on);
+            Refresh();
         }
     }
 }

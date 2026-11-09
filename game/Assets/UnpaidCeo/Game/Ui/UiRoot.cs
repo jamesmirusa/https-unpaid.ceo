@@ -84,6 +84,14 @@ namespace UnpaidCeo.Game.Ui
         public MetaProgress Meta { get; set; }
         /// <summary>The screens show a challenge or duel run: no daily turns, no chapter bar. Set before Initialize.</summary>
         public bool RunMode { get; set; }
+        ConsentDialog _consent;
+        /// <summary>The one-time analytics question.</summary>
+        public ConsentDialog Consent => _consent;
+        /// <summary>Asks for analytics consent unless the player already answered on this device.</summary>
+        public void AskConsent() => _consent?.Ask();
+        public SettingsScreen SettingsPanel => _settings;
+        HashSet<string> _opened = new HashSet<string>();
+        bool _wasBankrupt;
         VisualElement _duelCard;
         /// <summary>City card "a duel is waiting for you".</summary>
         public VisualElement DuelCard => _duelCard;
@@ -226,9 +234,13 @@ namespace UnpaidCeo.Game.Ui
             _company = new CompanyScreen(_screens[Company], this, engine, state);
             _decisions = new DecisionsScreen(_screens[Decisions], this, engine, state);
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
-            _industry.Chosen += id => { _decisions.Refresh(); RefreshHud(); IndustryChosen?.Invoke(id); };
+            _industry.Chosen += id => { _decisions.Refresh(); RefreshHud(); AnalyticsEvents.IndustryChosen(Online.Analytics, id); IndustryChosen?.Invoke(id); };
             _academy = new AcademyScreen(_screens[Academy], engine, state);
             _academy.Answered += (lesson, q) => QuizAnswered?.Invoke(lesson, q);
+            _academy.LessonViewed += id => AnalyticsEvents.LessonViewed(Online.Analytics, id);
+            _academy.QuizPassed += id => AnalyticsEvents.QuizPassed(Online.Analytics, id);
+            _opened = new HashSet<string>(OpenBusinesses());
+            _wasBankrupt = state.Facts.Has("bankrupt");
             _missions = new VisualElement { name = "city-missions" };
             _missions.AddToClassList("missions");
             _missions.style.display = DisplayStyle.None;
@@ -246,6 +258,8 @@ namespace UnpaidCeo.Game.Ui
             _settings.ResetRequested += () => ResetRequested?.Invoke();
             _account = new AccountPanel(_screens[Settings], this);
             _account.Changed += change => AccountChanged?.Invoke(change);
+            _consent = new ConsentDialog(this);
+            Root.Add(_consent.Root);
 
             _turnsBar = new VisualElement { name = "turns-bar" };
             _turnsBar.AddToClassList("turns-bar");
@@ -293,6 +307,7 @@ namespace UnpaidCeo.Game.Ui
             _decisions.Refresh();
             _company.Refresh();
             RefreshHud();
+            AnalyticsEvents.ChapterUnlocked(Online.Analytics, _state.Chapter);
             ChapterAdvanced?.Invoke(_state.Chapter);
             if (NeedsBusiness) Open(Industry);
         }
@@ -331,6 +346,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Call after each EndMonth.</summary>
         public void ShowReport(MonthReport report)
         {
+            if (!RunMode) RecordMonth(report);
             _company.Show(report);
             _decisions.Refresh();
             _decisions.ShowRejections(report);
@@ -358,6 +374,22 @@ namespace UnpaidCeo.Game.Ui
         }
 
         public MonthDecisions CurrentDecisions() => _decisions.Build();
+
+        IEnumerable<string> OpenBusinesses() => _state.Businesses
+            .Where(b => b.Units > 0 && _engine.Content.Industries.TryGetValue(b.IndustryId, out var d) && d.Kind == UnpaidCeo.Core.Economy.IndustryKind.Business)
+            .Select(b => b.IndustryId);
+
+        /// <summary>Analytics for a finished career month: the month, a first business unit, going bankrupt.</summary>
+        void RecordMonth(MonthReport report)
+        {
+            var a = Online.Analytics;
+            AnalyticsEvents.MonthCompleted(a, report.Month, _state.Chapter);
+            foreach (var id in OpenBusinesses().ToList())
+                if (_opened.Add(id)) AnalyticsEvents.BusinessOpened(a, id, _state.Businesses.First(b => b.IndustryId == id).Units);
+            bool bankrupt = _state.Facts.Has("bankrupt");
+            if (bankrupt && !_wasBankrupt) AnalyticsEvents.Bankrupt(a, report.Month);
+            _wasBankrupt = bankrupt;
+        }
 
         /// <summary>Manual months left today; with none left the button is off and a countdown to the refill shows.</summary>
         public void SetTurns(int left, int perDay, long secondsToRefill)
