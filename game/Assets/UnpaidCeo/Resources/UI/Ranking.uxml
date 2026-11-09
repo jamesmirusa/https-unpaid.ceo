@@ -1,6 +1,33 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:VisualElement name="ranking" class="screen screen--panel">
+    <ui:ScrollView name="ranking" class="screen screen--panel">
         <ui:Label name="ranking-title" class="screen__title" />
-        <ui:Label name="ranking-soon" class="hint" />
-    </ui:VisualElement>
+        <ui:Label name="ranking-league-caption" class="section-title" />
+        <ui:Label name="ranking-league" class="league-name" />
+        <ui:VisualElement name="ranking-league-track" class="chapter-bar__track">
+            <ui:VisualElement name="ranking-league-fill" class="chapter-bar__fill" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ranking-next-row" class="row">
+            <ui:Label name="ranking-next-caption" class="row__label" />
+            <ui:Label name="ranking-next" class="row__value value" />
+        </ui:VisualElement>
+        <ui:Label name="ranking-offline" class="hint" />
+        <ui:VisualElement name="ranking-online">
+            <ui:Label name="ranking-top-caption" class="section-title" />
+            <ui:VisualElement name="ranking-top" class="rank-list" />
+            <ui:Label name="ranking-empty" class="hint" />
+            <ui:Label name="ranking-me-caption" class="hint" />
+            <ui:Label name="ranking-me" class="value rank-row__me" />
+            <ui:VisualElement name="ranking-market">
+                <ui:Label name="ranking-market-caption" class="section-title" />
+                <ui:VisualElement name="ranking-market-list" class="rank-list" />
+                <ui:VisualElement class="row">
+                    <ui:Label name="ranking-share-caption" class="row__label" />
+                    <ui:Label name="ranking-share" class="row__value value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Label name="ranking-badges-caption" class="section-title" />
+        <ui:VisualElement name="ranking-badges" class="badge-list" />
+        <ui:Label name="ranking-no-badges" class="hint" />
+    </ui:ScrollView>
 </ui:UXML>

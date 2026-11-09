@@ -219,6 +219,7 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui.transform.SetParent(transform);
             Ui.Initialize(_engine, _state);
             Ui.Online = Online;
+            Ui.Meta = _meta.Meta;
             Ui.LineText = id => _yarn != null ? _yarn.LineText(id) : null;
             yield return Ui.SetLanguage(UiRoot.PickLanguage());
             _yarn!.SetLanguage(Ui.Language);
@@ -331,6 +332,7 @@ namespace UnpaidCeo.Game.Bootstrap
             DailyMissions.SkipLog(_meta.Meta, _state!);
             if (reports.Count > 0)
             {
+                foreach (var r in reports) Achievements.Update(_meta.Meta, _state!, r);
                 _city?.Sync(_state!);
                 Ui!.ShowReport(reports[reports.Count - 1]);
                 SaveService.Save(_state!);
@@ -348,6 +350,7 @@ namespace UnpaidCeo.Game.Bootstrap
             MonthReport report;
             try { report = _engine!.EndMonth(_state!, Ui!.CurrentDecisions()); }
             catch (Exception e) { Debug.LogException(e); _meta.Turns.ManualLeft++; _busy = false; yield break; }
+            Achievements.Update(_meta.Meta, _state!, report);   // badges; the meta is saved with the action below
             _city?.Sync(_state!);
             if (_timelapse != null)
             {

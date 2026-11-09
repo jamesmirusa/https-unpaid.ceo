@@ -17,7 +17,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 UGS = os.path.join(ROOT, "server", "ugs")
 CORE = os.path.join(ROOT, "game", "Assets", "UnpaidCeo", "Core", "Online")
 BALANCE = os.path.join(ROOT, "game", "Assets", "UnpaidCeo", "Content", "balance.json")
-SERVER = os.path.join(ROOT, "server", "cloudcode", "UnpaidCeo.CloudCode", "GameServer.cs")
+BOARDS = os.path.join(CORE, "GameBoards.cs")
 
 FLAGS = ["online_enabled", "challenge_enabled", "duels_enabled", "market_wars_enabled"]
 SCORES_URN = "urn:ugs:leaderboards:/v1/projects/*/leaderboards/*/scores/players/*"
@@ -118,8 +118,8 @@ def check_boards():
     industries = balance.get("chapter2Industries", [])
     if not industries:
         problem("balance.json: chapter2Industries is empty")
-    server = read(SERVER)
-    capital, challenge, market = (cs_const(server, n) for n in ("CapitalBoard", "ChallengeBoard", "MarketPrefix"))
+    boards = read(BOARDS)
+    capital, challenge, market = (cs_const(boards, n) for n in ("Capital", "WeeklyChallenge", "MarketPrefix"))
 
     capital_lb = load_json(os.path.join(UGS, f"{capital}.lb"))
     check_board(capital, capital_lb, weekly=False)

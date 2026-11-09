@@ -14,7 +14,6 @@ namespace UnpaidCeo.CloudCode
     /// </summary>
     public sealed class GameServer
     {
-        public const string CapitalBoard = "capital", ChallengeBoard = "weekly_challenge", MarketPrefix = "market_";
         const string FirstSeenKey = "first_seen", DuelsKey = "duels";
         const int MaxListedDuels = 20;
 
@@ -57,13 +56,13 @@ namespace UnpaidCeo.CloudCode
             long firstSeen = await FirstSeen(playerId);
             if (v.Months > Pacing.MaxCareerMonths(firstSeen, _clock.NowUnix, _c.Balance)) return Refused("too_many_months");
 
-            await _boards.Submit(CapitalBoard, playerId, v.NetWorthCents / 100.0);
+            await _boards.Submit(GameBoards.Capital, playerId, v.NetWorthCents / 100.0);
             if (v.IndustryId != null && v.Months > 0)
-                await _boards.Submit(MarketPrefix + v.IndustryId, playerId, v.LastMonthRevenueCents / 100.0);
+                await _boards.Submit(GameBoards.Market(v.IndustryId), playerId, v.LastMonthRevenueCents / 100.0);
             return new SubmitResult
             {
                 Ok = true, NetWorthCents = v.NetWorthCents, League = Leagues.For(v.NetWorthCents),
-                Rank = await _boards.RankOf(CapitalBoard, playerId),
+                Rank = await _boards.RankOf(GameBoards.Capital, playerId),
             };
         }
 
@@ -93,11 +92,11 @@ namespace UnpaidCeo.CloudCode
             if (v.Months > months) return Refused("too_long");
 
             await _players.Set(playerId, attemptsKey, (used + 1).ToString());
-            await _boards.Submit(ChallengeBoard, playerId, v.NetWorthCents / 100.0);
+            await _boards.Submit(GameBoards.WeeklyChallenge, playerId, v.NetWorthCents / 100.0);
             return new SubmitResult
             {
                 Ok = true, NetWorthCents = v.NetWorthCents, League = Leagues.For(v.NetWorthCents),
-                Rank = await _boards.RankOf(ChallengeBoard, playerId),
+                Rank = await _boards.RankOf(GameBoards.WeeklyChallenge, playerId),
             };
         }
 

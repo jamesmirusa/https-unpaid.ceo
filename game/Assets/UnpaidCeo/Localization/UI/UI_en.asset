@@ -846,6 +846,82 @@ MonoBehaviour:
     m_Localized: Something went wrong. Try again later.
     m_Metadata:
       m_Items: []
+  - m_Id: 165275155554304
+    m_Localized: Your league
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137216
+    m_Localized: Next league at
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137217
+    m_Localized: Top 20 by capital
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137218
+    m_Localized: Your place
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137219
+    m_Localized: No scores yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137220
+    m_Localized: Market wars this week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137221
+    m_Localized: Your share of the top 10
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137222
+    m_Localized: Badges
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137223
+    m_Localized: 'No badges yet: they come for break-even streaks, clean books, duel wins and the challenge top 10.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137224
+    m_Localized: Rankings need the internet. Your league is counted on this device.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137225
+    m_Localized: Rookie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137226
+    m_Localized: Hustler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137227
+    m_Localized: Boss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137228
+    m_Localized: Tycoon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137229
+    m_Localized: Legend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137230
+    m_Localized: Break-even 3 months in a row
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137231
+    m_Localized: Clean books for a year
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137232
+    m_Localized: Duel winner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 165275168137233
+    m_Localized: Weekly challenge top 10
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

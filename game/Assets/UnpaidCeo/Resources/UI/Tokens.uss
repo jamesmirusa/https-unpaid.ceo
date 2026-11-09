@@ -146,3 +146,21 @@
 .chapter-card__title { font-size: 72px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal; -unity-text-align: middle-center; }
 .chapter-card__subtitle { font-size: 34px; color: rgb(220, 220, 230); margin-top: 16px; white-space: normal; -unity-text-align: middle-center; }
 
+
+/* Ranking (stage 2B) */
+.league-name { font-size: 44px; -unity-font-style: bold; margin: 4px 0 12px 0; }
+.rank-list { margin-top: 8px; }
+.rank-row { flex-direction: row; align-items: center; padding: 10px 16px; margin-bottom: 6px; background-color: var(--panel); border-radius: 18px; }
+.rank-row--me { border-width: 3px; border-color: var(--accent); }
+.rank-row__rank { width: 90px; font-size: 28px; color: var(--text-dim); }
+.rank-row__name { flex-grow: 1; font-size: 28px; }
+.rank-row__score { font-size: 28px; -unity-font-style: bold; }
+.rank-row__me { font-size: 30px; margin-bottom: 12px; }
+.badge-list { flex-direction: row; flex-wrap: wrap; margin-top: 8px; }
+.badge { padding: 8px 18px; margin: 0 10px 10px 0; border-radius: 22px; background-color: var(--panel); font-size: 26px; }
+
+/* Account (stage 2B) */
+.account__form { margin-top: 8px; }
+.account__player { font-size: 32px; -unity-font-style: bold; }
+.account__message { margin-top: 8px; }
+.text-input { font-size: 30px; margin: 4px 0 10px 0; }

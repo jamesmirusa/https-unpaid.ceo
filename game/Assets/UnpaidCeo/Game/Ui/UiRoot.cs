@@ -78,6 +78,10 @@ namespace UnpaidCeo.Game.Ui
         AccountPanel _account;
         /// <summary>Settings → Account.</summary>
         public AccountPanel Account => _account;
+        RankingScreen _ranking;
+        public RankingScreen RankingPanel => _ranking;
+        /// <summary>Cross-run progress (badges); set by the game after loading the meta record.</summary>
+        public MetaProgress Meta { get; set; }
         /// <summary>The player signed up, in or out, or renamed: the game re-syncs its cloud save.</summary>
         public event Action<AccountChange> AccountChanged;
 
@@ -212,8 +216,7 @@ namespace UnpaidCeo.Game.Ui
             AddScreen(content, Industry, Clone("Industry"));
 
             UiText.Bind(_screens[City].Q<Label>("city-hint"), "city.hint");
-            UiText.Bind(_screens[Ranking].Q<Label>("ranking-title"), "ranking.title");
-            UiText.Bind(_screens[Ranking].Q<Label>("ranking-soon"), "ranking.soon");
+            _ranking = new RankingScreen(_screens[Ranking], this, engine, state);
             _company = new CompanyScreen(_screens[Company], this, engine, state);
             _decisions = new DecisionsScreen(_screens[Decisions], this, engine, state);
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
@@ -306,6 +309,7 @@ namespace UnpaidCeo.Game.Ui
             if (tab == Academy) _academy.Refresh();
             if (tab == Journal) _journal.Refresh();
             if (tab == Settings) { _settings.Refresh(); _account.Refresh(); }
+            if (tab == Ranking) _ranking.RefreshSoon();
             if (tab == Industry) _industry.Show(_engine, _state);
             if (tab == Company) _company.Refresh();
         }

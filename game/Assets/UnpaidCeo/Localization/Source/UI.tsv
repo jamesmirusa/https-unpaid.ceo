@@ -206,3 +206,22 @@ account.bad_user	The username needs 3–20 letters, digits or . - @ _.	Имя: 3
 account.bad_name	Enter a name first.	Сначала введи имя.
 account.offline	You're offline. Accounts need the internet; the game keeps playing.	Нет связи. Для аккаунта нужен интернет, а игра продолжается.
 account.error	Something went wrong. Try again later.	Что-то пошло не так. Попробуй позже.
+ranking.league	Your league	Твоя лига
+ranking.next	Next league at	Следующая лига от
+ranking.top	Top 20 by capital	Топ-20 по капиталу
+ranking.my_place	Your place	Твоё место
+ranking.empty	No scores yet.	Пока нет результатов.
+ranking.market	Market wars this week	Битва рынков этой недели
+ranking.share	Your share of the top 10	Твоя доля в топ-10
+ranking.badges	Badges	Значки
+ranking.no_badges	No badges yet: they come for break-even streaks, clean books, duel wins and the challenge top 10.	Значков пока нет: их дают за безубыточность подряд, чистую кассу, победы в дуэлях и топ-10 челленджа.
+ranking.offline	Rankings need the internet. Your league is counted on this device.	Для рейтинга нужен интернет. Лига считается на этом устройстве.
+league.rookie	Rookie	Новичок
+league.hustler	Hustler	Делец
+league.boss	Boss	Босс
+league.tycoon	Tycoon	Магнат
+league.legend	Legend	Легенда
+badge.break_even_3	Break-even 3 months in a row	Безубыточность 3 месяца подряд
+badge.clean_cash_12	Clean books for a year	Чистая касса целый год
+badge.duel_winner	Duel winner	Победитель дуэли
+badge.challenge_top10	Weekly challenge top 10	Топ-10 недельного челленджа
