@@ -67,6 +67,8 @@ namespace UnpaidCeo.Core.Content
         public Money Chapter2CapitalGoal { get; set; }
         public Money Chapter3CapitalGoal { get; set; }
         public int Chapter3EmployeesGoal { get; set; }
+        /// <summary>Month ends in a row the chapter-3 team must be kept: a team hired for one month is not a team.</summary>
+        public int Chapter3TeamMonths { get; set; }
         public int Chapter3UnitsGoal { get; set; }
         /// <summary>Share of capex a unit is worth when sold (and in net worth).</summary>
         public double AssetResaleRate { get; set; }

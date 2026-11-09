@@ -55,7 +55,8 @@ SCENES = [
         C("work", "Show her the numbers, then get back to work.", "Показать ей цифры и вернуться к работе.", [cash(15000), stat("relationships", -5)],
           ("Mom", "Numbers are nice. Call me sometime without them.", "Цифры — это хорошо. Позвони как-нибудь и без них.")),
     ]),
-    S("boss_fatcat_price_war", F, "ch2", [CH2, {"fact": "chapter2_done"}], arc="rival", weight=60, intro=[
+    # The chapter's boss: always played once chapter 2 is done, even if the player moved to Queens straight away.
+    S("boss_fatcat_price_war", F, "ch2", [{"fact": "chapter2_done"}], arc="rival", weight=60, priority=True, intro=[
         ("", "A banner goes up across the street. Same business as yours, twenty percent cheaper. Grand opening.", "Через дорогу вешают баннер. Такой же бизнес, как у тебя, на двадцать процентов дешевле. Торжественное открытие."),
         ("Mr. Whiskerton", "Remember me? Your old landlord. I liked your idea so much I bought one too. Let's see who lasts.", "Помнишь меня? Твой бывший арендодатель. Мне так понравилась твоя идея, что я завёл такую же. Посмотрим, кто дольше протянет."),
         ("Unpaid CEO", "He can lose money longer than you can. Don't fight him where he's strongest.", "Он может терять деньги дольше тебя. Не дерись с ним там, где он сильнее."),

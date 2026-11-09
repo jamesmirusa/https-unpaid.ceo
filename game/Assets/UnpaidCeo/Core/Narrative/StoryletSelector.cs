@@ -15,8 +15,10 @@ namespace UnpaidCeo.Core.Narrative
         {
             int count = RollCount(rng, eventsPerMonthWeights);
             var eligible = all.Where(s => IsEligible(s, c, lastShown, seenOnce)).ToList();
-            var picks = new List<StoryletDef>();
-            for (int i = 0; i < count && eligible.Count > 0; i++)
+            // Priority scenes (chapter bosses) always play; they take their place in the month's count.
+            var picks = eligible.Where(s => s.Priority).ToList();
+            eligible.RemoveAll(s => s.Priority);
+            for (int i = picks.Count; i < count && eligible.Count > 0; i++)
             {
                 int total = eligible.Sum(s => Math.Max(1, s.Weight));
                 int r = rng.NextInt(total);

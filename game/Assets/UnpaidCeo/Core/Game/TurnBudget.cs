@@ -22,6 +22,10 @@ namespace UnpaidCeo.Core.Game
         /// <summary>The UTC offset the current day started in.</summary>
         public int OffsetMinutes { get; set; }
         public bool Started { get; set; }
+        /// <summary>Local day (in <see cref="OffsetMinutes"/>) of <see cref="AutopilotUsed"/>.</summary>
+        public int AutopilotDay { get; set; }
+        /// <summary>Autopilot months already granted on <see cref="AutopilotDay"/>.</summary>
+        public int AutopilotUsed { get; set; }
     }
 
     /// <summary>
@@ -90,14 +94,23 @@ namespace UnpaidCeo.Core.Game
         }
 
         /// <summary>
-        /// On launch: offline autopilot months since the last seen time (they use no manual turns), then today's refill.
+        /// On launch: offline autopilot months since the last seen time (they use no manual turns), at most
+        /// AutopilotMaxMonths per local day however often the game is opened, then today's refill.
         /// Nothing runs on the very first launch.
         /// </summary>
         public static IReadOnlyList<MonthReport> OnLaunch(GameEngine e, GameState s, TurnState t, long nowUnix, int utcOffsetMinutes)
         {
             IReadOnlyList<MonthReport> reports = Array.Empty<MonthReport>();
             if (t.Started && t.LastSeenUnix > 0)
-                reports = Autopilot.Run(e, s, Autopilot.MonthsToRun(t.LastSeenUnix, nowUnix, e.Content.Balance));
+            {
+                var b = e.Content.Balance;
+                int months = Autopilot.MonthsToRun(t.LastSeenUnix, nowUnix, b);
+                int today = LocalDay(nowUnix, t.OffsetMinutes);
+                if (t.AutopilotDay != today) { t.AutopilotDay = today; t.AutopilotUsed = 0; }
+                months = Math.Min(months, Math.Max(0, b.AutopilotMaxMonths - t.AutopilotUsed));
+                t.AutopilotUsed += months;
+                reports = Autopilot.Run(e, s, months);
+            }
             Refresh(t, nowUnix, utcOffsetMinutes, e.Content.Balance);
             return reports;
         }

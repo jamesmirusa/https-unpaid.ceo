@@ -11,8 +11,10 @@ using UnpaidCeo.Core.Life;
 namespace UnpaidCeo.Game.Ui
 {
     /// <summary>
-    /// Decisions tab: CEO time split, work split between gigs, units and staff per business (chapters 2–3),
-    /// and free actions within this month's action points.
+    /// Decisions tab: CEO time split, work split between gigs, the four business levers per business (chapters 2–3:
+    /// price, marketing, locations, staff — spec §3.1) and free actions within this month's action points.
+    /// A lever is sent only when the player changed its stepper this month, so a scene's effect (staff leaving)
+    /// is never undone by a stale target.
     /// </summary>
     public sealed class DecisionsScreen
     {
@@ -27,7 +29,11 @@ namespace UnpaidCeo.Game.Ui
         readonly VisualElement _business;
         readonly Dictionary<string, Toggle> _toggles = new Dictionary<string, Toggle>();
         readonly Dictionary<string, int> _units = new Dictionary<string, int>(), _staff = new Dictionary<string, int>();
-        readonly Dictionary<string, (Label units, Label staff, Label rejected)> _rows = new Dictionary<string, (Label, Label, Label)>();
+        readonly Dictionary<string, int> _unitsBase = new Dictionary<string, int>(), _staffBase = new Dictionary<string, int>();
+        readonly Dictionary<string, long> _price = new Dictionary<string, long>(), _marketing = new Dictionary<string, long>();
+        readonly Dictionary<string, long> _priceBase = new Dictionary<string, long>(), _marketingBase = new Dictionary<string, long>();
+        readonly Dictionary<string, (Label units, Label staff, Label rejected, Label price, Label marketing)> _rows =
+            new Dictionary<string, (Label, Label, Label, Label, Label)>();
         string _businessKey = "";
 
         public DecisionsScreen(VisualElement root, UiRoot ui, GameEngine engine, GameState state)
@@ -89,7 +95,7 @@ namespace UnpaidCeo.Game.Ui
             RefreshPoints();
         }
 
-        /// <summary>Rebuilds the units and staff steppers when businesses change, and resets targets to the current counts.</summary>
+        /// <summary>Rebuilds the business steppers when businesses change, and resets every target to the current state.</summary>
         void RefreshBusinesses()
         {
             var list = Businesses.ToList();
@@ -111,8 +117,10 @@ namespace UnpaidCeo.Game.Ui
             _business.style.display = any ? DisplayStyle.Flex : DisplayStyle.None;
             foreach (var b in list)
             {
-                _units[b.Id] = b.Units;
-                _staff[b.Id] = b.Employees;
+                _units[b.Id] = _unitsBase[b.Id] = b.Units;
+                _staff[b.Id] = _staffBase[b.Id] = b.Employees;
+                _price[b.Id] = _priceBase[b.Id] = CurrentPrice(b);
+                _marketing[b.Id] = _marketingBase[b.Id] = b.Marketing.Cents;
                 if (_rows.TryGetValue(b.Id, out var r)) r.rejected.style.display = DisplayStyle.None;
                 Show(b.Id);
             }
@@ -124,6 +132,8 @@ namespace UnpaidCeo.Game.Ui
             var box = new VisualElement { name = "business-" + b.Id };
             box.AddToClassList("business-box");
             box.Add(UiText.Label($"industry.{b.IndustryId}.name", "business-box__name"));
+            var price = Stepper(box, "decisions.price", "price", b.Id, d => StepPrice(b.Id, d));
+            var marketing = Stepper(box, "decisions.marketing", "marketing", b.Id, d => StepMarketing(b.Id, d));
             var units = Stepper(box, "decisions.units", "units", b.Id, d => StepUnits(b.Id, d));
             var cost = new VisualElement();
             cost.AddToClassList("row");
@@ -135,7 +145,7 @@ namespace UnpaidCeo.Game.Ui
             rejected.name = "units-rejected-" + b.Id;
             rejected.style.display = DisplayStyle.None;
             box.Add(rejected);
-            _rows[b.Id] = (units, staff, rejected);
+            _rows[b.Id] = (units, staff, rejected, price, marketing);
             return box;
         }
 
@@ -176,6 +186,35 @@ namespace UnpaidCeo.Game.Ui
             Show(id);
         }
 
+        IndustryDef Def(string id) => _engine.Content.Industries[_state.Businesses.First(b => b.Id == id).IndustryId];
+
+        long CurrentPrice(BusinessState b)
+        {
+            var def = _engine.Content.Industries[b.IndustryId];
+            return b.Price.Cents > 0 ? b.Price.Cents : (def.RefPrice.Cents > 0 ? def.RefPrice.Cents : def.Price.Cents);
+        }
+
+        /// <summary>Price steps by 5% of the reference price, between half and double of it.</summary>
+        public void StepPrice(string id, int delta)
+        {
+            if (!_price.ContainsKey(id)) return;
+            var def = Def(id);
+            long reference = Math.Max(1, def.RefPrice.Cents > 0 ? def.RefPrice.Cents : def.Price.Cents);
+            long step = Math.Max(1, (reference * 5 + 50) / 100);
+            _price[id] = Math.Max(Math.Max(1, reference / 2), Math.Min(reference * 2, _price[id] + delta * step));
+            Show(id);
+        }
+
+        /// <summary>Monthly marketing steps by a quarter of the industry's marketing scale, from zero to four times it.</summary>
+        public void StepMarketing(string id, int delta)
+        {
+            if (!_marketing.ContainsKey(id)) return;
+            long scale = Math.Max(10_000, Def(id).MarketingK.Cents);
+            long step = Math.Max(1_000, (scale / 4 + 500) / 1_000 * 1_000);
+            _marketing[id] = Math.Max(0, Math.Min(scale * 4, _marketing[id] + delta * step));
+            Show(id);
+        }
+
         /// <summary>Sets the unit target for next month (the industry screen's "open the first unit").</summary>
         public void QueueUnits(string id, int units)
         {
@@ -190,6 +229,8 @@ namespace UnpaidCeo.Game.Ui
             if (!_rows.TryGetValue(id, out var r)) return;
             r.units.text = _units[id].ToString();
             r.staff.text = _staff[id].ToString();
+            r.price.text = MoneyFormat.Full(UnpaidCeo.Core.Primitives.Money.FromCents(_price[id]), _ui.Language);
+            r.marketing.text = MoneyFormat.Compact(UnpaidCeo.Core.Primitives.Money.FromCents(_marketing[id]), _ui.Language);
         }
 
         /// <summary>After a month: explains rejected unit purchases next to the stepper.</summary>
@@ -220,8 +261,15 @@ namespace UnpaidCeo.Game.Ui
             d.FreeActions.AddRange(_toggles.Where(t => t.Value.value).Select(t => t.Key));
             foreach (var b in Businesses)
             {
-                if (_units.TryGetValue(b.Id, out var u) && u != b.Units) d.Levers.Add(new LeverChange { BusinessId = b.Id, Lever = "units", ValueCents = u });
-                if (_staff.TryGetValue(b.Id, out var st) && st != b.Employees) d.Levers.Add(new LeverChange { BusinessId = b.Id, Lever = "staff", ValueCents = st });
+                // Only steppers the player moved: a target left alone never fights a scene's effect.
+                if (_price.TryGetValue(b.Id, out var p) && p != _priceBase[b.Id] && p != b.Price.Cents)
+                    d.Levers.Add(new LeverChange { BusinessId = b.Id, Lever = "price", ValueCents = p });
+                if (_marketing.TryGetValue(b.Id, out var m) && m != _marketingBase[b.Id] && m != b.Marketing.Cents)
+                    d.Levers.Add(new LeverChange { BusinessId = b.Id, Lever = "marketing", ValueCents = m });
+                if (_units.TryGetValue(b.Id, out var u) && u != _unitsBase[b.Id] && u != b.Units)
+                    d.Levers.Add(new LeverChange { BusinessId = b.Id, Lever = "units", ValueCents = u });
+                if (_staff.TryGetValue(b.Id, out var st) && st != _staffBase[b.Id] && st != b.Employees)
+                    d.Levers.Add(new LeverChange { BusinessId = b.Id, Lever = "staff", ValueCents = st });
             }
             return d;
         }

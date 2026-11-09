@@ -743,6 +743,14 @@ MonoBehaviour:
     m_Key: decisions.owner_time
     m_Metadata:
       m_Items: []
+  - m_Id: 122661639282688
+    m_Key: decisions.price
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122661651865600
+    m_Key: decisions.marketing
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

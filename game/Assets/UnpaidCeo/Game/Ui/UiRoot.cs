@@ -75,6 +75,26 @@ namespace UnpaidCeo.Game.Ui
         public VisualElement ChapterBar => _chapterBar;
         public VisualElement ChapterFill => _chapterFill;
         public Button AdvanceButton => _advance;
+        Button _chooseBusiness;
+        /// <summary>HUD button back to the industry choice while a chapter-2+ player has no business.</summary>
+        public Button ChooseBusinessButton => _chooseBusiness;
+
+        /// <summary>Chapter 2 or later and no business chosen yet: the chapter goal cannot move until one is.</summary>
+        public bool NeedsBusiness => _engine != null && _state != null && _state.Chapter >= 2
+            && !_state.Businesses.Any(b => _engine.Content.Industries.TryGetValue(b.IndustryId, out var d) && d.Kind == UnpaidCeo.Core.Economy.IndustryKind.Business);
+
+        /// <summary>The tab the game returns to after a month: the industry choice until there is a business, else the company.</summary>
+        public string HomeTab => NeedsBusiness ? Industry : Company;
+
+        public void OpenBusinessChoice() => Open(Industry);
+
+        /// <summary>After the month's scenes: their effects (staff, cash) show in the steppers and screens.</summary>
+        public void AfterScenes()
+        {
+            _decisions.Refresh();
+            _company.Refresh();
+            RefreshHud();
+        }
 
         /// <summary>The player moved to the next chapter (and district).</summary>
         public event Action<int> ChapterAdvanced;
@@ -155,6 +175,9 @@ namespace UnpaidCeo.Game.Ui
             _advance = UiText.Bind(new Button(Advance) { name = "chapter-advance" }, "hud.advance");
             _advance.AddToClassList("chapter-bar__advance");
             _chapterBar.Add(_advance);
+            _chooseBusiness = UiText.Bind(new Button(OpenBusinessChoice) { name = "chapter-business" }, "industry.title");
+            _chooseBusiness.AddToClassList("chapter-bar__advance");
+            _chapterBar.Add(_chooseBusiness);
             Root.Add(_chapterBar);
             _loan = new LoanDialog(this, engine, state);
             _loan.Taken += (_, __) => { RefreshHud(); _company?.Refresh(); LoanTaken?.Invoke(); };
@@ -223,7 +246,7 @@ namespace UnpaidCeo.Game.Ui
             Root.Add(_loan.Root);
             Root.Add(_transition.Root);
 
-            Open(City);
+            Open(NeedsBusiness ? Industry : City);
             RefreshHud();
         }
 
@@ -236,8 +259,7 @@ namespace UnpaidCeo.Game.Ui
             _company.Refresh();
             RefreshHud();
             ChapterAdvanced?.Invoke(_state.Chapter);
-            if (_state.Chapter == 2 && !_state.Businesses.Any(b => _engine.Content.Industries.TryGetValue(b.IndustryId, out var d) && d.Kind == UnpaidCeo.Core.Economy.IndustryKind.Business))
-                Open(Industry);
+            if (NeedsBusiness) Open(Industry);
         }
 
         static VisualElement Clone(string name)
@@ -295,6 +317,7 @@ namespace UnpaidCeo.Game.Ui
                 bool canMove = chapter.GoalMet && _state.Chapter < Chapters.LastChapter;
                 _advance.style.display = canMove ? DisplayStyle.Flex : DisplayStyle.None;
             }
+            if (_chooseBusiness != null) _chooseBusiness.style.display = NeedsBusiness ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         public MonthDecisions CurrentDecisions() => _decisions.Build();

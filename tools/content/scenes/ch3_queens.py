@@ -55,7 +55,7 @@ SCENES = [
         C("push", "Push through one more month.", "Дотянуть ещё месяц.", [stat("energy", -10), stat("relationships", -4), demand(1.05, 1)],
           ("Jay", "One more month. That's what you said last month.", "Ещё месяц. Ты то же самое говорил в прошлом месяце.")),
     ]),
-    S("boss_fatcat_poach", F, "ch3", [CH3, {"fact": "chapter3_done"}], arc="rival", weight=60, intro=[
+    S("boss_fatcat_poach", F, "ch3", [CH3, {"fact": "chapter3_done"}], arc="rival", weight=60, priority=True, intro=[
         ("", "Your two best people come in together. Mr. Whiskerton offered them twenty percent more to switch.", "Двое твоих лучших сотрудников приходят вместе. Мистер Вискертон предложил им на двадцать процентов больше, чтобы они перешли к нему."),
         ("Mr. Whiskerton", "Nothing personal. I just hire the best. You trained them so nicely.", "Ничего личного. Я просто нанимаю лучших. Ты их так хорошо обучил."),
     ], choices=[

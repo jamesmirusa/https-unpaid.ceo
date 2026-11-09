@@ -18,6 +18,22 @@ namespace UnpaidCeo.Core.Tests.Game
         static void UseAll(TurnState t) { while (TurnBudget.TryConsume(t)) { } }
 
         [Test]
+        public void Autopilot_months_are_capped_per_local_day_not_per_absence()
+        {
+            var e = new GameEngine(TestContent.Db());
+            var s = e.NewGame(3, TestContent.Hero);
+            s.LastDecisions = TestContent.Decisions(50, 15, 25, 10);
+            int cap = e.Content.Balance.AutopilotMaxMonths;
+            var t = new TurnState();
+            Assert.AreEqual(0, TurnBudget.OnLaunch(e, s, t, At(20000, 0, 30, 0), 0).Count, "nothing on the first launch");
+            int sameDay = TurnBudget.OnLaunch(e, s, t, At(20000, 8, 30, 0), 0).Count
+                        + TurnBudget.OnLaunch(e, s, t, At(20000, 16, 30, 0), 0).Count
+                        + TurnBudget.OnLaunch(e, s, t, At(20000, 23, 59, 0), 0).Count;
+            Assert.AreEqual(cap, sameDay, "three short absences in one day grant one day of autopilot");
+            Assert.AreEqual(cap, TurnBudget.OnLaunch(e, s, t, At(20001, 8, 0, 0), 0).Count, "a new day brings a new allowance");
+        }
+
+        [Test]
         public void Six_manual_months_per_local_day()
         {
             var b = B();

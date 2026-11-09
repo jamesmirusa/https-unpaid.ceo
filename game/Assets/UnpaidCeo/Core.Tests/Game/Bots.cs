@@ -107,11 +107,18 @@ namespace UnpaidCeo.Core.Tests.Game
         /// Opens the first unit once cash (with a bank loan if needed) covers the capex plus <paramref name="months"/> of
         /// running costs: fixed costs, materials at full capacity and living costs. False while still saving up.
         /// </summary>
+        /// <summary>Borrows what the industry screen suggests (GameEngine.FirstUnitBudget), so the optimal bot plays the UI's path.</summary>
+        public static bool FundFirstUnit(GameEngine e, GameState s, IndustryDef d) => Fund(e, s, e.FirstUnitBudget(s, d));
+
+        /// <summary>A thinner buffer: fixed and living costs for <paramref name="months"/> (the casual player borrows less than suggested).</summary>
         public static bool FundFirstUnit(GameEngine e, GameState s, IndustryDef d, int months)
         {
-            // Fixed and living costs for the months; materials for the months clients take to pay (B2B).
             var monthly = d.FixedMonthly + e.Content.Balance.PersonalCostsFor(s.Chapter).Total;
-            var need = d.Capex + Money.FromCents(monthly.Cents * months + d.UnitCost.Cents * d.CapacityPerUnit * d.ReceivableDelayMonths);
+            return Fund(e, s, d.Capex + Money.FromCents(monthly.Cents * months + d.UnitCost.Cents * d.CapacityPerUnit * d.ReceivableDelayMonths));
+        }
+
+        static bool Fund(GameEngine e, GameState s, Money need)
+        {
             if (s.Cash >= need) return true;
             var gap = need - s.Cash;
             if (gap > e.MaxLoan(s)) return false;
@@ -143,7 +150,7 @@ namespace UnpaidCeo.Core.Tests.Game
             var plan = BotRunner.Clone(b);
             if (plan.Units == 0)
             {
-                if (!BotRunner.FundFirstUnit(e, s, def, 2 + def.ReceivableDelayMonths)) return d;   // keep gigging until it is safe
+                if (!BotRunner.FundFirstUnit(e, s, def)) return d;   // keep gigging until it is safe
                 plan.Units = 1;
             }
             else if (s.Cash.Cents >= def.Capex.Cents * 3 / 2 && plan.Units < 100)

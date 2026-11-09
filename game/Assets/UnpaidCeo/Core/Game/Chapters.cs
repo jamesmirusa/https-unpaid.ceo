@@ -32,10 +32,21 @@ namespace UnpaidCeo.Core.Game
         public static bool Chapter2GoalMet(GameState s, ContentDb c) =>
             s.Facts.Has("break_even") && NetWorth(s, c) >= c.Balance.Chapter2CapitalGoal;
 
-        /// <summary>Chapter 3 (Boss): a second unit, and either a real team or the capital goal.</summary>
+        /// <summary>
+        /// Chapter 3 (Boss): a second unit, and either a real team (kept for Chapter3TeamMonths month ends) or the capital goal.
+        /// </summary>
         public static bool Chapter3GoalMet(GameState s, ContentDb c) =>
             MaxUnits(s) >= c.Balance.Chapter3UnitsGoal
-            && (s.Businesses.Sum(b => b.Employees) >= c.Balance.Chapter3EmployeesGoal || NetWorth(s, c) >= c.Balance.Chapter3CapitalGoal);
+            && (TeamKept(s, c.Balance) || NetWorth(s, c) >= c.Balance.Chapter3CapitalGoal);
+
+        static bool TeamKept(GameState s, Balance b) =>
+            s.Businesses.Sum(x => x.Employees) >= b.Chapter3EmployeesGoal && s.TeamMonths >= b.Chapter3TeamMonths;
+
+        static double TeamPart(GameState s, Balance b)
+        {
+            double size = Clamp01(s.Businesses.Sum(x => x.Employees) / (double)Math.Max(1, b.Chapter3EmployeesGoal));
+            return b.Chapter3TeamMonths <= 0 ? size : (size + Clamp01(s.TeamMonths / (double)b.Chapter3TeamMonths)) / 2;
+        }
 
         public static bool GoalMet(GameState s, ContentDb c) =>
             s.Chapter <= 1 ? Chapter1GoalMet(s, c.Balance) : s.Chapter == 2 ? Chapter2GoalMet(s, c) : Chapter3GoalMet(s, c);
@@ -52,8 +63,7 @@ namespace UnpaidCeo.Core.Game
                 p = ((s.Facts.Has("break_even") ? 1.0 : 0.0) + Part(NetWorth(s, c), b.Chapter2CapitalGoal)) / 2;
             else
                 p = (Clamp01(MaxUnits(s) / (double)Math.Max(1, b.Chapter3UnitsGoal))
-                     + Math.Max(Clamp01(s.Businesses.Sum(x => x.Employees) / (double)Math.Max(1, b.Chapter3EmployeesGoal)),
-                                Part(NetWorth(s, c), b.Chapter3CapitalGoal))) / 2;
+                     + Math.Max(TeamPart(s, b), Part(NetWorth(s, c), b.Chapter3CapitalGoal))) / 2;
             // An unmet goal never shows a full bar.
             return Math.Min(p, 0.99);
         }

@@ -25,6 +25,13 @@ namespace UnpaidCeo.Core.Game
 
         public bool TryGetAllocation(out TimeAllocation t) => TimeAllocation.TryCreate(Work, Family, Rest, Study, out t);
 
+        /// <summary>The routine without one-off decisions (levers, free actions): what autopilot repeats.</summary>
+        public MonthDecisions Routine() => new MonthDecisions
+        {
+            Work = Work, Family = Family, Rest = Rest, Study = Study,
+            WorkSplit = new Dictionary<string, int>(WorkSplit ?? new Dictionary<string, int>()),
+        };
+
         public static MonthDecisions Default(string firstBusinessId)
         {
             var d = new MonthDecisions { Work = 55, Family = 15, Rest = 20, Study = 10 };

@@ -29,9 +29,10 @@ FORBIDDEN = re.compile(r"[#{}\[\]<>]|//")
 
 class S:
     """A scene: intro lines, then choices. Lines are (speaker or "", en, ru)."""
-    def __init__(self, id, file, chapter_file, when, choices, intro, arc=None, weight=5, once=True, cooldown=0):
+    def __init__(self, id, file, chapter_file, when, choices, intro, arc=None, weight=5, once=True, cooldown=0, priority=False):
         self.id, self.file, self.chapter_file, self.when = id, file, chapter_file, when
         self.choices, self.intro, self.arc, self.weight, self.once, self.cooldown = choices, intro, arc, weight, once, cooldown
+        self.priority = priority  # always played when eligible (chapter bosses)
 
 
 class C:
@@ -127,6 +128,8 @@ def main():
                 entry["once"] = True
             if s.cooldown:
                 entry["cooldownMonths"] = s.cooldown
+            if s.priority:
+                entry["priority"] = True
             entry["choices"] = choices
             entry["choiceLines"] = choice_lines
             storylets[s.chapter_file].append(entry)
@@ -152,14 +155,17 @@ def main():
     with open(CSV_PATH, "w", encoding="utf-8", newline="") as f:
         f.write(buf.getvalue())
 
-    # Voice to record in Task 14.
+    # Voice still to record: spoken lines without a clip in every voiced language (recorded ones stay off the list).
+    voice_dir = os.path.join(YARN, "Voice")
+    spoken = [lid for lid in spoken
+              if not all(os.path.exists(os.path.join(voice_dir, lang, lid + ".mp3")) for lang in ("en", "ru"))]
     keep = []
     if os.path.exists(PENDING):
         with open(PENDING, encoding="utf-8") as f:
             prefixes = tuple(s.id + "_" for s in scenes)
             keep = [ln.rstrip("\n") for ln in f if not ln.startswith(prefixes) and ln.strip() != "# Chapter 2-3 scene lines:"]
     with open(PENDING, "w", encoding="utf-8") as f:
-        f.write("\n".join(keep + ["# Chapter 2-3 scene lines:"] + spoken) + "\n")
+        f.write("\n".join(keep + (["# Chapter 2-3 scene lines:"] + spoken if spoken else [])) + "\n")
 
     print(f"scenes {len(scenes)} (ch2 {len(storylets['ch2'])}, ch3 {len(storylets['ch3'])}), lines {len(rows)}, spoken {len(spoken)}, files {sorted(files)}")
 

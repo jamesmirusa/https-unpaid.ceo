@@ -25,6 +25,7 @@ namespace UnpaidCeo.Game.Ui
         public bool IsOpen => Root.style.display == DisplayStyle.Flex;
         public IReadOnlyList<Button> TermButtons => _terms;
         public int MaxDollars => _amount.highValue;
+        public int AmountDollars => _amount.value;
         public string AprText => _aprValue.text;
         public string PaymentText => _paymentValue.text;
 

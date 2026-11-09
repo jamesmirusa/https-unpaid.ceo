@@ -1,3 +1,4 @@
+using System.Linq;
 using NUnit.Framework;
 using UnpaidCeo.Core.Game;
 
@@ -29,6 +30,22 @@ namespace UnpaidCeo.Core.Tests.Game
             Assert.AreEqual(2, reports.Count);
             Assert.AreEqual(3, s.Month);
             Assert.AreEqual(0, s.StoryletLastMonth.Count);
+        }
+
+        [Test]
+        public void Autopilot_does_not_repeat_last_months_levers_or_free_actions()
+        {
+            var (e, s) = Stage2Content.Chapter2(10_000_000, noPersonalCosts: true);
+            var shop = s.Businesses.Single(b => b.IndustryId == "shop");
+            shop.Units = 2;
+            var last = Stage2Content.Plan(Stage2Content.Lever("shop", "staff", 4));
+            last.FreeActions.Add(e.Content.FreeActions.Keys.First());
+            s.LastDecisions = last;
+            shop.Employees = 2;   // after last month a scene let two people go
+            Autopilot.Run(e, s, 1);
+            Assert.AreEqual(2, shop.Employees, "autopilot keeps what the scene left; nobody is re-hired unasked");
+            Assert.IsEmpty(s.LastDecisions.Levers, "levers are one-off decisions");
+            Assert.IsEmpty(s.LastDecisions.FreeActions, "free actions are one-off decisions");
         }
     }
 }

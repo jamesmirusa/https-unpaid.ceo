@@ -10,8 +10,9 @@ namespace UnpaidCeo.Game.Ui
 {
     /// <summary>
     /// Chapter 2's first decision: six business cards (name, scale path, capex, margin, break-even, main lesson) and the
-    /// simulated-money disclaimer. Choosing calls GameEngine.ChooseIndustry, then offers to open the first unit, or opens
-    /// the loan dialog when cash does not cover the capex.
+    /// simulated-money disclaimer. Choosing calls GameEngine.ChooseIndustry and offers to open the first unit; when cash does
+    /// not cover the capex plus the months before clients pay (GameEngine.FirstUnitBudget) the loan dialog opens too,
+    /// pre-filled with GameEngine.SuggestedFirstUnitLoan.
     /// </summary>
     public sealed class IndustryScreen
     {
@@ -101,8 +102,8 @@ namespace UnpaidCeo.Game.Ui
             var def = _engine.Content.Industries[id];
             Show(_engine, _state);
             Chosen?.Invoke(id);
-            if (_state.Cash >= def.Capex) ShowOffer(id, def.Capex);
-            else _ui.Loan.Open(def.Capex - _state.Cash);
+            ShowOffer(id, def.Capex);
+            if (_state.Cash < _engine.FirstUnitBudget(_state, def)) _ui.Loan.Open(_engine.SuggestedFirstUnitLoan(_state, id));
             return true;
         }
 

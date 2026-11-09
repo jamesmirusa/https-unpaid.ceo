@@ -63,6 +63,8 @@ namespace UnpaidCeo.Core.Game
         public List<JournalEntry> Journal { get; set; } = new List<JournalEntry>();
         public List<DecisionLogEntry> Log { get; set; } = new List<DecisionLogEntry>();
         public int MonthsInDeepDebt { get; set; }
+        /// <summary>Consecutive month ends with at least the chapter-3 team (Balance.Chapter3EmployeesGoal).</summary>
+        public int TeamMonths { get; set; }
         public MonthDecisions LastDecisions { get; set; }
     }
 }

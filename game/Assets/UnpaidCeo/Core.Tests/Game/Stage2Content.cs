@@ -29,7 +29,7 @@ namespace UnpaidCeo.Core.Tests.Game
                                             "\"room\": 0, \"food\": 0, \"transit\": 0, \"essentials\": 0")
             : TestContent.Balance()).Replace(@"""sources"": []", @"""chapter2Industries"": [""shop"", ""truck""],
   ""districtDemand"": { ""bronx"": 1.0, ""brooklyn"": 1.0, ""queens"": 1.15 },
-  ""chapter2CapitalGoal"": 2500000, ""chapter3CapitalGoal"": 25000000, ""chapter3EmployeesGoal"": 10, ""chapter3UnitsGoal"": 2,
+  ""chapter2CapitalGoal"": 2500000, ""chapter3CapitalGoal"": 25000000, ""chapter3EmployeesGoal"": 10, ""chapter3TeamMonths"": 3, ""chapter3UnitsGoal"": 2,
   ""assetResaleRate"": 0.5, ""payrollOverhead"": 0.10,
   ""loans"": { ""baseApr"": 0.12, ""aprPerMissingReputation"": 0.001, ""lowHonestyAprAdd"": 0.03, ""lowHonestyBelow"": 40,
                ""maxBase"": 1000000, ""maxPerReputation"": 50000, ""termsMonths"": [12, 24, 36] },

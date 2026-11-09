@@ -746,6 +746,14 @@ MonoBehaviour:
     m_Localized: Your work time now runs your business. At 60% work you count as one full-time staff member; gigs no longer pay.
     m_Metadata:
       m_Items: []
+  - m_Id: 122661639282688
+    m_Localized: Price
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122661651865600
+    m_Localized: Marketing a month
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

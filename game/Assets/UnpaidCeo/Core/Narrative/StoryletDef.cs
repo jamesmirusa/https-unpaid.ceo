@@ -13,6 +13,8 @@ namespace UnpaidCeo.Core.Narrative
         public int Weight { get; set; } = 1;
         public bool Once { get; set; }
         public int CooldownMonths { get; set; }
+        /// <summary>Always played when eligible, whatever the month's dice (chapter bosses).</summary>
+        public bool Priority { get; set; }
         public Dictionary<string, List<Effect>> Choices { get; set; } = new Dictionary<string, List<Effect>>();
         /// <summary>Choice id → Yarn line id of the option, so the journal can quote the chosen line in any language.</summary>
         public Dictionary<string, string> ChoiceLines { get; set; } = new Dictionary<string, string>();

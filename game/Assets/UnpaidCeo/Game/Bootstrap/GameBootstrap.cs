@@ -279,7 +279,7 @@ namespace UnpaidCeo.Game.Bootstrap
             }
             Ui.ShowReport(report);
             _hero?.React(report);
-            Ui.Open(UiRoot.Company);
+            Ui.Open(Ui.HomeTab);
             SaveService.Save(_state!);
             AfterAction();
             _busy = false;
@@ -296,7 +296,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 _yarn.Bind(_engine, _state);
                 await _yarn.PlayPendingAsync();
                 if (this == null || !isActiveAndEnabled) return; // destroyed mid-scene (reset deleted the save): do not write it back
-                Ui?.RefreshHud();
+                Ui?.AfterScenes();
                 SaveService.Save(_state);
                 AfterAction();
             }

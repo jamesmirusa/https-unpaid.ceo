@@ -95,7 +95,7 @@ namespace UnpaidCeo.Game.Tests
         [UnityTest]
         public IEnumerator Choosing_a_card_adds_the_business()
         {
-            yield return Boot(setup: s => Chapter2(s, 1_000_000));
+            yield return Boot(setup: s => Chapter2(s, 5_000_000));
             _ui.Open(UiRoot.Industry);
             yield return null;
             Assert.IsTrue(_ui.IndustryChoice.Choose("cleaning"));
@@ -104,6 +104,37 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsFalse(_ui.Screen(UiRoot.Industry).Q<Button>("choose-coffee_cart").enabledSelf, "one business per chapter 2");
             Assert.IsFalse(_ui.Loan.IsOpen, "enough cash: no loan needed");
             Assert.AreEqual(DisplayStyle.Flex, _ui.Screen(UiRoot.Industry).Q("industry-offer").resolvedStyle.display, "offer to open the first unit");
+        }
+
+        [UnityTest]
+        public IEnumerator A_chapter_2_owner_without_a_business_can_always_reach_the_choice()
+        {
+            // A resumed save: the player moved to Brooklyn, then left the choice (tab, Next month, reload).
+            yield return Boot(setup: s => Chapter2(s, 100_000));
+            Assert.AreEqual(UiRoot.Industry, _ui.CurrentTab, "a chapter-2 save without a business lands on the choice");
+            Assert.AreEqual(UiRoot.Industry, _ui.HomeTab, "after each month the game returns to the choice");
+
+            _ui.Open(UiRoot.Company);
+            yield return null;
+            var button = _ui.ChooseBusinessButton;
+            Assert.AreEqual(DisplayStyle.Flex, button.resolvedStyle.display, "the HUD keeps a way back to the choice");
+            _ui.OpenBusinessChoice();
+            Assert.AreEqual(UiRoot.Industry, _ui.CurrentTab);
+
+            Assert.IsTrue(_ui.IndustryChoice.Choose("cleaning"));
+            _ui.RefreshHud();
+            yield return null;
+            Assert.AreEqual(DisplayStyle.None, button.resolvedStyle.display, "chosen: the HUD button goes away");
+            Assert.AreEqual(UiRoot.Company, _ui.HomeTab);
+        }
+
+        [UnityTest]
+        public IEnumerator Chapter_1_has_no_business_choice_button()
+        {
+            yield return Boot();
+            Assert.AreEqual(DisplayStyle.None, _ui.ChooseBusinessButton.resolvedStyle.display);
+            Assert.AreEqual(UiRoot.Company, _ui.HomeTab);
+            Assert.AreEqual(UiRoot.City, _ui.CurrentTab, "chapter 1 still opens on the city");
         }
 
         [UnityTest]
@@ -119,9 +150,61 @@ namespace UnpaidCeo.Game.Tests
             Assert.LessOrEqual(_ui.Loan.MaxDollars * 100L, _engine.MaxLoan(_state).Cents);
             Assert.IsFalse(string.IsNullOrEmpty(_ui.Loan.AprText), "APR");
             Assert.IsFalse(string.IsNullOrEmpty(_ui.Loan.PaymentText), "monthly payment");
+            long suggested = _engine.SuggestedFirstUnitLoan(_state, "logistics_box_truck").Cents;
+            Assert.Greater(suggested, _engine.Content.Industries["logistics_box_truck"].Capex.Cents - _state.Cash.Cents,
+                "the suggestion covers the months before clients pay, not just the truck");
+            Assert.GreaterOrEqual(_ui.Loan.AmountDollars * 100L, System.Math.Min(suggested, _ui.Loan.MaxDollars * 100L) - 100_000);
             Assert.IsTrue(_ui.Loan.Take());
             Assert.AreEqual(1, _state.Loans.Count);
             Assert.IsFalse(_ui.Loan.IsOpen);
+            Assert.AreEqual(DisplayStyle.Flex, _ui.Screen(UiRoot.Industry).Q("industry-offer").resolvedStyle.display,
+                "with the loan taken the first unit is offered");
+        }
+
+        [UnityTest]
+        public IEnumerator Price_and_marketing_steppers_send_levers()
+        {
+            yield return Boot(setup: s =>
+            {
+                Chapter2(s, 1_000_000);
+                s.Businesses.Add(new BusinessState { Id = "coffee_cart", IndustryId = "coffee_cart", Price = Money.FromCents(400), Units = 1 });
+            });
+            _ui.Open(UiRoot.Decisions);
+            yield return null;
+            var screen = _ui.Screen(UiRoot.Decisions);
+            Assert.IsNotNull(screen.Q<Button>("price-plus-coffee_cart"), "price stepper");
+            Assert.IsNotNull(screen.Q<Button>("marketing-plus-coffee_cart"), "marketing stepper");
+            Assert.IsFalse(string.IsNullOrEmpty(screen.Q<Label>("price-value-coffee_cart").text));
+            Assert.IsEmpty(_ui.CurrentDecisions().Levers, "untouched steppers change nothing");
+
+            _ui.DecisionsPanel.StepPrice("coffee_cart", +1);
+            _ui.DecisionsPanel.StepMarketing("coffee_cart", +2);
+            var d = _ui.CurrentDecisions();
+            Assert.Greater(d.Levers.Single(l => l.BusinessId == "coffee_cart" && l.Lever == "price").ValueCents, 400);
+            Assert.Greater(d.Levers.Single(l => l.BusinessId == "coffee_cart" && l.Lever == "marketing").ValueCents, 0);
+            _engine.EndMonth(_state, d);
+            Assert.IsTrue(_state.Facts.Has("price_changed"));
+            Assert.IsTrue(_state.Facts.Has("marketing_started"));
+        }
+
+        [UnityTest]
+        public IEnumerator A_staff_change_from_a_scene_is_not_undone_next_month()
+        {
+            yield return Boot(setup: s =>
+            {
+                Chapter2(s, 10_000_000);
+                s.Chapter = 3;
+                s.Businesses.Add(new BusinessState { Id = "cleaning", IndustryId = "cleaning", Price = Money.FromCents(15000), Units = 5, Employees = 10 });
+            });
+            _ui.Open(UiRoot.Decisions);
+            yield return null;
+            _state.Businesses.Single(b => b.Id == "cleaning").Employees = 8;   // the poach scene: two people left
+            Assert.IsFalse(_ui.CurrentDecisions().Levers.Any(l => l.Lever == "staff"), "nobody is re-hired unasked");
+            _ui.AfterScenes();
+            yield return null;
+            Assert.AreEqual("8", _ui.Screen(UiRoot.Decisions).Q<Label>("staff-value-cleaning").text, "the stepper shows the team after the scene");
+            _ui.DecisionsPanel.StepStaff("cleaning", +1);
+            Assert.AreEqual(9, _ui.CurrentDecisions().Levers.Single(l => l.Lever == "staff").ValueCents, "a hire the player asks for still goes through");
         }
 
         [UnityTest]

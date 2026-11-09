@@ -4,7 +4,10 @@ using UnpaidCeo.Core.Content;
 
 namespace UnpaidCeo.Core.Game
 {
-    /// <summary>Offline progress: one month per AutopilotHoursPerMonth real hours, capped, no storylets.</summary>
+    /// <summary>
+    /// Offline progress: one month per AutopilotHoursPerMonth real hours, capped per local day (TurnBudget), no storylets.
+    /// It repeats the routine (time split), never last month's levers or free actions.
+    /// </summary>
     public static class Autopilot
     {
         public static int MonthsToRun(long lastSeenUnix, long nowUnix, Balance b)
@@ -20,7 +23,7 @@ namespace UnpaidCeo.Core.Game
             var reports = new List<MonthReport>();
             for (int i = 0; i < months; i++)
             {
-                var d = s.LastDecisions ?? MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null);
+                var d = (s.LastDecisions ?? MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null)).Routine();
                 reports.Add(e.EndMonth(s, d));
             }
             return reports;

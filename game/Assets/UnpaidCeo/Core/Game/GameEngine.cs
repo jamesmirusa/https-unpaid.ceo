@@ -193,9 +193,30 @@ namespace UnpaidCeo.Core.Game
         }
 
         /// <summary>Moves to the next chapter (and district) once the current goal is met. Chapter 3 is the last one in this stage.</summary>
+        /// <summary>
+        /// Cash to open the first unit safely: capex, fixed and living costs for 2 + payment-delay months, and the materials
+        /// B2B clients have not paid for yet.
+        /// </summary>
+        public Money FirstUnitBudget(GameState s, IndustryDef d)
+        {
+            int months = 2 + Math.Max(0, d.ReceivableDelayMonths);
+            var monthly = d.FixedMonthly + _c.Balance.PersonalCostsFor(s.Chapter).Total;
+            return d.Capex + Money.FromCents(monthly.Cents * months + d.UnitCost.Cents * d.CapacityPerUnit * Math.Max(0, d.ReceivableDelayMonths));
+        }
+
+        /// <summary>The loan the industry screen suggests: the first-unit budget minus cash, rounded up to $100, within the limit.</summary>
+        public Money SuggestedFirstUnitLoan(GameState s, string industryId)
+        {
+            var gap = FirstUnitBudget(s, _c.Industries[industryId]) - s.Cash;
+            if (gap.Cents <= 0) return Money.FromCents(0);
+            long rounded = (gap.Cents + 9_999) / 10_000 * 10_000;
+            return Money.FromCents(Math.Min(rounded, Math.Max(0, MaxLoan(s).Cents)));
+        }
+
         public bool AdvanceChapter(GameState s)
         {
             if (s.Chapter >= Chapters.LastChapter || !Chapters.GoalMet(s, _c)) return false;
+            RecordChapterDone(s);   // the goal may have been met mid-month, before the month-end check
             s.Chapter++;
             SetOnce(s, $"chapter{s.Chapter}_start");
             AddJournal(s, "decision", $"journal.chapter{s.Chapter}_start", ("district", s.District));
@@ -457,21 +478,19 @@ namespace UnpaidCeo.Core.Game
             }
             if (s.Cash.Cents >= 0) s.Facts.Clear("bankrupt");
 
-            if (s.Chapter == 1 && !s.Facts.Has("chapter1_done") && Chapters.Chapter1GoalMet(s, b))
-            {
-                s.Facts.Set("chapter1_done", s.Month);
-                AddJournal(s, "consequence", "journal.chapter1_done");
-            }
-            if (s.Chapter == 2 && !s.Facts.Has("chapter2_done") && Chapters.Chapter2GoalMet(s, _c))
-            {
-                s.Facts.Set("chapter2_done", s.Month);
-                AddJournal(s, "consequence", "journal.chapter2_done");
-            }
-            if (s.Chapter == 3 && !s.Facts.Has("chapter3_done") && Chapters.Chapter3GoalMet(s, _c))
-            {
-                s.Facts.Set("chapter3_done", s.Month);
-                AddJournal(s, "consequence", "journal.chapter3_done");
-            }
+            // 6: the chapter-3 team counts only when it is kept from one month end to the next.
+            s.TeamMonths = s.Businesses.Sum(x => x.Employees) >= b.Chapter3EmployeesGoal ? s.TeamMonths + 1 : 0;
+            RecordChapterDone(s);
+        }
+
+        /// <summary>Sets chapterN_done (and its journal line) once the current chapter's goal is met.</summary>
+        void RecordChapterDone(GameState s)
+        {
+            if (s.Chapter < 1 || s.Chapter > Chapters.LastChapter) return;
+            string fact = $"chapter{s.Chapter}_done";
+            if (s.Facts.Has(fact) || !Chapters.GoalMet(s, _c)) return;
+            s.Facts.Set(fact, s.Month);
+            AddJournal(s, "consequence", "journal." + fact);
         }
 
         NarrativeContext Context(GameState s) => new NarrativeContext

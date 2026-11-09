@@ -128,6 +128,7 @@
   "chapter2CapitalGoal": 10000000,
   "chapter3CapitalGoal": 27500000,
   "chapter3EmployeesGoal": 10,
+  "chapter3TeamMonths": 3,
   "chapter3UnitsGoal": 2,
   "assetResaleRate": 0.5,
   "payrollOverhead": 0.1,

@@ -123,6 +123,87 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
+        public void The_suggested_first_unit_loan_keeps_every_business_solvent()
+        {
+            // The UI offers this loan when cash is short; B2B clients pay a month or two late, so capex alone is not enough.
+            var db = RealContent();
+            foreach (var id in db.Balance.Chapter2Industries)
+            {
+                var e = new GameEngine(db);
+                var s = Chapter1AtGoal(e);
+                s.Life.Reputation = 50;
+                Assert.IsTrue(e.AdvanceChapter(s), id);
+                Assert.IsTrue(e.ChooseIndustry(s, id), id);
+                var loan = e.SuggestedFirstUnitLoan(s, id);
+                Assert.LessOrEqual(loan.Cents, e.MaxLoan(s).Cents, id);
+                if (loan.Cents > 0) Assert.IsTrue(e.TakeLoan(s, loan, 36), id);
+                var d = TestContent.Decisions(60, 15, 15, 10);
+                d.Levers.Add(Stage2Content.Lever(id, "units", 1));
+                e.EndMonth(s, d);
+                for (int m = 0; m < 3; m++) e.EndMonth(s, TestContent.Decisions(60, 15, 15, 10));
+                Assert.AreEqual(1, s.Businesses.Single(b => b.IndustryId == id).Units, id);
+                Assert.IsFalse(s.Facts.Has("bankrupt"), $"{id}: the suggested loan covers the months before clients pay");
+                Assert.GreaterOrEqual(s.Cash.Cents, e.Content.Balance.DebtBankruptLine.Cents, id);
+            }
+        }
+
+        [Test]
+        public void Advancing_records_the_finished_chapter()
+        {
+            // The goal can be met mid-month (a scene's reward); the month-end check has not run yet.
+            var e = Engine();
+            var s = Chapter1AtGoal(e);
+            Assert.IsFalse(s.Facts.Has("chapter1_done"));
+            Assert.IsTrue(e.AdvanceChapter(s));
+            Assert.IsTrue(s.Facts.Has("chapter1_done"), "the finished chapter is recorded");
+            Assert.AreEqual(1, s.Journal.Count(j => j.TextKey == "journal.chapter1_done"));
+        }
+
+        [Test]
+        public void The_chapter_boss_plays_once_its_goal_is_met_whatever_the_dice()
+        {
+            var db = BotRunner.Content();
+            for (ulong seed = 1; seed <= 40; seed++)
+            {
+                var e = new GameEngine(db);
+                var s = e.NewGame(seed, TestContent.Hero);
+                s.Chapter = 2;
+                s.Facts.Set("chapter2_done", s.Month);
+                Assert.IsTrue(e.BeginMonth(s).Any(st => st.Id == "boss_fatcat_price_war"), $"seed {seed}: chapter 2 ends with its boss");
+            }
+            // Advancing straight away (goal met mid-month) still meets the boss early in chapter 3.
+            var e3 = new GameEngine(db);
+            var s3 = e3.NewGame(7, TestContent.Hero);
+            s3.Chapter = 3;
+            s3.Facts.Set("chapter2_done", s3.Month);
+            Assert.IsTrue(e3.BeginMonth(s3).Any(st => st.Id == "boss_fatcat_price_war"));
+        }
+
+        [Test]
+        public void Chapter3_team_goal_must_hold_for_three_month_ends()
+        {
+            Assert.AreEqual(3, RealContent().Balance.Chapter3TeamMonths);
+            var (e, s) = Stage2Content.Chapter2(5_000_000, noPersonalCosts: true);
+            s.Chapter = 3;
+            var shop = s.Businesses.Single(b => b.IndustryId == "shop");
+            shop.Units = 2;
+            shop.Employees = 10;
+            Assert.IsFalse(e.Chapter(s).GoalMet, "a team hired today is not a team yet");
+            int hold = e.Content.Balance.Chapter3TeamMonths;
+            for (int m = 1; m < hold; m++)
+            {
+                e.EndMonth(s, Stage2Content.Plan());
+                Assert.IsFalse(s.Facts.Has("chapter3_done"), $"month {m}");
+            }
+            shop.Employees = 4;   // let them go
+            e.EndMonth(s, Stage2Content.Plan());
+            Assert.AreEqual(0, s.TeamMonths, "the count restarts when the team shrinks");
+            shop.Employees = 10;
+            for (int m = 0; m < hold; m++) e.EndMonth(s, Stage2Content.Plan());
+            Assert.IsTrue(s.Facts.Has("chapter3_done"), "a team kept for three month ends finishes chapter 3");
+        }
+
+        [Test]
         public void Chapter2_goal_needs_break_even_and_capital()
         {
             // Rich, but no unit has broken even yet.
@@ -154,7 +235,8 @@ namespace UnpaidCeo.Core.Tests.Game
             shop.Employees = 10;
             Assert.IsFalse(e.Chapter(s).GoalMet, "one unit");
             shop.Units = 2;
-            Assert.IsTrue(e.Chapter(s).GoalMet, "two units and ten staff");
+            s.TeamMonths = e.Content.Balance.Chapter3TeamMonths;
+            Assert.IsTrue(e.Chapter(s).GoalMet, "two units and ten staff kept for three month ends");
             shop.Employees = 3;
             Assert.IsFalse(e.Chapter(s).GoalMet, "two units, few staff, little capital");
             Assert.That(e.Chapter(s).Progress, Is.GreaterThan(0.0).And.LessThan(1.0));
