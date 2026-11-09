@@ -10,6 +10,8 @@ namespace UnpaidCeo.Core.Tests.Content
     /// Chapter 1 voice-over: every spoken Yarn line (dialogue and narration) and every Academy lesson body
     /// ships an English and a Russian clip. Player options ("->") are not voiced: the hero is made by the
     /// player and has no fixed voice. Clips are named by line id (Yarn voice-over convention).
+    /// Content written ahead of its voice is listed in tools/voice/pending.txt (one id per line) until it is
+    /// recorded; the list may only name ids that exist and still lack a clip.
     /// </summary>
     public class VoiceCoverageTests
     {
@@ -21,6 +23,11 @@ namespace UnpaidCeo.Core.Tests.Content
         static readonly Regex LineTag = new Regex(@"#line:(\S+)");
         static readonly Regex Speaker = new Regex(@"^([^:]{1,30}):\s");
         static readonly Regex LessonId = new Regex("\"id\"\\s*:\\s*\"([^\"]+)\"");
+        static string PendingFile => Path.Combine(Root, "..", "..", "..", "tools", "voice", "pending.txt");
+
+        static HashSet<string> Pending() => File.Exists(PendingFile)
+            ? new HashSet<string>(File.ReadAllLines(PendingFile).Select(l => l.Trim()).Where(l => l.Length > 0 && !l.StartsWith("#")))
+            : new HashSet<string>();
 
         static List<(string id, string speaker)> SpokenLines()
         {
@@ -45,7 +52,7 @@ namespace UnpaidCeo.Core.Tests.Content
         static List<string> Missing(IEnumerable<string> ids, string dir) =>
             (from lang in Languages
              from id in ids
-             where !File.Exists(Path.Combine(dir, lang, id + ".mp3"))
+             where !Pending().Contains(id) && !File.Exists(Path.Combine(dir, lang, id + ".mp3"))
              select lang + "/" + id).ToList();
 
         static void AssertNoneMissing(List<string> missing, int total) =>
@@ -72,8 +79,21 @@ namespace UnpaidCeo.Core.Tests.Content
         public void Every_lesson_body_has_voice_in_en_and_ru()
         {
             var ids = LessonIds();
-            Assert.That(ids.Count, Is.EqualTo(5), "chapter 1 has five lessons");
+            Assert.That(ids.Count, Is.GreaterThanOrEqualTo(5), "lessons not found");
             AssertNoneMissing(Missing(ids, LessonVoiceDir), ids.Count);
+        }
+
+        [Test]
+        public void Pending_voice_lists_only_unvoiced_content()
+        {
+            var lines = SpokenLines().Select(l => l.id).ToList();
+            var lessons = LessonIds();
+            var stale = (from id in Pending()
+                         let lessonOnly = lessons.Contains(id) && !lines.Contains(id)
+                         where !(lines.Contains(id) || lessons.Contains(id))
+                               || Languages.All(lang => File.Exists(Path.Combine(lessonOnly ? LessonVoiceDir : YarnVoiceDir, lang, id + ".mp3")))
+                         select id).ToList();
+            Assert.IsEmpty(stale, "pending ids that do not exist or are already voiced: " + string.Join(", ", stale.Take(8)));
         }
 
         [Test]

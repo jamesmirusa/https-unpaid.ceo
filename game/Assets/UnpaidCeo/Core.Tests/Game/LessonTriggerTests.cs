@@ -130,5 +130,59 @@ namespace UnpaidCeo.Core.Tests.Game
             Assert.That(errors, Has.Some.Contains("lesson x: duplicate id"));
             Assert.That(errors, Has.Some.Contains("lesson x: missing triggerFact"));
         }
-    }
+    
+        // Stage 2A (Task 9): chapter 2–3 lessons, their trigger facts and skills.
+        static readonly (string id, string fact, string skill)[] Stage2Lessons =
+        {
+            ("unit_economics", "industry_chosen", "finance"),
+            ("pricing", "price_changed", "sales"),
+            ("estimated_taxes", "break_even", "finance"),
+            ("llc", "chapter2_start", "finance"),
+            ("hiring", "first_hire", "leadership"),
+            ("payroll", "first_payroll", "operations"),
+            ("cash_gap_b2b", "receivable_gap", "finance"),
+            ("cac_ltv", "marketing_started", "marketing"),
+            ("loans", "first_loan", "finance"),
+        };
+
+        static ContentDb ShippedLessons() => TestContent.Db(lessons: System.IO.File.ReadAllText(
+            System.IO.Path.Combine(UnityEngine.Application.dataPath, "UnpaidCeo", "Content", "lessons.json")));
+
+        [Test]
+        public void Each_stage2_lesson_is_queued_by_its_fact()
+        {
+            var db = ShippedLessons();
+            Assert.IsEmpty(db.Validate().Errors.Where(x => x.Contains("lesson")));
+            foreach (var (id, fact, skill) in Stage2Lessons)
+            {
+                Assert.IsTrue(db.Lessons.TryGetValue(id, out var lesson), id);
+                Assert.AreEqual(fact, lesson.TriggerFact, id);
+                Assert.AreEqual(skill, lesson.SkillReward.Skill, id);
+                Assert.AreEqual(3, lesson.Quiz.Count, id);
+
+                var e = new GameEngine(db);
+                var s = e.NewGame(1, TestContent.Hero);
+                s.Facts.Set(fact, 1);
+                var report = e.EndMonth(s, Month());
+                CollectionAssert.Contains(report.Lessons, id, $"{fact} queues {id}");
+            }
+        }
+
+        [Test]
+        public void Receivable_gap_fact_is_set_when_cash_is_negative_with_receivables()
+        {
+            // A B2B truck: clients pay a month later, costs go out now.
+            var (e, s) = Stage2Content.Chapter2(50_000, "truck", noPersonalCosts: true);
+            s.Businesses.Single(b => b.IndustryId == "truck").Units = 1;
+            e.EndMonth(s, Stage2Content.Plan());
+            Assert.Less(s.Cash.Cents, 0);
+            Assert.IsTrue(s.Facts.Has("receivable_gap"));
+
+            // In debt with nobody owing you money is an ordinary cash problem, not a receivable gap.
+            var (e2, s2) = Stage2Content.Chapter2(-100_000, "shop", noPersonalCosts: true);
+            e2.EndMonth(s2, Stage2Content.Plan());
+            Assert.Less(s2.Cash.Cents, 0);
+            Assert.IsFalse(s2.Facts.Has("receivable_gap"));
+        }
+}
 }

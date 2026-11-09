@@ -33,7 +33,8 @@ namespace UnpaidCeo.Editor.Tests
         public void Chapter1_has_the_five_lessons()
         {
             var db = Content();
-            CollectionAssert.AreEquivalent(new[] { "revenue_vs_profit", "reserve", "first_loss", "cash_gap", "break_even" }, db.Lessons.Keys);
+            // Chapters 2–3 add their lessons (stage 2A); the five chapter-1 lessons stay.
+            CollectionAssert.IsSubsetOf(new[] { "revenue_vs_profit", "reserve", "first_loss", "cash_gap", "break_even" }, db.Lessons.Keys.ToList());
             Assert.IsTrue(db.Validate().IsValid, string.Join("\n", db.Validate().Errors));
         }
 

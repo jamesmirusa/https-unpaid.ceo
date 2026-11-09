@@ -1,0 +1,11 @@
+# Written ahead of its voice (stage 2A). Task 14 records these and empties the list.
+# Chapter 2-3 lesson bodies:
+unit_economics
+pricing
+estimated_taxes
+llc
+hiring
+payroll
+cash_gap_b2b
+cac_ltv
+loans

@@ -431,6 +431,10 @@ namespace UnpaidCeo.Core.Game
                 AddJournal(s, "consequence", "journal.first_loss");
             }
 
+            // Profitable on paper, short of cash: clients still owe money while the account is negative (B2B lesson).
+            if (s.Cash.Cents < 0 && s.Businesses.Any(x => x.Receivables != null && x.Receivables.Any(m => m.Cents > 0)))
+                SetOnce(s, "receivable_gap");
+
             if (s.Cash.Cents < 0)
             {
                 if (!s.Facts.Has("in_debt")) AddJournal(s, "consequence", "journal.in_debt");
