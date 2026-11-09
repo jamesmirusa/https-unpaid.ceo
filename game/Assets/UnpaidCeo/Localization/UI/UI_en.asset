@@ -994,6 +994,74 @@ MonoBehaviour:
     m_Localized: The duel expired after 7 days.
     m_Metadata:
       m_Items: []
+  - m_Id: 168950422822912
+    m_Localized: Friends & duels
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211520
+    m_Localized: "Create an account (Settings \u2192 Account) to add friends and play duels."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211521
+    m_Localized: Add a friend by name, like Name#1234
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211522
+    m_Localized: Add
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211523
+    m_Localized: Request sent.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211524
+    m_Localized: No player with that name.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211525
+    m_Localized: Requests
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211526
+    m_Localized: Accept
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211527
+    m_Localized: Decline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211528
+    m_Localized: No friends yet.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211529
+    m_Localized: Challenge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211530
+    m_Localized: Duels
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211531
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211532
+    m_Localized: Duel created. Play your 6 months!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211533
+    m_Localized: Could not create the duel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211534
+    m_Localized: A duel is waiting for you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211535
+    m_Localized: Open
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

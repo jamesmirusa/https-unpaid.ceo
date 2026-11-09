@@ -186,7 +186,7 @@ namespace UnpaidCeo.Game.Tests
             yield return Run(() => ui.RankingPanel.Refresh());
 
             var card = ui.RankingPanel.Challenge;
-            Assert.AreNotEqual(DisplayStyle.None, card.Card.style.display);
+            Assert.AreEqual(DisplayStyle.Flex, card.Card.style.display.value);
             Assert.AreEqual("2", card.AttemptsLeft.text);
             Assert.IsTrue(UiText.IsLocalized(card.Industry), "this week's industry is named");
             Assert.IsTrue(card.PlayButton.enabledSelf);

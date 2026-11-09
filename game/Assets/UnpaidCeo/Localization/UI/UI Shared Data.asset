@@ -991,6 +991,74 @@ MonoBehaviour:
     m_Key: duel.state.expired
     m_Metadata:
       m_Items: []
+  - m_Id: 168950422822912
+    m_Key: friends.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211520
+    m_Key: friends.need_account
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211521
+    m_Key: friends.add_caption
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211522
+    m_Key: friends.add
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211523
+    m_Key: friends.request_sent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211524
+    m_Key: friends.not_found
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211525
+    m_Key: friends.requests
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211526
+    m_Key: friends.accept
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211527
+    m_Key: friends.decline
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211528
+    m_Key: friends.none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211529
+    m_Key: friends.challenge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211530
+    m_Key: duel.list
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211531
+    m_Key: duel.play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211532
+    m_Key: duel.created
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211533
+    m_Key: duel.failed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211534
+    m_Key: duel.waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 168950431211535
+    m_Key: duel.open
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

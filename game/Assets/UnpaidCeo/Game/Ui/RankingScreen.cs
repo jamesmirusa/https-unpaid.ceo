@@ -49,6 +49,8 @@ namespace UnpaidCeo.Game.Ui
         public Label NoBadges { get; }
         /// <summary>This week's challenge.</summary>
         public ChallengeCard Challenge { get; }
+        /// <summary>Friends and duels.</summary>
+        public FriendsPanel Friends { get; }
 
         public RankingScreen(VisualElement root, UiRoot ui, GameEngine engine, GameState state)
         {
@@ -78,6 +80,7 @@ namespace UnpaidCeo.Game.Ui
             BadgeList = root.Q("ranking-badges");
             NoBadges = UiText.Bind(root.Q<Label>("ranking-no-badges"), "ranking.no_badges");
             Challenge = new ChallengeCard(root, ui, () => state.Hero);
+            Friends = new FriendsPanel(root, ui, engine.Content.Balance.Chapter2Industries);
             ui.OnlineChanged += _ => { if (_ui.CurrentTab == UiRoot.Ranking) RefreshSoon(); };
             ShowLeague();
             ShowBadges();
@@ -114,6 +117,8 @@ namespace UnpaidCeo.Game.Ui
             Show(_myCaption, mine != null);
             if (mine != null) UiText.Value(MyRank, $"#{mine.Rank} · {Dollars(mine.Score)}");
             await ShowMarket(online, me, ticket);
+            if (ticket != _ticket) return;
+            await Friends.Refresh(online, () => ticket == _ticket);
         }
 
         async Task ShowMarket(IOnlineServices online, string? me, int ticket)

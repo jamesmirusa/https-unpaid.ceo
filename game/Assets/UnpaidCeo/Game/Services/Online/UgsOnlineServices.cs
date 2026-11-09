@@ -240,6 +240,13 @@ namespace UnpaidCeo.Game.Services.Online
             catch (Exception e) { Warn(e); return false; }
         }
 
+        public async Task<bool> Decline(string playerId)
+        {
+            if (!await FriendsReady()) return false;
+            try { await FriendsService.Instance.DeleteIncomingFriendRequestAsync(playerId); return true; }
+            catch (Exception e) { Warn(e); return false; }
+        }
+
         public async Task<bool> Remove(string playerId)
         {
             if (!await FriendsReady()) return false;

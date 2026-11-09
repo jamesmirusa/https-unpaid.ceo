@@ -170,3 +170,10 @@
 .run-banner__title { font-size: 26px; -unity-font-style: bold; margin-right: 12px; }
 .run-banner__months { font-size: 26px; flex-grow: 1; }
 .run-banner__result { width: 100%; font-size: 26px; white-space: normal; margin: 6px 0; }
+
+/* Friends and duels (stage 2B) */
+.friends__name { flex-grow: 1; }
+.friend-row, .duel-row { flex-direction: row; flex-wrap: wrap; align-items: center; padding: 10px 16px; margin-bottom: 6px; background-color: var(--panel); border-radius: 18px; }
+.friend-row__name, .duel-row__name { flex-grow: 1; font-size: 28px; }
+.duel-row__industry { font-size: 24px; color: var(--text-dim); margin-right: 12px; }
+.duel-row__state { font-size: 24px; margin-right: 12px; }

@@ -144,6 +144,7 @@ namespace UnpaidCeo.Game.Bootstrap
             if (this == null) return;
             if (adopt?.SaveJson != null && Adopt(adopt)) return;
             await FlushQueue();
+            Ui?.RankingPanel.RefreshSoon();   // the duel-waiting card on the City screen
         }
 
         /// <summary>Makes the cloud save the device save and restarts on it; false if it cannot be read.</summary>
@@ -199,6 +200,8 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui.IndustryChosen += _ => { SaveService.Save(_state!); AfterAction(); };
             Ui.LoanTaken += () => SaveService.Save(_state!);
             Ui.RankingPanel.Challenge.Requested += StartRun;
+            Ui.RankingPanel.Friends.DuelRequested += StartRun;
+            Ui.RankingPanel.Friends.BadgeGranted += () => SaveService.SaveMeta(_meta!);
         }
 
         /// <summary>

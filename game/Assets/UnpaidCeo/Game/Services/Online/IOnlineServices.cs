@@ -114,6 +114,8 @@ namespace UnpaidCeo.Game.Services.Online
         Task<FriendView[]> Requests();
         Task<bool> AddByName(string name);
         Task<bool> Accept(string playerId);
+        /// <summary>Turns down an incoming request.</summary>
+        Task<bool> Decline(string playerId);
         Task<bool> Remove(string playerId);
     }
 

@@ -84,6 +84,10 @@ namespace UnpaidCeo.Game.Ui
         public MetaProgress Meta { get; set; }
         /// <summary>The screens show a challenge or duel run: no daily turns, no chapter bar. Set before Initialize.</summary>
         public bool RunMode { get; set; }
+        VisualElement _duelCard;
+        /// <summary>City card "a duel is waiting for you".</summary>
+        public VisualElement DuelCard => _duelCard;
+        public void ShowDuelWaiting(bool on) { if (_duelCard != null) _duelCard.style.display = on && !RunMode ? DisplayStyle.Flex : DisplayStyle.None; }
         /// <summary>The player signed up, in or out, or renamed: the game re-syncs its cloud save.</summary>
         public event Action<AccountChange> AccountChanged;
 
@@ -229,6 +233,14 @@ namespace UnpaidCeo.Game.Ui
             _missions.AddToClassList("missions");
             _missions.style.display = DisplayStyle.None;
             _screens[City].Add(_missions);
+            _duelCard = new VisualElement { name = "city-duel" };
+            _duelCard.AddToClassList("missions");
+            _duelCard.Add(UiText.Label("duel.waiting", "missions__title"));
+            var openDuels = UiText.Bind(new Button(() => Open(Ranking)) { name = "city-duel-open" }, "duel.open");
+            openDuels.AddToClassList("choice-button");
+            _duelCard.Add(openDuels);
+            _duelCard.style.display = DisplayStyle.None;
+            _screens[City].Add(_duelCard);
             _journal = new JournalScreen(_screens[Journal], engine, state);
             _settings = new SettingsScreen(_screens[Settings], this);
             _settings.ResetRequested += () => ResetRequested?.Invoke();

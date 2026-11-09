@@ -243,3 +243,20 @@ duel.state.won	You won the duel!	Ты выиграл дуэль!
 duel.state.lost	You lost this duel.	Эта дуэль проиграна.
 duel.state.draw	A draw.	Ничья.
 duel.state.expired	The duel expired after 7 days.	Дуэль истекла через 7 дней.
+friends.title	Friends & duels	Друзья и дуэли
+friends.need_account	Create an account (Settings → Account) to add friends and play duels.	Создай аккаунт (Настройки → Аккаунт), чтобы добавлять друзей и играть дуэли.
+friends.add_caption	Add a friend by name, like Name#1234	Добавь друга по имени, например Name#1234
+friends.add	Add	Добавить
+friends.request_sent	Request sent.	Заявка отправлена.
+friends.not_found	No player with that name.	Игрок с таким именем не найден.
+friends.requests	Requests	Заявки
+friends.accept	Accept	Принять
+friends.decline	Decline	Отклонить
+friends.none	No friends yet.	Друзей пока нет.
+friends.challenge	Challenge	Вызвать
+duel.list	Duels	Дуэли
+duel.play	Play	Играть
+duel.created	Duel created. Play your 6 months!	Дуэль создана. Сыграй свои 6 месяцев!
+duel.failed	Could not create the duel.	Не удалось создать дуэль.
+duel.waiting	A duel is waiting for you.	Тебя ждёт дуэль.
+duel.open	Open	Открыть

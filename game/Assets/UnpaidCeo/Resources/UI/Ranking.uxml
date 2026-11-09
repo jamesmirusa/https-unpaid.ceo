@@ -43,6 +43,24 @@
                     <ui:Label name="ranking-share" class="row__value value" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="friends">
+                <ui:Label name="friends-caption" class="section-title" />
+                <ui:Label name="friends-need-account" class="hint" />
+                <ui:VisualElement name="friends-social">
+                    <ui:Label name="friends-add-caption" class="hint" />
+                    <ui:VisualElement class="choice-row">
+                        <ui:TextField name="friends-name" max-length="40" class="text-input friends__name" />
+                        <ui:Button name="friends-add" class="choice-button" />
+                    </ui:VisualElement>
+                    <ui:Label name="friends-message" class="hint" />
+                    <ui:Label name="friends-requests-caption" class="section-title" />
+                    <ui:VisualElement name="friends-requests" />
+                    <ui:VisualElement name="friends-list" />
+                    <ui:Label name="friends-none" class="hint" />
+                    <ui:Label name="duels-caption" class="section-title" />
+                    <ui:VisualElement name="duels-list" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label name="ranking-badges-caption" class="section-title" />
         <ui:VisualElement name="ranking-badges" class="badge-list" />

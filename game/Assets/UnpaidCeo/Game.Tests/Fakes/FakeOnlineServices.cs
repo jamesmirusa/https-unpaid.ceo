@@ -194,6 +194,12 @@ namespace UnpaidCeo.Game.Tests.Fakes
             return Task.FromResult(true);
         }
 
+        public Task<bool> Decline(string playerId) =>
+            Task.FromResult(Online && _player != null && Requests(_player).Remove(playerId));
+
+        /// <summary>Plants a duel as the server would list it.</summary>
+        public void PutDuel(DuelView d) => _duels.Add(d);
+
         public Task<bool> Remove(string playerId)
         {
             if (!Online || _player == null || !FriendsOf(_player).Remove(playerId)) return Task.FromResult(false);

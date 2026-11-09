@@ -55,6 +55,7 @@ namespace UnpaidCeo.Game.Services.Online
         public Task<FriendView[]> Requests() => Task.FromResult(Array.Empty<FriendView>());
         public Task<bool> AddByName(string name) => Task.FromResult(false);
         public Task<bool> Accept(string playerId) => Task.FromResult(false);
+        public Task<bool> Decline(string playerId) => Task.FromResult(false);
         public Task<bool> Remove(string playerId) => Task.FromResult(false);
 
         // Analytics: the choice is kept for the session; nothing is recorded offline.
