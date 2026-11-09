@@ -65,15 +65,16 @@ namespace UnpaidCeo.Core.Tests.Content
         public void Balance_has_chapter_goals_loans_and_pacing()
         {
             var b = Db().Balance;
-            Assert.AreEqual(2_500_000, b.Chapter2CapitalGoal.Cents);
-            Assert.AreEqual(25_000_000, b.Chapter3CapitalGoal.Cents);
+            // Tuned by the pacing gate (Task 15, BalanceSimulationTests).
+            Assert.AreEqual(10_000_000, b.Chapter2CapitalGoal.Cents);
+            Assert.AreEqual(27_500_000, b.Chapter3CapitalGoal.Cents);
             Assert.AreEqual(10, b.Chapter3EmployeesGoal);
             Assert.AreEqual(2, b.Chapter3UnitsGoal);
             Assert.AreEqual(0.5, b.AssetResaleRate, 1e-9);
             Assert.AreEqual(0.10, b.PayrollOverhead, 1e-9);
-            Assert.AreEqual(1.15, b.DistrictDemand["queens"], 1e-9);
+            Assert.AreEqual(1.5, b.DistrictDemand["queens"], 1e-9);
             Assert.AreEqual(0.12, b.Loans.BaseApr, 1e-9);
-            CollectionAssert.AreEqual(new[] { 12, 24, 36 }, b.Loans.TermsMonths);
+            CollectionAssert.AreEqual(new[] { 12, 24, 36, 60 }, b.Loans.TermsMonths);
             Assert.AreEqual(6, b.DailyManualMonths);
         }
 

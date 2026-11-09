@@ -7,10 +7,11 @@ namespace UnpaidCeo.Core.Economy
     public static class BusinessSimulator
     {
         /// <summary>Share of full capacity the staff can run: the owner plus employees over the staff the units need.</summary>
-        public static double Staffing(BusinessState b, IndustryDef d)
+        public static double Staffing(BusinessState b, IndustryDef d, double ownerShare = 1.0)
         {
             int needed = Math.Max(0, b.Units) * Math.Max(1, d.StaffPerUnit);
-            return needed == 0 ? 0.0 : Math.Min(1.0, (Math.Max(0, b.Employees) + 1) / (double)needed);
+            double owner = Math.Max(0.0, Math.Min(1.0, ownerShare));
+            return needed == 0 ? 0.0 : Math.Min(1.0, (Math.Max(0, b.Employees) + owner) / (double)needed);
         }
 
         /// <summary>Salaries of the employees plus employer overhead.</summary>
@@ -21,7 +22,7 @@ namespace UnpaidCeo.Core.Economy
         {
             int capacity = d.Kind == IndustryKind.Gig
                 ? (int)Math.Floor(d.CapacityPerWorkPoint * Math.Max(0, i.WorkShare) + 1e-9)
-                : (int)Math.Floor(d.CapacityPerUnit * Math.Max(0, b.Units) * Staffing(b, d) + 1e-9);
+                : (int)Math.Floor(d.CapacityPerUnit * Math.Max(0, b.Units) * Staffing(b, d, i.OwnerShare) + 1e-9);
 
             int demand = EconomyFormulas.Demand(d.BaseDemand,
                 EconomyFormulas.PriceFactor(b.Price, d.RefPrice, d.Elasticity),

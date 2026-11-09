@@ -742,6 +742,10 @@ MonoBehaviour:
     m_Localized: Chapter 3 goal reached.
     m_Metadata:
       m_Items: []
+  - m_Id: 94522578034688
+    m_Localized: Your work time now runs your business. At 60% work you count as one full-time staff member; gigs no longer pay.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

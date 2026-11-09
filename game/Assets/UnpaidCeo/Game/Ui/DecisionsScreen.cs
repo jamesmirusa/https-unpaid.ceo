@@ -22,7 +22,8 @@ namespace UnpaidCeo.Game.Ui
         readonly TimeAllocationControl _time;
         readonly ShareControl _split;
         readonly List<string> _gigIds;
-        readonly Label _ap, _businessTitle;
+        readonly Label _ap, _businessTitle, _splitTitle, _ownerTime;
+        readonly VisualElement _splitControl;
         readonly VisualElement _business;
         readonly Dictionary<string, Toggle> _toggles = new Dictionary<string, Toggle>();
         readonly Dictionary<string, int> _units = new Dictionary<string, int>(), _staff = new Dictionary<string, int>();
@@ -36,7 +37,11 @@ namespace UnpaidCeo.Game.Ui
             _state = state;
             UiText.Bind(root.Q<Label>("decisions-title"), "decisions.title");
             UiText.Bind(root.Q<Label>("time-title"), "decisions.time");
-            UiText.Bind(root.Q<Label>("split-title"), "decisions.split");
+            _splitTitle = UiText.Bind(root.Q<Label>("split-title"), "decisions.split");
+            _splitControl = root.Q("split-control");
+            _ownerTime = UiText.Label("decisions.owner_time", "hint");
+            _ownerTime.name = "owner-time";
+            _splitControl.parent.Insert(_splitControl.parent.IndexOf(_splitControl) + 1, _ownerTime);
             UiText.Bind(root.Q<Label>("actions-title"), "decisions.actions");
             UiText.Bind(root.Q<Label>("ap-caption"), "decisions.ap");
             _businessTitle = UiText.Bind(root.Q<Label>("business-title"), "decisions.business");
@@ -97,6 +102,11 @@ namespace UnpaidCeo.Game.Ui
                 foreach (var b in list) _business.Add(BusinessRow(b));
             }
             bool any = list.Count > 0;
+            // With a unit open the owner works the business: gigs stop paying, so their split is hidden.
+            bool ownsUnits = list.Any(b => b.Units > 0);
+            _splitTitle.style.display = ownsUnits ? DisplayStyle.None : DisplayStyle.Flex;
+            _splitControl.style.display = ownsUnits ? DisplayStyle.None : DisplayStyle.Flex;
+            _ownerTime.style.display = ownsUnits ? DisplayStyle.Flex : DisplayStyle.None;
             _businessTitle.style.display = any ? DisplayStyle.Flex : DisplayStyle.None;
             _business.style.display = any ? DisplayStyle.Flex : DisplayStyle.None;
             foreach (var b in list)

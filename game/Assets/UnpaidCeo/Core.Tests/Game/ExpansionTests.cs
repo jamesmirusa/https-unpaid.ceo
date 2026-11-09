@@ -102,5 +102,26 @@ namespace UnpaidCeo.Core.Tests.Game
             Assert.AreEqual(100, shop.UnitsSold);
             Assert.AreEqual(100_000, shop.Revenue.Cents);
         }
+
+        [Test]
+        public void Gigs_stop_paying_once_a_business_unit_opens()
+        {
+            var (e, s) = Stage2Content.Chapter2(1_000_000, noPersonalCosts: true);
+            var before = e.EndMonth(s, Stage2Content.Plan());
+            Assert.Greater(before.BusinessResults["gig_test"].Revenue.Cents, 0, "no unit yet: the gig still pays");
+            s.Businesses.Single(b => b.IndustryId == "shop").Units = 1;
+            var after = e.EndMonth(s, Stage2Content.Plan());
+            Assert.AreEqual(0, after.BusinessResults["gig_test"].Revenue.Cents, "the owner now works the business");
+        }
+
+        [Test]
+        public void Owner_staffs_the_business_with_their_work_time()
+        {
+            var (e, s) = Stage2Content.Chapter2(1_000_000, noPersonalCosts: true);
+            s.Businesses.Single(b => b.IndustryId == "shop").Units = 1;
+            var half = TestContent.Decisions(30, 25, 35, 10);   // work 30 of a full-time 60
+            Assert.AreEqual(50, e.EndMonth(s, half).BusinessResults["shop"].UnitsSold);
+            Assert.AreEqual(100, e.EndMonth(s, Stage2Content.Plan()).BusinessResults["shop"].UnitsSold);
+        }
 }
 }

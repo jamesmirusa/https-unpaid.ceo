@@ -31,9 +31,11 @@ namespace UnpaidCeo.Core.Economy
         public readonly double DistrictFactor;
         /// <summary>Employer costs on top of salaries.</summary>
         public readonly double PayrollOverhead;
+        /// <summary>How much of a full-time staff member the owner is (0..1): their work time over a full-time load.</summary>
+        public readonly double OwnerShare;
 
         public BusinessInputs(double reputationFactor, double seasonFactor, double eventFactor, int workShare,
-            double districtFactor = 1.0, double payrollOverhead = 0.0)
+            double districtFactor = 1.0, double payrollOverhead = 0.0, double ownerShare = 1.0)
         {
             ReputationFactor = reputationFactor;
             SeasonFactor = seasonFactor;
@@ -41,6 +43,7 @@ namespace UnpaidCeo.Core.Economy
             WorkShare = workShare;
             DistrictFactor = districtFactor;
             PayrollOverhead = payrollOverhead;
+            OwnerShare = ownerShare;
         }
     }
 

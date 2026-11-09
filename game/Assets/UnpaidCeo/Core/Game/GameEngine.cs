@@ -241,17 +241,21 @@ namespace UnpaidCeo.Core.Game
             // Splits are shares of work time; totals above 100 are scaled down instead of multiplying capacity.
             int splitTotal = Math.Max(100, d.WorkSplit.Values.Where(v => v > 0).Sum());
             Money revenue = Money.Zero, cogs = Money.Zero, fixedCosts = Money.Zero, marketing = Money.Zero, collected = Money.Zero;
+            // Once a business has a unit, the owner works it: gigs stop paying, and the owner counts as
+            // a staff member in proportion to their work time (a full-time load is LifeBalance.WorkSafe).
+            bool ownsUnits = s.Businesses.Any(x => x.Units > 0 && _c.Industries.TryGetValue(x.IndustryId, out var xd) && xd.Kind == IndustryKind.Business);
+            double ownerShare = Math.Min(1.0, time.Work / (double)Math.Max(1, b.Life.WorkSafe));
             foreach (var bs in s.Businesses)
             {
                 if (!_c.Industries.TryGetValue(bs.IndustryId, out var def)) continue;
                 int share = 0;
-                if (def.Kind == IndustryKind.Gig && s.StudyXp >= def.RequiredStudy && d.WorkSplit.TryGetValue(bs.Id, out var split))
+                if (def.Kind == IndustryKind.Gig && !ownsUnits && s.StudyXp >= def.RequiredStudy && d.WorkSplit.TryGetValue(bs.Id, out var split))
                     share = (int)Math.Round(time.Work * Math.Max(0, split) / (double)splitTotal, MidpointRounding.AwayFromZero);
                 double season = def.Seasonality != null && def.Seasonality.Length == 12 ? def.Seasonality[(s.Month - 1) % 12] : 1.0;
                 double district = b.DistrictDemand.TryGetValue(Chapters.District(s.Chapter), out var df) ? df : 1.0;
                 double events = 1.0;
                 foreach (var m in s.Modifiers) if (m.AppliesTo(def)) events *= m.Factor;
-                var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, events, share, district, b.PayrollOverhead));
+                var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, events, share, district, b.PayrollOverhead, ownerShare));
                 report.BusinessResults[bs.Id] = r;
                 if (def.Kind == IndustryKind.Business && bs.Units >= 1 && (r.Revenue - r.Cogs - r.Fixed - r.Marketing).Cents >= 0)
                     SetOnce(s, "break_even");

@@ -62,7 +62,7 @@ namespace UnpaidCeo.Core.Tests.Game
 
         public static MonthDecisions Plan(params LeverChange[] levers)
         {
-            var d = TestContent.Decisions(50, 20, 20, 10);
+            var d = TestContent.Decisions(60, 15, 15, 10);   // a full-time owner (work = LifeBalance.WorkSafe)
             d.Levers.AddRange(levers);
             return d;
         }
