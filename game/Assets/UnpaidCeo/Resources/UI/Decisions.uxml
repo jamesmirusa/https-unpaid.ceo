@@ -3,6 +3,8 @@
         <ui:Label name="decisions-title" class="screen__title" />
         <ui:Label name="time-title" class="section-title" />
         <ui:VisualElement name="time-control" />
+        <ui:Label name="business-title" class="section-title" />
+        <ui:VisualElement name="business-controls" />
         <ui:Label name="split-title" class="section-title" />
         <ui:VisualElement name="split-control" />
         <ui:Label name="actions-title" class="section-title" />

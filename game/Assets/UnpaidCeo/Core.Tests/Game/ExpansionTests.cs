@@ -1,3 +1,4 @@
+using System.Linq;
 using NUnit.Framework;
 using static UnpaidCeo.Core.Tests.Game.Stage2Content;
 
@@ -90,5 +91,16 @@ namespace UnpaidCeo.Core.Tests.Game
             e.EndMonth(s, Plan(Lever("shop", "units", 1)));
             Assert.IsFalse(s.Facts.Has("first_loss"), "capex lowers cash but is not a loss");
         }
-    }
+    
+        [Test]
+        public void Month_report_keeps_each_business_result()
+        {
+            var (e, s) = Stage2Content.Chapter2(1_000_000, noPersonalCosts: true);
+            s.Businesses.Single(b => b.IndustryId == "shop").Units = 1;
+            var r = e.EndMonth(s, Stage2Content.Plan());
+            Assert.IsTrue(r.BusinessResults.TryGetValue("shop", out var shop));
+            Assert.AreEqual(100, shop.UnitsSold);
+            Assert.AreEqual(100_000, shop.Revenue.Cents);
+        }
+}
 }

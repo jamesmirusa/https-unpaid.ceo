@@ -4,6 +4,8 @@
         <ui:Label name="company-empty" class="hint" />
         <ui:VisualElement name="pnl-chart" class="pnl-chart" />
         <ui:VisualElement name="pnl-rows" />
+        <ui:VisualElement name="unit-economics" />
+        <ui:VisualElement name="loans" />
         <ui:Label name="company-disclaimer" class="disclaimer" />
     </ui:ScrollView>
 </ui:UXML>

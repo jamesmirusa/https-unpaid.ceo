@@ -115,3 +115,34 @@
 .missions__footer { flex-direction: row; align-items: center; margin-top: 8px; }
 .missions__caption { font-size: 26px; color: var(--text-dim); margin-right: 6px; }
 .missions__value { font-size: 26px; -unity-font-style: bold; margin-right: 20px; }
+
+/* Chapters 2-3 (stage 2A): chapter goal bar, industry cards, steppers, loan dialog, chapter card */
+.chapter-bar { flex-direction: row; align-items: center; margin: 0 24px 8px 24px; }
+.chapter-bar__caption { font-size: 24px; color: var(--text-dim); margin-right: 12px; }
+.chapter-bar__track { flex-grow: 1; height: 14px; border-radius: 7px; background-color: var(--track); overflow: hidden; }
+.chapter-bar__fill { height: 100%; width: 0; background-color: var(--accent); border-radius: 7px; }
+.chapter-bar__advance { margin-left: 12px; height: 56px; padding: 0 20px; border-radius: 28px; border-width: 0; background-color: var(--accent); font-size: 26px; -unity-font-style: bold; }
+.app .chapter-bar__advance { color: var(--on-accent); }
+.industry-card { padding: 20px 24px; margin-bottom: 20px; background-color: var(--panel); border-radius: 28px; }
+.industry-card--chosen { border-width: 4px; border-color: var(--accent); }
+.industry-card__name { font-size: 38px; -unity-font-style: bold; white-space: normal; }
+.industry-card__scale { flex-direction: row; flex-wrap: wrap; margin: 4px 0 8px 0; }
+.industry-card__step { font-size: 24px; color: var(--text-dim); margin-right: 16px; white-space: normal; }
+.industry-card__lesson { flex-shrink: 1; -unity-text-align: middle-right; white-space: normal; }
+.industry-card__choose { margin: 12px 0 0 0; height: 96px; }
+.industry-offer { padding: 20px 24px; margin-bottom: 20px; background-color: var(--panel); border-radius: 28px; }
+.industry-offer__text { white-space: normal; margin-bottom: 8px; }
+.industry-offer__capex { -unity-text-align: middle-center; }
+.business-box { padding: 12px 0; border-bottom-width: 1px; border-bottom-color: var(--track); }
+.business-box__name { font-size: 34px; -unity-font-style: bold; white-space: normal; }
+.stepper__button { width: 80px; height: 72px; margin: 0 8px; border-radius: 24px; font-size: 40px; -unity-font-style: bold; }
+.stepper__value { width: 80px; -unity-text-align: middle-center; font-size: 36px; -unity-font-style: bold; }
+.decisions__warning { color: var(--negative); white-space: normal; font-size: 26px; }
+.modal { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.55); justify-content: center; }
+.modal__panel { margin: 0 32px; padding: 28px 32px; background-color: var(--panel); border-radius: 32px; }
+.modal__panel .primary-button { margin: 16px 0 8px 0; }
+.modal__panel .danger-button { margin: 0; }
+.chapter-card { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(10, 10, 20, 0.92); justify-content: center; align-items: center; }
+.chapter-card__title { font-size: 72px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal; -unity-text-align: middle-center; }
+.chapter-card__subtitle { font-size: 34px; color: rgb(220, 220, 230); margin-top: 16px; white-space: normal; -unity-text-align: middle-center; }
+

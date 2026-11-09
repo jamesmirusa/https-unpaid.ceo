@@ -97,6 +97,9 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
             Ui.ResetRequested += () => { SaveService.Delete(); SceneManager.LoadScene(0); };
             Ui.QuizAnswered += OnQuizAnswered;
+            Ui.ChapterAdvanced += _ => { SaveService.Save(_state); AfterAction(); };
+            Ui.IndustryChosen += _ => { SaveService.Save(_state); AfterAction(); };
+            Ui.LoanTaken += () => SaveService.Save(_state);
             _city?.Sync(_state);
 
             if (resume)

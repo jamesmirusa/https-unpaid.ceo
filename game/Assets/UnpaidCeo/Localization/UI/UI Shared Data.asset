@@ -447,6 +447,298 @@ MonoBehaviour:
     m_Key: mission.actions_5
     m_Metadata:
       m_Items: []
+  - m_Id: 89860063879168
+    m_Key: industry.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462080
+    m_Key: industry.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462081
+    m_Key: industry.disclaimer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462082
+    m_Key: industry.capex
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462083
+    m_Key: industry.margin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462084
+    m_Key: industry.break_even
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462085
+    m_Key: industry.lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462086
+    m_Key: industry.choose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462087
+    m_Key: industry.chosen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462088
+    m_Key: industry.offer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462089
+    m_Key: industry.open_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462090
+    m_Key: industry.coffee_cart.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462091
+    m_Key: industry.coffee_cart.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462092
+    m_Key: industry.coffee_cart.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462093
+    m_Key: industry.coffee_cart.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462094
+    m_Key: industry.resale_store.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462095
+    m_Key: industry.resale_store.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462096
+    m_Key: industry.resale_store.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462097
+    m_Key: industry.resale_store.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462098
+    m_Key: industry.food_truck.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462099
+    m_Key: industry.food_truck.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462100
+    m_Key: industry.food_truck.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462101
+    m_Key: industry.food_truck.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462102
+    m_Key: industry.ai_agency.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462103
+    m_Key: industry.ai_agency.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462104
+    m_Key: industry.ai_agency.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462105
+    m_Key: industry.ai_agency.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462106
+    m_Key: industry.cleaning.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462107
+    m_Key: industry.cleaning.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462108
+    m_Key: industry.cleaning.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462109
+    m_Key: industry.cleaning.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462110
+    m_Key: industry.logistics_box_truck.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462111
+    m_Key: industry.logistics_box_truck.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462112
+    m_Key: industry.logistics_box_truck.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462113
+    m_Key: industry.logistics_box_truck.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462114
+    m_Key: loan.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462115
+    m_Key: loan.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462116
+    m_Key: loan.amount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462117
+    m_Key: loan.term
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462118
+    m_Key: loan.apr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462119
+    m_Key: loan.payment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462120
+    m_Key: loan.take
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462121
+    m_Key: loan.cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462122
+    m_Key: chapter.2.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462123
+    m_Key: chapter.2.subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462124
+    m_Key: chapter.3.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462125
+    m_Key: chapter.3.subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462126
+    m_Key: hud.chapter_goal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462127
+    m_Key: hud.advance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462128
+    m_Key: decisions.business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462129
+    m_Key: decisions.units
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462130
+    m_Key: decisions.unit_cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462131
+    m_Key: decisions.staff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462132
+    m_Key: decisions.units_rejected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462133
+    m_Key: company.interest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462134
+    m_Key: company.capex
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462135
+    m_Key: company.asset_sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462136
+    m_Key: company.loan_principal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462137
+    m_Key: company.unit_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462138
+    m_Key: company.margin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462139
+    m_Key: company.break_even
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462140
+    m_Key: company.cac
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462141
+    m_Key: company.ltv
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462142
+    m_Key: company.ltv_cac
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462143
+    m_Key: company.loans_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462144
+    m_Key: company.loan_row
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462145
+    m_Key: company.take_loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462146
+    m_Key: journal.take_loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462147
+    m_Key: journal.choose_industry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462148
+    m_Key: journal.chapter2_start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462149
+    m_Key: journal.chapter3_start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462150
+    m_Key: journal.chapter2_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462151
+    m_Key: journal.chapter3_done
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

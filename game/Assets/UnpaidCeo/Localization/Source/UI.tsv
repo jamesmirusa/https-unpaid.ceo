@@ -107,3 +107,76 @@ mission.quiz_3	Answer 3 quiz questions	Ответь на 3 вопроса вик
 mission.quiz_5	Answer 5 quiz questions	Ответь на 5 вопросов викторины
 mission.actions_2	Take 2 free actions	Соверши 2 свободных действия
 mission.actions_5	Take 5 free actions	Соверши 5 свободных действий
+industry.title	Choose your business	Выбери бизнес
+industry.hint	One business for Brooklyn. Look at the numbers before you fall in love.	Один бизнес для Бруклина. Сначала цифры, потом любовь.
+industry.disclaimer	Money in the game is simulated; this is not financial advice.	Деньги в игре симулированные, это не финансовый совет.
+industry.capex	Startup cost	Запуск
+industry.margin	Gross margin	Маржа
+industry.break_even	Break-even, sales	Безубыточность
+industry.lesson	Lesson	Урок
+industry.choose	Choose	Выбрать
+industry.chosen	Your business	Твой бизнес
+industry.offer	You can afford the first location. Open it next month?	Первая точка тебе по карману. Открыть её в следующем месяце?
+industry.open_first	Open the first location	Открыть первую точку
+industry.coffee_cart.name	Coffee cart	Кофейная тележка
+industry.coffee_cart.scale.0	Cart	Тележка
+industry.coffee_cart.scale.1	Café	Кофейня
+industry.coffee_cart.scale.2	Coffee chain	Сеть кофеен
+industry.resale_store.name	Resale store	Магазин ресейла
+industry.resale_store.scale.0	Pop-up	Поп-ап
+industry.resale_store.scale.1	Store	Магазин
+industry.resale_store.scale.2	Chain	Сеть
+industry.food_truck.name	Food truck	Фудтрак
+industry.food_truck.scale.0	Truck	Фудтрак
+industry.food_truck.scale.1	Fleet	Автопарк
+industry.food_truck.scale.2	Restaurant	Ресторан
+industry.ai_agency.name	AI agency	ИИ-агентство
+industry.ai_agency.scale.0	Freelancer	Фрилансер
+industry.ai_agency.scale.1	Studio	Студия
+industry.ai_agency.scale.2	Agency	Агентство
+industry.cleaning.name	Cleaning service	Клининг
+industry.cleaning.scale.0	Solo	Один
+industry.cleaning.scale.1	Crew	Бригада
+industry.cleaning.scale.2	Cleaning company	Клининговая компания
+industry.logistics_box_truck.name	Box truck delivery	Грузоперевозки
+industry.logistics_box_truck.scale.0	One truck	Один грузовик
+industry.logistics_box_truck.scale.1	Fleet	Автопарк
+industry.logistics_box_truck.scale.2	Logistics company	Логистическая компания
+loan.title	Bank loan	Кредит в банке
+loan.hint	The bank lends more to owners with a good reputation.	Банк даёт больше тем, у кого хорошая репутация.
+loan.amount	Amount	Сумма
+loan.term	Term, months	Срок, месяцев
+loan.apr	Interest rate (APR)	Ставка (APR)
+loan.payment	Monthly payment	Платёж в месяц
+loan.take	Take the loan	Взять кредит
+loan.cancel	Not now	Не сейчас
+chapter.2.title	Chapter 2	Глава 2
+chapter.2.subtitle	Brooklyn. Your first real business.	Бруклин. Твой первый настоящий бизнес.
+chapter.3.title	Chapter 3	Глава 3
+chapter.3.subtitle	Queens. Time to build a team.	Квинс. Пора строить команду.
+hud.chapter_goal	Chapter goal	Цель главы
+hud.advance	Next chapter	Новая глава
+decisions.business	Your business	Твой бизнес
+decisions.units	Locations	Точки
+decisions.unit_cost	Cost of a location	Цена точки
+decisions.staff	Staff	Сотрудники
+decisions.units_rejected	Not enough cash for a new location. Save up or take a loan.	Не хватило денег на новую точку. Накопи или возьми кредит.
+company.interest	Loan interest	Проценты
+company.capex	New locations	Новые точки
+company.asset_sales	Locations sold	Продажа точек
+company.loan_principal	Loan repayment	Погашение кредита
+company.unit_title	Unit economics	Юнит-экономика
+company.margin	Gross margin	Маржа
+company.break_even	Break-even, sales	Безубыточность
+company.cac	Customer cost (CAC)	Цена клиента
+company.ltv	Customer value (LTV)	Ценность клиента
+company.ltv_cac	LTV to CAC	LTV к CAC
+company.loans_title	Loans	Кредиты
+company.loan_row	Balance · months · payment	Остаток · мес. · платёж
+company.take_loan	Take a loan	Взять кредит
+journal.take_loan	You took a bank loan.	Ты взял кредит в банке.
+journal.choose_industry	You chose your business.	Ты выбрал свой бизнес.
+journal.chapter2_start	You moved to Brooklyn.	Ты переехал в Бруклин.
+journal.chapter3_start	You moved to Queens.	Ты переехал в Квинс.
+journal.chapter2_done	Chapter 2 goal reached.	Цель второй главы достигнута.
+journal.chapter3_done	Chapter 3 goal reached.	Цель третьей главы достигнута.

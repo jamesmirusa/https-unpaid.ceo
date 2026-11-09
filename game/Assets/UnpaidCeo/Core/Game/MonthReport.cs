@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnpaidCeo.Core.Economy;
 using UnpaidCeo.Core.Life;
 using UnpaidCeo.Core.Primitives;
 
@@ -35,6 +36,8 @@ namespace UnpaidCeo.Core.Game
         public Money LoanPayments { get; set; }
         /// <summary>Interest part of the loan payments (an expense before the tax reserve).</summary>
         public Money Interest { get; set; }
+        /// <summary>Each gig's and business's own month, by business id (unit economics on the Company screen).</summary>
+        public Dictionary<string, BusinessMonthResult> BusinessResults { get; set; } = new Dictionary<string, BusinessMonthResult>();
     }
 
     public readonly struct ChapterStatus

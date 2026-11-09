@@ -35,7 +35,8 @@ namespace UnpaidCeo.Game.Ui
         {
             _steps = r == null ? new long[0] : new[]
             {
-                r.Revenue.Cents, -r.Cogs.Cents, -r.Fixed.Cents, -r.Marketing.Cents, -r.MistakeLoss.Cents, -r.TaxReserve.Cents, -r.PersonalCosts.Cents,
+                r.Revenue.Cents, -r.Cogs.Cents, -r.Fixed.Cents, -r.Marketing.Cents, -r.MistakeLoss.Cents, -r.Interest.Cents, -r.TaxReserve.Cents,
+                -r.PersonalCosts.Cents, -r.Capex.Cents,
             };
             MarkDirtyRepaint();
         }

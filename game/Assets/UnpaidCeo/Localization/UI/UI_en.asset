@@ -450,6 +450,298 @@ MonoBehaviour:
     m_Localized: Take 5 free actions
     m_Metadata:
       m_Items: []
+  - m_Id: 89860063879168
+    m_Localized: Choose your business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462080
+    m_Localized: One business for Brooklyn. Look at the numbers before you fall in love.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462081
+    m_Localized: Money in the game is simulated; this is not financial advice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462082
+    m_Localized: Startup cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462083
+    m_Localized: Gross margin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462084
+    m_Localized: Break-even, sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462085
+    m_Localized: Lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462086
+    m_Localized: Choose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462087
+    m_Localized: Your business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462088
+    m_Localized: You can afford the first location. Open it next month?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462089
+    m_Localized: Open the first location
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462090
+    m_Localized: Coffee cart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462091
+    m_Localized: Cart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462092
+    m_Localized: "Caf\xE9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462093
+    m_Localized: Coffee chain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462094
+    m_Localized: Resale store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462095
+    m_Localized: Pop-up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462096
+    m_Localized: Store
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462097
+    m_Localized: Chain
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462098
+    m_Localized: Food truck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462099
+    m_Localized: Truck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462100
+    m_Localized: Fleet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462101
+    m_Localized: Restaurant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462102
+    m_Localized: AI agency
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462103
+    m_Localized: Freelancer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462104
+    m_Localized: Studio
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462105
+    m_Localized: Agency
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462106
+    m_Localized: Cleaning service
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462107
+    m_Localized: Solo
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462108
+    m_Localized: Crew
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462109
+    m_Localized: Cleaning company
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462110
+    m_Localized: Box truck delivery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462111
+    m_Localized: One truck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462112
+    m_Localized: Fleet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462113
+    m_Localized: Logistics company
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462114
+    m_Localized: Bank loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462115
+    m_Localized: The bank lends more to owners with a good reputation.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462116
+    m_Localized: Amount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462117
+    m_Localized: Term, months
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462118
+    m_Localized: Interest rate (APR)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462119
+    m_Localized: Monthly payment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462120
+    m_Localized: Take the loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462121
+    m_Localized: Not now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462122
+    m_Localized: Chapter 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462123
+    m_Localized: Brooklyn. Your first real business.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462124
+    m_Localized: Chapter 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462125
+    m_Localized: Queens. Time to build a team.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462126
+    m_Localized: Chapter goal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462127
+    m_Localized: Next chapter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462128
+    m_Localized: Your business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462129
+    m_Localized: Locations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462130
+    m_Localized: Cost of a location
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462131
+    m_Localized: Staff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462132
+    m_Localized: Not enough cash for a new location. Save up or take a loan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462133
+    m_Localized: Loan interest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462134
+    m_Localized: New locations
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462135
+    m_Localized: Locations sold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462136
+    m_Localized: Loan repayment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462137
+    m_Localized: Unit economics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462138
+    m_Localized: Gross margin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462139
+    m_Localized: Break-even, sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462140
+    m_Localized: Customer cost (CAC)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462141
+    m_Localized: Customer value (LTV)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462142
+    m_Localized: LTV to CAC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462143
+    m_Localized: Loans
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462144
+    m_Localized: "Balance \xB7 months \xB7 payment"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462145
+    m_Localized: Take a loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462146
+    m_Localized: You took a bank loan.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462147
+    m_Localized: You chose your business.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462148
+    m_Localized: You moved to Brooklyn.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462149
+    m_Localized: You moved to Queens.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462150
+    m_Localized: Chapter 2 goal reached.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462151
+    m_Localized: Chapter 3 goal reached.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

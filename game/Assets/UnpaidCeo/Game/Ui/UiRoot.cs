@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
@@ -34,8 +35,8 @@ namespace UnpaidCeo.Game.Ui
         public static readonly string[] Languages = { "en", "ru" };
 
         public const string City = "city", Company = "company", Decisions = "decisions", Academy = "academy",
-            Ranking = "ranking", Journal = "journal", Settings = "settings";
-        public static readonly IReadOnlyList<string> Tabs = new[] { City, Company, Decisions, Academy, Ranking, Journal, Settings };
+            Ranking = "ranking", Journal = "journal", Settings = "settings", Industry = "industry";
+        public static readonly IReadOnlyList<string> Tabs = new[] { City, Company, Decisions, Academy, Ranking, Journal, Settings, Industry };
         static readonly string[] NavTabs = { City, Company, Decisions, Academy, Ranking };
 
         readonly Dictionary<string, VisualElement> _screens = new Dictionary<string, VisualElement>();
@@ -48,6 +49,11 @@ namespace UnpaidCeo.Game.Ui
         JournalScreen _journal;
         SettingsScreen _settings;
         AcademyScreen _academy;
+        IndustryScreen _industry;
+        LoanDialog _loan;
+        ChapterTransition _transition;
+        VisualElement _chapterBar, _chapterFill;
+        Button _advance;
         Label _cash, _month;
         VisualElement _energyFill;
         Button _next;
@@ -60,6 +66,20 @@ namespace UnpaidCeo.Game.Ui
         public bool IsNeon { get; private set; }
 
         public Button NextMonthButton => _next;
+        /// <summary>Chapter 2's business choice (also a tab: <see cref="Industry"/>).</summary>
+        public IndustryScreen IndustryChoice => _industry;
+        public LoanDialog Loan => _loan;
+        public ChapterTransition Transition => _transition;
+        public DecisionsScreen DecisionsPanel => _decisions;
+        /// <summary>HUD progress toward the chapter goal, with the button to move on once it is met.</summary>
+        public VisualElement ChapterBar => _chapterBar;
+        public VisualElement ChapterFill => _chapterFill;
+        public Button AdvanceButton => _advance;
+
+        /// <summary>The player moved to the next chapter (and district).</summary>
+        public event Action<int> ChapterAdvanced;
+        public event Action<string> IndustryChosen;
+        public event Action LoanTaken;
         /// <summary>"left/per day" manual months.</summary>
         public Label TurnsValue => _turnsValue;
         /// <summary>Shown instead of a working button when today's months are used up.</summary>
@@ -123,6 +143,23 @@ namespace UnpaidCeo.Game.Ui
             var settingsButton = UiText.Bind(hud.Q<Button>("hud-settings"), "hud.settings");
             settingsButton.clicked += () => Open(Settings);
 
+            _chapterBar = new VisualElement { name = "chapter-bar" };
+            _chapterBar.AddToClassList("chapter-bar");
+            _chapterBar.Add(UiText.Label("hud.chapter_goal", "chapter-bar__caption"));
+            var track = new VisualElement();
+            track.AddToClassList("chapter-bar__track");
+            _chapterFill = new VisualElement { name = "chapter-fill" };
+            _chapterFill.AddToClassList("chapter-bar__fill");
+            track.Add(_chapterFill);
+            _chapterBar.Add(track);
+            _advance = UiText.Bind(new Button(Advance) { name = "chapter-advance" }, "hud.advance");
+            _advance.AddToClassList("chapter-bar__advance");
+            _chapterBar.Add(_advance);
+            Root.Add(_chapterBar);
+            _loan = new LoanDialog(this, engine, state);
+            _loan.Taken += (_, __) => { RefreshHud(); _company?.Refresh(); LoanTaken?.Invoke(); };
+            _transition = new ChapterTransition();
+
             var content = new VisualElement { name = "content" };
             content.AddToClassList("content");
             Root.Add(content);
@@ -133,12 +170,15 @@ namespace UnpaidCeo.Game.Ui
             AddScreen(content, Ranking, Clone("Ranking"));
             AddScreen(content, Journal, Clone("Journal"));
             AddScreen(content, Settings, Clone("Settings"));
+            AddScreen(content, Industry, Clone("Industry"));
 
             UiText.Bind(_screens[City].Q<Label>("city-hint"), "city.hint");
             UiText.Bind(_screens[Ranking].Q<Label>("ranking-title"), "ranking.title");
             UiText.Bind(_screens[Ranking].Q<Label>("ranking-soon"), "ranking.soon");
-            _company = new CompanyScreen(_screens[Company], this);
-            _decisions = new DecisionsScreen(_screens[Decisions], engine, state);
+            _company = new CompanyScreen(_screens[Company], this, engine, state);
+            _decisions = new DecisionsScreen(_screens[Decisions], this, engine, state);
+            _industry = new IndustryScreen(_screens[Industry], this, engine, state);
+            _industry.Chosen += id => { _decisions.Refresh(); RefreshHud(); IndustryChosen?.Invoke(id); };
             _academy = new AcademyScreen(_screens[Academy], engine, state);
             _academy.Answered += (lesson, q) => QuizAnswered?.Invoke(lesson, q);
             _missions = new VisualElement { name = "city-missions" };
@@ -180,8 +220,24 @@ namespace UnpaidCeo.Game.Ui
                 _nav[tab] = b;
             }
 
+            Root.Add(_loan.Root);
+            Root.Add(_transition.Root);
+
             Open(City);
             RefreshHud();
+        }
+
+        /// <summary>Moves to the next chapter when its goal is met: title card, then (chapter 2) the business choice.</summary>
+        public void Advance()
+        {
+            if (_engine == null || !_engine.AdvanceChapter(_state)) return;
+            _transition.Play(_state.Chapter);
+            _decisions.Refresh();
+            _company.Refresh();
+            RefreshHud();
+            ChapterAdvanced?.Invoke(_state.Chapter);
+            if (_state.Chapter == 2 && !_state.Businesses.Any(b => _engine.Content.Industries.TryGetValue(b.IndustryId, out var d) && d.Kind == UnpaidCeo.Core.Economy.IndustryKind.Business))
+                Open(Industry);
         }
 
         static VisualElement Clone(string name)
@@ -210,6 +266,8 @@ namespace UnpaidCeo.Game.Ui
             if (tab == Academy) _academy.Refresh();
             if (tab == Journal) _journal.Refresh();
             if (tab == Settings) _settings.Refresh();
+            if (tab == Industry) _industry.Show(_engine, _state);
+            if (tab == Company) _company.Refresh();
         }
 
         /// <summary>Call after each EndMonth.</summary>
@@ -217,6 +275,7 @@ namespace UnpaidCeo.Game.Ui
         {
             _company.Show(report);
             _decisions.Refresh();
+            _decisions.ShowRejections(report);
             _journal.Refresh();
             _academy.Refresh();
             RefreshHud();
@@ -229,6 +288,13 @@ namespace UnpaidCeo.Game.Ui
             _cash.EnableInClassList("value--negative", _state.Cash.Cents < 0);
             _month.text = _state.Month.ToString();
             _energyFill.style.width = Length.Percent(_state.Life.Energy);
+            if (_engine != null && _chapterBar != null)
+            {
+                var chapter = _engine.Chapter(_state);
+                _chapterFill.style.width = Length.Percent((float)(chapter.Progress * 100));
+                bool canMove = chapter.GoalMet && _state.Chapter < Chapters.LastChapter;
+                _advance.style.display = canMove ? DisplayStyle.Flex : DisplayStyle.None;
+            }
         }
 
         public MonthDecisions CurrentDecisions() => _decisions.Build();
@@ -283,6 +349,12 @@ namespace UnpaidCeo.Game.Ui
             var locale = LocalizationSettings.AvailableLocales.GetLocale(new LocaleIdentifier(code));
             if (locale != null) LocalizationSettings.SelectedLocale = locale;
             else Debug.LogWarning($"Locale '{code}' is not configured");
+            // Load the language's tables before returning, so screens don't show the previous language while they stream in.
+            foreach (var table in new[] { Table, AcademyScreen.Table })
+            {
+                var load = LocalizationSettings.StringDatabase.GetTableAsync(table);
+                if (!load.IsDone) yield return load;
+            }
             Language = code;
             PlayerPrefs.SetString(LanguagePrefsKey, code);
             RefreshHud();

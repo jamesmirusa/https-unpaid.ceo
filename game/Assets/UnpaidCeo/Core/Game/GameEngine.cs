@@ -252,6 +252,7 @@ namespace UnpaidCeo.Core.Game
                 double events = 1.0;
                 foreach (var m in s.Modifiers) if (m.AppliesTo(def)) events *= m.Factor;
                 var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, events, share, district, b.PayrollOverhead));
+                report.BusinessResults[bs.Id] = r;
                 if (def.Kind == IndustryKind.Business && bs.Units >= 1 && (r.Revenue - r.Cogs - r.Fixed - r.Marketing).Cents >= 0)
                     SetOnce(s, "break_even");
                 revenue += r.Revenue; cogs += r.Cogs; fixedCosts += r.Fixed; marketing += r.Marketing; collected += r.CashCollected;
