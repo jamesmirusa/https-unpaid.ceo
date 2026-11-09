@@ -8,39 +8,17 @@ using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Online;
 using UnpaidCeo.Core.Primitives;
 using UnpaidCeo.Core.Tests.Game;
+using static UnpaidCeo.Core.Tests.Online.OnlineRuns;
 
 namespace UnpaidCeo.Core.Tests.Online
 {
     /// <summary>Strict replay (server validation) and scenario starts for challenge and duel runs (stage 2B, Task 1).</summary>
     public class StrictReplayTests
     {
-        static ScenarioDef NoScenario(RunStart r) => null;
-
-        /// <summary>An honest career: the optimal bot plays through GameEngine, so every action is logged.</summary>
-        static (GameEngine e, GameState s) PlayCareer(ulong seed, int months)
-        {
-            var e = new GameEngine(BotRunner.Content());
-            var s = e.NewGame(seed, TestContent.Hero);
-            var bot = new OptimalBot();
-            e.TutorialGig(s);
-            while (s.Month <= months)
-            {
-                foreach (var scene in e.BeginMonth(s).ToList())
-                    e.ChooseStoryletOption(s, scene.Id, bot.PickChoice(e, s, scene));
-                var report = e.EndMonth(s, bot.Decide(e, s));
-                bot.AfterMonth(e, s, report);
-                if (e.Chapter(s).GoalMet && s.Chapter < Chapters.LastChapter && e.AdvanceChapter(s) && s.Chapter == 2)
-                    bot.StartChapter2(e, s, "coffee_cart");
-            }
-            return (e, s);
-        }
-
-        static RunStart Career(GameState s) => new RunStart { Kind = RunStart.Career, Seed = s.Seed, Hero = s.Hero };
-
         [Test]
         public void Strict_replay_matches_the_live_game()
         {
-            var (e, s) = PlayCareer(21, 40);
+            var (e, s, _) = PlayCareer(21, 40);
             Assert.IsTrue(s.Log.Any(l => l.Kind == DecisionLogEntry.ChooseIndustry), "the run reaches chapter 2");
             var r = GameEngine.ReplayStrict(e.Content, Career(s), NoScenario, s.Log);
             Assert.IsTrue(r.Ok, r.Error);
@@ -51,7 +29,7 @@ namespace UnpaidCeo.Core.Tests.Online
         [Test]
         public void Strict_replay_stops_at_the_first_refused_action()
         {
-            var (e, s) = PlayCareer(22, 3);
+            var (e, s, _) = PlayCareer(22, 3);
             var log = s.Log.ToList();
             log.Add(new DecisionLogEntry
             {
@@ -68,7 +46,7 @@ namespace UnpaidCeo.Core.Tests.Online
         [Test]
         public void Strict_replay_reports_a_bad_payload()
         {
-            var (e, s) = PlayCareer(23, 3);
+            var (e, s, _) = PlayCareer(23, 3);
             var log = s.Log.ToList();
             int i = log.FindIndex(l => l.Kind == DecisionLogEntry.EndMonth);
             log[i] = new DecisionLogEntry { Month = log[i].Month, Kind = DecisionLogEntry.EndMonth, Payload = "{not json" };
@@ -80,7 +58,7 @@ namespace UnpaidCeo.Core.Tests.Online
         [Test]
         public void A_second_tutorial_gig_is_refused()
         {
-            var (e, s) = PlayCareer(24, 1);
+            var (e, s, _) = PlayCareer(24, 1);
             var log = s.Log.ToList();
             log.Add(new DecisionLogEntry { Month = s.Month, Kind = DecisionLogEntry.TutorialGig });
             var r = GameEngine.ReplayStrict(e.Content, Career(s), NoScenario, log);
