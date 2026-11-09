@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Builds the game's music loops and UI sound effects.
-#   tools/audio/build_audio.sh <music_day_take.mp3> <music_neon_take.mp3>
-# Music: ElevenLabs Music v2.5 takes (flow wAYaqjuYEpZhQqRRVXuE), made seamless by folding the last
+#   tools/audio/build_audio.sh <music_day_take.mp3> <music_neon_take.mp3>      chapter-1 themes
+#   tools/audio/build_audio.sh music_brooklyn=<take.mp3> music_queens=<take.mp3>   any theme by name
+# Music: ElevenLabs Music v2.5 takes (flows wAYaqjuYEpZhQqRRVXuE for day/neon, x5VjoCtgGk5DIMmJzi7G for the
+# Brooklyn and Queens themes, see tools/voice/generations*.json), made seamless by folding the last
 # 2 s into the first 2 s with an equal-power crossfade, so the loop point has no seam or click.
 # SFX: synthesised here with ffmpeg (original work, CC0), see Assets/UnpaidCeo/Resources/Audio/Sfx/LICENSES.md.
 set -euo pipefail
@@ -24,7 +26,9 @@ loop() {
     -map "[out]" -ar 44100 -codec:a libmp3lame -b:a 160k "$dst"
 }
 
-if [ $# -ge 2 ]; then
+if [ $# -ge 1 ] && [[ "$1" == *=* ]]; then
+  for pair in "$@"; do loop "${pair#*=}" "$MUSIC/${pair%%=*}.mp3"; done
+elif [ $# -ge 2 ]; then
   loop "$1" "$MUSIC/music_day.mp3"
   loop "$2" "$MUSIC/music_neon.mp3"
 fi

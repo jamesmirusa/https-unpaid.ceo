@@ -15,6 +15,18 @@ MonoBehaviour:
   m_GroupName: music
   m_GUID: e52df1ed1f30f42f0af9d6f93b7a8ccd
   m_SerializeEntries:
+  - m_GUID: 2730ae92d50a748c6973a523c2cafdcc
+    m_Address: music_brooklyn
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 50e1e5f394a97405ea5e6c97b65a07aa
+    m_Address: music_queens
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 9f120f803d8d94581ae94664d5cdc7b2
     m_Address: music_day
     m_ReadOnly: 0

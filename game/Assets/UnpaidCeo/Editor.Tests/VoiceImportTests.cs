@@ -6,6 +6,7 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEngine;
+using UnpaidCeo.Game.Audio;
 using Yarn.Unity;
 using Yarn.Unity.Editor;
 
@@ -75,7 +76,8 @@ namespace UnpaidCeo.Editor.Tests
                 var e = settings.FindAssetEntry(AssetDatabase.AssetPathToGUID(f.Replace('\\', '/')));
                 if (e == null || e.address != VoiceAddressables.LessonAddress(id, lang)) wrong.Add(lang + "/" + id);
             }
-            foreach (var address in new[] { VoiceAddressables.MusicDay, VoiceAddressables.MusicNeon })
+            foreach (var address in new[] { VoiceAddressables.MusicDay, VoiceAddressables.MusicNeon,
+                                            AudioAddresses.DistrictMusic("brooklyn"), AudioAddresses.DistrictMusic("queens") })
                 if (!settings.groups.Any(g => g.entries.Any(e => e.address == address))) wrong.Add(address);
             Assert.IsEmpty(wrong, string.Join(", ", wrong));
         }

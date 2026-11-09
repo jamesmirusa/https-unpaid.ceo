@@ -12,6 +12,7 @@ using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Economy;
 using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Platform;
+using UnpaidCeo.Game.Audio;
 using UnpaidCeo.Game.Bootstrap;
 using UnpaidCeo.Game.City;
 using UnpaidCeo.Game.Graphics;
@@ -176,6 +177,10 @@ namespace UnpaidCeo.Game.Tests
                 if (boot != null && boot.Current != GameBootstrap.Phase.Loading) break;
                 yield return null;
             }
+            // A chapter-2 save opens a voiced scene. Yarn Spinner runs a line whose clip finishes loading after
+            // the runner is gone and throws, so let the first line reach the screen before the test moves on.
+            var audio = Object.FindFirstObjectByType<AudioDirector>();
+            for (float t = 0f; audio != null && !audio.VoicePlaying && t < 5f; t += Time.unscaledDeltaTime) yield return null;
         }
 
         static bool Loaded(string scene) => SceneManager.GetSceneByName(scene).isLoaded;
@@ -210,6 +215,44 @@ namespace UnpaidCeo.Game.Tests
             var city = Object.FindFirstObjectByType<CityView>();
             Assert.IsNotNull(city);
             Assert.AreNotSame(brooklyn, city);
+        }
+
+        [UnityTest]
+        public IEnumerator District_music_follows_the_chapter()
+        {
+            var state = new GameEngine(Content()).NewGame(9, new HeroAppearance());
+            state.Chapter = 2;
+            yield return BootWithSave(state);
+            var boot = Object.FindFirstObjectByType<GameBootstrap>();
+            var audio = Object.FindFirstObjectByType<AudioDirector>();
+            Assert.IsNotNull(audio);
+            yield return WaitForTheme(audio, "music_brooklyn");
+            Assert.AreEqual("music_brooklyn", audio.DayTheme, "a chapter-2 save plays the Brooklyn theme");
+            Assert.AreEqual(AudioAddresses.MusicNeon, audio.NightTheme);
+
+            yield return boot.SwapDistrict(3);
+            yield return WaitForTheme(audio, "music_queens");
+            Assert.AreEqual("music_queens", audio.DayTheme, "moving to Queens switches the theme");
+            Assert.IsTrue(audio.MusicPlaying);
+        }
+
+        [UnityTest]
+        public IEnumerator Destroying_the_game_mid_scene_ends_the_scene_loop()
+        {
+            var state = new GameEngine(Content()).NewGame(10, new HeroAppearance());
+            state.Chapter = 2;
+            yield return BootWithSave(state);
+            Assert.IsTrue(Object.FindFirstObjectByType<AudioDirector>().VoicePlaying, "a chapter-2 save opens a voiced scene");
+
+            // Reset (and closing the game) destroys the bootstrap while a scene is on screen: the month's other
+            // pending scenes must not start on the destroyed dialogue runner.
+            Object.Destroy(Object.FindFirstObjectByType<GameBootstrap>().gameObject);
+            for (float t = 0f; t < 3f; t += Time.unscaledDeltaTime) yield return null; // an exception here fails the test
+        }
+
+        static IEnumerator WaitForTheme(AudioDirector audio, string theme)
+        {
+            for (float t = 0f; t < 10f && audio.DayTheme != theme; t += Time.unscaledDeltaTime) yield return null;
         }
     }
 }

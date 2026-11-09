@@ -33,3 +33,4 @@ tools/art/max/rig-full/
 tools/art/max/rig/
 tools/art/restyle/glb/
 tools/art/stage2/glb/
+__pycache__/

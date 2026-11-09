@@ -61,6 +61,8 @@ namespace UnpaidCeo.Game.Bootstrap
         /// <summary>Addressable scene of the chapter's district: Bronx (1), Brooklyn (2), Queens (3).</summary>
         public static string DistrictAddress(int chapter) => "district_" + Chapters.District(chapter);
 
+        static string DistrictMusic(int chapter) => AudioAddresses.DistrictMusic(Chapters.District(chapter));
+
         /// <summary>Loads the district for <paramref name="chapter"/>, then unloads the current one (behind the chapter card).</summary>
         public IEnumerator SwapDistrict(int chapter)
         {
@@ -74,6 +76,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 if (_state != null) _city?.Sync(_state);
                 if (_light != null && Ui != null) _light.Set(Ui.IsNeon ? TimeOfDay.Night : TimeOfDay.Day);
                 PlaceHeroAtHome();
+                if (_audio != null) StartCoroutine(_audio.LoadDayTheme(DistrictMusic(chapter)));
             }
             _swapping = false;
         }
@@ -128,7 +131,7 @@ namespace UnpaidCeo.Game.Bootstrap
 
             _audio = new GameObject("Audio").AddComponent<AudioDirector>();
             _audio.transform.SetParent(transform);
-            StartCoroutine(_audio.LoadMusic(() => _light != null ? _light.NightAmount : 0f));
+            StartCoroutine(_audio.LoadMusic(() => _light != null ? _light.NightAmount : 0f, DistrictMusic(_state.Chapter)));
             BuildDialogue();
             _hero = new GameObject("Hero").AddComponent<HeroView>();
             _hero.gameObject.AddComponent<HeroStroll>();
@@ -292,6 +295,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 _engine.BeginMonth(_state);
                 _yarn.Bind(_engine, _state);
                 await _yarn.PlayPendingAsync();
+                if (this == null || !isActiveAndEnabled) return; // destroyed mid-scene (reset deleted the save): do not write it back
                 Ui?.RefreshHud();
                 SaveService.Save(_state);
                 AfterAction();

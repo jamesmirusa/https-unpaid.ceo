@@ -41,6 +41,11 @@ namespace UnpaidCeo.Editor
             var music = Group(settings, "music");
             Add(settings, music, MusicRoot + "/music_day.mp3", MusicDay);
             Add(settings, music, MusicRoot + "/music_neon.mp3", MusicNeon);
+            foreach (var district in new[] { "brooklyn", "queens" })
+            {
+                var address = AudioAddresses.DistrictMusic(district);
+                Add(settings, music, MusicRoot + "/" + address + ".mp3", address);
+            }
             settings.SetDirty(AddressableAssetSettings.ModificationEvent.BatchModification, null, true, true);
             AssetDatabase.SaveAssets();
         }

@@ -15,6 +15,18 @@ MonoBehaviour:
   m_GroupName: voice_lessons
   m_GUID: 165fdef372abd460eb182ed3f7c0d478
   m_SerializeEntries:
+  - m_GUID: 09f64201ce9014d5284e14b121f0a298
+    m_Address: lesson_en_llc
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 0a2909a17ca59422cac7653e3041ef30
+    m_Address: lesson_ru_unit_economics
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 269bd9cf1b55644c9a4b23d364ea7118
     m_Address: lesson_ru_cash_gap
     m_ReadOnly: 0
@@ -33,6 +45,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
+  - m_GUID: 4da619e98bef24d65b1ccaa63f004977
+    m_Address: lesson_ru_pricing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 55d6dd948963640eabc82f47c7038535
     m_Address: lesson_ru_first_loss
     m_ReadOnly: 0
@@ -45,8 +63,44 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
+  - m_GUID: 5d1b6a11a0e79455e96c88bf86c58895
+    m_Address: lesson_en_cac_ltv
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 5e4309943a59d4561a13077a73773e0f
+    m_Address: lesson_ru_payroll
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 61f73f24eafd647fdbb3e0cf19bbe037
+    m_Address: lesson_ru_loans
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 677c58083dac948f282bfde7c98c9746
+    m_Address: lesson_en_hiring
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 6dcb7f4d7caf248618b02d6213b878c7
+    m_Address: lesson_ru_cash_gap_b2b
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 87b2be4494bb44e4ca0cf8be52f120b3
     m_Address: lesson_en_cash_gap
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 889b4b89de7384fa89d47a280c48c0ac
+    m_Address: lesson_ru_llc
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -57,8 +111,32 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
+  - m_GUID: 8f0b91c24742949069515af2cccee2b3
+    m_Address: lesson_en_pricing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 8f873f1f33dfa457aaaa1fcdfb744b89
+    m_Address: lesson_en_payroll
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 926339af52b954d71934abb24e787709
     m_Address: lesson_ru_reserve
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 964d02f77cf08441f95f7fc3cbad050a
+    m_Address: lesson_ru_hiring
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: af738191711fe4845a40129ecea9b489
+    m_Address: lesson_ru_cac_ltv
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -71,6 +149,36 @@ MonoBehaviour:
     m_FolderGuid: 
   - m_GUID: d07f514e297484aeebee1cb9fddc280e
     m_Address: lesson_en_revenue_vs_profit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: d6a71e319a35d42e085c49e651797860
+    m_Address: lesson_ru_estimated_taxes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: dbf1e9232f9b046eb909fdfd52091807
+    m_Address: lesson_en_loans
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: e51e2569e8db142b79aa1e9260f2e5db
+    m_Address: lesson_en_cash_gap_b2b
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: eed228e8c06294be593724b396076f9c
+    m_Address: lesson_en_unit_economics
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: f61c727ffb57b4c1bb81fe7a37bacaaa
+    m_Address: lesson_en_estimated_taxes
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

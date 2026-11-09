@@ -6,6 +6,9 @@ namespace UnpaidCeo.Game.Audio
         public const string MusicDay = "music_day";
         public const string MusicNeon = "music_neon";
 
+        /// <summary>Day theme of a district (Chapters.District): the Bronx keeps the chapter-1 theme. Neon nights share <see cref="MusicNeon"/>.</summary>
+        public static string DistrictMusic(string district) => district == "bronx" ? MusicDay : "music_" + district;
+
         /// <summary>Same format as Yarn Spinner's Localization.GetAddressForLine (guarded by an editor test).</summary>
         public static string Line(string lineId, string lang) => "line_" + lang + "_" + lineId.Replace("line:", "");
 

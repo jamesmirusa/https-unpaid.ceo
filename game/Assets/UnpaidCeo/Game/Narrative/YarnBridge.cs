@@ -65,13 +65,17 @@ namespace UnpaidCeo.Game.Narrative
             return colon > 0 && colon < 24 ? text.Substring(colon + 2) : text;
         }
 
-        /// <summary>Plays every storylet still pending this month, one after another.</summary>
+        /// <summary>
+        /// Plays every storylet still pending this month, one after another. Stops when the bridge is destroyed
+        /// (reset, closing the game): the next scene must not start on a destroyed dialogue runner.
+        /// </summary>
         public async YarnTask PlayPendingAsync()
         {
             if (_engine == null || _state == null) throw new InvalidOperationException("YarnBridge.Bind must be called first");
             var byId = _engine.Content.Storylets.ToDictionary(s => s.Id);
             foreach (var id in _state.PendingStorylets.ToList())
             {
+                if (this == null || !isActiveAndEnabled) return;
                 if (!byId.TryGetValue(id, out var storylet)) { Debug.LogError($"Unknown pending storylet '{id}'"); continue; }
                 await PlayAsync(storylet);
             }

@@ -1336,6 +1336,1414 @@
     "Теперь жми «Следующий месяц». Город пришлёт счёт, и посмотрим, что у тебя осталось на самом деле."
    ],
    "prompt": "Эй, новенький. Нулевой урок — бесплатно. Приложению доставки прямо сейчас нужен курьер. Бери заказ. [long pause] Сорок баксов. Это выручка — деньги, которые пришли. Прибыль — то, что останется после велосипеда, связи и налогов. [long pause] Теперь жми «Следующий месяц». Город пришлёт счёт, и посмотрим, что у тебя осталось на самом деле."
+  },
+  {
+   "id": "s2_en_unpaidceo_00",
+   "lang": "en",
+   "speaker": "Unpaid CEO",
+   "voice": "JS8l7lQwh35gDnA8DTXd",
+   "kind": "yarn",
+   "lines": [
+    "boss_fatcat_price_war_03",
+    "boss_fatcat_price_war_09",
+    "ch2_clean_first_hire_02",
+    "ch2_clean_first_hire_04",
+    "ch2_clean_first_hire_06",
+    "ch2_coffee_math_01",
+    "ch2_coffee_math_02",
+    "ch2_coffee_math_04",
+    "ch2_coffee_math_06",
+    "ch2_truck_price_02"
+   ],
+   "texts": [
+    "He can lose money longer than you can. Don't fight him where he's strongest.",
+    "Price is a race to the bottom. Loyalty is a race he doesn't know how to run.",
+    "You can keep doing every job yourself, or you can start building a company. Pick one.",
+    "Payroll, insurance, a real contract. Now you're a boss with paperwork.",
+    "Your knees will remind you of this conversation.",
+    "Before you pour a single latte, give me one cup. Not to drink. To count.",
+    "Beans, milk, lid, sleeve, the cup itself. What does one cup really cost you?",
+    "A dollar twenty. Now you know what four dollars is really worth.",
+    "Volume hides mistakes. For a while.",
+    "Eat the cost, cut the portion, or raise the price. Each one teaches you something."
+   ],
+   "prompt": "He can lose money longer than you can. Don't fight him where he's strongest. [long pause] Price is a race to the bottom. Loyalty is a race he doesn't know how to run. [long pause] You can keep doing every job yourself, or you can start building a company. Pick one. [long pause] Payroll, insurance, a real contract. Now you're a boss with paperwork. [long pause] Your knees will remind you of this conversation. [long pause] Before you pour a single latte, give me one cup. Not to drink. To count. [long pause] Beans, milk, lid, sleeve, the cup itself. What does one cup really cost you? [long pause] A dollar twenty. Now you know what four dollars is really worth. [long pause] Volume hides mistakes. For a while. [long pause] Eat the cost, cut the portion, or raise the price. Each one teaches you something."
+  },
+  {
+   "id": "s2_en_unpaidceo_01",
+   "lang": "en",
+   "speaker": "Unpaid CEO",
+   "voice": "JS8l7lQwh35gDnA8DTXd",
+   "kind": "yarn",
+   "lines": [
+    "ch3_sam_equity_02"
+   ],
+   "texts": [
+    "Equity is forever. Founders usually vest it over four years with a one-year cliff."
+   ],
+   "prompt": "Equity is forever. Founders usually vest it over four years with a one-year cliff."
+  },
+  {
+   "id": "s2_en_narrator_00",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_agency_leads_01",
+    "ch2_agency_leads_02",
+    "ch2_agency_leads_04",
+    "ch2_agency_leads_06",
+    "ch2_agency_scope_01",
+    "ch2_agency_scope_02",
+    "ch2_agency_scope_04",
+    "ch2_agency_scope_06",
+    "ch2_agency_late_01",
+    "ch2_agency_late_03"
+   ],
+   "texts": [
+    "You have two ways to find clients this month. Paid ads on a professional network, or asking happy clients for referrals.",
+    "The ads promise leads at forty dollars each. Referrals cost a thank-you dinner.",
+    "Twelve calls, two clients. Now you know exactly what one costs.",
+    "Slower, but the new clients already trust you.",
+    "A bakery client loves the chatbot you built. Now they want it to take orders, manage stock and post on social media.",
+    "For the same price, of course.",
+    "They grumble, then sign. Clear scope, clear money.",
+    "You work three weekends for free. They tell everyone how flexible you are.",
+    "A real estate firm owes you four thousand dollars. The invoice is forty days old. Rent is due Friday.",
+    "Half now, half in two weeks. You also add a late fee clause to every new contract."
+   ],
+   "prompt": "You have two ways to find clients this month. Paid ads on a professional network, or asking happy clients for referrals. [long pause] The ads promise leads at forty dollars each. Referrals cost a thank-you dinner. [long pause] Twelve calls, two clients. Now you know exactly what one costs. [long pause] Slower, but the new clients already trust you. [long pause] A bakery client loves the chatbot you built. Now they want it to take orders, manage stock and post on social media. [long pause] For the same price, of course. [long pause] They grumble, then sign. Clear scope, clear money. [long pause] You work three weekends for free. They tell everyone how flexible you are. [long pause] A real estate firm owes you four thousand dollars. The invoice is forty days old. Rent is due Friday. [long pause] Half now, half in two weeks. You also add a late fee clause to every new contract."
+  },
+  {
+   "id": "s2_en_narrator_01",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_agency_late_05",
+    "ch2_agency_privacy_01",
+    "ch2_agency_privacy_03",
+    "ch2_agency_privacy_05",
+    "ch2_agency_tools_01",
+    "ch2_agency_tools_03",
+    "ch2_agency_tools_05",
+    "ch2_agency_pitch_01",
+    "ch2_agency_pitch_03",
+    "ch2_agency_pitch_05"
+   ],
+   "texts": [
+    "You put rent on a credit card. They pay in month three.",
+    "A clinic wants a bot trained on its patient emails. Faster, they say. Nobody will know.",
+    "It takes longer. Their lawyer later thanks you in writing.",
+    "The invoice clears. You stop sleeping well.",
+    "Your AI tool subscriptions crept up to six hundred dollars a month. Half of them you opened twice.",
+    "Three hundred a month back. Nothing breaks.",
+    "You might. The bill definitely needs you.",
+    "A grocery chain with twelve stores invites you to pitch. They want automated inventory alerts.",
+    "The demo flags a real shortage live in the meeting. You win the contract.",
+    "They thank you politely and pick the team with a demo."
+   ],
+   "prompt": "You put rent on a credit card. They pay in month three. [long pause] A clinic wants a bot trained on its patient emails. Faster, they say. Nobody will know. [long pause] It takes longer. Their lawyer later thanks you in writing. [long pause] The invoice clears. You stop sleeping well. [long pause] Your AI tool subscriptions crept up to six hundred dollars a month. Half of them you opened twice. [long pause] Three hundred a month back. Nothing breaks. [long pause] You might. The bill definitely needs you. [long pause] A grocery chain with twelve stores invites you to pitch. They want automated inventory alerts. [long pause] The demo flags a real shortage live in the meeting. You win the contract. [long pause] They thank you politely and pick the team with a demo."
+  },
+  {
+   "id": "s2_en_narrator_02",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_banker_intro_01",
+    "ch2_rosa_intro_01",
+    "ch2_mia_intro_01",
+    "ch2_sam_intro_01",
+    "ch2_block_party_01",
+    "ch2_block_party_03",
+    "ch2_block_party_05",
+    "boss_fatcat_price_war_01",
+    "boss_fatcat_price_war_05",
+    "boss_fatcat_price_war_07"
+   ],
+   "texts": [
+    "An owl in a tweed vest knocks on your door with a business card. Community bank, Atlantic Avenue.",
+    "A hen in steel-toe boots drops a box of samples on your counter and doesn't wait to be asked.",
+    "A fox with a voice recorder stops you outside. She writes for a Brooklyn neighborhood news site.",
+    "Sam, a beaver you studied with, shows up with two coffees and a spreadsheet.",
+    "Your block is throwing a summer party. The organizers ask local businesses to chip in three hundred dollars.",
+    "Kids in face paint, neighbors with your flyers. Good afternoon.",
+    "You hear the music from the shop. Nobody comes in.",
+    "A banner goes up across the street. Same business as yours, twenty percent cheaper. Grand opening.",
+    "For three months his banner is louder than your quality.",
+    "Customers stay. Your margin goes to war instead of you."
+   ],
+   "prompt": "An owl in a tweed vest knocks on your door with a business card. Community bank, Atlantic Avenue. [long pause] A hen in steel-toe boots drops a box of samples on your counter and doesn't wait to be asked. [long pause] A fox with a voice recorder stops you outside. She writes for a Brooklyn neighborhood news site. [long pause] Sam, a beaver you studied with, shows up with two coffees and a spreadsheet. [long pause] Your block is throwing a summer party. The organizers ask local businesses to chip in three hundred dollars. [long pause] Kids in face paint, neighbors with your flyers. Good afternoon. [long pause] You hear the music from the shop. Nobody comes in. [long pause] A banner goes up across the street. Same business as yours, twenty percent cheaper. Grand opening. [long pause] For three months his banner is louder than your quality. [long pause] Customers stay. Your margin goes to war instead of you."
+  },
+  {
+   "id": "s2_en_narrator_03",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_clean_first_hire_01",
+    "ch2_clean_vase_01",
+    "ch2_clean_vase_03",
+    "ch2_clean_vase_05",
+    "ch2_clean_office_01",
+    "ch2_clean_office_02",
+    "ch2_clean_office_04",
+    "ch2_clean_office_06",
+    "ch2_clean_cash_01",
+    "ch2_clean_cash_03"
+   ],
+   "texts": [
+    "You clean four apartments a day and turn down three more. Your back has opinions about it.",
+    "A crash from the living room. A client's vase lies in pieces. She says it cost four hundred dollars.",
+    "She books you every week after that. You buy liability insurance the same day.",
+    "She finds a receipt for a hundred and fifty. She also finds another cleaner.",
+    "A coworking space wants nightly cleaning on a twelve-month contract. Great money, paid net 30.",
+    "You'd need someone working every night of the week.",
+    "Steady revenue. Steady salaries, too, that leave before the client pays.",
+    "You keep your evenings. Someone else gets the contract.",
+    "A new cleaner asks to be paid cash, off the books. Cheaper for both of us, she says.",
+    "It costs more. If she gets hurt on the job, she's covered."
+   ],
+   "prompt": "You clean four apartments a day and turn down three more. Your back has opinions about it. [long pause] A crash from the living room. A client's vase lies in pieces. She says it cost four hundred dollars. [long pause] She books you every week after that. You buy liability insurance the same day. [long pause] She finds a receipt for a hundred and fifty. She also finds another cleaner. [long pause] A coworking space wants nightly cleaning on a twelve-month contract. Great money, paid net 30. [long pause] You'd need someone working every night of the week. [long pause] Steady revenue. Steady salaries, too, that leave before the client pays. [long pause] You keep your evenings. Someone else gets the contract. [long pause] A new cleaner asks to be paid cash, off the books. Cheaper for both of us, she says. [long pause] It costs more. If she gets hurt on the job, she's covered."
+  },
+  {
+   "id": "s2_en_narrator_04",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_clean_cash_05",
+    "ch2_clean_green_01",
+    "ch2_clean_green_03",
+    "ch2_clean_green_05",
+    "ch2_clean_referral_01",
+    "ch2_clean_referral_03",
+    "ch2_clean_referral_05",
+    "ch2_coffee_inspector_01",
+    "ch2_coffee_inspector_02",
+    "ch2_coffee_inspector_04"
+   ],
+   "texts": [
+    "You save a little every week and worry about it every night.",
+    "Two clients ask whether you use non-toxic products. They have kids and a cat.",
+    "Your flyer now says safe for kids and pets. The phone rings more.",
+    "Floors shine. One family quietly cancels.",
+    "Half your new clients came from one building on Eastern Parkway. The doorman knows everyone.",
+    "Twenty-five dollars for a client who stays a year. Best ad you've ever bought.",
+    "He grins. Tony taught him the same trick years ago.",
+    "A city inspector in a reflective vest circles your cart twice and taps the expired sticker on the window.",
+    "Your mobile vending permit renewal is three weeks late.",
+    "The inspector nods. A clean sticker goes on the glass."
+   ],
+   "prompt": "You save a little every week and worry about it every night. [long pause] Two clients ask whether you use non-toxic products. They have kids and a cat. [long pause] Your flyer now says safe for kids and pets. The phone rings more. [long pause] Floors shine. One family quietly cancels. [long pause] Half your new clients came from one building on Eastern Parkway. The doorman knows everyone. [long pause] Twenty-five dollars for a client who stays a year. Best ad you've ever bought. [long pause] He grins. Tony taught him the same trick years ago. [long pause] A city inspector in a reflective vest circles your cart twice and taps the expired sticker on the window. [long pause] Your mobile vending permit renewal is three weeks late. [long pause] The inspector nods. A clean sticker goes on the glass."
+  },
+  {
+   "id": "s2_en_narrator_05",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_coffee_inspector_06",
+    "ch2_coffee_oatmilk_01",
+    "ch2_coffee_oatmilk_02",
+    "ch2_coffee_oatmilk_04",
+    "ch2_coffee_oatmilk_06",
+    "ch2_coffee_oatmilk_08",
+    "ch2_coffee_loyalty_01",
+    "ch2_coffee_loyalty_02",
+    "ch2_coffee_loyalty_04",
+    "ch2_coffee_loyalty_06"
+   ],
+   "texts": [
+    "You win the argument and lose two days of sales while the cart sits closed.",
+    "Every third customer asks the same thing. Do you have oat milk?",
+    "A carton costs you about forty cents per drink. The café across the street charges seventy-five cents extra.",
+    "The line gets longer. So does the list of things you have to keep in stock.",
+    "People love it. Your margin feels it every single cup.",
+    "Fewer cartons, fewer decisions, a few customers walking past.",
+    "A nurse who buys two coffees every morning holds up a punch card from a chain store.",
+    "Ten stamps and the next one is free. You don't do that, she says. Should you?",
+    "Free coffee costs a dollar twenty. A regular who stays a year is worth far more.",
+    "She still buys. Her coworkers try the chain."
+   ],
+   "prompt": "You win the argument and lose two days of sales while the cart sits closed. [long pause] Every third customer asks the same thing. Do you have oat milk? [long pause] A carton costs you about forty cents per drink. The café across the street charges seventy-five cents extra. [long pause] The line gets longer. So does the list of things you have to keep in stock. [long pause] People love it. Your margin feels it every single cup. [long pause] Fewer cartons, fewer decisions, a few customers walking past. [long pause] A nurse who buys two coffees every morning holds up a punch card from a chain store. [long pause] Ten stamps and the next one is free. You don't do that, she says. Should you? [long pause] Free coffee costs a dollar twenty. A regular who stays a year is worth far more. [long pause] She still buys. Her coworkers try the chain."
+  },
+  {
+   "id": "s2_en_narrator_06",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_coffee_rain_01",
+    "ch2_coffee_rain_03",
+    "ch2_coffee_rain_05",
+    "ch2_truck_spot_01",
+    "ch2_truck_spot_02",
+    "ch2_truck_spot_04",
+    "ch2_truck_spot_06",
+    "ch2_truck_spot_08",
+    "ch2_truck_festival_01",
+    "ch2_truck_festival_02"
+   ],
+   "texts": [
+    "A week of cold rain. The subway stairs are empty, and so is your tip jar.",
+    "Wet commuters find you. Your shoes never dry.",
+    "You sleep ten hours. The cart sleeps too.",
+    "You pull into the spot outside the hospital at six in the morning. Another truck is already there.",
+    "Its owner leans out the window. I've parked here for nine years, friend.",
+    "Mondays to Wednesdays are yours. He even tells you which nurses tip.",
+    "You get the spot. You also get a parking ticket every week from someone who knows the rules better.",
+    "Students are broke but loyal. You add a five-dollar plate.",
+    "A weekend street festival in Prospect Park offers you a vendor slot. The fee is eight hundred dollars, up front.",
+    "Last year's vendors say a good truck clears three thousand. A rainy one clears nothing."
+   ],
+   "prompt": "A week of cold rain. The subway stairs are empty, and so is your tip jar. [long pause] Wet commuters find you. Your shoes never dry. [long pause] You sleep ten hours. The cart sleeps too. [long pause] You pull into the spot outside the hospital at six in the morning. Another truck is already there. [long pause] Its owner leans out the window. I've parked here for nine years, friend. [long pause] Mondays to Wednesdays are yours. He even tells you which nurses tip. [long pause] You get the spot. You also get a parking ticket every week from someone who knows the rules better. [long pause] Students are broke but loyal. You add a five-dollar plate. [long pause] A weekend street festival in Prospect Park offers you a vendor slot. The fee is eight hundred dollars, up front. [long pause] Last year's vendors say a good truck clears three thousand. A rainy one clears nothing."
+  },
+  {
+   "id": "s2_en_narrator_07",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_truck_festival_04",
+    "ch2_truck_festival_06",
+    "ch2_truck_fdny_01",
+    "ch2_truck_fdny_03",
+    "ch2_truck_fdny_05",
+    "ch2_truck_price_01",
+    "ch2_truck_price_04",
+    "ch2_truck_price_06",
+    "ch2_truck_price_08",
+    "ch2_truck_generator_01"
+   ],
+   "texts": [
+    "Sunshine. You sell out by four and still have a line.",
+    "You spend Saturday with family. Sunday you hear it was a record crowd.",
+    "An FDNY inspector checks the propane tanks on your truck. One valve is past its test date.",
+    "New valve, new certificate, one lost day. You sleep better.",
+    "He comes back. The fine costs more than the valve ever would.",
+    "Chicken prices jumped fifteen percent. Your ten-dollar plate now leaves you two dollars less.",
+    "A few regulars grumble. Almost all of them still order.",
+    "Nobody says anything. They just come a little less often.",
+    "Customers stay happy. Your margin gets thinner.",
+    "The generator coughs, sputters and dies during the lunch rush. Twenty people stare at you."
+   ],
+   "prompt": "Sunshine. You sell out by four and still have a line. [long pause] You spend Saturday with family. Sunday you hear it was a record crowd. [long pause] An FDNY inspector checks the propane tanks on your truck. One valve is past its test date. [long pause] New valve, new certificate, one lost day. You sleep better. [long pause] He comes back. The fine costs more than the valve ever would. [long pause] Chicken prices jumped fifteen percent. Your ten-dollar plate now leaves you two dollars less. [long pause] A few regulars grumble. Almost all of them still order. [long pause] Nobody says anything. They just come a little less often. [long pause] Customers stay happy. Your margin gets thinner. [long pause] The generator coughs, sputters and dies during the lunch rush. Twenty people stare at you."
+  },
+  {
+   "id": "s2_en_narrator_08",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_truck_generator_03",
+    "ch2_truck_generator_05",
+    "ch2_truck_viral_01",
+    "ch2_truck_viral_03",
+    "ch2_truck_viral_05",
+    "ch2_box_net60_01",
+    "ch2_box_net60_02",
+    "ch2_box_net60_04",
+    "ch2_box_net60_06",
+    "ch2_box_fuel_01"
+   ],
+   "texts": [
+    "People leave with something and a story. You call a mechanic.",
+    "Expensive, but it purrs. No more praying at noon.",
+    "A food blogger with a million followers posts your lamb plate. Your phone will not stop buzzing.",
+    "Lines for two weeks. You learn exactly how much one person can grill.",
+    "Fewer plates than you could sell, but every one is right.",
+    "A furniture warehouse offers steady routes, five days a week. Their terms are net 60.",
+    "Fuel, tolls and your driver's pay are due every week.",
+    "They agree to net 30 if you start Monday. You start Monday.",
+    "The work pours in. The money arrives two months later.",
+    "Diesel jumps forty cents a gallon overnight. Your contracts don't say who pays for that."
+   ],
+   "prompt": "People leave with something and a story. You call a mechanic. [long pause] Expensive, but it purrs. No more praying at noon. [long pause] A food blogger with a million followers posts your lamb plate. Your phone will not stop buzzing. [long pause] Lines for two weeks. You learn exactly how much one person can grill. [long pause] Fewer plates than you could sell, but every one is right. [long pause] A furniture warehouse offers steady routes, five days a week. Their terms are net 60. [long pause] Fuel, tolls and your driver's pay are due every week. [long pause] They agree to net 30 if you start Monday. You start Monday. [long pause] The work pours in. The money arrives two months later. [long pause] Diesel jumps forty cents a gallon overnight. Your contracts don't say who pays for that."
+  },
+  {
+   "id": "s2_en_narrator_09",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_box_fuel_03",
+    "ch2_box_fuel_05",
+    "ch2_box_overweight_01",
+    "ch2_box_overweight_03",
+    "ch2_box_overweight_05",
+    "ch2_box_driver_ot_01",
+    "ch2_box_driver_ot_03",
+    "ch2_box_driver_ot_05",
+    "ch2_box_rush_01",
+    "ch2_box_rush_03"
+   ],
+   "texts": [
+    "Most clients accept it. The industry does it, and now so do you.",
+    "They don't, this month.",
+    "A client asks you to take one more pallet. It would put the truck over its weight limit.",
+    "An extra hour on the BQE. Everything arrives in one piece.",
+    "A weigh station on the way. The ticket wipes out a week of profit.",
+    "Your driver logged fifty-two hours this week. Overtime starts after forty.",
+    "Time and a half adds up fast. A second driver starts to look cheaper.",
+    "He takes the day and checks the labor rules that night.",
+    "A bakery's supplier van broke down. They need flour across Brooklyn by five a.m. and will pay triple.",
+    "Flour on time, croissants on time. The owner saves your number."
+   ],
+   "prompt": "Most clients accept it. The industry does it, and now so do you. [long pause] They don't, this month. [long pause] A client asks you to take one more pallet. It would put the truck over its weight limit. [long pause] An extra hour on the BQE. Everything arrives in one piece. [long pause] A weigh station on the way. The ticket wipes out a week of profit. [long pause] Your driver logged fifty-two hours this week. Overtime starts after forty. [long pause] Time and a half adds up fast. A second driver starts to look cheaper. [long pause] He takes the day and checks the labor rules that night. [long pause] A bakery's supplier van broke down. They need flour across Brooklyn by five a.m. and will pay triple. [long pause] Flour on time, croissants on time. The owner saves your number."
+  },
+  {
+   "id": "s2_en_narrator_10",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_box_rush_05",
+    "ch2_box_insurance_01",
+    "ch2_box_insurance_03",
+    "ch2_box_insurance_05",
+    "ch2_resale_jacket_01",
+    "ch2_resale_jacket_02",
+    "ch2_resale_jacket_04",
+    "ch2_resale_jacket_06",
+    "ch2_resale_fake_01",
+    "ch2_resale_fake_02"
+   ],
+   "texts": [
+    "You sleep through it. Somebody else gets a new client.",
+    "Your commercial auto insurance renewal arrives. Twenty percent higher than last year.",
+    "A broker finds the same coverage for less. An afternoon well spent.",
+    "Quick and expensive.",
+    "A real 1990s varsity jacket lands on your counter. You paid fifteen dollars for it at an estate sale.",
+    "Online, the same jacket goes for anywhere between forty and a hundred and twenty.",
+    "Sold listings say eighty. It goes in four days at eighty.",
+    "Gone in an hour. The buyer relists it the same night for a hundred.",
+    "A guy offers you ten designer bags for two hundred dollars. The stitching is a little too perfect.",
+    "Sell them as real and you could clear two thousand."
+   ],
+   "prompt": "You sleep through it. Somebody else gets a new client. [long pause] Your commercial auto insurance renewal arrives. Twenty percent higher than last year. [long pause] A broker finds the same coverage for less. An afternoon well spent. [long pause] Quick and expensive. [long pause] A real 1990s varsity jacket lands on your counter. You paid fifteen dollars for it at an estate sale. [long pause] Online, the same jacket goes for anywhere between forty and a hundred and twenty. [long pause] Sold listings say eighty. It goes in four days at eighty. [long pause] Gone in an hour. The buyer relists it the same night for a hundred. [long pause] A guy offers you ten designer bags for two hundred dollars. The stitching is a little too perfect. [long pause] Sell them as real and you could clear two thousand."
+  },
+  {
+   "id": "s2_en_narrator_11",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_resale_fake_04",
+    "ch2_resale_fake_06",
+    "ch2_resale_fakes_review_01",
+    "ch2_resale_fakes_review_03",
+    "ch2_resale_fakes_review_05",
+    "ch2_resale_drop_01",
+    "ch2_resale_drop_05",
+    "ch2_resale_consign_01",
+    "ch2_resale_consign_02",
+    "ch2_resale_consign_04"
+   ],
+   "texts": [
+    "He shrugs and tries the next store. Word gets around that you don't play.",
+    "The money is fast. A review calling your store a scam is faster.",
+    "A customer posts a video taking the bag apart at the seams. Two hundred thousand views by lunch.",
+    "It hurts. But the comments slowly change from scam to at least they owned it.",
+    "The internet keeps screenshots. Foot traffic drops for weeks.",
+    "You have a rack of rare sneakers. Jay says a Friday night drop on social media could pack the store.",
+    "Steady sales, no crowd, no buzz.",
+    "A collector wants you to sell her closet on consignment. She keeps sixty percent, you keep forty.",
+    "No money up front, but the racks will be full of her clothes for months.",
+    "Her friends start dropping by. Some of them have closets too."
+   ],
+   "prompt": "He shrugs and tries the next store. Word gets around that you don't play. [long pause] The money is fast. A review calling your store a scam is faster. [long pause] A customer posts a video taking the bag apart at the seams. Two hundred thousand views by lunch. [long pause] It hurts. But the comments slowly change from scam to at least they owned it. [long pause] The internet keeps screenshots. Foot traffic drops for weeks. [long pause] You have a rack of rare sneakers. Jay says a Friday night drop on social media could pack the store. [long pause] Steady sales, no crowd, no buzz. [long pause] A collector wants you to sell her closet on consignment. She keeps sixty percent, you keep forty. [long pause] No money up front, but the racks will be full of her clothes for months. [long pause] Her friends start dropping by. Some of them have closets too."
+  },
+  {
+   "id": "s2_en_narrator_12",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "ch2_resale_consign_06",
+    "ch2_resale_shoplifter_01",
+    "ch2_resale_shoplifter_03",
+    "ch2_resale_shoplifter_05",
+    "ch3_mia_feature_05",
+    "ch3_night_market_01",
+    "ch3_night_market_03",
+    "ch3_night_market_05",
+    "boss_fatcat_poach_01",
+    "boss_fatcat_poach_04"
+   ],
+   "texts": [
+    "You pay more today and keep every dollar of the markup.",
+    "A teenager slips a beanie into his hoodie. You see it on the mirror. He sees you seeing it.",
+    "He puts it back. A week later he brings his older sister to shop.",
+    "You lose the afternoon to a report about a twelve-dollar beanie.",
+    "The article glows. A competitor's accountant starts doing math.",
+    "The Queens Night Market in Flushing Meadows has an open vendor spot this Saturday.",
+    "Ten thousand people, forty languages, one very long night.",
+    "You walk through it as a customer. Dumplings taste better when you're not selling.",
+    "Your two best people come in together. Mr. Whiskerton offered them twenty percent more to switch.",
+    "They stay. Payroll grows, and so does their loyalty."
+   ],
+   "prompt": "You pay more today and keep every dollar of the markup. [long pause] A teenager slips a beanie into his hoodie. You see it on the mirror. He sees you seeing it. [long pause] He puts it back. A week later he brings his older sister to shop. [long pause] You lose the afternoon to a report about a twelve-dollar beanie. [long pause] The article glows. A competitor's accountant starts doing math. [long pause] The Queens Night Market in Flushing Meadows has an open vendor spot this Saturday. [long pause] Ten thousand people, forty languages, one very long night. [long pause] You walk through it as a customer. Dumplings taste better when you're not selling. [long pause] Your two best people come in together. Mr. Whiskerton offered them twenty percent more to switch. [long pause] They stay. Payroll grows, and so does their loyalty."
+  },
+  {
+   "id": "s2_en_narrator_13",
+   "lang": "en",
+   "speaker": "Narrator",
+   "voice": "KYpkPJwl1dpLc9QpMwnO",
+   "kind": "yarn",
+   "lines": [
+    "boss_fatcat_poach_06",
+    "boss_fatcat_poach_08"
+   ],
+   "texts": [
+    "Two empty stations on Monday. The rest of the team noticed.",
+    "One stays for the future you described. One leaves for the money."
+   ],
+   "prompt": "Two empty stations on Monday. The rest of the team noticed. [long pause] One stays for the future you described. One leaves for the money."
+  },
+  {
+   "id": "s2_en_jay_00",
+   "lang": "en",
+   "speaker": "Jay",
+   "voice": "OwEAPhTFInN6VSRT9QXm",
+   "kind": "yarn",
+   "lines": [
+    "ch2_resale_drop_03",
+    "ch3_burnout_01",
+    "ch3_burnout_03",
+    "ch3_burnout_05"
+   ],
+   "texts": [
+    "Told you. Line around the block. You owe me a slice.",
+    "When did you last take a day off? Don't answer. I can see it on your face.",
+    "Look at that. The business survived without you. That's called a business.",
+    "One more month. That's what you said last month."
+   ],
+   "prompt": "Told you. Line around the block. You owe me a slice. [long pause] When did you last take a day off? Don't answer. I can see it on your face. [long pause] Look at that. The business survived without you. That's called a business. [long pause] One more month. That's what you said last month."
+  },
+  {
+   "id": "s2_en_mom_00",
+   "lang": "en",
+   "speaker": "Mom",
+   "voice": "YyRJWuwyhKdMZRRnm464",
+   "kind": "yarn",
+   "lines": [
+    "ch2_mom_visit_01",
+    "ch2_mom_visit_03",
+    "ch2_mom_visit_05"
+   ],
+   "texts": [
+    "So this is the famous Brooklyn studio. It's small. Is the business doing well, or are you just saying that?",
+    "You look tired, but proud. That's how your grandfather looked.",
+    "Numbers are nice. Call me sometime without them."
+   ],
+   "prompt": "So this is the famous Brooklyn studio. It's small. Is the business doing well, or are you just saying that? [long pause] You look tired, but proud. That's how your grandfather looked. [long pause] Numbers are nice. Call me sometime without them."
+  },
+  {
+   "id": "s2_en_mrwhiskerton_00",
+   "lang": "en",
+   "speaker": "Mr. Whiskerton",
+   "voice": "qkG6pQFWpZTnYnoQZGFs",
+   "kind": "yarn",
+   "lines": [
+    "boss_fatcat_price_war_02",
+    "boss_fatcat_poach_02"
+   ],
+   "texts": [
+    "Remember me? Your old landlord. I liked your idea so much I bought one too. Let's see who lasts.",
+    "Nothing personal. I just hire the best. You trained them so nicely."
+   ],
+   "prompt": "Remember me? Your old landlord. I liked your idea so much I bought one too. Let's see who lasts. [long pause] Nothing personal. I just hire the best. You trained them so nicely."
+  },
+  {
+   "id": "s2_en_mslee_00",
+   "lang": "en",
+   "speaker": "Ms. Lee",
+   "voice": "J7gii3pWdApH2b9t8Q3G",
+   "kind": "yarn",
+   "lines": [
+    "ch2_banker_intro_02",
+    "ch2_banker_intro_04",
+    "ch2_banker_intro_06",
+    "ch3_banker_review_01",
+    "ch3_banker_review_03",
+    "ch3_banker_review_05"
+   ],
+   "texts": [
+    "I'm Ms. Lee. I lend to small businesses in this neighborhood. I like to meet owners before they need me.",
+    "Clean books. Rare. Call me before you buy your next unit, not after.",
+    "Everyone says that. The smart ones do.",
+    "Two locations now. Congratulations. Let me ask the question nobody asks. How many months could you survive with zero sales?",
+    "That's how I know who to lend to. The ones who don't need it tomorrow.",
+    "Growth is great until the first bad month. Keep my number close."
+   ],
+   "prompt": "I'm Ms. Lee. I lend to small businesses in this neighborhood. I like to meet owners before they need me. [long pause] Clean books. Rare. Call me before you buy your next unit, not after. [long pause] Everyone says that. The smart ones do. [long pause] Two locations now. Congratulations. Let me ask the question nobody asks. How many months could you survive with zero sales? [long pause] That's how I know who to lend to. The ones who don't need it tomorrow. [long pause] Growth is great until the first bad month. Keep my number close."
+  },
+  {
+   "id": "s2_en_rosa_00",
+   "lang": "en",
+   "speaker": "Rosa",
+   "voice": "6fLd3vCll0LutxnciLI8",
+   "kind": "yarn",
+   "lines": [
+    "ch2_rosa_intro_02",
+    "ch2_rosa_intro_04",
+    "ch2_rosa_intro_06",
+    "ch2_coffee_rosa_beans_01",
+    "ch2_coffee_rosa_beans_02",
+    "ch2_coffee_rosa_beans_04",
+    "ch2_coffee_rosa_beans_06",
+    "ch3_rosa_contract_01",
+    "ch3_rosa_contract_02",
+    "ch3_rosa_contract_04"
+   ],
+   "texts": [
+    "Rosa. Supplies, Red Hook. Whatever you sell, somebody is overcharging you for the stuff it's made of.",
+    "Pay on time and I'll beat your current supplier. Pay late once and I won't.",
+    "Nobody's happy with their supplier. Keep the samples.",
+    "I roast in Red Hook. Better beans than your bulk bags, honestly. Twenty percent more per pound.",
+    "Your customers will taste it. Your accountant will notice it.",
+    "Good choice. I deliver Tuesdays. Don't make me wait at the curb.",
+    "Your call. My number doesn't change.",
+    "You're buying for two places now. Sign a twelve-month contract and I'll drop my prices eight percent.",
+    "But a contract is a contract. Even in a slow month.",
+    "Pleasure. First invoice comes with a free bag of something good."
+   ],
+   "prompt": "Rosa. Supplies, Red Hook. Whatever you sell, somebody is overcharging you for the stuff it's made of. [long pause] Pay on time and I'll beat your current supplier. Pay late once and I won't. [long pause] Nobody's happy with their supplier. Keep the samples. [long pause] I roast in Red Hook. Better beans than your bulk bags, honestly. Twenty percent more per pound. [long pause] Your customers will taste it. Your accountant will notice it. [long pause] Good choice. I deliver Tuesdays. Don't make me wait at the curb. [long pause] Your call. My number doesn't change. [long pause] You're buying for two places now. Sign a twelve-month contract and I'll drop my prices eight percent. [long pause] But a contract is a contract. Even in a slow month. [long pause] Pleasure. First invoice comes with a free bag of something good."
+  },
+  {
+   "id": "s2_en_rosa_01",
+   "lang": "en",
+   "speaker": "Rosa",
+   "voice": "6fLd3vCll0LutxnciLI8",
+   "kind": "yarn",
+   "lines": [
+    "ch3_rosa_contract_06"
+   ],
+   "texts": [
+    "Flexible costs extra. Your choice."
+   ],
+   "prompt": "Flexible costs extra. Your choice."
+  },
+  {
+   "id": "s2_en_mia_00",
+   "lang": "en",
+   "speaker": "Mia",
+   "voice": "vGfq3y2g8QTWjuUhrNYc",
+   "kind": "yarn",
+   "lines": [
+    "ch2_mia_intro_02",
+    "ch2_mia_intro_04",
+    "ch2_mia_intro_06",
+    "ch3_mia_feature_01",
+    "ch3_mia_feature_03"
+   ],
+   "texts": [
+    "Mia. I'm doing a piece on new businesses on this street. Got ten minutes and the truth?",
+    "Honest founders make the best stories. Readers can smell a brochure.",
+    "Fair. I'll check back when you're bigger.",
+    "A citywide outlet picked up my story about you. They want numbers. Real ones, or the shiny ones?",
+    "The comments love you. Turns out people trust a founder who admits a bad month."
+   ],
+   "prompt": "Mia. I'm doing a piece on new businesses on this street. Got ten minutes and the truth? [long pause] Honest founders make the best stories. Readers can smell a brochure. [long pause] Fair. I'll check back when you're bigger. [long pause] A citywide outlet picked up my story about you. They want numbers. Real ones, or the shiny ones? [long pause] The comments love you. Turns out people trust a founder who admits a bad month."
+  },
+  {
+   "id": "s2_en_sam_00",
+   "lang": "en",
+   "speaker": "Sam",
+   "voice": "6EGP7RTBu9DVkJNS0xHj",
+   "kind": "yarn",
+   "lines": [
+    "ch2_sam_intro_02",
+    "ch2_sam_intro_04",
+    "ch2_sam_intro_06",
+    "ch3_sam_equity_01",
+    "ch3_sam_equity_04",
+    "ch3_sam_equity_06",
+    "ch3_sam_equity_08"
+   ],
+   "texts": [
+    "I've watched you do everything alone. I'm good at operations. What if we built this together?",
+    "No rush. Think about what you'd want in writing.",
+    "Understood. Offer stands if you change your mind.",
+    "I've been helping on weekends for months. I want to go full time, for thirty percent of the company.",
+    "Fair and smart. If I quit in six months, I shouldn't own a third. Deal.",
+    "A job, not a company. I'll take it for now.",
+    "Then I'll build my own. No hard feelings. Mostly."
+   ],
+   "prompt": "I've watched you do everything alone. I'm good at operations. What if we built this together? [long pause] No rush. Think about what you'd want in writing. [long pause] Understood. Offer stands if you change your mind. [long pause] I've been helping on weekends for months. I want to go full time, for thirty percent of the company. [long pause] Fair and smart. If I quit in six months, I shouldn't own a third. Deal. [long pause] A job, not a company. I'll take it for now. [long pause] Then I'll build my own. No hard feelings. Mostly."
+  },
+  {
+   "id": "s2_en_lessons_00",
+   "lang": "en",
+   "speaker": "Unpaid CEO",
+   "voice": "JS8l7lQwh35gDnA8DTXd",
+   "kind": "lesson",
+   "lines": [
+    "unit_economics",
+    "pricing",
+    "estimated_taxes"
+   ],
+   "texts": [
+    "Before you buy the first cart, truck or van, look at a single sale. A coffee cart sells a cup for $4, and milk, beans and the cup cost $1.20. That leaves $2.80, a 70% gross margin. Fixed costs arrive every month whether anyone buys or not: $1,200 for the permit, parking and insurance needs 429 cups just to be covered. That is your break-even point. Unit economics asks three questions. What does one sale leave you? How many sales cover the month? What does a customer cost to win, and what do they bring over time? If one sale loses money, selling more only loses it faster. The Company screen shows these numbers for your business every month.",
+    "Price is the fastest lever you have, and the easiest to get wrong. Raise it and each sale leaves more, but some customers walk away. Cut it and more people buy, but each sale leaves less. A resale store sells jackets that cost it $15. At $40 it earns $25 a jacket; at $30 only $15, so it must sell about two-thirds more jackets just to earn the same. How strongly demand reacts to price is called elasticity. Coffee by a subway exit barely notices a 25-cent rise; a jacket next to a cheaper shop does. Change prices in small steps, watch a full month of sales, and remember that a discount is easy to start and hard to take back.",
+    "Your unit just covered its costs. Congratulations: now there is profit, and profit is taxed. An employee has tax taken out of every paycheck; an owner has to send it in. In the US, owners usually pay estimated taxes four times a year: by April 15, June 15, September 15 and January 15. Self-employed people also owe self-employment tax, 15.3% for Social Security and Medicare on most of their profit, on top of income tax. Missed payments bring penalties and a painful bill in April. The habit that saves founders is simple: move a share of every month's profit into a separate tax account and don't touch it. The game sets aside a tax reserve for you each month; in real life nobody does it for you."
+   ],
+   "prompt": "Before you buy the first cart, truck or van, look at a single sale. A coffee cart sells a cup for $4, and milk, beans and the cup cost $1.20. That leaves $2.80, a 70% gross margin. Fixed costs arrive every month whether anyone buys or not: $1,200 for the permit, parking and insurance needs 429 cups just to be covered. That is your break-even point. Unit economics asks three questions. What does one sale leave you? How many sales cover the month? What does a customer cost to win, and what do they bring over time? If one sale loses money, selling more only loses it faster. The Company screen shows these numbers for your business every month. [long pause] Price is the fastest lever you have, and the easiest to get wrong. Raise it and each sale leaves more, but some customers walk away. Cut it and more people buy, but each sale leaves less. A resale store sells jackets that cost it $15. At $40 it earns $25 a jacket; at $30 only $15, so it must sell about two-thirds more jackets just to earn the same. How strongly demand reacts to price is called elasticity. Coffee by a subway exit barely notices a 25-cent rise; a jacket next to a cheaper shop does. Change prices in small steps, watch a full month of sales, and remember that a discount is easy to start and hard to take back. [long pause] Your unit just covered its costs. Congratulations: now there is profit, and profit is taxed. An employee has tax taken out of every paycheck; an owner has to send it in. In the US, owners usually pay estimated taxes four times a year: by April 15, June 15, September 15 and January 15. Self-employed people also owe self-employment tax, 15.3% for Social Security and Medicare on most of their profit, on top of income tax. Missed payments bring penalties and a painful bill in April. The habit that saves founders is simple: move a share of every month's profit into a separate tax account and don't touch it. The game sets aside a tax reserve for you each month; in real life nobody does it for you."
+  },
+  {
+   "id": "s2_en_lessons_01",
+   "lang": "en",
+   "speaker": "Unpaid CEO",
+   "voice": "JS8l7lQwh35gDnA8DTXd",
+   "kind": "lesson",
+   "lines": [
+    "llc",
+    "hiring",
+    "payroll"
+   ],
+   "texts": [
+    "Moving to Brooklyn means running a real business, and a real business needs a legal structure. As a sole proprietor, you and the business are the same person: if it owes money or gets sued, your own savings are on the line. A limited liability company, an LLC, puts a wall between the two. In New York, forming one costs $200 to file Articles of Organization with the Department of State. Then comes a New York quirk: within 120 days you must publish a notice in two newspapers chosen by the county clerk for six weeks in a row and file a $50 Certificate of Publication. In New York City the newspapers alone can cost over $1,000. Skip it, and the LLC loses its right to do business until you fix it.",
+    "Your first employee changes your job: now you lead, not only work. Hire for the gap that costs you the most, like the shifts you can't cover or the calls you can't take. In New York City the minimum wage in 2026 is $17 an hour, and hours over 40 a week are paid at time and a half. Before the first day you need an EIN, an I-9 form to check the right to work, tax forms, and workers' compensation and disability insurance, and you report the new hire to New York State within 20 days. A good first hire pays for themselves by freeing your time for selling and planning; a wrong one costs months. Before you post the job, write down what success looks like after 30 days.",
+    "An employee paid $3,000 a month costs you more than $3,000. On top of the salary, the employer pays 7.65% for Social Security and Medicare, plus federal and state unemployment insurance, workers' compensation and disability insurance. Many small businesses budget 10 to 30% above wages for all of it. Payroll also keeps a schedule your customers don't: salaries leave on a fixed day even when clients pay late. That is why payroll is the cost that most often turns a profitable month into an empty account. In the game, every hire adds the salary plus 10% overhead to your fixed costs. Before hiring, check that gross profit covers the full cost, not just the salary."
+   ],
+   "prompt": "Moving to Brooklyn means running a real business, and a real business needs a legal structure. As a sole proprietor, you and the business are the same person: if it owes money or gets sued, your own savings are on the line. A limited liability company, an LLC, puts a wall between the two. In New York, forming one costs $200 to file Articles of Organization with the Department of State. Then comes a New York quirk: within 120 days you must publish a notice in two newspapers chosen by the county clerk for six weeks in a row and file a $50 Certificate of Publication. In New York City the newspapers alone can cost over $1,000. Skip it, and the LLC loses its right to do business until you fix it. [long pause] Your first employee changes your job: now you lead, not only work. Hire for the gap that costs you the most, like the shifts you can't cover or the calls you can't take. In New York City the minimum wage in 2026 is $17 an hour, and hours over 40 a week are paid at time and a half. Before the first day you need an EIN, an I-9 form to check the right to work, tax forms, and workers' compensation and disability insurance, and you report the new hire to New York State within 20 days. A good first hire pays for themselves by freeing your time for selling and planning; a wrong one costs months. Before you post the job, write down what success looks like after 30 days. [long pause] An employee paid $3,000 a month costs you more than $3,000. On top of the salary, the employer pays 7.65% for Social Security and Medicare, plus federal and state unemployment insurance, workers' compensation and disability insurance. Many small businesses budget 10 to 30% above wages for all of it. Payroll also keeps a schedule your customers don't: salaries leave on a fixed day even when clients pay late. That is why payroll is the cost that most often turns a profitable month into an empty account. In the game, every hire adds the salary plus 10% overhead to your fixed costs. Before hiring, check that gross profit covers the full cost, not just the salary."
+  },
+  {
+   "id": "s2_en_lessons_02",
+   "lang": "en",
+   "speaker": "Unpaid CEO",
+   "voice": "JS8l7lQwh35gDnA8DTXd",
+   "kind": "lesson",
+   "lines": [
+    "cash_gap_b2b",
+    "cac_ltv",
+    "loans"
+   ],
+   "texts": [
+    "Business clients rarely pay on the spot. A warehouse that hires your box truck may pay \"net 30\" or \"net 60\": thirty or sixty days after the invoice. Meanwhile fuel, insurance and your driver's pay go out every week. So a fast-growing B2B business can be profitable on paper and broke in the bank: the more jobs you win, the more cash sits in unpaid invoices, called accounts receivable. Tools that close the gap: send the invoice the day the job is done, ask for a deposit, offer a small discount for paying within 10 days, keep a reserve of one or two months of costs, or open a business line of credit. Never fund the gap with a loan shark.",
+    "Marketing spends money to win customers, so measure what a customer costs and what one brings. Customer acquisition cost, CAC, is marketing spend divided by new customers: $500 of flyers that bring 100 new regulars is $5 each. Lifetime value, LTV, is what a customer leaves you over all their visits: a coffee that leaves $2.80, bought 20 times, is worth $56. A common rule of thumb is to keep LTV at least three times CAC. Below that, growth eats your cash; far above it, you may be spending too little to grow. Track both every month, as the Company screen does for you, and cut the channels that bring customers who never come back.",
+    "A loan buys time with money: you get cash now and pay back more later. The price is the interest rate, shown as an APR. At 12% a year, $10,000 costs about $100 of interest a month at first, and less as you repay it. Banks look at your credit, cash flow and reputation; a weaker record means a higher rate. In the US, the Small Business Administration backs loans made by banks and other lenders: SBA microloans go up to $50,000 and 7(a) loans up to $5 million, with interest capped by its rules. Borrow for things that earn, like a second cart or a truck, not to cover losses you don't understand. The payment is due whether sales come or not, so check it against your worst month, not your best."
+   ],
+   "prompt": "Business clients rarely pay on the spot. A warehouse that hires your box truck may pay \"net 30\" or \"net 60\": thirty or sixty days after the invoice. Meanwhile fuel, insurance and your driver's pay go out every week. So a fast-growing B2B business can be profitable on paper and broke in the bank: the more jobs you win, the more cash sits in unpaid invoices, called accounts receivable. Tools that close the gap: send the invoice the day the job is done, ask for a deposit, offer a small discount for paying within 10 days, keep a reserve of one or two months of costs, or open a business line of credit. Never fund the gap with a loan shark. [long pause] Marketing spends money to win customers, so measure what a customer costs and what one brings. Customer acquisition cost, CAC, is marketing spend divided by new customers: $500 of flyers that bring 100 new regulars is $5 each. Lifetime value, LTV, is what a customer leaves you over all their visits: a coffee that leaves $2.80, bought 20 times, is worth $56. A common rule of thumb is to keep LTV at least three times CAC. Below that, growth eats your cash; far above it, you may be spending too little to grow. Track both every month, as the Company screen does for you, and cut the channels that bring customers who never come back. [long pause] A loan buys time with money: you get cash now and pay back more later. The price is the interest rate, shown as an APR. At 12% a year, $10,000 costs about $100 of interest a month at first, and less as you repay it. Banks look at your credit, cash flow and reputation; a weaker record means a higher rate. In the US, the Small Business Administration backs loans made by banks and other lenders: SBA microloans go up to $50,000 and 7(a) loans up to $5 million, with interest capped by its rules. Borrow for things that earn, like a second cart or a truck, not to cover losses you don't understand. The payment is due whether sales come or not, so check it against your worst month, not your best."
+  },
+  {
+   "id": "s2_ru_unpaidceo_00",
+   "lang": "ru",
+   "speaker": "Unpaid CEO",
+   "voice": "RLRdvNFwJJct2XZOgfzy",
+   "kind": "yarn",
+   "lines": [
+    "boss_fatcat_price_war_03",
+    "boss_fatcat_price_war_09",
+    "ch2_clean_first_hire_02",
+    "ch2_clean_first_hire_04",
+    "ch2_clean_first_hire_06",
+    "ch2_coffee_math_01",
+    "ch2_coffee_math_02",
+    "ch2_coffee_math_04",
+    "ch2_coffee_math_06",
+    "ch2_truck_price_02"
+   ],
+   "texts": [
+    "Он может терять деньги дольше тебя. Не дерись с ним там, где он сильнее.",
+    "Цена — это гонка на дно. Лояльность — гонка, в которой он не умеет бегать.",
+    "Можно и дальше делать всё самому, а можно начать строить компанию. Выбирай.",
+    "Зарплата, страховка, настоящий договор. Теперь ты начальник с бумагами.",
+    "Колени напомнят тебе этот разговор.",
+    "Прежде чем наливать латте, дай мне одну чашку. Не пить. Считать.",
+    "Зёрна, молоко, крышка, манжета, сам стакан. Сколько на самом деле стоит тебе одна чашка?",
+    "Доллар двадцать. Теперь ты знаешь, чего на самом деле стоят четыре доллара.",
+    "Объём прячет ошибки. На какое-то время.",
+    "Проглотить расходы, урезать порцию или поднять цену. Каждый вариант чему-то учит."
+   ],
+   "prompt": "Он может терять деньги дольше тебя. Не дерись с ним там, где он сильнее. [long pause] Цена — это гонка на дно. Лояльность — гонка, в которой он не умеет бегать. [long pause] Можно и дальше делать всё самому, а можно начать строить компанию. Выбирай. [long pause] Зарплата, страховка, настоящий договор. Теперь ты начальник с бумагами. [long pause] Колени напомнят тебе этот разговор. [long pause] Прежде чем наливать латте, дай мне одну чашку. Не пить. Считать. [long pause] Зёрна, молоко, крышка, манжета, сам стакан. Сколько на самом деле стоит тебе одна чашка? [long pause] Доллар двадцать. Теперь ты знаешь, чего на самом деле стоят четыре доллара. [long pause] Объём прячет ошибки. На какое-то время. [long pause] Проглотить расходы, урезать порцию или поднять цену. Каждый вариант чему-то учит."
+  },
+  {
+   "id": "s2_ru_unpaidceo_01",
+   "lang": "ru",
+   "speaker": "Unpaid CEO",
+   "voice": "RLRdvNFwJJct2XZOgfzy",
+   "kind": "yarn",
+   "lines": [
+    "ch3_sam_equity_02"
+   ],
+   "texts": [
+    "Доля — это навсегда. Основатели обычно получают её постепенно за четыре года, первая часть — через год."
+   ],
+   "prompt": "Доля — это навсегда. Основатели обычно получают её постепенно за четыре года, первая часть — через год."
+  },
+  {
+   "id": "s2_ru_narrator_00",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_agency_leads_01",
+    "ch2_agency_leads_02",
+    "ch2_agency_leads_04",
+    "ch2_agency_leads_06",
+    "ch2_agency_scope_01",
+    "ch2_agency_scope_02",
+    "ch2_agency_scope_04",
+    "ch2_agency_scope_06",
+    "ch2_agency_late_01",
+    "ch2_agency_late_03"
+   ],
+   "texts": [
+    "В этом месяце есть два способа найти клиентов: платная реклама в профессиональной сети или рекомендации довольных клиентов.",
+    "Реклама обещает лиды по сорок долларов. Рекомендации стоят ужина в благодарность.",
+    "Двенадцать звонков, два клиента. Теперь ты точно знаешь, сколько стоит один.",
+    "Медленнее, зато новые клиенты уже тебе доверяют.",
+    "Пекарне нравится твой чат-бот. Теперь они хотят, чтобы он принимал заказы, вёл склад и постил в соцсети.",
+    "За ту же цену, конечно.",
+    "Поворчали — и подписали. Понятный объём, понятные деньги.",
+    "Три выходных ты работаешь бесплатно. Они всем рассказывают, какой ты гибкий.",
+    "Агентство недвижимости должно тебе четыре тысячи. Счёту сорок дней. Аренда — в пятницу.",
+    "Половина сейчас, половина через две недели. А в каждый новый договор ты добавляешь пункт о пени."
+   ],
+   "prompt": "В этом месяце есть два способа найти клиентов: платная реклама в профессиональной сети или рекомендации довольных клиентов. [long pause] Реклама обещает лиды по сорок долларов. Рекомендации стоят ужина в благодарность. [long pause] Двенадцать звонков, два клиента. Теперь ты точно знаешь, сколько стоит один. [long pause] Медленнее, зато новые клиенты уже тебе доверяют. [long pause] Пекарне нравится твой чат-бот. Теперь они хотят, чтобы он принимал заказы, вёл склад и постил в соцсети. [long pause] За ту же цену, конечно. [long pause] Поворчали — и подписали. Понятный объём, понятные деньги. [long pause] Три выходных ты работаешь бесплатно. Они всем рассказывают, какой ты гибкий. [long pause] Агентство недвижимости должно тебе четыре тысячи. Счёту сорок дней. Аренда — в пятницу. [long pause] Половина сейчас, половина через две недели. А в каждый новый договор ты добавляешь пункт о пени."
+  },
+  {
+   "id": "s2_ru_narrator_01",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_agency_late_05",
+    "ch2_agency_privacy_01",
+    "ch2_agency_privacy_03",
+    "ch2_agency_privacy_05",
+    "ch2_agency_tools_01",
+    "ch2_agency_tools_03",
+    "ch2_agency_tools_05",
+    "ch2_agency_pitch_01",
+    "ch2_agency_pitch_03",
+    "ch2_agency_pitch_05"
+   ],
+   "texts": [
+    "Аренду ты оплачиваешь кредиткой. Они платят на третий месяц.",
+    "Клиника хочет бота, обученного на письмах пациентов. «Так быстрее, — говорят они. — Никто не узнает».",
+    "Получается дольше. Позже их юрист благодарит тебя письменно.",
+    "Счёт оплачен. Ты перестаёшь спокойно спать.",
+    "Подписки на ИИ-инструменты доползли до шестисот долларов в месяц. Половину ты открывал дважды.",
+    "Минус триста в месяц. Ничего не сломалось.",
+    "Может, и пригодятся. А вот счёт точно приходит.",
+    "Сеть из двенадцати продуктовых магазинов зовёт тебя на питч. Им нужны автоматические оповещения по складу.",
+    "Прямо на встрече демо находит реальную нехватку товара. Контракт твой.",
+    "Тебя вежливо благодарят и выбирают команду с демо."
+   ],
+   "prompt": "Аренду ты оплачиваешь кредиткой. Они платят на третий месяц. [long pause] Клиника хочет бота, обученного на письмах пациентов. «Так быстрее, — говорят они. — Никто не узнает». [long pause] Получается дольше. Позже их юрист благодарит тебя письменно. [long pause] Счёт оплачен. Ты перестаёшь спокойно спать. [long pause] Подписки на ИИ-инструменты доползли до шестисот долларов в месяц. Половину ты открывал дважды. [long pause] Минус триста в месяц. Ничего не сломалось. [long pause] Может, и пригодятся. А вот счёт точно приходит. [long pause] Сеть из двенадцати продуктовых магазинов зовёт тебя на питч. Им нужны автоматические оповещения по складу. [long pause] Прямо на встрече демо находит реальную нехватку товара. Контракт твой. [long pause] Тебя вежливо благодарят и выбирают команду с демо."
+  },
+  {
+   "id": "s2_ru_narrator_02",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_banker_intro_01",
+    "ch2_rosa_intro_01",
+    "ch2_mia_intro_01",
+    "ch2_sam_intro_01",
+    "ch2_block_party_01",
+    "ch2_block_party_03",
+    "ch2_block_party_05",
+    "boss_fatcat_price_war_01",
+    "boss_fatcat_price_war_05",
+    "boss_fatcat_price_war_07"
+   ],
+   "texts": [
+    "В дверь стучит сова в твидовом жилете с визиткой. Общественный банк, Атлантик-авеню.",
+    "Курица в ботинках со стальными носами ставит на прилавок коробку образцов и не ждёт приглашения.",
+    "Лиса с диктофоном останавливает тебя на улице. Она пишет для новостного сайта района в Бруклине.",
+    "Сэм, бобр, с которым ты учился, приходит с двумя кофе и таблицей.",
+    "Твой квартал устраивает летний праздник. Организаторы просят местный бизнес скинуться по триста долларов.",
+    "Дети в аквагриме, соседи с твоими листовками. Хороший день.",
+    "Музыку слышно из магазина. Никто не заходит.",
+    "Через дорогу вешают баннер. Такой же бизнес, как у тебя, на двадцать процентов дешевле. Торжественное открытие.",
+    "Три месяца его баннер громче твоего качества.",
+    "Клиенты остаются. Вместо тебя воюет твоя маржа."
+   ],
+   "prompt": "В дверь стучит сова в твидовом жилете с визиткой. Общественный банк, Атлантик-авеню. [long pause] Курица в ботинках со стальными носами ставит на прилавок коробку образцов и не ждёт приглашения. [long pause] Лиса с диктофоном останавливает тебя на улице. Она пишет для новостного сайта района в Бруклине. [long pause] Сэм, бобр, с которым ты учился, приходит с двумя кофе и таблицей. [long pause] Твой квартал устраивает летний праздник. Организаторы просят местный бизнес скинуться по триста долларов. [long pause] Дети в аквагриме, соседи с твоими листовками. Хороший день. [long pause] Музыку слышно из магазина. Никто не заходит. [long pause] Через дорогу вешают баннер. Такой же бизнес, как у тебя, на двадцать процентов дешевле. Торжественное открытие. [long pause] Три месяца его баннер громче твоего качества. [long pause] Клиенты остаются. Вместо тебя воюет твоя маржа."
+  },
+  {
+   "id": "s2_ru_narrator_03",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_clean_first_hire_01",
+    "ch2_clean_vase_01",
+    "ch2_clean_vase_03",
+    "ch2_clean_vase_05",
+    "ch2_clean_office_01",
+    "ch2_clean_office_02",
+    "ch2_clean_office_04",
+    "ch2_clean_office_06",
+    "ch2_clean_cash_01",
+    "ch2_clean_cash_03"
+   ],
+   "texts": [
+    "Ты убираешь четыре квартиры в день и отказываешь ещё трём. У твоей спины на этот счёт своё мнение.",
+    "Грохот из гостиной. Ваза клиентки разбита вдребезги. Она говорит, что ваза стоила четыреста долларов.",
+    "После этого она заказывает тебя каждую неделю. В тот же день ты покупаешь страховку ответственности.",
+    "Она находит чек на сто пятьдесят. И находит другую уборщицу.",
+    "Коворкинг хочет ежевечернюю уборку по договору на год. Отличные деньги, оплата через 30 дней.",
+    "Понадобится человек, который работает каждую ночь недели.",
+    "Стабильная выручка. И стабильные зарплаты, которые уходят раньше, чем платит клиент.",
+    "Вечера остаются твоими. Контракт достаётся кому-то другому.",
+    "Новая уборщица просит платить ей наличными, без оформления. «Дешевле для нас обоих», — говорит она.",
+    "Это дороже. Если она травмируется на работе, она защищена."
+   ],
+   "prompt": "Ты убираешь четыре квартиры в день и отказываешь ещё трём. У твоей спины на этот счёт своё мнение. [long pause] Грохот из гостиной. Ваза клиентки разбита вдребезги. Она говорит, что ваза стоила четыреста долларов. [long pause] После этого она заказывает тебя каждую неделю. В тот же день ты покупаешь страховку ответственности. [long pause] Она находит чек на сто пятьдесят. И находит другую уборщицу. [long pause] Коворкинг хочет ежевечернюю уборку по договору на год. Отличные деньги, оплата через 30 дней. [long pause] Понадобится человек, который работает каждую ночь недели. [long pause] Стабильная выручка. И стабильные зарплаты, которые уходят раньше, чем платит клиент. [long pause] Вечера остаются твоими. Контракт достаётся кому-то другому. [long pause] Новая уборщица просит платить ей наличными, без оформления. «Дешевле для нас обоих», — говорит она. [long pause] Это дороже. Если она травмируется на работе, она защищена."
+  },
+  {
+   "id": "s2_ru_narrator_04",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_clean_cash_05",
+    "ch2_clean_green_01",
+    "ch2_clean_green_03",
+    "ch2_clean_green_05",
+    "ch2_clean_referral_01",
+    "ch2_clean_referral_03",
+    "ch2_clean_referral_05",
+    "ch2_coffee_inspector_01",
+    "ch2_coffee_inspector_02",
+    "ch2_coffee_inspector_04"
+   ],
+   "texts": [
+    "Ты экономишь немного каждую неделю и переживаешь об этом каждую ночь.",
+    "Двое клиентов спрашивают, используешь ли ты нетоксичные средства. У них дети и кошка.",
+    "На листовке теперь написано «безопасно для детей и животных». Звонков больше.",
+    "Полы блестят. Одна семья тихо отменяет заказ.",
+    "Половина новых клиентов пришла из одного дома на Истерн-Паркуэй. Консьерж знает всех.",
+    "Двадцать пять долларов за клиента, который остаётся на год. Лучшая реклама, что ты покупал.",
+    "Он улыбается. Тони научил его тому же приёму много лет назад.",
+    "Городской инспектор в светоотражающем жилете дважды обходит тележку и стучит по просроченной наклейке на окне.",
+    "Продление разрешения на уличную торговлю опоздало на три недели.",
+    "Инспектор кивает. На стекло ложится новая наклейка."
+   ],
+   "prompt": "Ты экономишь немного каждую неделю и переживаешь об этом каждую ночь. [long pause] Двое клиентов спрашивают, используешь ли ты нетоксичные средства. У них дети и кошка. [long pause] На листовке теперь написано «безопасно для детей и животных». Звонков больше. [long pause] Полы блестят. Одна семья тихо отменяет заказ. [long pause] Половина новых клиентов пришла из одного дома на Истерн-Паркуэй. Консьерж знает всех. [long pause] Двадцать пять долларов за клиента, который остаётся на год. Лучшая реклама, что ты покупал. [long pause] Он улыбается. Тони научил его тому же приёму много лет назад. [long pause] Городской инспектор в светоотражающем жилете дважды обходит тележку и стучит по просроченной наклейке на окне. [long pause] Продление разрешения на уличную торговлю опоздало на три недели. [long pause] Инспектор кивает. На стекло ложится новая наклейка."
+  },
+  {
+   "id": "s2_ru_narrator_05",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_coffee_inspector_06",
+    "ch2_coffee_oatmilk_01",
+    "ch2_coffee_oatmilk_02",
+    "ch2_coffee_oatmilk_04",
+    "ch2_coffee_oatmilk_06",
+    "ch2_coffee_oatmilk_08",
+    "ch2_coffee_loyalty_01",
+    "ch2_coffee_loyalty_02",
+    "ch2_coffee_loyalty_04",
+    "ch2_coffee_loyalty_06"
+   ],
+   "texts": [
+    "Спор ты выигрываешь, а два дня продаж теряешь, пока тележка стоит закрытой.",
+    "Каждый третий покупатель спрашивает одно и то же: а овсяное молоко есть?",
+    "Пачка обходится примерно в сорок центов на напиток. Кафе через дорогу берёт за него семьдесят пять центов сверху.",
+    "Очередь становится длиннее. Как и список того, что нужно держать в запасе.",
+    "Людям нравится. Твоя маржа чувствует это с каждой чашкой.",
+    "Меньше пачек, меньше решений и несколько покупателей, проходящих мимо.",
+    "Медсестра, которая каждое утро берёт два кофе, показывает карточку лояльности сетевой кофейни.",
+    "Десять отметок — и следующий бесплатно. «У вас такого нет», — говорит она. А стоит завести?",
+    "Бесплатный кофе стоит доллар двадцать. Постоянный гость, который остаётся на год, стоит куда больше.",
+    "Она всё равно покупает. Её коллеги пробуют сеть."
+   ],
+   "prompt": "Спор ты выигрываешь, а два дня продаж теряешь, пока тележка стоит закрытой. [long pause] Каждый третий покупатель спрашивает одно и то же: а овсяное молоко есть? [long pause] Пачка обходится примерно в сорок центов на напиток. Кафе через дорогу берёт за него семьдесят пять центов сверху. [long pause] Очередь становится длиннее. Как и список того, что нужно держать в запасе. [long pause] Людям нравится. Твоя маржа чувствует это с каждой чашкой. [long pause] Меньше пачек, меньше решений и несколько покупателей, проходящих мимо. [long pause] Медсестра, которая каждое утро берёт два кофе, показывает карточку лояльности сетевой кофейни. [long pause] Десять отметок — и следующий бесплатно. «У вас такого нет», — говорит она. А стоит завести? [long pause] Бесплатный кофе стоит доллар двадцать. Постоянный гость, который остаётся на год, стоит куда больше. [long pause] Она всё равно покупает. Её коллеги пробуют сеть."
+  },
+  {
+   "id": "s2_ru_narrator_06",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_coffee_rain_01",
+    "ch2_coffee_rain_03",
+    "ch2_coffee_rain_05",
+    "ch2_truck_spot_01",
+    "ch2_truck_spot_02",
+    "ch2_truck_spot_04",
+    "ch2_truck_spot_06",
+    "ch2_truck_spot_08",
+    "ch2_truck_festival_01",
+    "ch2_truck_festival_02"
+   ],
+   "texts": [
+    "Неделя холодного дождя. На лестнице метро пусто, и в банке для чаевых тоже.",
+    "Промокшие пассажиры находят тебя. Твои ботинки так и не высыхают.",
+    "Ты спишь десять часов. Тележка тоже.",
+    "В шесть утра ты подъезжаешь к месту у больницы. Там уже стоит другой фургон.",
+    "Хозяин высовывается из окна: «Я паркуюсь здесь девять лет, друг».",
+    "Понедельник, вторник и среда — твои. Он даже рассказывает, какие медсёстры оставляют чаевые.",
+    "Место твоё. А ещё каждую неделю штраф от того, кто знает правила лучше.",
+    "У студентов нет денег, но они верные. Ты добавляешь тарелку за пять долларов.",
+    "Уличный фестиваль на выходных в Проспект-парке предлагает место. Взнос — восемьсот долларов вперёд.",
+    "Прошлогодние участники говорят: хороший фургон зарабатывает три тысячи. В дождь — ничего."
+   ],
+   "prompt": "Неделя холодного дождя. На лестнице метро пусто, и в банке для чаевых тоже. [long pause] Промокшие пассажиры находят тебя. Твои ботинки так и не высыхают. [long pause] Ты спишь десять часов. Тележка тоже. [long pause] В шесть утра ты подъезжаешь к месту у больницы. Там уже стоит другой фургон. [long pause] Хозяин высовывается из окна: «Я паркуюсь здесь девять лет, друг». [long pause] Понедельник, вторник и среда — твои. Он даже рассказывает, какие медсёстры оставляют чаевые. [long pause] Место твоё. А ещё каждую неделю штраф от того, кто знает правила лучше. [long pause] У студентов нет денег, но они верные. Ты добавляешь тарелку за пять долларов. [long pause] Уличный фестиваль на выходных в Проспект-парке предлагает место. Взнос — восемьсот долларов вперёд. [long pause] Прошлогодние участники говорят: хороший фургон зарабатывает три тысячи. В дождь — ничего."
+  },
+  {
+   "id": "s2_ru_narrator_07",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_truck_festival_04",
+    "ch2_truck_festival_06",
+    "ch2_truck_fdny_01",
+    "ch2_truck_fdny_03",
+    "ch2_truck_fdny_05",
+    "ch2_truck_price_01",
+    "ch2_truck_price_04",
+    "ch2_truck_price_06",
+    "ch2_truck_price_08",
+    "ch2_truck_generator_01"
+   ],
+   "texts": [
+    "Солнце. К четырём всё распродано, а очередь всё стоит.",
+    "Субботу ты проводишь с семьёй. В воскресенье узнаёшь, что там был рекорд посетителей.",
+    "Инспектор пожарной службы проверяет баллоны с пропаном. У одного вентиля истёк срок проверки.",
+    "Новый вентиль, новый сертификат, один потерянный день. Спишь спокойнее.",
+    "Он возвращается. Штраф стоит гораздо больше вентиля.",
+    "Курица подорожала на пятнадцать процентов. Тарелка за десять долларов теперь приносит на два доллара меньше.",
+    "Несколько постоянных ворчат. Почти все всё равно заказывают.",
+    "Никто ничего не говорит. Просто приходят чуть реже.",
+    "Клиенты довольны. Маржа становится тоньше.",
+    "Генератор кашляет, чихает и глохнет в обеденный пик. На тебя смотрят двадцать человек."
+   ],
+   "prompt": "Солнце. К четырём всё распродано, а очередь всё стоит. [long pause] Субботу ты проводишь с семьёй. В воскресенье узнаёшь, что там был рекорд посетителей. [long pause] Инспектор пожарной службы проверяет баллоны с пропаном. У одного вентиля истёк срок проверки. [long pause] Новый вентиль, новый сертификат, один потерянный день. Спишь спокойнее. [long pause] Он возвращается. Штраф стоит гораздо больше вентиля. [long pause] Курица подорожала на пятнадцать процентов. Тарелка за десять долларов теперь приносит на два доллара меньше. [long pause] Несколько постоянных ворчат. Почти все всё равно заказывают. [long pause] Никто ничего не говорит. Просто приходят чуть реже. [long pause] Клиенты довольны. Маржа становится тоньше. [long pause] Генератор кашляет, чихает и глохнет в обеденный пик. На тебя смотрят двадцать человек."
+  },
+  {
+   "id": "s2_ru_narrator_08",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_truck_generator_03",
+    "ch2_truck_generator_05",
+    "ch2_truck_viral_01",
+    "ch2_truck_viral_03",
+    "ch2_truck_viral_05",
+    "ch2_box_net60_01",
+    "ch2_box_net60_02",
+    "ch2_box_net60_04",
+    "ch2_box_net60_06",
+    "ch2_box_fuel_01"
+   ],
+   "texts": [
+    "Люди уходят хоть с чем-то и с историей. Ты звонишь механику.",
+    "Дорого, но он мурлычет. Больше никаких молитв в полдень.",
+    "Фудблогер с миллионом подписчиков выкладывает твою тарелку с бараниной. Телефон не умолкает.",
+    "Очереди две недели. Ты точно узнаёшь, сколько может нажарить один человек.",
+    "Тарелок меньше, чем могло бы уйти, зато каждая — как надо.",
+    "Мебельный склад предлагает постоянные маршруты пять дней в неделю. Условия — оплата через 60 дней.",
+    "Топливо, платные дороги и зарплата водителя — каждую неделю.",
+    "Они согласны на 30 дней, если начнёшь в понедельник. Ты начинаешь в понедельник.",
+    "Работа хлынула. Деньги придут через два месяца.",
+    "Дизель за ночь дорожает на сорок центов за галлон. В договорах не сказано, кто за это платит."
+   ],
+   "prompt": "Люди уходят хоть с чем-то и с историей. Ты звонишь механику. [long pause] Дорого, но он мурлычет. Больше никаких молитв в полдень. [long pause] Фудблогер с миллионом подписчиков выкладывает твою тарелку с бараниной. Телефон не умолкает. [long pause] Очереди две недели. Ты точно узнаёшь, сколько может нажарить один человек. [long pause] Тарелок меньше, чем могло бы уйти, зато каждая — как надо. [long pause] Мебельный склад предлагает постоянные маршруты пять дней в неделю. Условия — оплата через 60 дней. [long pause] Топливо, платные дороги и зарплата водителя — каждую неделю. [long pause] Они согласны на 30 дней, если начнёшь в понедельник. Ты начинаешь в понедельник. [long pause] Работа хлынула. Деньги придут через два месяца. [long pause] Дизель за ночь дорожает на сорок центов за галлон. В договорах не сказано, кто за это платит."
+  },
+  {
+   "id": "s2_ru_narrator_09",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_box_fuel_03",
+    "ch2_box_fuel_05",
+    "ch2_box_overweight_01",
+    "ch2_box_overweight_03",
+    "ch2_box_overweight_05",
+    "ch2_box_driver_ot_01",
+    "ch2_box_driver_ot_03",
+    "ch2_box_driver_ot_05",
+    "ch2_box_rush_01",
+    "ch2_box_rush_03"
+   ],
+   "texts": [
+    "Большинство клиентов соглашаются. Так делает вся отрасль, теперь и ты.",
+    "В этом месяце — не упали.",
+    "Клиент просит взять ещё один паллет. С ним грузовик превысит допустимый вес.",
+    "Лишний час на скоростной. Всё доезжает целым.",
+    "По дороге весовой пункт. Штраф съедает недельную прибыль.",
+    "Твой водитель отработал на этой неделе пятьдесят два часа. Сверхурочные начинаются после сорока.",
+    "Полуторная оплата быстро набегает. Второй водитель начинает выглядеть дешевле.",
+    "Он берёт отгул, а вечером читает трудовые правила.",
+    "У поставщика пекарни сломался фургон. Им нужна мука через весь Бруклин к пяти утра, платят втрое.",
+    "Мука вовремя, круассаны вовремя. Хозяин сохраняет твой номер."
+   ],
+   "prompt": "Большинство клиентов соглашаются. Так делает вся отрасль, теперь и ты. [long pause] В этом месяце — не упали. [long pause] Клиент просит взять ещё один паллет. С ним грузовик превысит допустимый вес. [long pause] Лишний час на скоростной. Всё доезжает целым. [long pause] По дороге весовой пункт. Штраф съедает недельную прибыль. [long pause] Твой водитель отработал на этой неделе пятьдесят два часа. Сверхурочные начинаются после сорока. [long pause] Полуторная оплата быстро набегает. Второй водитель начинает выглядеть дешевле. [long pause] Он берёт отгул, а вечером читает трудовые правила. [long pause] У поставщика пекарни сломался фургон. Им нужна мука через весь Бруклин к пяти утра, платят втрое. [long pause] Мука вовремя, круассаны вовремя. Хозяин сохраняет твой номер."
+  },
+  {
+   "id": "s2_ru_narrator_10",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_box_rush_05",
+    "ch2_box_insurance_01",
+    "ch2_box_insurance_03",
+    "ch2_box_insurance_05",
+    "ch2_resale_jacket_01",
+    "ch2_resale_jacket_02",
+    "ch2_resale_jacket_04",
+    "ch2_resale_jacket_06",
+    "ch2_resale_fake_01",
+    "ch2_resale_fake_02"
+   ],
+   "texts": [
+    "Ты всё проспал. Новый клиент достался кому-то другому.",
+    "Пришло продление коммерческой автостраховки. На двадцать процентов дороже, чем в прошлом году.",
+    "Брокер находит то же покрытие дешевле. Удачно потраченный день.",
+    "Быстро и дорого.",
+    "На прилавок ложится настоящая университетская куртка из девяностых. Ты отдал за неё пятнадцать долларов на распродаже имущества.",
+    "В интернете такая же уходит за сумму от сорока до ста двадцати.",
+    "Проданные лоты говорят: восемьдесят. За восемьдесят она уходит за четыре дня.",
+    "Ушла за час. Покупатель в тот же вечер выставляет её за сотню.",
+    "Парень предлагает десять дизайнерских сумок за двести долларов. Строчка какая-то слишком идеальная.",
+    "Если продать их как настоящие, можно заработать две тысячи."
+   ],
+   "prompt": "Ты всё проспал. Новый клиент достался кому-то другому. [long pause] Пришло продление коммерческой автостраховки. На двадцать процентов дороже, чем в прошлом году. [long pause] Брокер находит то же покрытие дешевле. Удачно потраченный день. [long pause] Быстро и дорого. [long pause] На прилавок ложится настоящая университетская куртка из девяностых. Ты отдал за неё пятнадцать долларов на распродаже имущества. [long pause] В интернете такая же уходит за сумму от сорока до ста двадцати. [long pause] Проданные лоты говорят: восемьдесят. За восемьдесят она уходит за четыре дня. [long pause] Ушла за час. Покупатель в тот же вечер выставляет её за сотню. [long pause] Парень предлагает десять дизайнерских сумок за двести долларов. Строчка какая-то слишком идеальная. [long pause] Если продать их как настоящие, можно заработать две тысячи."
+  },
+  {
+   "id": "s2_ru_narrator_11",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_resale_fake_04",
+    "ch2_resale_fake_06",
+    "ch2_resale_fakes_review_01",
+    "ch2_resale_fakes_review_03",
+    "ch2_resale_fakes_review_05",
+    "ch2_resale_drop_01",
+    "ch2_resale_drop_05",
+    "ch2_resale_consign_01",
+    "ch2_resale_consign_02",
+    "ch2_resale_consign_04"
+   ],
+   "texts": [
+    "Он пожимает плечами и идёт в следующий магазин. Слух о том, что ты в такое не играешь, расходится.",
+    "Деньги приходят быстро. Отзыв, где твой магазин называют мошенниками, — ещё быстрее.",
+    "Покупательница выкладывает видео, где распарывает сумку по швам. К обеду — двести тысяч просмотров.",
+    "Больно. Но комментарии медленно меняются с «мошенники» на «хотя бы признали».",
+    "Интернет хранит скриншоты. Посетителей становится меньше на недели.",
+    "У тебя стойка редких кроссовок. Джей говорит, что дроп в пятницу вечером в соцсетях может забить магазин.",
+    "Стабильные продажи, ни толпы, ни шума.",
+    "Коллекционер просит продать её гардероб на комиссии. Ей шестьдесят процентов, тебе сорок.",
+    "Без вложений, но стойки на месяцы будут заняты её вещами.",
+    "К тебе начинают заходить её подруги. У некоторых тоже есть гардеробы."
+   ],
+   "prompt": "Он пожимает плечами и идёт в следующий магазин. Слух о том, что ты в такое не играешь, расходится. [long pause] Деньги приходят быстро. Отзыв, где твой магазин называют мошенниками, — ещё быстрее. [long pause] Покупательница выкладывает видео, где распарывает сумку по швам. К обеду — двести тысяч просмотров. [long pause] Больно. Но комментарии медленно меняются с «мошенники» на «хотя бы признали». [long pause] Интернет хранит скриншоты. Посетителей становится меньше на недели. [long pause] У тебя стойка редких кроссовок. Джей говорит, что дроп в пятницу вечером в соцсетях может забить магазин. [long pause] Стабильные продажи, ни толпы, ни шума. [long pause] Коллекционер просит продать её гардероб на комиссии. Ей шестьдесят процентов, тебе сорок. [long pause] Без вложений, но стойки на месяцы будут заняты её вещами. [long pause] К тебе начинают заходить её подруги. У некоторых тоже есть гардеробы."
+  },
+  {
+   "id": "s2_ru_narrator_12",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "ch2_resale_consign_06",
+    "ch2_resale_shoplifter_01",
+    "ch2_resale_shoplifter_03",
+    "ch2_resale_shoplifter_05",
+    "ch3_mia_feature_05",
+    "ch3_night_market_01",
+    "ch3_night_market_03",
+    "ch3_night_market_05",
+    "boss_fatcat_poach_01",
+    "boss_fatcat_poach_04"
+   ],
+   "texts": [
+    "Сегодня платишь больше, зато вся наценка остаётся тебе.",
+    "Подросток прячет шапку под толстовку. Ты видишь это в зеркале. Он видит, что ты видишь.",
+    "Он возвращает шапку. Через неделю приводит старшую сестру за покупками.",
+    "Ты теряешь полдня на протокол из-за шапки за двенадцать долларов.",
+    "Статья сияет. Бухгалтер конкурента начинает считать.",
+    "На Ночном рынке Квинса во Флашинг-Медоуз в эту субботу освободилось место для продавца.",
+    "Десять тысяч человек, сорок языков, одна очень длинная ночь.",
+    "Ты гуляешь там как покупатель. Пельмени вкуснее, когда ты ничего не продаёшь.",
+    "Двое твоих лучших сотрудников приходят вместе. Мистер Вискертон предложил им на двадцать процентов больше, чтобы они перешли к нему.",
+    "Они остаются. Растут зарплаты, а вместе с ними — их преданность."
+   ],
+   "prompt": "Сегодня платишь больше, зато вся наценка остаётся тебе. [long pause] Подросток прячет шапку под толстовку. Ты видишь это в зеркале. Он видит, что ты видишь. [long pause] Он возвращает шапку. Через неделю приводит старшую сестру за покупками. [long pause] Ты теряешь полдня на протокол из-за шапки за двенадцать долларов. [long pause] Статья сияет. Бухгалтер конкурента начинает считать. [long pause] На Ночном рынке Квинса во Флашинг-Медоуз в эту субботу освободилось место для продавца. [long pause] Десять тысяч человек, сорок языков, одна очень длинная ночь. [long pause] Ты гуляешь там как покупатель. Пельмени вкуснее, когда ты ничего не продаёшь. [long pause] Двое твоих лучших сотрудников приходят вместе. Мистер Вискертон предложил им на двадцать процентов больше, чтобы они перешли к нему. [long pause] Они остаются. Растут зарплаты, а вместе с ними — их преданность."
+  },
+  {
+   "id": "s2_ru_narrator_13",
+   "lang": "ru",
+   "speaker": "Narrator",
+   "voice": "ogi2DyUAKJb7CEdqqvlU",
+   "kind": "yarn",
+   "lines": [
+    "boss_fatcat_poach_06",
+    "boss_fatcat_poach_08"
+   ],
+   "texts": [
+    "В понедельник две пустых смены. Остальная команда это заметила.",
+    "Один остаётся ради будущего, которое ты описал. Другой уходит за деньгами."
+   ],
+   "prompt": "В понедельник две пустых смены. Остальная команда это заметила. [long pause] Один остаётся ради будущего, которое ты описал. Другой уходит за деньгами."
+  },
+  {
+   "id": "s2_ru_jay_00",
+   "lang": "ru",
+   "speaker": "Jay",
+   "voice": "lcbtvdFBqqCNU6t9VIr1",
+   "kind": "yarn",
+   "lines": [
+    "ch2_resale_drop_03",
+    "ch3_burnout_01",
+    "ch3_burnout_03",
+    "ch3_burnout_05"
+   ],
+   "texts": [
+    "Говорил же. Очередь за угол. С тебя кусок пиццы.",
+    "Когда ты последний раз брал выходной? Не отвечай. По лицу видно.",
+    "Смотри-ка. Бизнес выжил без тебя. Это и называется бизнес.",
+    "Ещё месяц. Ты то же самое говорил в прошлом месяце."
+   ],
+   "prompt": "Говорил же. Очередь за угол. С тебя кусок пиццы. [long pause] Когда ты последний раз брал выходной? Не отвечай. По лицу видно. [long pause] Смотри-ка. Бизнес выжил без тебя. Это и называется бизнес. [long pause] Ещё месяц. Ты то же самое говорил в прошлом месяце."
+  },
+  {
+   "id": "s2_ru_mom_00",
+   "lang": "ru",
+   "speaker": "Mom",
+   "voice": "CsT9glYAgw8L02hu9od2",
+   "kind": "yarn",
+   "lines": [
+    "ch2_mom_visit_01",
+    "ch2_mom_visit_03",
+    "ch2_mom_visit_05"
+   ],
+   "texts": [
+    "Значит, это та самая студия в Бруклине. Маленькая. Дела правда идут хорошо, или ты просто так говоришь?",
+    "Выглядишь уставшим, но гордым. Так выглядел твой дедушка.",
+    "Цифры — это хорошо. Позвони как-нибудь и без них."
+   ],
+   "prompt": "Значит, это та самая студия в Бруклине. Маленькая. Дела правда идут хорошо, или ты просто так говоришь? [long pause] Выглядишь уставшим, но гордым. Так выглядел твой дедушка. [long pause] Цифры — это хорошо. Позвони как-нибудь и без них."
+  },
+  {
+   "id": "s2_ru_mrwhiskerton_00",
+   "lang": "ru",
+   "speaker": "Mr. Whiskerton",
+   "voice": "1kb4Md8n0kMNktygYhDF",
+   "kind": "yarn",
+   "lines": [
+    "boss_fatcat_price_war_02",
+    "boss_fatcat_poach_02"
+   ],
+   "texts": [
+    "Помнишь меня? Твой бывший арендодатель. Мне так понравилась твоя идея, что я завёл такую же. Посмотрим, кто дольше протянет.",
+    "Ничего личного. Я просто нанимаю лучших. Ты их так хорошо обучил."
+   ],
+   "prompt": "Помнишь меня? Твой бывший арендодатель. Мне так понравилась твоя идея, что я завёл такую же. Посмотрим, кто дольше протянет. [long pause] Ничего личного. Я просто нанимаю лучших. Ты их так хорошо обучил."
+  },
+  {
+   "id": "s2_ru_mslee_00",
+   "lang": "ru",
+   "speaker": "Ms. Lee",
+   "voice": "IExsTwnJMk9vWMW4SzsN",
+   "kind": "yarn",
+   "lines": [
+    "ch2_banker_intro_02",
+    "ch2_banker_intro_04",
+    "ch2_banker_intro_06",
+    "ch3_banker_review_01",
+    "ch3_banker_review_03",
+    "ch3_banker_review_05"
+   ],
+   "texts": [
+    "Я мисс Ли. Я кредитую малый бизнес в этом районе. Люблю знакомиться с владельцами до того, как я им понадоблюсь.",
+    "Чистые книги. Редкость. Звоните до покупки следующей точки, а не после.",
+    "Все так говорят. Умные — звонят.",
+    "Уже две точки. Поздравляю. Задам вопрос, который никто не задаёт: сколько месяцев ты протянешь без единой продажи?",
+    "Вот так я и понимаю, кому давать в долг. Тем, кому он не нужен завтра.",
+    "Рост — это прекрасно до первого плохого месяца. Держи мой номер под рукой."
+   ],
+   "prompt": "Я мисс Ли. Я кредитую малый бизнес в этом районе. Люблю знакомиться с владельцами до того, как я им понадоблюсь. [long pause] Чистые книги. Редкость. Звоните до покупки следующей точки, а не после. [long pause] Все так говорят. Умные — звонят. [long pause] Уже две точки. Поздравляю. Задам вопрос, который никто не задаёт: сколько месяцев ты протянешь без единой продажи? [long pause] Вот так я и понимаю, кому давать в долг. Тем, кому он не нужен завтра. [long pause] Рост — это прекрасно до первого плохого месяца. Держи мой номер под рукой."
+  },
+  {
+   "id": "s2_ru_rosa_00",
+   "lang": "ru",
+   "speaker": "Rosa",
+   "voice": "vbYzejKFdVWBi2DaQGhQ",
+   "kind": "yarn",
+   "lines": [
+    "ch2_rosa_intro_02",
+    "ch2_rosa_intro_04",
+    "ch2_rosa_intro_06",
+    "ch2_coffee_rosa_beans_01",
+    "ch2_coffee_rosa_beans_02",
+    "ch2_coffee_rosa_beans_04",
+    "ch2_coffee_rosa_beans_06",
+    "ch3_rosa_contract_01",
+    "ch3_rosa_contract_02",
+    "ch3_rosa_contract_04"
+   ],
+   "texts": [
+    "Роза. Поставки, Ред-Хук. Что бы ты ни продавал, кто-то переплачивает тебе за то, из чего это сделано.",
+    "Плати вовремя — и я перебью твоего поставщика. Опоздаешь хоть раз — нет.",
+    "Никто не доволен своим поставщиком. Образцы оставь себе.",
+    "Я обжариваю в Ред-Хуке. Зёрна лучше твоих оптовых мешков, честно. На двадцать процентов дороже за фунт.",
+    "Покупатели почувствуют вкус. Твой бухгалтер почувствует цену.",
+    "Хороший выбор. Привожу по вторникам. Не заставляй ждать у бордюра.",
+    "Как скажешь. Мой номер не меняется.",
+    "Теперь ты закупаешь на две точки. Подпиши договор на двенадцать месяцев, и я снижу цены на восемь процентов.",
+    "Но договор есть договор. Даже в слабый месяц.",
+    "Приятно иметь дело. К первому счёту — бесплатный мешок чего-нибудь хорошего."
+   ],
+   "prompt": "Роза. Поставки, Ред-Хук. Что бы ты ни продавал, кто-то переплачивает тебе за то, из чего это сделано. [long pause] Плати вовремя — и я перебью твоего поставщика. Опоздаешь хоть раз — нет. [long pause] Никто не доволен своим поставщиком. Образцы оставь себе. [long pause] Я обжариваю в Ред-Хуке. Зёрна лучше твоих оптовых мешков, честно. На двадцать процентов дороже за фунт. [long pause] Покупатели почувствуют вкус. Твой бухгалтер почувствует цену. [long pause] Хороший выбор. Привожу по вторникам. Не заставляй ждать у бордюра. [long pause] Как скажешь. Мой номер не меняется. [long pause] Теперь ты закупаешь на две точки. Подпиши договор на двенадцать месяцев, и я снижу цены на восемь процентов. [long pause] Но договор есть договор. Даже в слабый месяц. [long pause] Приятно иметь дело. К первому счёту — бесплатный мешок чего-нибудь хорошего."
+  },
+  {
+   "id": "s2_ru_rosa_01",
+   "lang": "ru",
+   "speaker": "Rosa",
+   "voice": "vbYzejKFdVWBi2DaQGhQ",
+   "kind": "yarn",
+   "lines": [
+    "ch3_rosa_contract_06"
+   ],
+   "texts": [
+    "Гибкость стоит дороже. Тебе решать."
+   ],
+   "prompt": "Гибкость стоит дороже. Тебе решать."
+  },
+  {
+   "id": "s2_ru_mia_00",
+   "lang": "ru",
+   "speaker": "Mia",
+   "voice": "TeHM1srC510U976rvUis",
+   "kind": "yarn",
+   "lines": [
+    "ch2_mia_intro_02",
+    "ch2_mia_intro_04",
+    "ch2_mia_intro_06",
+    "ch3_mia_feature_01",
+    "ch3_mia_feature_03"
+   ],
+   "texts": [
+    "Миа. Делаю материал о новых бизнесах на этой улице. Есть десять минут и правда?",
+    "Честные основатели — лучшие истории. Читатели чуют рекламный буклет.",
+    "Справедливо. Загляну, когда станешь больше.",
+    "Общегородское издание подхватило мою историю о тебе. Им нужны цифры. Настоящие или красивые?",
+    "Комментаторы в восторге. Оказывается, люди доверяют основателю, который признаёт плохой месяц."
+   ],
+   "prompt": "Миа. Делаю материал о новых бизнесах на этой улице. Есть десять минут и правда? [long pause] Честные основатели — лучшие истории. Читатели чуют рекламный буклет. [long pause] Справедливо. Загляну, когда станешь больше. [long pause] Общегородское издание подхватило мою историю о тебе. Им нужны цифры. Настоящие или красивые? [long pause] Комментаторы в восторге. Оказывается, люди доверяют основателю, который признаёт плохой месяц."
+  },
+  {
+   "id": "s2_ru_sam_00",
+   "lang": "ru",
+   "speaker": "Sam",
+   "voice": "g1G73EpCIdK4HUyDiLYF",
+   "kind": "yarn",
+   "lines": [
+    "ch2_sam_intro_02",
+    "ch2_sam_intro_04",
+    "ch2_sam_intro_06",
+    "ch3_sam_equity_01",
+    "ch3_sam_equity_04",
+    "ch3_sam_equity_06",
+    "ch3_sam_equity_08"
+   ],
+   "texts": [
+    "Я смотрю, как ты всё делаешь один. Я силён в операционке. Что если строить это вместе?",
+    "Без спешки. Подумай, что ты хочешь закрепить на бумаге.",
+    "Понял. Предложение в силе, если передумаешь.",
+    "Я уже несколько месяцев помогаю по выходным. Хочу работать полный день за тридцать процентов компании.",
+    "Честно и разумно. Если я уйду через полгода, мне не положена треть. Договорились.",
+    "Работа, а не компания. Пока соглашусь.",
+    "Тогда построю своё. Без обид. Почти."
+   ],
+   "prompt": "Я смотрю, как ты всё делаешь один. Я силён в операционке. Что если строить это вместе? [long pause] Без спешки. Подумай, что ты хочешь закрепить на бумаге. [long pause] Понял. Предложение в силе, если передумаешь. [long pause] Я уже несколько месяцев помогаю по выходным. Хочу работать полный день за тридцать процентов компании. [long pause] Честно и разумно. Если я уйду через полгода, мне не положена треть. Договорились. [long pause] Работа, а не компания. Пока соглашусь. [long pause] Тогда построю своё. Без обид. Почти."
+  },
+  {
+   "id": "s2_ru_lessons_00",
+   "lang": "ru",
+   "speaker": "Unpaid CEO",
+   "voice": "RLRdvNFwJJct2XZOgfzy",
+   "kind": "lesson",
+   "lines": [
+    "unit_economics",
+    "pricing",
+    "estimated_taxes"
+   ],
+   "texts": [
+    "Прежде чем покупать первую тележку, фургон или грузовик, посмотри на одну продажу. Кофейная тележка продаёт чашку за 4 $, а молоко, зёрна и стаканчик стоят 1,20 $. Остаётся 2,80 $ — это валовая маржа 70%. Постоянные расходы приходят каждый месяц, даже если никто ничего не купил: 1 200 $ за разрешение, стоянку и страховку покроют только 429 чашек. Это твоя точка безубыточности. Юнит-экономика задаёт три вопроса. Сколько оставляет одна продажа? Сколько продаж покрывают месяц? Сколько стоит привлечь клиента и сколько он принесёт за всё время? Если одна продажа убыточна, рост продаж только ускоряет убытки. Экран «Компания» каждый месяц показывает эти цифры для твоего бизнеса.",
+    "Цена — самый быстрый рычаг, и ошибиться с ним проще всего. Поднимешь — каждая продажа оставит больше, но часть клиентов уйдёт. Снизишь — купят больше людей, но каждая продажа оставит меньше. Магазин ресейла покупает куртки по 15 $. По 40 $ он зарабатывает 25 $ на куртке, по 30 $ — только 15 $, и чтобы заработать столько же, нужно продать примерно на две трети больше. Насколько спрос реагирует на цену, называется эластичностью. Кофе у выхода из метро почти не заметит подорожания на 25 центов, а куртку рядом с более дешёвым магазином — заметят. Меняй цену небольшими шагами, смотри продажи за целый месяц и помни: скидку легко ввести и трудно отменить.",
+    "Твоя точка только что покрыла свои расходы. Поздравляю: теперь есть прибыль, а прибыль облагается налогом. У наёмного работника налог удерживают из каждой зарплаты, а владелец платит его сам. В США владельцы обычно вносят налог авансом четыре раза в год: до 15 апреля, 15 июня, 15 сентября и 15 января. Самозанятые платят ещё и налог на самозанятость — 15,3% на соцстрахование и медицину с большей части прибыли — сверх подоходного налога. За пропущенные платежи начисляют штрафы, а в апреле приходит болезненный счёт. Привычка, которая спасает основателей, проста: каждый месяц откладывай часть прибыли на отдельный налоговый счёт и не трогай его. В игре налоговый резерв откладывается за тебя, в жизни этого никто не сделает."
+   ],
+   "prompt": "Прежде чем покупать первую тележку, фургон или грузовик, посмотри на одну продажу. Кофейная тележка продаёт чашку за 4 $, а молоко, зёрна и стаканчик стоят 1,20 $. Остаётся 2,80 $ — это валовая маржа 70%. Постоянные расходы приходят каждый месяц, даже если никто ничего не купил: 1 200 $ за разрешение, стоянку и страховку покроют только 429 чашек. Это твоя точка безубыточности. Юнит-экономика задаёт три вопроса. Сколько оставляет одна продажа? Сколько продаж покрывают месяц? Сколько стоит привлечь клиента и сколько он принесёт за всё время? Если одна продажа убыточна, рост продаж только ускоряет убытки. Экран «Компания» каждый месяц показывает эти цифры для твоего бизнеса. [long pause] Цена — самый быстрый рычаг, и ошибиться с ним проще всего. Поднимешь — каждая продажа оставит больше, но часть клиентов уйдёт. Снизишь — купят больше людей, но каждая продажа оставит меньше. Магазин ресейла покупает куртки по 15 $. По 40 $ он зарабатывает 25 $ на куртке, по 30 $ — только 15 $, и чтобы заработать столько же, нужно продать примерно на две трети больше. Насколько спрос реагирует на цену, называется эластичностью. Кофе у выхода из метро почти не заметит подорожания на 25 центов, а куртку рядом с более дешёвым магазином — заметят. Меняй цену небольшими шагами, смотри продажи за целый месяц и помни: скидку легко ввести и трудно отменить. [long pause] Твоя точка только что покрыла свои расходы. Поздравляю: теперь есть прибыль, а прибыль облагается налогом. У наёмного работника налог удерживают из каждой зарплаты, а владелец платит его сам. В США владельцы обычно вносят налог авансом четыре раза в год: до 15 апреля, 15 июня, 15 сентября и 15 января. Самозанятые платят ещё и налог на самозанятость — 15,3% на соцстрахование и медицину с большей части прибыли — сверх подоходного налога. За пропущенные платежи начисляют штрафы, а в апреле приходит болезненный счёт. Привычка, которая спасает основателей, проста: каждый месяц откладывай часть прибыли на отдельный налоговый счёт и не трогай его. В игре налоговый резерв откладывается за тебя, в жизни этого никто не сделает."
+  },
+  {
+   "id": "s2_ru_lessons_01",
+   "lang": "ru",
+   "speaker": "Unpaid CEO",
+   "voice": "RLRdvNFwJJct2XZOgfzy",
+   "kind": "lesson",
+   "lines": [
+    "llc",
+    "hiring",
+    "payroll"
+   ],
+   "texts": [
+    "Переезд в Бруклин — это уже настоящий бизнес, а настоящему бизнесу нужна юридическая форма. Когда ты индивидуальный предприниматель, ты и бизнес — одно лицо: если бизнес должен денег или на него подали в суд, под ударом твои личные сбережения. Компания с ограниченной ответственностью, LLC, ставит стену между ними. В Нью-Йорке её регистрация стоит 200 $ за подачу Articles of Organization в Департамент штата. Дальше — нью-йоркская особенность: в течение 120 дней нужно публиковать объявление в двух газетах, которые выберет секретарь округа, шесть недель подряд, и подать Certificate of Publication за 50 $. В Нью-Йорке одни только газеты могут стоить больше 1 000 $. Пропустишь — LLC теряет право вести бизнес, пока ты это не исправишь.",
+    "Первый сотрудник меняет твою работу: теперь ты руководишь, а не только работаешь. Нанимай туда, где пробел обходится дороже всего: смены, которые ты не закрываешь, звонки, на которые не успеваешь ответить. В Нью-Йорке минимальная оплата в 2026 году — 17 $ в час, а часы сверх 40 в неделю оплачиваются в полуторном размере. До первого рабочего дня нужны EIN, форма I-9 для проверки права на работу, налоговые формы, страховки от несчастных случаев на работе и по нетрудоспособности, а о новом сотруднике нужно сообщить штату Нью-Йорк в течение 20 дней. Хороший первый сотрудник окупается, освобождая твоё время для продаж и планов, неудачный стоит месяцев. Прежде чем публиковать вакансию, запиши, как выглядит успех через 30 дней.",
+    "Сотрудник с зарплатой 3 000 $ в месяц обходится дороже 3 000 $. Сверх зарплаты работодатель платит 7,65% на соцстрахование и медицину, а ещё федеральное и штатное страхование от безработицы, страховки от несчастных случаев и по нетрудоспособности. Многие малые бизнесы закладывают на всё это 10–30% сверх зарплат. И у зарплаты свой график, которого нет у клиентов: она уходит в фиксированный день, даже если клиенты платят с опозданием. Поэтому именно зарплаты чаще всего превращают прибыльный месяц в пустой счёт. В игре каждый сотрудник добавляет к постоянным расходам зарплату и ещё 10% сверху. Перед наймом проверь, что валовая прибыль покрывает полную стоимость сотрудника, а не только зарплату."
+   ],
+   "prompt": "Переезд в Бруклин — это уже настоящий бизнес, а настоящему бизнесу нужна юридическая форма. Когда ты индивидуальный предприниматель, ты и бизнес — одно лицо: если бизнес должен денег или на него подали в суд, под ударом твои личные сбережения. Компания с ограниченной ответственностью, LLC, ставит стену между ними. В Нью-Йорке её регистрация стоит 200 $ за подачу Articles of Organization в Департамент штата. Дальше — нью-йоркская особенность: в течение 120 дней нужно публиковать объявление в двух газетах, которые выберет секретарь округа, шесть недель подряд, и подать Certificate of Publication за 50 $. В Нью-Йорке одни только газеты могут стоить больше 1 000 $. Пропустишь — LLC теряет право вести бизнес, пока ты это не исправишь. [long pause] Первый сотрудник меняет твою работу: теперь ты руководишь, а не только работаешь. Нанимай туда, где пробел обходится дороже всего: смены, которые ты не закрываешь, звонки, на которые не успеваешь ответить. В Нью-Йорке минимальная оплата в 2026 году — 17 $ в час, а часы сверх 40 в неделю оплачиваются в полуторном размере. До первого рабочего дня нужны EIN, форма I-9 для проверки права на работу, налоговые формы, страховки от несчастных случаев на работе и по нетрудоспособности, а о новом сотруднике нужно сообщить штату Нью-Йорк в течение 20 дней. Хороший первый сотрудник окупается, освобождая твоё время для продаж и планов, неудачный стоит месяцев. Прежде чем публиковать вакансию, запиши, как выглядит успех через 30 дней. [long pause] Сотрудник с зарплатой 3 000 $ в месяц обходится дороже 3 000 $. Сверх зарплаты работодатель платит 7,65% на соцстрахование и медицину, а ещё федеральное и штатное страхование от безработицы, страховки от несчастных случаев и по нетрудоспособности. Многие малые бизнесы закладывают на всё это 10–30% сверх зарплат. И у зарплаты свой график, которого нет у клиентов: она уходит в фиксированный день, даже если клиенты платят с опозданием. Поэтому именно зарплаты чаще всего превращают прибыльный месяц в пустой счёт. В игре каждый сотрудник добавляет к постоянным расходам зарплату и ещё 10% сверху. Перед наймом проверь, что валовая прибыль покрывает полную стоимость сотрудника, а не только зарплату."
+  },
+  {
+   "id": "s2_ru_lessons_02",
+   "lang": "ru",
+   "speaker": "Unpaid CEO",
+   "voice": "RLRdvNFwJJct2XZOgfzy",
+   "kind": "lesson",
+   "lines": [
+    "cash_gap_b2b",
+    "cac_ltv",
+    "loans"
+   ],
+   "texts": [
+    "Бизнес-клиенты редко платят сразу. Склад, который нанимает твой грузовик, может платить «net 30» или «net 60» — через тридцать или шестьдесят дней после счёта. А топливо, страховка и зарплата водителя уходят каждую неделю. Поэтому быстро растущий B2B-бизнес может быть прибыльным на бумаге и пустым в банке: чем больше заказов ты берёшь, тем больше денег застревает в неоплаченных счетах — дебиторской задолженности. Что закрывает разрыв: выставляй счёт в день выполнения работы, проси предоплату, давай небольшую скидку за оплату в течение 10 дней, держи резерв на один-два месяца расходов или открой бизнес-кредитную линию. Никогда не закрывай разрыв займом у ростовщика.",
+    "Маркетинг тратит деньги на привлечение клиентов, поэтому считай, сколько стоит клиент и сколько он приносит. Стоимость привлечения, CAC, — это расходы на маркетинг, делённые на число новых клиентов: листовки за 500 $, которые привели 100 новых постоянных гостей, — это 5 $ за каждого. Пожизненная ценность, LTV, — сколько клиент оставит за все визиты: кофе, который оставляет 2,80 $, купленный 20 раз, — это 56 $. Распространённое правило: LTV должна быть хотя бы в три раза больше CAC. Ниже — рост съедает твои деньги, намного выше — возможно, ты слишком мало вкладываешь в рост. Следи за обоими показателями каждый месяц — экран «Компания» делает это за тебя — и отключай каналы, которые приводят клиентов, не возвращающихся снова.",
+    "Кредит — это покупка времени за деньги: деньги сейчас, а вернуть больше потом. Цена — процентная ставка, годовая, APR. Под 12% годовых 10 000 $ стоят поначалу около 100 $ процентов в месяц и меньше по мере погашения. Банки смотрят на кредитную историю, денежный поток и репутацию: чем она слабее, тем выше ставка. В США Администрация малого бизнеса (SBA) гарантирует кредиты банков и других кредиторов: микрокредиты SBA — до 50 000 $, кредиты 7(a) — до 5 миллионов $, а ставки ограничены её правилами. Бери в долг на то, что зарабатывает, — вторую тележку или грузовик, — а не чтобы закрыть убытки, причины которых не понимаешь. Платёж нужно вносить, будут продажи или нет, поэтому проверяй его на своём худшем месяце, а не на лучшем."
+   ],
+   "prompt": "Бизнес-клиенты редко платят сразу. Склад, который нанимает твой грузовик, может платить «net 30» или «net 60» — через тридцать или шестьдесят дней после счёта. А топливо, страховка и зарплата водителя уходят каждую неделю. Поэтому быстро растущий B2B-бизнес может быть прибыльным на бумаге и пустым в банке: чем больше заказов ты берёшь, тем больше денег застревает в неоплаченных счетах — дебиторской задолженности. Что закрывает разрыв: выставляй счёт в день выполнения работы, проси предоплату, давай небольшую скидку за оплату в течение 10 дней, держи резерв на один-два месяца расходов или открой бизнес-кредитную линию. Никогда не закрывай разрыв займом у ростовщика. [long pause] Маркетинг тратит деньги на привлечение клиентов, поэтому считай, сколько стоит клиент и сколько он приносит. Стоимость привлечения, CAC, — это расходы на маркетинг, делённые на число новых клиентов: листовки за 500 $, которые привели 100 новых постоянных гостей, — это 5 $ за каждого. Пожизненная ценность, LTV, — сколько клиент оставит за все визиты: кофе, который оставляет 2,80 $, купленный 20 раз, — это 56 $. Распространённое правило: LTV должна быть хотя бы в три раза больше CAC. Ниже — рост съедает твои деньги, намного выше — возможно, ты слишком мало вкладываешь в рост. Следи за обоими показателями каждый месяц — экран «Компания» делает это за тебя — и отключай каналы, которые приводят клиентов, не возвращающихся снова. [long pause] Кредит — это покупка времени за деньги: деньги сейчас, а вернуть больше потом. Цена — процентная ставка, годовая, APR. Под 12% годовых 10 000 $ стоят поначалу около 100 $ процентов в месяц и меньше по мере погашения. Банки смотрят на кредитную историю, денежный поток и репутацию: чем она слабее, тем выше ставка. В США Администрация малого бизнеса (SBA) гарантирует кредиты банков и других кредиторов: микрокредиты SBA — до 50 000 $, кредиты 7(a) — до 5 миллионов $, а ставки ограничены её правилами. Бери в долг на то, что зарабатывает, — вторую тележку или грузовик, — а не чтобы закрыть убытки, причины которых не понимаешь. Платёж нужно вносить, будут продажи или нет, поэтому проверяй его на своём худшем месяце, а не на лучшем."
   }
  ]
 }

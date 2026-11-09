@@ -64,6 +64,33 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator Swapping_the_district_theme_keeps_the_neon_loop_running()
+        {
+            yield return null;
+            _night = 1f;
+            _director.Tick(AudioDirector.CrossfadeSeconds * 2f);
+            var neonVolume = _director.NightVolume;
+
+            _director.SetDayTheme(Tone("brooklyn", 2));
+            yield return null;
+            Assert.AreEqual("brooklyn", _director.DayTheme, "the district's own theme takes the day layer");
+            Assert.AreEqual("neon", _director.NightTheme, "neon nights sound the same in every district");
+            Assert.IsTrue(_director.MusicPlaying);
+            Assert.That(_director.NightVolume, Is.EqualTo(neonVolume).Within(0.01f), "the swap does not touch the mix");
+
+            _director.SetDayTheme(null);
+            Assert.AreEqual("brooklyn", _director.DayTheme, "a missing clip keeps the current theme");
+        }
+
+        [Test]
+        public void Each_district_has_its_day_theme()
+        {
+            Assert.AreEqual(AudioAddresses.MusicDay, AudioAddresses.DistrictMusic("bronx"), "the Bronx keeps the chapter-1 theme");
+            Assert.AreEqual("music_brooklyn", AudioAddresses.DistrictMusic("brooklyn"));
+            Assert.AreEqual("music_queens", AudioAddresses.DistrictMusic("queens"));
+        }
+
+        [UnityTest]
         public IEnumerator Null_voice_clip_is_ignored()
         {
             yield return null;
