@@ -7,6 +7,7 @@ using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Economy;
 using UnpaidCeo.Core.Life;
 using UnpaidCeo.Core.Narrative;
+using UnpaidCeo.Core.Online;
 using UnpaidCeo.Core.Primitives;
 
 namespace UnpaidCeo.Core.Game
@@ -44,6 +45,36 @@ namespace UnpaidCeo.Core.Game
             }
             s.LastDecisions = MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null);
             return s;
+        }
+
+        /// <summary>
+        /// A challenge or duel start: a new game in chapter 2 (Brooklyn) with the scenario's cash and its industry chosen,
+        /// onboarding and the tutorial gig done. Nothing is logged: the RunStart rebuilds it.
+        /// </summary>
+        public GameState StartScenario(ScenarioDef d, HeroAppearance hero)
+        {
+            if (d == null) throw new ArgumentNullException(nameof(d));
+            if (d.IndustryId == null || !_c.Industries.TryGetValue(d.IndustryId, out var def) || def.Kind != IndustryKind.Business)
+                throw new ArgumentException($"scenario industry '{d.IndustryId}' is not a business", nameof(d));
+            var s = NewGame(d.Seed, hero);
+            s.Chapter = 2;
+            s.Cash = d.StartCash;
+            foreach (var fact in new[] { "onboarding_done", "tutorial_gig_done", "chapter2_start", "industry_chosen" }) s.Facts.Set(fact, s.Month);
+            s.Businesses.Add(new BusinessState { Id = d.IndustryId, IndustryId = d.IndustryId, Units = 0, Price = def.Price });
+            return s;
+        }
+
+        /// <summary>The state a run begins from: a career's NewGame, or its scenario's start.</summary>
+        public static GameState Start(ContentDb c, RunStart r, Func<RunStart, ScenarioDef> scenarioFor) =>
+            StartFor(new GameEngine(c), r, scenarioFor);
+
+        static GameState StartFor(GameEngine e, RunStart r, Func<RunStart, ScenarioDef> scenarioFor)
+        {
+            if (r == null) throw new ArgumentNullException(nameof(r));
+            if (r.Kind == RunStart.Career) return e.NewGame(r.Seed, r.Hero);
+            if (r.Kind != RunStart.Challenge && r.Kind != RunStart.Duel) throw new ArgumentException($"unknown run kind '{r.Kind}'", nameof(r));
+            var d = scenarioFor?.Invoke(r) ?? throw new ArgumentException($"no scenario for a {r.Kind} run", nameof(r));
+            return e.StartScenario(d, r.Hero);
         }
 
         /// <summary>Onboarding gig: pays once, counts toward lifetime earnings.</summary>
@@ -142,7 +173,7 @@ namespace UnpaidCeo.Core.Game
         /// <summary>Takes a bank loan: cash now, annuity payments from the end of this month.</summary>
         public bool TakeLoan(GameState s, Money principal, int months)
         {
-            if (principal.Cents <= 0 || principal > MaxLoan(s) || Array.IndexOf(_c.Balance.Loans.TermsMonths, months) < 0) return false;
+            if (s.Chapter < 2 || principal.Cents <= 0 || principal > MaxLoan(s) || Array.IndexOf(_c.Balance.Loans.TermsMonths, months) < 0) return false;
             double apr = LoanApr(s);
             s.Loans.Add(new LoanState
             {
@@ -333,35 +364,73 @@ namespace UnpaidCeo.Core.Game
         {
             var e = new GameEngine(content);
             var s = e.NewGame(seed, hero);
-            foreach (var entry in log.ToList())
-            {
-                switch (entry.Kind)
-                {
-                    case DecisionLogEntry.TutorialGig: e.TutorialGig(s); break;
-                    case DecisionLogEntry.BeginMonth: e.BeginMonth(s); break;
-                    case DecisionLogEntry.StoryletChoice:
-                        var p = JObject.Parse(entry.Payload);
-                        e.ChooseStoryletOption(s, (string)p["storylet"], (string)p["choice"]);
-                        break;
-                    case DecisionLogEntry.EndMonth:
-                        e.EndMonth(s, JsonConvert.DeserializeObject<MonthDecisions>(entry.Payload));
-                        break;
-                    case DecisionLogEntry.TakeLoan:
-                        var l = JObject.Parse(entry.Payload);
-                        e.TakeLoan(s, Money.FromCents((long)l["principal"]), (int)l["months"]);
-                        break;
-                    case DecisionLogEntry.ChooseIndustry:
-                        e.ChooseIndustry(s, (string)JObject.Parse(entry.Payload)["industry"]);
-                        break;
-                    case DecisionLogEntry.AdvanceChapter: e.AdvanceChapter(s); break;
-                    case DecisionLogEntry.QuizAnswer:
-                        var q = JObject.Parse(entry.Payload);
-                        e.AnswerQuiz(s, (string)q["lesson"], (int)q["question"], (int)q["option"]);
-                        break;
-                    default: throw new FormatException($"unknown log entry kind '{entry.Kind}'");
-                }
-            }
+            MonthReport last = null;
+            foreach (var entry in log.ToList()) Apply(e, s, entry, ref last);
             return s;
+        }
+
+        /// <summary>
+        /// Server-side replay: every logged action must succeed exactly as it did when it was logged. Stops at the first
+        /// entry that is refused (<c>refused:&lt;kind&gt;</c>) or unreadable (<c>bad_payload…</c>).
+        /// </summary>
+        public static ReplayResult ReplayStrict(ContentDb c, RunStart start, Func<RunStart, ScenarioDef> scenarioFor,
+            IReadOnlyList<DecisionLogEntry> log)
+        {
+            var e = new GameEngine(c);
+            GameState s;
+            try { s = StartFor(e, start, scenarioFor); }
+            catch (ArgumentException ex) { return new ReplayResult { FailedAt = 0, Error = "bad_start:" + ex.Message }; }
+            MonthReport last = null;
+            for (int i = 0; i < (log?.Count ?? 0); i++)
+            {
+                var entry = log[i];
+                try
+                {
+                    if (entry == null) return Fail(i, "bad_payload:null entry");
+                    if (!Apply(e, s, entry, ref last)) return Fail(i, "refused:" + entry.Kind);
+                }
+                catch (JsonException ex) { return Fail(i, "bad_payload:" + ex.GetType().Name); }
+                catch (FormatException ex) { return Fail(i, "bad_payload:" + ex.Message); }
+                catch (InvalidCastException) { return Fail(i, "bad_payload:type"); }
+                catch (NullReferenceException) { return Fail(i, "bad_payload:missing field"); }
+                catch (ArgumentNullException) { return Fail(i, "bad_payload:missing field"); }
+                catch (ArgumentException) { return Fail(i, "refused:" + entry.Kind); }
+                catch (InvalidOperationException) { return Fail(i, "refused:" + entry.Kind); }
+            }
+            return new ReplayResult { State = s, LastReport = last };
+
+            ReplayResult Fail(int at, string error) => new ReplayResult { State = s, LastReport = last, FailedAt = at, Error = error };
+        }
+
+        /// <summary>Applies one logged action; false when the engine refuses it (a strict replay rejects the log).</summary>
+        static bool Apply(GameEngine e, GameState s, DecisionLogEntry entry, ref MonthReport last)
+        {
+            switch (entry.Kind)
+            {
+                case DecisionLogEntry.TutorialGig:
+                    if (s.Facts.Has("tutorial_gig_done")) return false;
+                    e.TutorialGig(s);
+                    return true;
+                case DecisionLogEntry.BeginMonth: e.BeginMonth(s); return true;
+                case DecisionLogEntry.StoryletChoice:
+                    var p = JObject.Parse(entry.Payload);
+                    e.ChooseStoryletOption(s, (string)p["storylet"], (string)p["choice"]);
+                    return true;
+                case DecisionLogEntry.EndMonth:
+                    var d = JsonConvert.DeserializeObject<MonthDecisions>(entry.Payload) ?? throw new FormatException("empty endMonth");
+                    last = e.EndMonth(s, d);
+                    return true;
+                case DecisionLogEntry.TakeLoan:
+                    var l = JObject.Parse(entry.Payload);
+                    return e.TakeLoan(s, Money.FromCents((long)l["principal"]), (int)l["months"]);
+                case DecisionLogEntry.ChooseIndustry:
+                    return e.ChooseIndustry(s, (string)JObject.Parse(entry.Payload)["industry"]);
+                case DecisionLogEntry.AdvanceChapter: return e.AdvanceChapter(s);
+                case DecisionLogEntry.QuizAnswer:
+                    var q = JObject.Parse(entry.Payload);
+                    return e.AnswerQuiz(s, (string)q["lesson"], (int)q["question"], (int)q["option"]);
+                default: throw new FormatException($"unknown log entry kind '{entry.Kind}'");
+            }
         }
 
         const int MaxUnits = 100;
