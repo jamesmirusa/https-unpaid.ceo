@@ -47,6 +47,8 @@ namespace UnpaidCeo.Game.Ui
         public double MarketShare { get; private set; }
         public VisualElement BadgeList { get; }
         public Label NoBadges { get; }
+        /// <summary>This week's challenge.</summary>
+        public ChallengeCard Challenge { get; }
 
         public RankingScreen(VisualElement root, UiRoot ui, GameEngine engine, GameState state)
         {
@@ -75,6 +77,7 @@ namespace UnpaidCeo.Game.Ui
             _share = root.Q<Label>("ranking-share");
             BadgeList = root.Q("ranking-badges");
             NoBadges = UiText.Bind(root.Q<Label>("ranking-no-badges"), "ranking.no_badges");
+            Challenge = new ChallengeCard(root, ui, () => state.Hero);
             ui.OnlineChanged += _ => { if (_ui.CurrentTab == UiRoot.Ranking) RefreshSoon(); };
             ShowLeague();
             ShowBadges();
@@ -100,6 +103,7 @@ namespace UnpaidCeo.Game.Ui
             if (!online.Available) return;
 
             string? me = online.Auth.PlayerId;
+            if (!await Challenge.Refresh(online, me, () => ticket == _ticket)) return;
             var top = await online.Boards.Top(GameBoards.Capital, TopCount);
             if (ticket != _ticket) return;
             Fill(TopRows, top, me);
@@ -153,7 +157,10 @@ namespace UnpaidCeo.Game.Ui
             Show(NoBadges, badges.Count == 0);
         }
 
-        void Fill(VisualElement list, IEnumerable<RankEntry> entries, string? me)
+        void Fill(VisualElement list, IEnumerable<RankEntry> entries, string? me) => FillRows(list, entries, me, _ui.Language);
+
+        /// <summary>Board rows: place, name, score in dollars; my row is marked.</summary>
+        internal static void FillRows(VisualElement list, IEnumerable<RankEntry> entries, string? me, string language)
         {
             list.Clear();
             foreach (var e in entries)
@@ -163,12 +170,14 @@ namespace UnpaidCeo.Game.Ui
                 row.EnableInClassList("rank-row--me", me != null && e.PlayerId == me);
                 row.Add(UiText.ValueLabel("#" + e.Rank, "rank-row__rank"));
                 row.Add(UiText.ValueLabel(e.Name ?? "—", "rank-row__name"));
-                row.Add(UiText.ValueLabel(Dollars(e.Score), "rank-row__score"));
+                row.Add(UiText.ValueLabel(Dollars(e.Score, language), "rank-row__score"));
                 list.Add(row);
             }
         }
 
-        string Dollars(double score) => MoneyFormat.Compact(Money.FromCents((long)Math.Round(score * 100)), _ui.Language);
+        string Dollars(double score) => Dollars(score, _ui.Language);
+
+        static string Dollars(double score, string language) => MoneyFormat.Compact(Money.FromCents((long)Math.Round(score * 100)), language);
 
         static void Show(VisualElement e, bool on) => e.style.display = on ? DisplayStyle.Flex : DisplayStyle.None;
     }

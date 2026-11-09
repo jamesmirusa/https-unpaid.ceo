@@ -919,6 +919,78 @@ MonoBehaviour:
     m_Key: badge.challenge_top10
     m_Metadata:
       m_Items: []
+  - m_Id: 167667100016640
+    m_Key: challenge.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599552
+    m_Key: challenge.start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599553
+    m_Key: challenge.attempts
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599554
+    m_Key: challenge.best
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599555
+    m_Key: challenge.play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599556
+    m_Key: challenge.continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599557
+    m_Key: run.challenge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599558
+    m_Key: run.duel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599559
+    m_Key: run.exit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599560
+    m_Key: run.sent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599561
+    m_Key: run.queued
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599562
+    m_Key: run.refused
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599563
+    m_Key: duel.state.waiting_me
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599564
+    m_Key: duel.state.waiting_them
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599565
+    m_Key: duel.state.won
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599566
+    m_Key: duel.state.lost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599567
+    m_Key: duel.state.draw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599568
+    m_Key: duel.state.expired
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

@@ -120,8 +120,11 @@ namespace UnpaidCeo.Game.Tests.Fakes
         }
 
         // Runs
+        public ScenarioDef? HelloChallenge { get; set; }
+        public int ChallengeAttemptsUsed { get; set; }
+
         public Task<HelloResult?> Hello() => Task.FromResult(Online
-            ? new HelloResult { ServerUnix = NowUnix, Week = WeeklyChallenge.WeekIndex(NowUnix) }
+            ? new HelloResult { ServerUnix = NowUnix, Week = WeeklyChallenge.WeekIndex(NowUnix), Challenge = HelloChallenge, ChallengeAttemptsUsed = ChallengeAttemptsUsed }
             : null);
 
         public Task<SubmitResult> SubmitCareer(RunSubmission s)

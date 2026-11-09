@@ -116,6 +116,8 @@ namespace UnpaidCeo.CloudCode.Tests
             Assert.Equal("attempts_used", (await h.Server.SubmitChallenge("p1", optimal.Sub)).Error);
 
             Assert.Equal("3", await h.Players.Get("p1", "challenge_attempts_" + Week));
+            Assert.Equal(3, (await h.Server.Hello("p1")).ChallengeAttemptsUsed);
+            Assert.Equal(0, (await h.Server.Hello("p2")).ChallengeAttemptsUsed);
             Assert.Equal(System.Math.Max(casual.NetWorthCents, optimal.NetWorthCents) / 100.0, h.Boards.Score("weekly_challenge", "p1"));
             Assert.Equal(3, h.Boards.Submissions.Count);
         }

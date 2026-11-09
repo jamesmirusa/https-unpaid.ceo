@@ -6,6 +6,8 @@ namespace UnpaidCeo.Core.Online
         public long ServerUnix { get; set; }
         public int Week { get; set; }
         public ScenarioDef Challenge { get; set; }
+        /// <summary>Verified attempts this week (of WeeklyChallenge.AttemptsPerWeek).</summary>
+        public int ChallengeAttemptsUsed { get; set; }
     }
 
     /// <summary>One duel seen by one of its two players.</summary>

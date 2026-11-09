@@ -52,6 +52,8 @@ namespace UnpaidCeo.Game.Bootstrap
         string? _contentVersion;
         CloudSync? _sync;
         SubmissionQueue? _queue;
+        RunController? _runs;
+        RunBanner? _banner;
         CityView? _city;
         DayNeonController? _light;
         TimelapseDirector? _timelapse;
@@ -186,6 +188,119 @@ namespace UnpaidCeo.Game.Bootstrap
             if (_queue != null && Online.Available) await _queue.Flush(Online.Runs);
         }
 
+        /// <summary>The career screens' events (also after a run, when the career screens are rebuilt).</summary>
+        void WireCareerUi()
+        {
+            Ui!.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
+            Ui.ResetRequested += () => { CloudSync.MarkReset(); SaveService.Delete(); SceneManager.LoadScene(0); };
+            Ui.AccountChanged += OnAccountChanged;
+            Ui.QuizAnswered += OnQuizAnswered;
+            Ui.ChapterAdvanced += chapter => { SaveService.Save(_state!); AfterAction(); StartCoroutine(SwapDistrict(chapter)); };
+            Ui.IndustryChosen += _ => { SaveService.Save(_state!); AfterAction(); };
+            Ui.LoanTaken += () => SaveService.Save(_state!);
+            Ui.RankingPanel.Challenge.Requested += StartRun;
+        }
+
+        /// <summary>
+        /// Plays a challenge or duel run on the same screens: the career is saved and left untouched, the screens show the
+        /// run's state, months use no daily turns. A run left half-way is continued from its slot.
+        /// </summary>
+        public void StartRun(RunStart start)
+        {
+            if (_runs == null || _state == null || Ui == null || Current != Phase.Playing || _busy || _runs.Current != null) return;
+            start.Hero = _state.Hero;
+            SaveService.Save(_state);
+            ScenarioRun run;
+            try { run = _runs.Begin(start); }
+            catch (Exception e) { Debug.LogException(e); return; }
+            ShowScreens(run.State, run);
+            if (run.Finished) FinishRun();   // finished before but never sent
+        }
+
+        /// <summary>Back to the career (a run left half-way stays in its slot).</summary>
+        public void EndRun()
+        {
+            _runs?.Leave();
+            if (_state != null && Ui != null && Ui.RunMode) ShowScreens(_state, null);
+        }
+
+        /// <summary>Rebuilds the screens for the career or for a run.</summary>
+        void ShowScreens(GameState shown, ScenarioRun? run)
+        {
+            string language = Ui!.Language;
+            bool neon = Ui.IsNeon;
+            Destroy(Ui.gameObject);
+            Ui = new GameObject("UI").AddComponent<UiRoot>();
+            Ui.transform.SetParent(transform);
+            Ui.RunMode = run != null;
+            Ui.Initialize(_engine!, shown);
+            Ui.Online = Online;
+            Ui.Meta = _meta!.Meta;
+            Ui.LineText = id => _yarn != null ? _yarn.LineText(id) : null;
+            StartCoroutine(Ui.SetLanguage(language));
+            if (neon) Ui.SetTheme(true);
+            if (run != null)
+            {
+                Ui.ThemeChanged += on => { if (_light != null) _light.Set(on ? TimeOfDay.Night : TimeOfDay.Day); };
+                Ui.NextMonthRequested += () => { if (!_busy) StartCoroutine(NextRunMonth()); };
+                Ui.LoanTaken += () => _runs?.Save();
+                _banner = new RunBanner(run.Start.Kind == RunStart.Duel ? "run.duel" : "run.challenge");
+                _banner.ExitRequested += EndRun;
+                _banner.Show(run.MonthsDone, run.Months);
+                Ui.Root.Add(_banner.Root);
+                Ui.Open(UiRoot.Company);
+            }
+            else
+            {
+                _banner = null;
+                WireCareerUi();
+                Ui.NextMonthRequested += () => { if (!_busy && !_swapping) StartCoroutine(NextMonth()); };
+                RefreshTurnsUi();
+                RefreshMissionsUi();
+                Ui.Open(UiRoot.Ranking);
+            }
+        }
+
+        IEnumerator NextRunMonth()
+        {
+            if (_runs?.Current == null || Ui == null || _runs.Current.Finished) yield break;
+            _busy = true;
+            MonthReport report;
+            try { report = _runs.PlayMonth(Ui.CurrentDecisions()); }
+            catch (Exception e) { Debug.LogException(e); _busy = false; yield break; }
+            Ui.ShowReport(report);
+            Ui.Open(Ui.HomeTab);
+            _banner?.Show(_runs.Current.MonthsDone, _runs.Current.Months);
+            _busy = false;
+            if (_runs.Current.Finished) FinishRun();
+            yield break;
+        }
+
+        /// <summary>Sends the finished run (queued while offline) and shows the result; the banner leads back to the career.</summary>
+        async void FinishRun()
+        {
+            if (_runs?.Current == null) return;
+            var kind = _runs.Current.Start.Kind;
+            var outcome = await _runs.Finish();
+            if (this == null || outcome == null) return;
+            if (outcome.Queued) { _banner?.ShowResult("run.queued"); return; }
+            var result = outcome.Result;
+            if (kind == RunStart.Challenge && result != null && result.Ok)
+            {
+                if (result.Rank >= 1 && result.Rank <= 10 && Achievements.Grant(_meta!.Meta, Achievements.ChallengeTop10)) SaveService.SaveMeta(_meta);
+                _banner?.ShowResult("run.sent", result.Rank > 0 ? "#" + result.Rank : null);
+            }
+            else if (outcome.Duel != null && outcome.Duel.Error == null) OnDuelResult(outcome.Duel);
+            else _banner?.ShowResult("run.refused");
+        }
+
+        /// <summary>A submitted duel run: the result now, or "waiting for the opponent".</summary>
+        void OnDuelResult(DuelView duel)
+        {
+            if (duel.State == DuelView.Won && Achievements.Grant(_meta!.Meta, Achievements.DuelWinner)) SaveService.SaveMeta(_meta);
+            _banner?.ShowResult("duel.state." + duel.State);
+        }
+
         IEnumerator Boot()
         {
             _queue = new SubmissionQueue();
@@ -223,13 +338,8 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui.LineText = id => _yarn != null ? _yarn.LineText(id) : null;
             yield return Ui.SetLanguage(UiRoot.PickLanguage());
             _yarn!.SetLanguage(Ui.Language);
-            Ui.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
-            Ui.ResetRequested += () => { CloudSync.MarkReset(); SaveService.Delete(); SceneManager.LoadScene(0); };
-            Ui.AccountChanged += OnAccountChanged;
-            Ui.QuizAnswered += OnQuizAnswered;
-            Ui.ChapterAdvanced += chapter => { SaveService.Save(_state); AfterAction(); StartCoroutine(SwapDistrict(chapter)); };
-            Ui.IndustryChosen += _ => { SaveService.Save(_state); AfterAction(); };
-            Ui.LoanTaken += () => SaveService.Save(_state);
+            _runs = new RunController(_engine, _queue!, () => Online, _contentVersion!);
+            WireCareerUi();
             _city?.Sync(_state);
 
             if (resume)
@@ -414,7 +524,7 @@ namespace UnpaidCeo.Game.Bootstrap
 
         void RefreshMissionsUi()
         {
-            if (Ui == null || _meta == null || _engine == null || _state == null) return;
+            if (Ui == null || Ui.RunMode || _meta == null || _engine == null || _state == null) return;
             var views = new List<MissionView>();
             foreach (var m in DailyMissions.For(_meta.Turns.Day, _state.Seed, _engine.Content))
                 views.Add(new MissionView(m.TitleKey, DailyMissions.Progress(_meta.Meta, _meta.Turns, m.Id), m.Target,

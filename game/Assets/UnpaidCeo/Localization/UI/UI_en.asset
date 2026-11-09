@@ -922,6 +922,78 @@ MonoBehaviour:
     m_Localized: Weekly challenge top 10
     m_Metadata:
       m_Items: []
+  - m_Id: 167667100016640
+    m_Localized: Weekly challenge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599552
+    m_Localized: Start cash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599553
+    m_Localized: Attempts left this week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599554
+    m_Localized: Your best
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599555
+    m_Localized: Play
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599556
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599557
+    m_Localized: "Weekly challenge \xB7 month"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599558
+    m_Localized: "Duel \xB7 month"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599559
+    m_Localized: Back to career
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599560
+    m_Localized: 'Result accepted. Your place this week:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599561
+    m_Localized: Saved. Your result will be sent when you're online.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599562
+    m_Localized: The server did not accept this run.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599563
+    m_Localized: 'Your move: play the duel.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599564
+    m_Localized: Sent. Waiting for your opponent.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599565
+    m_Localized: You won the duel!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599566
+    m_Localized: You lost this duel.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599567
+    m_Localized: A draw.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 167667112599568
+    m_Localized: The duel expired after 7 days.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

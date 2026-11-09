@@ -164,3 +164,9 @@
 .account__player { font-size: 32px; -unity-font-style: bold; }
 .account__message { margin-top: 8px; }
 .text-input { font-size: 30px; margin: 4px 0 10px 0; }
+
+/* Run banner (stage 2B) */
+.run-banner { position: absolute; left: 24px; right: 24px; top: 150px; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 10px 18px; background-color: var(--panel); border-radius: 24px; border-width: 3px; border-color: var(--accent); }
+.run-banner__title { font-size: 26px; -unity-font-style: bold; margin-right: 12px; }
+.run-banner__months { font-size: 26px; flex-grow: 1; }
+.run-banner__result { width: 100%; font-size: 26px; white-space: normal; margin: 6px 0; }

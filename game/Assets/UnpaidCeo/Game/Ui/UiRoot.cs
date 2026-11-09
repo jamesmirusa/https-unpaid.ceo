@@ -82,6 +82,8 @@ namespace UnpaidCeo.Game.Ui
         public RankingScreen RankingPanel => _ranking;
         /// <summary>Cross-run progress (badges); set by the game after loading the meta record.</summary>
         public MetaProgress Meta { get; set; }
+        /// <summary>The screens show a challenge or duel run: no daily turns, no chapter bar. Set before Initialize.</summary>
+        public bool RunMode { get; set; }
         /// <summary>The player signed up, in or out, or renamed: the game re-syncs its cloud save.</summary>
         public event Action<AccountChange> AccountChanged;
 
@@ -332,7 +334,8 @@ namespace UnpaidCeo.Game.Ui
             _cash.EnableInClassList("value--negative", _state.Cash.Cents < 0);
             _month.text = _state.Month.ToString();
             _energyFill.style.width = Length.Percent(_state.Life.Energy);
-            if (_engine != null && _chapterBar != null)
+            if (_chapterBar != null) _chapterBar.style.display = RunMode ? DisplayStyle.None : DisplayStyle.Flex;
+            if (_engine != null && _chapterBar != null && !RunMode)
             {
                 var chapter = _engine.Chapter(_state);
                 _chapterFill.style.width = Length.Percent((float)(chapter.Progress * 100));
@@ -347,6 +350,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Manual months left today; with none left the button is off and a countdown to the refill shows.</summary>
         public void SetTurns(int left, int perDay, long secondsToRefill)
         {
+            if (RunMode) return;   // runs use no daily turns
             _turnsBar.style.display = DisplayStyle.Flex;
             _turnsValue.text = $"{Math.Max(0, left)}/{perDay}";
             bool none = left <= 0;

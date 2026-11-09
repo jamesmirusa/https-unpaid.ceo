@@ -12,6 +12,24 @@
         </ui:VisualElement>
         <ui:Label name="ranking-offline" class="hint" />
         <ui:VisualElement name="ranking-online">
+            <ui:VisualElement name="challenge-card" class="industry-card">
+                <ui:Label name="challenge-caption" class="section-title" />
+                <ui:Label name="challenge-industry" class="industry-card__name" />
+                <ui:VisualElement class="row">
+                    <ui:Label name="challenge-start-caption" class="row__label" />
+                    <ui:Label name="challenge-start" class="row__value value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="row">
+                    <ui:Label name="challenge-attempts-caption" class="row__label" />
+                    <ui:Label name="challenge-attempts" class="row__value value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="row">
+                    <ui:Label name="challenge-best-caption" class="row__label" />
+                    <ui:Label name="challenge-best" class="row__value value" />
+                </ui:VisualElement>
+                <ui:Button name="challenge-play" class="primary-button" />
+                <ui:VisualElement name="challenge-top" class="rank-list" />
+            </ui:VisualElement>
             <ui:Label name="ranking-top-caption" class="section-title" />
             <ui:VisualElement name="ranking-top" class="rank-list" />
             <ui:Label name="ranking-empty" class="hint" />

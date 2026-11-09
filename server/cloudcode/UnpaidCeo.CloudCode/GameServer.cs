@@ -44,7 +44,8 @@ namespace UnpaidCeo.CloudCode
             await FirstSeen(playerId);
             long now = _clock.NowUnix;
             int week = WeeklyChallenge.WeekIndex(now);
-            return new HelloResult { ServerUnix = now, Week = week, Challenge = WeeklyChallenge.For(week, _c.Balance) };
+            int.TryParse(await _players.Get(playerId, AttemptsKey(week)), out int used);
+            return new HelloResult { ServerUnix = now, Week = week, Challenge = WeeklyChallenge.For(week, _c.Balance), ChallengeAttemptsUsed = used };
         }
 
         public async Task<SubmitResult> SubmitCareer(string playerId, RunSubmission s)
@@ -81,7 +82,7 @@ namespace UnpaidCeo.CloudCode
             if (week == current && inGrace) return Refused("too_early");
             if (!(week == current || (week == current - 1 && inGrace))) return Refused("week_ended");
 
-            string attemptsKey = "challenge_attempts_" + week;
+            string attemptsKey = AttemptsKey(week);
             int.TryParse(await _players.Get(playerId, attemptsKey), out int used);
             if (used >= WeeklyChallenge.AttemptsPerWeek) return Refused("attempts_used");
 
@@ -162,6 +163,8 @@ namespace UnpaidCeo.CloudCode
         static DuelView Refuse(DuelView v, string error) { v.Error = error; return v; }
 
         static SubmitResult Refused(string error) => new SubmitResult { Ok = false, Error = error };
+
+        static string AttemptsKey(int week) => "challenge_attempts_" + week;
 
         async Task<long> FirstSeen(string playerId)
         {

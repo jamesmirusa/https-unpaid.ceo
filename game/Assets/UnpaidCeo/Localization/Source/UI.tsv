@@ -225,3 +225,21 @@ badge.break_even_3	Break-even 3 months in a row	Безубыточность 3 �
 badge.clean_cash_12	Clean books for a year	Чистая касса целый год
 badge.duel_winner	Duel winner	Победитель дуэли
 badge.challenge_top10	Weekly challenge top 10	Топ-10 недельного челленджа
+challenge.title	Weekly challenge	Недельный челлендж
+challenge.start	Start cash	Стартовый капитал
+challenge.attempts	Attempts left this week	Попыток на этой неделе
+challenge.best	Your best	Твой лучший результат
+challenge.play	Play	Играть
+challenge.continue	Continue	Продолжить
+run.challenge	Weekly challenge · month	Недельный челлендж · месяц
+run.duel	Duel · month	Дуэль · месяц
+run.exit	Back to career	Вернуться к карьере
+run.sent	Result accepted. Your place this week:	Результат принят. Твоё место на этой неделе:
+run.queued	Saved. Your result will be sent when you're online.	Сохранено. Результат отправится, когда появится интернет.
+run.refused	The server did not accept this run.	Сервер не принял этот забег.
+duel.state.waiting_me	Your move: play the duel.	Твой ход: сыграй дуэль.
+duel.state.waiting_them	Sent. Waiting for your opponent.	Отправлено. Ждём соперника.
+duel.state.won	You won the duel!	Ты выиграл дуэль!
+duel.state.lost	You lost this duel.	Эта дуэль проиграна.
+duel.state.draw	A draw.	Ничья.
+duel.state.expired	The duel expired after 7 days.	Дуэль истекла через 7 дней.
