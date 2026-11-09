@@ -39,6 +39,10 @@ namespace UnpaidCeo.Core.Game
         /// <summary>How many GameState.Log entries were already counted, for the game with <see cref="LogSeed"/>.</summary>
         public int LogCursor { get; set; }
         public ulong LogSeed { get; set; }
+        /// <summary>Achievement badges earned (Core.Online.Achievements).</summary>
+        public List<string> Badges { get; set; } = new List<string>();
+        /// <summary>Month ends in a row with cash ≥ 0 since the first unit opened.</summary>
+        public int CleanCashMonths { get; set; }
     }
 
     /// <summary>Turn budget, streak and mission progress, saved next to the game save.</summary>
