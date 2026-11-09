@@ -11,7 +11,7 @@ using UnpaidCeo.Core.Primitives;
 
 namespace UnpaidCeo.Core.Tests.Content
 {
-    /// <summary>Chapter 1 content: storylets JSON, Yarn scripts and the RU string table must agree.</summary>
+    /// <summary>Story content (chapters 1–3): storylets JSON, Yarn scripts and the RU string table must agree.</summary>
     public class StoryContentTests
     {
         static string Root => Path.Combine(UnityEngine.Application.dataPath, "UnpaidCeo");
@@ -27,7 +27,9 @@ namespace UnpaidCeo.Core.Tests.Content
                 Balance = Read("balance.json"),
                 FreeActions = Read("free_actions.json"),
                 Storylets = Read("storylets_ch1.json"),
+                MoreStorylets = new[] { Read("storylets_ch2.json"), Read("storylets_ch3.json") },
                 Npcs = Read("npcs.json"),
+                Lessons = Read("lessons.json"),
             });
         }
 
@@ -107,7 +109,9 @@ namespace UnpaidCeo.Core.Tests.Content
         public void Npc_ids_exist()
         {
             var db = Db();
-            Assert.AreEqual(6, db.Npcs.Count, "chapter 1 has 6 NPCs");
+            Assert.AreEqual(10, db.Npcs.Count, "6 chapter-1 NPCs and 4 dialogue-only NPCs from chapters 2–3");
+            foreach (var id in new[] { "banker_lee", "supplier_rosa", "journalist_mia", "cofounder_sam" })
+                Assert.IsTrue(db.Npcs.ContainsKey(id), id);
             var used = new List<(string where, string npc)>();
             foreach (var s in db.Storylets)
             {
@@ -133,11 +137,97 @@ namespace UnpaidCeo.Core.Tests.Content
             var dupes = ids.GroupBy(x => x).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
             Assert.IsEmpty(dupes, "duplicate line ids: " + string.Join(", ", dupes));
 
-            var csvPath = Path.Combine(YarnDir, "Chapter1-ru.csv");
-            Assert.IsTrue(File.Exists(csvPath), "Chapter1-ru.csv is missing");
+            var csvPath = Path.Combine(YarnDir, "Story-ru.csv");
+            Assert.IsTrue(File.Exists(csvPath), "Story-ru.csv is missing");
             var ru = ReadStringTable(File.ReadAllText(csvPath, Encoding.UTF8));
             var missing = ids.Where(id => !ru.TryGetValue("line:" + id, out var text) || string.IsNullOrWhiteSpace(text)).ToList();
             Assert.IsEmpty(missing, "lines without a Russian translation:\n" + string.Join("\n", missing));
+        }
+
+        static readonly string[] Chapter2Industries = { "coffee_cart", "resale_store", "food_truck", "ai_agency", "cleaning", "logistics_box_truck" };
+
+        static string IndustryOf(StoryletDef s) => s.When.Select(w => (string)w.Raw["industry"]).FirstOrDefault(x => x != null);
+
+        [Test]
+        public void Every_industry_has_at_least_six_scenes()
+        {
+            var db = Db();
+            foreach (var id in Chapter2Industries)
+                Assert.GreaterOrEqual(db.Storylets.Count(s => IndustryOf(s) == id), 6, id);
+            Assert.GreaterOrEqual(db.Storylets.Count(s => s.Id.StartsWith("ch2_") || s.Id.StartsWith("ch3_") || s.Id.StartsWith("boss_")), 48);
+            Assert.GreaterOrEqual(db.Storylets.Count(s => s.Id.StartsWith("ch2_") && IndustryOf(s) == null), 6, "generic Brooklyn scenes");
+            Assert.GreaterOrEqual(db.Storylets.Count(s => s.Id.StartsWith("ch3_")), 6, "generic Queens scenes");
+            foreach (var arc in new[] { "banker", "supplier", "journalist", "cofounder" })
+                Assert.GreaterOrEqual(db.Storylets.Count(s => s.Arc == arc), 2, $"arc '{arc}' starts in Brooklyn and continues in Queens");
+        }
+
+        [Test]
+        public void Every_industry_has_a_scene_that_teaches()
+        {
+            var db = Db();
+            foreach (var id in Chapter2Industries)
+            {
+                var lessons = db.Storylets.Where(s => IndustryOf(s) == id)
+                    .SelectMany(s => s.Choices.Values.SelectMany(c => c.OfType<LessonEffect>())).Select(e => e.LessonId).ToList();
+                Assert.IsNotEmpty(lessons, $"{id} has no scene that leads to a lesson");
+                Assert.IsTrue(lessons.All(l => db.Lessons.ContainsKey(l)), $"{id}: unknown lesson in [{string.Join(",", lessons)}]");
+            }
+        }
+
+        [Test]
+        public void Every_new_choice_has_a_visible_effect()
+        {
+            var bad = (from s in Db().Storylets
+                       where !s.Id.StartsWith("ch1_")
+                       from c in s.Choices
+                       where !c.Value.Any(e => e is CashEffect || e is StatEffect || e is NpcEffect || e is DemandModifierEffect
+                                              || e is StaffEffect || e is ReserveEffect || e is LessonEffect)
+                       select s.Id + "/" + c.Key).ToList();
+            Assert.IsEmpty(bad, "choices the player cannot feel:\n" + string.Join("\n", bad));
+        }
+
+        [Test]
+        public void Chapter_end_rival_scene_fires_once_when_the_goal_is_met()
+        {
+            var db = Db();
+            foreach (var (id, chapter, fact) in new[] { ("boss_fatcat_price_war", 2, "chapter2_done"), ("boss_fatcat_poach", 3, "chapter3_done") })
+            {
+                var s = db.Storylets.Single(x => x.Id == id);
+                Assert.IsTrue(s.Once, id);
+                Assert.GreaterOrEqual(s.Weight, 50, $"{id} should come up right away");
+                var facts = new FactStore();
+                NarrativeContext Ctx() => new NarrativeContext
+                {
+                    Month = 30, Chapter = chapter, Cash = Money.FromCents(1_000_000),
+                    Life = new LifeStats { Energy = 70, Relationships = 60, Reputation = 50, Honesty = 70, Connections = 20 },
+                    Facts = facts, Npcs = new NpcRelations(), IndustryIds = new[] { "coffee_cart" },
+                };
+                var none = new Dictionary<string, int>();
+                Assert.IsFalse(StoryletSelector.IsEligible(s, Ctx(), none, new HashSet<string>()), $"{id} before the goal");
+                facts.Set(fact, 29);
+                Assert.IsTrue(StoryletSelector.IsEligible(s, Ctx(), none, new HashSet<string>()), $"{id} once the goal is met");
+                Assert.IsFalse(StoryletSelector.IsEligible(s, Ctx(), none, new HashSet<string> { id }), $"{id} only once");
+            }
+            var war = db.Storylets.Single(x => x.Id == "boss_fatcat_price_war").Choices["ignore"].OfType<DemandModifierEffect>().Single();
+            Assert.AreEqual(0.8, war.Factor, 1e-9);
+            Assert.AreEqual(3, war.Months);
+            var poach = db.Storylets.Single(x => x.Id == "boss_fatcat_poach").Choices["refuse"].OfType<StaffEffect>().Single();
+            Assert.AreEqual(-2, poach.Delta);
+        }
+
+        [Test]
+        public void Scene_choice_lines_resolve()
+        {
+            var lineIds = new HashSet<string>(YarnNodes().Values.SelectMany(n => n.ContentLines)
+                .Select(l => LineTag.Match(l)).Where(m => m.Success).Select(m => "line:" + m.Groups[1].Value));
+            var bad = new List<string>();
+            foreach (var s in Db().Storylets)
+            {
+                if (s.ChoiceLines.Count == 0) continue;   // the journal falls back to the choice id
+                if (!new HashSet<string>(s.ChoiceLines.Keys).SetEquals(s.Choices.Keys)) bad.Add(s.Id + ": choiceLines keys differ from choices");
+                bad.AddRange(s.ChoiceLines.Where(kv => !lineIds.Contains(kv.Value)).Select(kv => $"{s.Id}/{kv.Key}: {kv.Value} is not a Yarn line"));
+            }
+            Assert.IsEmpty(bad, string.Join("\n", bad));
         }
 
         [Test]

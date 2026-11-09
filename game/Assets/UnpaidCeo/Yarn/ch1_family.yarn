@@ -1,6 +1,6 @@
 // Chapter 1, Mom and the family.
 // Every option runs <<choose "id">>; its effects live in Content/storylets_ch1.json.
-// Russian text lives in Chapter1-ru.csv; keep #line ids stable.
+// Russian text lives in Story-ru.csv; keep #line ids stable.
 
 title: ch1_mom_call
 ---

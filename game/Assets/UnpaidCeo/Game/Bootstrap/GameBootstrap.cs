@@ -33,7 +33,7 @@ namespace UnpaidCeo.Game.Bootstrap
     {
         public enum Phase { Loading, Onboarding, Playing, Failed }
 
-        public static readonly string[] ContentFiles = { "industries", "balance", "free_actions", "storylets_ch1", "npcs", "lessons", "missions" };
+        public static readonly string[] ContentFiles = { "industries", "balance", "free_actions", "storylets_ch1", "npcs", "lessons", "missions", "storylets_ch2", "storylets_ch3" };
         public static string ContentAddress(string file) => "content/" + file;
 
         [SerializeField] YarnProject? yarnProject;
@@ -139,6 +139,7 @@ namespace UnpaidCeo.Game.Bootstrap
             {
                 Industries = texts[0], Balance = texts[1], FreeActions = texts[2],
                 Storylets = texts[3], Npcs = texts[4], Lessons = texts[5], Missions = texts[6],
+                MoreStorylets = new[] { texts[7], texts[8] },
             }));
         }
 

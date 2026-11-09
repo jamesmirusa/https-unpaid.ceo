@@ -19,6 +19,8 @@ namespace UnpaidCeo.Core.Content
         public string Npcs { get; set; }
         public string Lessons { get; set; }
         public string Missions { get; set; }
+        /// <summary>Further storylet files (chapters 2–3 and later), appended after <see cref="Storylets"/>.</summary>
+        public string[] MoreStorylets { get; set; }
     }
 
     /// <summary>A named character; Name maps a language code to the display name.</summary>
@@ -76,6 +78,9 @@ namespace UnpaidCeo.Core.Content
             var industries = Parse<IndustriesFile>(files.Industries)?.Industries ?? new List<IndustryDef>();
             var actions = Parse<FreeActionsFile>(files.FreeActions)?.FreeActions ?? new List<FreeActionDef>();
             var storylets = Parse<StoryletsFile>(files.Storylets)?.Storylets ?? new List<StoryletDef>();
+            if (files.MoreStorylets != null)
+                foreach (var more in files.MoreStorylets)
+                    storylets.AddRange(Parse<StoryletsFile>(more)?.Storylets ?? new List<StoryletDef>());
             var npcs = Parse<NpcsFile>(files.Npcs)?.Npcs ?? new List<NpcDef>();
             var lessons = Parse<LessonsFile>(files.Lessons)?.Lessons ?? new List<LessonDef>();
             var missions = Parse<MissionsFile>(files.Missions)?.Missions ?? new List<MissionDef>();

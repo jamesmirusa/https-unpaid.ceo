@@ -13,7 +13,7 @@
       "assets": "Voice/en"
     },
     "ru": {
-      "strings": "Chapter1-ru.csv",
+      "strings": "Story-ru.csv",
       "assets": "Voice/ru"
     }
   },

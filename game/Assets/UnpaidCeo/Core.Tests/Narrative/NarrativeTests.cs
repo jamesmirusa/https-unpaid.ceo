@@ -230,6 +230,21 @@ namespace UnpaidCeo.Core.Tests.Narrative
         }
 
         [Test]
+        public void Staff_effect_removes_employees_from_the_business_and_never_below_zero()
+        {
+            var (e, s) = DemandLimitedShop();
+            var shop = s.Businesses.Single(b => b.IndustryId == "shop");
+            shop.Employees = 3;
+            var quit = Effect.Parse(Newtonsoft.Json.Linq.JObject.Parse(@"{ ""staff"": { ""delta"": -2 } }"));
+            Assert.IsInstanceOf<StaffEffect>(quit);
+            EffectApplier.Apply(quit, s);
+            Assert.AreEqual(1, shop.Employees);
+            EffectApplier.Apply(quit, s);
+            Assert.AreEqual(0, shop.Employees);
+            Assert.IsTrue(s.Businesses.Where(b => b.IndustryId != "shop").All(b => b.Employees == 0), "gigs have no staff to lose");
+        }
+
+        [Test]
         public void Unknown_industry_in_demand_effect_fails_at_load()
         {
             const string storylets = @"{ ""storylets"": [ { ""id"": ""war"", ""yarnNode"": ""war"",

@@ -1,5 +1,5 @@
 // Chapter 1 onboarding: the mentor's first 60 seconds, shown as coach marks by Game/Bootstrap/OnboardingFlow
-// (no choices, not run by the DialogueRunner). Russian text lives in Chapter1-ru.csv; keep #line ids stable.
+// (no choices, not run by the DialogueRunner). Russian text lives in Story-ru.csv; keep #line ids stable.
 
 title: ch1_onboarding
 ---

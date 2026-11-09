@@ -16,7 +16,7 @@ LINE = re.compile(r"#line:(\S+)")
 
 
 def spoken_lines():
-    ru = {r["id"][5:]: r["text"] for r in csv.DictReader(open(os.path.join(ASSETS, "Yarn", "Chapter1-ru.csv"), encoding="utf-8"))}
+    ru = {r["id"][5:]: r["text"] for r in csv.DictReader(open(os.path.join(ASSETS, "Yarn", "Story-ru.csv"), encoding="utf-8"))}
     out = []
     for f in sorted(glob.glob(os.path.join(ASSETS, "Yarn", "*.yarn"))):
         for raw in open(f, encoding="utf-8"):
