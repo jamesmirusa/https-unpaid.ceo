@@ -2,7 +2,7 @@
 
 Every `Ruling:` from the execution ledger (plan: docs/superpowers/plans/2026-11-08-unpaid-ceo-stage2a-chapters-2-3.md), in the order made, each with its cost if wrong; then what the final review fixed and its deferred minors.
 
-**Owner sign-off needed:** chapter goals changed from the spec ($25k → $100k for chapter 2, $250k → $275k for chapter 3, Queens demand 1.15 → 1.5, a 60-month loan term) and the chapter-3 team must now be kept for 3 month ends. See the "Final:" rulings.
+**Owner approved (2026-11-08):** the chapter goals changed from the spec ($25k → $100k for chapter 2, $250k → $275k for chapter 3, Queens demand 1.15 → 1.5, a 60-month loan term) and the chapter-3 team must be kept for 3 month ends; the spec is updated (§ chapters table). See the "Final:" rulings.
 
 ## Rulings
 
