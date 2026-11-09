@@ -3,7 +3,7 @@
 # Usage: tools/server/deploy.sh [environment]     (default: production)
 #
 # The owner signs the CLI in once, in Terminal (keys never pass through chat or this repo):
-#   npm install -g ugs && ugs login && ugs config set project-id <Project ID>
+#   ugs login && ugs config set project-id <Project ID>
 # Every deploy re-checks the config against the game and re-runs the server tests first.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
@@ -13,7 +13,8 @@ DOTNET="${DOTNET:-$HOME/.dotnet/dotnet}"
 
 command -v ugs >/dev/null 2>&1 || { echo "ugs CLI not found: npm install -g ugs"; exit 1; }
 status="$(ugs status 2>&1)" || { echo "ugs is not signed in: run 'ugs login' in Terminal"; exit 1; }
-if printf '%s' "$status" | grep -qiE "no service account|not logged|not authenticated|missing"; then
+# ugs 2.0 prints "No credentials configured. Run `ugs login` …" (exit 0) when signed out
+if printf '%s' "$status" | grep -qiE "no credentials|no service account|not logged|not authenticated|missing"; then
   echo "ugs is not signed in: run 'ugs login' in Terminal"; exit 1
 fi
 project="$(ugs config get project-id 2>/dev/null | tr -d '[:space:]' || true)"
