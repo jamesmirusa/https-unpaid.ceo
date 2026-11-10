@@ -22,6 +22,10 @@ namespace UnpaidCeo.Editor
             if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.WebGL)
                 EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.WebGL, BuildTarget.WebGL);
             ConfigureWeb();
+            // Diagnostics: UC_DIAG=1 builds to Builds/WebDiag with wasm function names, so a browser stack trace is readable.
+            bool diag = Environment.GetEnvironmentVariable("UC_DIAG") == "1";
+            PlayerSettings.WebGL.emscriptenArgs = diag ? "--profiling-funcs" : "";
+            string output = diag ? "Builds/WebDiag" : WebOutput;
 
             AddressableAssetSettings.CleanPlayerContent();
             AddressableAssetSettings.BuildPlayerContent(out var content);
@@ -33,7 +37,7 @@ namespace UnpaidCeo.Editor
             var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
                 scenes = scenes,
-                locationPathName = WebOutput,
+                locationPathName = output,
                 target = BuildTarget.WebGL,
                 options = BuildOptions.None,
             });
@@ -51,7 +55,9 @@ namespace UnpaidCeo.Editor
             PlayerSettings.WebGL.dataCaching = true;
             PlayerSettings.WebGL.template = "PROJECT:UnpaidCeo";
             PlayerSettings.WebGL.exceptionSupport = WebGLExceptionSupport.ExplicitlyThrownExceptionsOnly;
-            PlayerSettings.WebGL.nameFilesAsHashes = false;
+            // Hashed file names: a returning player's browser cache can never pair an old data file with new code
+            // (that mismatch crashed the game at startup with "Maximum call stack size exceeded").
+            PlayerSettings.WebGL.nameFilesAsHashes = true;
             PlayerSettings.SetManagedStrippingLevel(NamedBuildTarget.WebGL, ManagedStrippingLevel.Medium);
             PlayerSettings.SetIl2CppCodeGeneration(NamedBuildTarget.WebGL, Il2CppCodeGeneration.OptimizeSize);
             SetWasmOptimization("DiskSizeLTO");
