@@ -123,6 +123,14 @@ namespace UnpaidCeo.Game.Ui
         public void OpenBusinessChoice() => Open(Industry);
 
         /// <summary>After the month's scenes: their effects (staff, cash) show in the steppers and screens.</summary>
+        /// <summary>A scene's dialogue is on screen (it is drawn over the City screen's lower part).</summary>
+        public void SetSceneOpen(bool open)
+        {
+            _sceneOpen = open;
+            _missions.style.display = !open && _missions.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+        bool _sceneOpen;
+
         public void AfterScenes()
         {
             _decisions.Refresh();
@@ -431,7 +439,7 @@ namespace UnpaidCeo.Game.Ui
             footer.Add(UiText.Label("missions.points", "missions__caption"));
             footer.Add(UiText.ValueLabel(ceoPoints.ToString(), "missions__value"));
             _missions.Add(footer);
-            _missions.style.display = missions.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            _missions.style.display = missions.Count > 0 && !_sceneOpen ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         public IEnumerator SetLanguage(string code)

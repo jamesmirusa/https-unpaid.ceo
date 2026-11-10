@@ -493,8 +493,10 @@ namespace UnpaidCeo.Game.Bootstrap
             {
                 _engine.BeginMonth(_state);
                 _yarn.Bind(_engine, _state);
+                Ui?.SetSceneOpen(true);   // the dialogue is drawn over the missions panel
                 await _yarn.PlayPendingAsync();
                 if (this == null || !isActiveAndEnabled) return; // destroyed mid-scene (reset deleted the save): do not write it back
+                Ui?.SetSceneOpen(false);
                 Ui?.AfterScenes();
                 SaveService.Save(_state);
                 PushCloud();
@@ -502,7 +504,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 AfterAction();
             }
             catch (Exception e) { Debug.LogException(e); }
-            finally { _busy = false; }
+            finally { _busy = false; if (this != null) Ui?.SetSceneOpen(false); }
         }
 
         void OnQuizAnswered(string lessonId, int question)

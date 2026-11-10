@@ -70,6 +70,33 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator Missions_step_aside_while_a_scene_is_on_screen()
+        {
+            yield return Boot();
+            _ui.SetMissions(new[]
+            {
+                new MissionView("mission.months_3", 1, 3, false),
+                new MissionView("mission.quiz_1", 1, 1, true),
+                new MissionView("mission.scenes_1", 0, 1, false),
+            }, streak: 4, ceoPoints: 12);
+            _ui.Open(UiRoot.City);
+            Assert.AreEqual(DisplayStyle.Flex, _ui.MissionsPanel.style.display.value);
+
+            _ui.SetSceneOpen(true);   // the dialogue is drawn where the missions are
+            Assert.AreEqual(DisplayStyle.None, _ui.MissionsPanel.style.display.value);
+            _ui.SetMissions(new[]
+            {
+                new MissionView("mission.months_3", 1, 3, false),
+                new MissionView("mission.quiz_1", 1, 1, true),
+                new MissionView("mission.scenes_1", 0, 1, false),
+            }, streak: 4, ceoPoints: 12);
+            Assert.AreEqual(DisplayStyle.None, _ui.MissionsPanel.style.display.value, "a refresh during the scene keeps them hidden");
+
+            _ui.SetSceneOpen(false);
+            Assert.AreEqual(DisplayStyle.Flex, _ui.MissionsPanel.style.display.value);
+        }
+
+        [UnityTest]
         public IEnumerator City_shows_todays_missions_with_progress_and_streak()
         {
             yield return Boot();
