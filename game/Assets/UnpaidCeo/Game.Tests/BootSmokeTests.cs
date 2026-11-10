@@ -53,6 +53,9 @@ namespace UnpaidCeo.Game.Tests
             var done = boot.Ui.Root.Q<Button>("hero-done");
             Assert.IsNotNull(done, "hero creator is on screen");
             Assert.IsNotNull(Object.FindFirstObjectByType<Yarn.Unity.DialogueRunner>(), "dialogue is wired");
+            var dialogue = Object.FindFirstObjectByType<UnpaidCeo.Game.Narrative.UitkDialoguePresenter>()
+                .GetComponent<UnityEngine.UIElements.UIDocument>().rootVisualElement.Q("dialogue");
+            Assert.IsTrue(dialogue.ClassListContains("theme-day"), "the dialogue panel carries the theme, or it has no background and accent");
 
             Assert.IsNotNull(boot.Ui.Online, "screens always have online services (offline until UGS answers)");
             if (string.IsNullOrEmpty(Application.cloudProjectId))

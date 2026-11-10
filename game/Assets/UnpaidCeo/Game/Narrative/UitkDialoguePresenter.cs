@@ -32,6 +32,7 @@ namespace UnpaidCeo.Game.Narrative
             if (document == null) return;
             _panel = new VisualElement { name = "dialogue" };
             _panel.AddToClassList("dialogue");
+            _panel.AddToClassList("theme-day");   // the colour tokens (--panel, --accent) live on the theme class; this document has no .app root
             _speaker = new Label { name = "dialogue-speaker" };
             _speaker.AddToClassList("dialogue__speaker");
             _text = new Label { name = "dialogue-text" };
