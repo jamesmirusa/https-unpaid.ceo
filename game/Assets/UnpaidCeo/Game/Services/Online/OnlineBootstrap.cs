@@ -17,10 +17,16 @@ namespace UnpaidCeo.Game.Services.Online
     {
         struct NoAttributes { }
 
-        /// <param name="cloudProjectId">null reads Application.cloudProjectId; tests pass "" for an unlinked project.</param>
+        /// <summary>
+        /// Set to "" by the test assembly so no test ever talks to the real services (a linked project would otherwise
+        /// sign in, sync cloud saves and call the server from inside the test run).
+        /// </summary>
+        public static string? CloudProjectIdOverride;
+
+        /// <param name="cloudProjectId">null reads the override, then Application.cloudProjectId; "" means an unlinked project.</param>
         public static async Task<IOnlineServices> Start(float timeoutSeconds = 8, string? cloudProjectId = null)
         {
-            var projectId = cloudProjectId ?? Application.cloudProjectId;
+            var projectId = cloudProjectId ?? CloudProjectIdOverride ?? Application.cloudProjectId;
             if (string.IsNullOrEmpty(projectId)) return new OfflineServices();
 
             var connect = Connect();

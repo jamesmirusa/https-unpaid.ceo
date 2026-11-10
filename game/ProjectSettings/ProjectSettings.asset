@@ -820,11 +820,11 @@ PlayerSettings:
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
-  cloudProjectId: 1ca7968a-e8b3-4262-b859-467edb15d9a0
+  cloudProjectId: 4da0a5db-f0dd-4e8e-9b9a-e4a7b29d23ba
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: Unpaid CEO
-  organizationId: unity_C8A658E761210CA99056
+  organizationId: jamamir
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
