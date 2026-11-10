@@ -8,8 +8,18 @@
     "essentials": 15000
   },
   "personalCostsByChapter": {
-    "2": { "room": 190000, "food": 34320, "transit": 16720, "essentials": 16500 },
-    "3": { "room": 230000, "food": 37752, "transit": 18392, "essentials": 18150 }
+    "2": {
+      "room": 190000,
+      "food": 34320,
+      "transit": 16720,
+      "essentials": 16500
+    },
+    "3": {
+      "room": 230000,
+      "food": 37752,
+      "transit": 18392,
+      "essentials": 18150
+    }
   },
   "chapter1CashGoal": 100000,
   "debtBankruptLine": -50000,
@@ -37,6 +47,64 @@
     "baseActionPoints": 3,
     "burnoutThreshold": 30,
     "burnoutErrorChance": 0.25
+  },
+  "chapter2Industries": [
+    "coffee_cart",
+    "resale_store",
+    "food_truck",
+    "ai_agency",
+    "cleaning",
+    "logistics_box_truck"
+  ],
+  "districtDemand": {
+    "bronx": 1.0,
+    "brooklyn": 1.0,
+    "queens": 1.5
+  },
+  "chapter2CapitalGoal": 10000000,
+  "chapter3CapitalGoal": 27500000,
+  "chapter3EmployeesGoal": 10,
+  "chapter3TeamMonths": 3,
+  "chapter3UnitsGoal": 2,
+  "assetResaleRate": 0.5,
+  "payrollOverhead": 0.1,
+  "loans": {
+    "baseApr": 0.12,
+    "aprPerMissingReputation": 0.001,
+    "lowHonestyAprAdd": 0.03,
+    "lowHonestyBelow": 40,
+    "maxBase": 2000000,
+    "maxPerReputation": 50000,
+    "termsMonths": [
+      12,
+      24,
+      36,
+      60
+    ]
+  },
+  "dailyManualMonths": 6,
+  "valuation": {
+    "ladder": [
+      {
+        "below": 50000000,
+        "multiple": 2.0
+      },
+      {
+        "below": 100000000,
+        "multiple": 2.7
+      },
+      {
+        "below": 500000000,
+        "multiple": 3.3
+      },
+      {
+        "below": 5000000000,
+        "multiple": 5.3
+      }
+    ],
+    "topMultiple": 8.0,
+    "publicMultiple": 15.0,
+    "roundDilution": 0.2
   },
   "sources": [
     {
@@ -110,36 +178,24 @@
       "url": "",
       "checkedOn": "2026-11-08",
       "note": "game assumption close to small-business term loan rates; labelled as a simulation"
+    },
+    {
+      "field": "valuation.ladder",
+      "url": "https://www.bizbuysell.com/news/media_insight.html",
+      "checkedOn": "2026-11-10",
+      "note": "BizBuySell Insight Report 2026: average cash-flow multiple 2.7x at a $350k median sale; by size about 2.0x under $500k of earnings, 3.3x at $1-2M, 5.3x at $5-50M (https://lonelyentrepreneur.com/founder-business-valuation/). topMultiple 8.0 above $50M is a game assumption."
+    },
+    {
+      "field": "valuation.roundDilution",
+      "url": "https://carta.com/data/linkedin-seed-dilution-30-percent-under-10/",
+      "checkedOn": "2026-11-10",
+      "note": "Carta: median share sold is 19.5% at seed, 18% at Series A, 15% at Series B. Game uses 20% a round."
+    },
+    {
+      "field": "valuation.publicMultiple",
+      "url": "",
+      "checkedOn": "2026-11-10",
+      "note": "Game assumption: a listed company trades at 15x yearly operating profit; tuned by the stage-3 balance tests."
     }
-  ],
-  "chapter2Industries": [
-    "coffee_cart",
-    "resale_store",
-    "food_truck",
-    "ai_agency",
-    "cleaning",
-    "logistics_box_truck"
-  ],
-  "districtDemand": {
-    "bronx": 1.0,
-    "brooklyn": 1.0,
-    "queens": 1.5
-  },
-  "chapter2CapitalGoal": 10000000,
-  "chapter3CapitalGoal": 27500000,
-  "chapter3EmployeesGoal": 10,
-  "chapter3TeamMonths": 3,
-  "chapter3UnitsGoal": 2,
-  "assetResaleRate": 0.5,
-  "payrollOverhead": 0.1,
-  "loans": {
-    "baseApr": 0.12,
-    "aprPerMissingReputation": 0.001,
-    "lowHonestyAprAdd": 0.03,
-    "lowHonestyBelow": 40,
-    "maxBase": 2000000,
-    "maxPerReputation": 50000,
-    "termsMonths": [12, 24, 36, 60]
-  },
-  "dailyManualMonths": 6
+  ]
 }

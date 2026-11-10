@@ -34,6 +34,24 @@ namespace UnpaidCeo.Core.Content
         public int[] TermsMonths { get; set; } = { 12, 24, 36 };
     }
 
+    public sealed class MultipleStep
+    {
+        /// <summary>Yearly profit below which this multiple applies.</summary>
+        public Money Below { get; set; }
+        public double Multiple { get; set; }
+    }
+
+    /// <summary>Company valuation rules (chapters 4–5): see docs/superpowers/specs/2026-11-10-stage3-zero-to-billionaire-design.md.</summary>
+    public sealed class ValuationBalance
+    {
+        /// <summary>Multiples of yearly profit by size, smallest first; profits past the last step use TopMultiple.</summary>
+        public List<MultipleStep> Ladder { get; set; } = new List<MultipleStep>();
+        public double TopMultiple { get; set; } = 8.0;
+        public double PublicMultiple { get; set; } = 15.0;
+        /// <summary>Share of the company sold in one investment round.</summary>
+        public double RoundDilution { get; set; } = 0.20;
+    }
+
     /// <summary>Global balance constants (balance.json). Values in cents where money.</summary>
     public sealed class Balance
     {
@@ -78,6 +96,7 @@ namespace UnpaidCeo.Core.Content
         /// <summary>Months a player can play by hand per local calendar day.</summary>
         public int DailyManualMonths { get; set; } = 6;
         public LifeBalance Life { get; set; } = new LifeBalance();
+        public ValuationBalance Valuation { get; set; } = new ValuationBalance();
         public List<SourceRef> Sources { get; set; } = new List<SourceRef>();
     }
 }
