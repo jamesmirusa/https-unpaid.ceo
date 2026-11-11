@@ -25,7 +25,8 @@
 /* Screens */
 .content { flex-grow: 1; }
 .screen { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 24px; }
-.screen--panel { left: 16px; right: 16px; top: 16px; bottom: 16px; background-color: var(--panel); border-radius: 32px; }
+/* Opaque: a popup lies over the city's widgets, and a see-through panel let the guide's text show through the lists. */
+.screen--panel { left: 16px; right: 16px; top: 16px; bottom: 16px; background-color: var(--panel-strong); border-radius: 32px; }
 .screen__title { font-size: 54px; -unity-font-style: bold; margin-bottom: 16px; }
 .section-title { font-size: 36px; -unity-font-style: bold; margin-top: 24px; margin-bottom: 8px; }
 .hint { font-size: 30px; color: var(--text-dim); white-space: normal; }

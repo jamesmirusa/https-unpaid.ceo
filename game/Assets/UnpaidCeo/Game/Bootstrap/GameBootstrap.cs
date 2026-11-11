@@ -131,7 +131,7 @@ namespace UnpaidCeo.Game.Bootstrap
         {
             if (_rig == null || _city == null || _city.HomeAnchor == null) return;
             var spot = StreetLife.HomeFront(_city.HomeAnchor);
-            if (closeUp) _rig.Frame(spot, 24f, raise: 0.2f);
+            if (closeUp) _rig.Frame(spot, 24f, raise: 0.07f);   // between the HUD and the creator panel
             else _rig.Frame(spot, HeroCameraDistance, raise: HeroScreenRaise);
         }
 
