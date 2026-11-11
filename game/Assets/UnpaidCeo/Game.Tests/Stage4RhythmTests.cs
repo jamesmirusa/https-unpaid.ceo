@@ -252,6 +252,58 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual("Bank", sign.Q<Label>("marker-title-bank").text);
         }
 
+        // ---------- Everything by button: the street strip and the camera buttons ----------
+
+        [UnityTest]
+        public IEnumerator Every_place_has_a_button_on_the_street_strip()
+        {
+            yield return Boot();
+            var strip = _ui.Root.Q("city-strip");
+            Assert.IsTrue(Shown(strip), "the strip of places sits over the city");
+            foreach (var place in Places.All)
+            {
+                var b = strip.Q<Button>("strip-" + place.Id);
+                Assert.IsNotNull(b, place.Id + " has no button");
+                Assert.IsNotNull(b.Q("strip-pic-" + place.Id), place.Id + ": the button carries the place's picture");
+                Assert.IsTrue(UiText.IsLocalized(b.Q<Label>("strip-title-" + place.Id)), place.Id + ": and its name");
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator A_strip_button_turns_the_camera_to_the_place_and_a_second_tap_walks_in()
+        {
+            yield return Boot();
+            string focused = null;
+            _ui.PlaceFocusRequested += id => focused = id;
+            Tap(_ui.Root.Q<Button>("strip-bank"));
+            Assert.AreEqual("bank", focused, "the first tap asks the city to look at the bank");
+            Assert.AreEqual(UiRoot.City, _ui.CurrentTab, "and stays on the street");
+            Assert.IsTrue(_ui.Root.Q<Button>("strip-bank").ClassListContains("strip__item--focused"));
+            Tap(_ui.Root.Q<Button>("strip-bank"));
+            Assert.AreEqual(UiRoot.PlacesTab, _ui.CurrentTab, "the second tap walks in");
+            Assert.AreEqual("bank", _ui.PlacesPanel.CurrentPlace);
+            _ui.Open(UiRoot.City);
+            Tap(_ui.Root.Q<Button>("strip-bodega"));
+            Assert.AreEqual("bodega", focused, "another place: the camera turns again instead of walking in");
+            Assert.AreEqual(UiRoot.City, _ui.CurrentTab);
+        }
+
+        [UnityTest]
+        public IEnumerator The_camera_has_buttons_too()
+        {
+            yield return Boot();
+            float zoom = 0f; int home = 0;
+            _ui.CameraZoomRequested += z => zoom += z;
+            _ui.HeroFocusRequested += () => home++;
+            Tap(_ui.Root.Q<Button>("city-zoom-in"));
+            Assert.Greater(zoom, 0f);
+            Tap(_ui.Root.Q<Button>("city-zoom-out"));
+            Assert.AreEqual(0f, zoom, 1e-6f);
+            Tap(_ui.Root.Q<Button>("city-home"));
+            Assert.AreEqual(1, home);
+            Assert.IsFalse(_ui.Root.Query<Button>(className: "strip__item--focused").ToList().Any(), "back to the hero: no place is the focus");
+        }
+
         // ---------- A living scene ----------
 
         [Test]

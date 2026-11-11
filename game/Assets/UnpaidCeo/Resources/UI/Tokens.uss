@@ -349,3 +349,17 @@
 .summary__item-caption { font-size: 28px; }
 .summary__item-value { font-size: 28px; -unity-font-style: bold; }
 .app .summary__item-caption { color: var(--text-dim); }
+
+/* Everything by button: the strip of places over the city and the camera buttons. */
+.strip { position: absolute; left: 0; right: 0; top: 8px; height: 190px; padding: 0 8px; }
+.strip #unity-content-container { flex-direction: row; align-items: flex-start; }
+.strip__item { flex-direction: column; align-items: center; width: 150px; height: 174px; margin: 0 6px; padding: 6px; border-radius: 20px; border-width: 3px; border-color: rgba(0, 0, 0, 0); background-color: var(--panel); }
+.strip__item--focused { border-color: var(--accent); background-color: var(--card); }
+.strip__pic { width: 134px; height: 90px; border-radius: 12px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.strip__title { margin-top: 4px; font-size: 22px; -unity-font-style: bold; white-space: normal; -unity-text-align: upper-center; }
+.camera-buttons { position: absolute; right: 12px; top: 210px; flex-direction: column; }
+.camera-button { width: 84px; height: 84px; margin: 0 0 8px 0; padding: 0; border-radius: 42px; border-width: 3px; border-color: var(--track); background-color: var(--panel); font-size: 36px; -unity-font-style: bold; }
+#city-home { width: auto; min-width: 84px; padding: 0 18px; font-size: 24px; }
+.app Button.strip__item:hover, .app Button.strip__item:focus, .app Button.strip__item:active { background-color: var(--card); }
+.app Button.camera-button:hover, .app Button.camera-button:focus { background-color: var(--panel-strong); border-color: var(--accent); }
+.app Button.camera-button:active { background-color: var(--track); }

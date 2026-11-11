@@ -140,6 +140,7 @@ namespace UnpaidCeo.Game.Bootstrap
         }
 
         const float HeroCameraDistance = 40f;
+        const float PlaceCameraDistance = 46f;
         /// <summary>The guide card, "Next month" and the dock cover the bottom of the screen: the hero shows above the middle.</summary>
         const float HeroScreenRaise = 0.12f;
         static int Walkers => GraphicsModeService.Current == GraphicsMode.Eco ? 6 : 10;
@@ -288,6 +289,15 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui.RankingPanel.Friends.DuelRequested += StartRun;
             Ui.RankingPanel.Friends.BadgeGranted += () => SaveService.SaveMeta(_meta!);
             Ui.GateChanged += () => { if (_meta != null && !Ui.RunMode) SaveService.SaveMeta(_meta); };
+            Ui.PlaceFocusRequested += id =>
+            {
+                if (_rig == null) return;
+                if (id == Places.Home) { FrameHero(false); return; }
+                // The shop front in the middle of the screen: its sign hangs just under the street strip, the door above the widgets.
+                if (_placeSpots.TryGetValue(id, out var spot)) _rig.Frame(new Vector3(spot.x, 0f, spot.z), PlaceCameraDistance, raise: 0f);
+            };
+            Ui.HeroFocusRequested += () => FrameHero(false);
+            Ui.CameraZoomRequested += z => _rig?.Zoom(z);
         }
 
         /// <summary>

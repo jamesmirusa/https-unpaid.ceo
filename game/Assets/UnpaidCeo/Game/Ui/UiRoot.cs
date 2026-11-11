@@ -191,6 +191,13 @@ namespace UnpaidCeo.Game.Ui
         public TurnGate Gate => _gate;
         /// <summary>The checklist changed (the bootstrap saves the meta record).</summary>
         public event Action GateChanged;
+        /// <summary>A strip button was tapped: the city should turn its camera to that place.</summary>
+        public event Action<string> PlaceFocusRequested;
+        /// <summary>"Back to the hero" was tapped.</summary>
+        public event Action HeroFocusRequested;
+        /// <summary>Zoom in (+1) or out (−1) was tapped.</summary>
+        public event Action<float> CameraZoomRequested;
+        string _focusedPlace;
         public AcademyScreen AcademyPanel => _academy;
         public bool MonthSummaryOpen => _summary != null && _summary.IsOpen;
         public void ShowMonthSummary(MonthReport report) => _summary.Show(report, Language);
@@ -268,6 +275,62 @@ namespace UnpaidCeo.Game.Ui
             GateChanged?.Invoke();
         }
 
+        /// <summary>
+        /// Everything by button: a strip of the block's places over the city (tap: the camera turns to the building and
+        /// its sign; tap again: walk in) and the camera's own buttons (back to the hero, zoom).
+        /// </summary>
+        void BuildStreetStrip(VisualElement city)
+        {
+            var strip = new ScrollView(ScrollViewMode.Horizontal) { name = "city-strip" };
+            strip.AddToClassList("strip");
+            strip.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
+            strip.verticalScrollerVisibility = ScrollerVisibility.Hidden;
+            foreach (var place in Places.All)
+            {
+                var id = place.Id;
+                var b = new Button(() => OnStripTap(id)) { name = "strip-" + id };
+                b.AddToClassList("strip__item");
+                var pic = new VisualElement { name = "strip-pic-" + id };
+                pic.AddToClassList("strip__pic");
+                b.Add(pic);
+                PlacesScreen.LoadThumb(id, pic);
+                var title = UiText.Label($"place.{id}.title", "strip__title");
+                title.name = "strip-title-" + id;
+                b.Add(title);
+                strip.Add(b);
+            }
+            city.Add(strip);
+
+            var cam = new VisualElement { name = "city-camera" };
+            cam.AddToClassList("camera-buttons");
+            var home = UiText.Bind(new Button(() => { SetFocusedPlace(null); HeroFocusRequested?.Invoke(); }) { name = "city-home" }, "city.home");
+            home.AddToClassList("camera-button");
+            var zoomIn = new Button(() => CameraZoomRequested?.Invoke(1f)) { name = "city-zoom-in", text = "+" };
+            zoomIn.AddToClassList("camera-button");
+            zoomIn.AddToClassList("value");
+            var zoomOut = new Button(() => CameraZoomRequested?.Invoke(-1f)) { name = "city-zoom-out", text = "\u2212" };
+            zoomOut.AddToClassList("camera-button");
+            zoomOut.AddToClassList("value");
+            cam.Add(home);
+            cam.Add(zoomIn);
+            cam.Add(zoomOut);
+            city.Add(cam);
+        }
+
+        void OnStripTap(string id)
+        {
+            if (_focusedPlace == id) { OpenPlace(id); return; }
+            SetFocusedPlace(id);
+            PlaceFocusRequested?.Invoke(id);
+        }
+
+        void SetFocusedPlace(string id)
+        {
+            _focusedPlace = id;
+            foreach (var place in Places.All)
+                Root.Q<Button>("strip-" + place.Id)?.EnableInClassList("strip__item--focused", place.Id == id);
+        }
+
         void GateItem(string id, bool done, string count, Action open)
         {
             var item = new Button(open) { name = "gate-" + id };
@@ -338,8 +401,8 @@ namespace UnpaidCeo.Game.Ui
             marker.style.display = DisplayStyle.Flex;
         }
 
-        /// <summary>A sign's height: one hanging higher than this would be drawn over the HUD and the chapter bar.</summary>
-        const float MarkerClearTop = 210f;
+        /// <summary>The street strip's band plus a sign's height: one hanging higher than this would be drawn over them.</summary>
+        const float MarkerClearTop = 200f + 210f;
         /// <summary>Half of a long marker's width ("Laundromat Office").</summary>
         const float MarkerHalfWidth = 110f;
 
@@ -542,6 +605,7 @@ namespace UnpaidCeo.Game.Ui
             _duelCard.style.display = DisplayStyle.None;
             stack.Add(_duelCard);
             stack.Add(_missions);
+            BuildStreetStrip(_screens[City]);
             _gateBox = new VisualElement { name = "turn-gate" };
             _gateBox.AddToClassList("gate");
             _gateBox.Add(UiText.Label("gate.title", "gate__title"));

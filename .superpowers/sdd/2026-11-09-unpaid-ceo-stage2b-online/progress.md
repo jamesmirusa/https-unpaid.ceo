@@ -178,3 +178,4 @@ Ruling: action points are a monthly pool spent across weeks (no rebalance of fre
 Ruling: pacing 7 weeks a day, autopilot 1 week per hour offline up to 8 — the same real-time budget as before in play time; old careers on the capital board are re-paced in weeks — cost if wrong: an old 18-month career ranks as paced until real time catches up.
 Ruling: market-share board uses a monthly revenue rate (a week's revenue × 4) so weekly and legacy runs compare — cost if wrong: none visible.
 Tests: WeekTests (10, editmode), WeekUiTests (4, playmode); suites: editmode 301/301, playmode 149/149, server 17/17.
+Ruling: everything by button — a street strip of place buttons over the city (tap: the camera frames the shop front at 46 m with its sign; tap again or tap the sign: walk in) and To-me / zoom buttons; drag and wheel stay as extras — cost if wrong: the strip takes 190 px of the city on a phone.
