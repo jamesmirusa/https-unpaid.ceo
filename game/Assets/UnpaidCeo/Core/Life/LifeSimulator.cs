@@ -7,12 +7,13 @@ namespace UnpaidCeo.Core.Life
     {
         static int R(double v) => (int)Math.Round(v, MidpointRounding.AwayFromZero);
 
-        /// <summary>Applies the month's allocation to the stats and returns the change actually applied.</summary>
-        public static LifeDelta Apply(LifeStats s, TimeAllocation t, LifeBalance b)
+        /// <summary>Applies the period's allocation to the stats and returns the change actually applied.</summary>
+        /// <param name="share">The period as a share of a month: 1 for a month, 0.25 for a week.</param>
+        public static LifeDelta Apply(LifeStats s, TimeAllocation t, LifeBalance b, double share = 1.0)
         {
-            int energyDelta = R(b.RestCoef * (t.Rest - b.RestBaseline) - b.BurnCoef * Math.Max(0, t.Work - b.WorkSafe));
-            int relDelta = R(b.FamilyCoef * (t.Family - b.FamilyBaseline));
-            int xp = R(b.StudyCoef * t.Study);
+            int energyDelta = R(share * (b.RestCoef * (t.Rest - b.RestBaseline) - b.BurnCoef * Math.Max(0, t.Work - b.WorkSafe)));
+            int relDelta = R(share * b.FamilyCoef * (t.Family - b.FamilyBaseline));
+            int xp = R(share * b.StudyCoef * t.Study);
 
             int e0 = s.Energy, r0 = s.Relationships;
             s.Energy += energyDelta;

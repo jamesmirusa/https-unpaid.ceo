@@ -133,7 +133,7 @@ namespace UnpaidCeo.Game.Bootstrap
             _ui.NextMonthRequested -= OnNextMonth;
             _next?.RemoveFromClassList(HighlightClass);
             _coach?.RemoveFromHierarchy();
-            Report = _engine.EndMonth(_state, _ui.CurrentDecisions());
+            Report = _engine.EndWeek(_state, _ui.CurrentDecisions());
             _ui.ShowReport(Report);
             _ui.GuideEnabled = true;
             _ui.ShowMonthSummary(Report);

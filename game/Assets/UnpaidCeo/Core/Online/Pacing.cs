@@ -9,6 +9,7 @@ namespace UnpaidCeo.Core.Online
     /// </summary>
     public static class Pacing
     {
+        /// <summary>Turns (weeks since stage 4B) a career may be ahead of real time: two, plus a day's manual and autopilot turns per day seen.</summary>
         public static int MaxCareerMonths(long firstSeenUnix, long nowUnix, Balance b)
         {
             long days = Math.Max(0, (nowUnix - firstSeenUnix) / 86400);

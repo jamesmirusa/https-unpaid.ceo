@@ -150,14 +150,14 @@ namespace UnpaidCeo.Game.Tests
         // ---------- Requirements before "Next month" ----------
 
         [UnityTest]
-        public IEnumerator Next_month_waits_until_the_day_is_planned_and_a_place_was_visited()
+        public IEnumerator Next_week_waits_until_the_day_is_planned_and_a_place_was_visited()
         {
             yield return Boot();
             Assert.IsTrue(Shown(_ui.Root.Q("turn-gate")), "the checklist sits on the main screen");
             Assert.IsFalse(_ui.NextMonthButton.enabledSelf, "nothing done yet: Next month is locked");
             Assert.IsTrue(Shown(_ui.Root.Q("gate-plan")));
             Assert.IsTrue(Shown(_ui.Root.Q("gate-place")));
-            Assert.IsNull(_ui.Root.Q("gate-study"), "month 1 asks no study");
+            Assert.IsNull(_ui.Root.Q("gate-study"), "week 1 asks no study");
 
             Tap(_ui.Root.Q<Button>("gate-plan"));
             Assert.AreEqual(UiRoot.Decisions, _ui.CurrentTab, "the item opens the plan as a popup");
@@ -175,10 +175,10 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
-        public IEnumerator Every_second_month_asks_for_three_new_academy_answers()
+        public IEnumerator Every_second_week_asks_for_three_new_academy_answers()
         {
-            yield return Boot(s => { s.Month = 2; s.LessonsSeen["revenue_vs_profit"] = 1; });
-            Assert.IsTrue(Shown(_ui.Root.Q("gate-study")), "month 2 asks for study");
+            yield return Boot(s => { s.Week = 2; s.LessonsSeen["revenue_vs_profit"] = 1; });
+            Assert.IsTrue(Shown(_ui.Root.Q("gate-study")), "week 2 asks for study");
             Assert.AreEqual(3, _ui.Gate.AnswersNeeded);
             _ui.Open(UiRoot.Decisions); _ui.OpenPlace("bodega"); _ui.Open(UiRoot.City);
             Assert.IsFalse(_ui.NextMonthButton.enabledSelf, "the plan and the visit are not enough on a study month");
@@ -196,18 +196,18 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
-        public IEnumerator A_study_month_with_fewer_new_questions_asks_only_for_those()
+        public IEnumerator A_study_week_with_fewer_new_questions_asks_only_for_those()
         {
             yield return Boot(s =>
             {
-                s.Month = 4;
+                s.Week = 4;
                 s.LessonsSeen["revenue_vs_profit"] = 1;
                 var l = Content().Lessons["revenue_vs_profit"];
                 s.QuizAnswers[l.Id + "/0"] = l.Quiz[0].CorrectIndex;
                 s.QuizAnswers[l.Id + "/1"] = (l.Quiz[1].CorrectIndex + 1) % l.Quiz[1].OptionKeys.Count;
             });
             Assert.AreEqual(1, _ui.Gate.AnswersNeeded, "two of three questions were already answered (one of them wrong: it is spent)");
-            yield return Boot(s => s.Month = 2);
+            yield return Boot(s => s.Week = 2);
             Assert.IsNull(_ui.Root.Q("gate-study"), "no lesson open yet: nothing to study, no lock");
         }
 
@@ -215,7 +215,7 @@ namespace UnpaidCeo.Game.Tests
         public void The_checklist_survives_a_reload_and_resets_with_the_month()
         {
             var gate = new TurnGate();
-            gate.StartMonth(2);
+            gate.StartTurn(2);
             gate.PlanReviewed = true;
             gate.RecordAnswer("revenue_vs_profit/1");
             gate.RecordAnswer("revenue_vs_profit/1");
@@ -224,17 +224,17 @@ namespace UnpaidCeo.Game.Tests
             gate.CopyTo(meta);
             var back = SaveCodec.DecodeMeta(SaveCodec.EncodeMeta(new PlayerMeta { Meta = meta })).Meta;
             var loaded = TurnGate.From(back);
-            Assert.AreEqual(2, loaded.Month);
+            Assert.AreEqual(2, loaded.Turn);
             Assert.IsTrue(loaded.PlanReviewed);
             Assert.IsFalse(loaded.PlaceVisited);
             Assert.AreEqual(1, loaded.AnswersGiven);
-            loaded.StartMonth(3);
+            loaded.StartTurn(3);
             Assert.IsFalse(loaded.PlanReviewed);
             Assert.AreEqual(0, loaded.AnswersGiven);
-            loaded.StartMonth(3);
+            loaded.StartTurn(3);
             loaded.PlanReviewed = true;
-            loaded.StartMonth(3);
-            Assert.IsTrue(loaded.PlanReviewed, "the same month again keeps what was done");
+            loaded.StartTurn(3);
+            Assert.IsTrue(loaded.PlanReviewed, "the same week again keeps what was done");
         }
 
         // ---------- Signs over the buildings ----------

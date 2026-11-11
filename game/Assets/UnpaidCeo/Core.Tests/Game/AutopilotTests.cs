@@ -21,14 +21,14 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
-        public void Autopilot_runs_months_without_storylets()
+        public void Autopilot_runs_weeks_without_storylets()
         {
             var e = new GameEngine(TestContent.Db());
             var s = e.NewGame(1, TestContent.Hero);
             s.LastDecisions = TestContent.Decisions(50, 15, 25, 10);
             var reports = Autopilot.Run(e, s, 2);
             Assert.AreEqual(2, reports.Count);
-            Assert.AreEqual(3, s.Month);
+            Assert.AreEqual(3, s.Week, "a turn is a week");
             Assert.AreEqual(0, s.StoryletLastMonth.Count);
         }
 

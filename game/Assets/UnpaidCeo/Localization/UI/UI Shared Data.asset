@@ -1575,6 +1575,50 @@ MonoBehaviour:
     m_Key: npc.cofounder_sam
     m_Metadata:
       m_Items: []
+  - m_Id: 1056181048041472
+    m_Key: hud.next_week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430080
+    m_Key: hud.week_running
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430081
+    m_Key: hud.week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430082
+    m_Key: summary.week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430083
+    m_Key: summary.paid
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430084
+    m_Key: summary.due_next
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430085
+    m_Key: bill.room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430086
+    m_Key: bill.food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430087
+    m_Key: bill.transit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430088
+    m_Key: bill.essentials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430089
+    m_Key: loan.pay
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

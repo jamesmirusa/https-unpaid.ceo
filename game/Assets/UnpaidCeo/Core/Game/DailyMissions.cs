@@ -43,8 +43,8 @@ namespace UnpaidCeo.Core.Game
         public List<string> Badges { get; set; } = new List<string>();
         /// <summary>Month ends in a row with cash ≥ 0 since the first unit opened.</summary>
         public int CleanCashMonths { get; set; }
-        /// <summary>Stage 4 checklist before "Next month" (Game.Ui.TurnGate): the month it is for and what was done.</summary>
-        public int GateMonth { get; set; }
+        /// <summary>Stage 4 checklist before "Next week" (Game.Ui.TurnGate): the turn it is for and what was done.</summary>
+        public int GateTurn { get; set; }
         public bool GatePlan { get; set; }
         public bool GatePlace { get; set; }
         public List<string> GateAnswered { get; set; } = new List<string>();
@@ -113,8 +113,10 @@ namespace UnpaidCeo.Core.Game
             {
                 var e = s.Log[i];
                 // Quiz answers come from RecordQuiz (practice counts too), not from the log.
-                if (e.Kind != DecisionLogEntry.QuizAnswer) Add(e.Kind, 1);
-                if (e.Kind == DecisionLogEntry.EndMonth && e.Payload != null)
+                // A week (stage 4B) is the turn the "months" missions count: one turn played, however long it is.
+                string kind = e.Kind == DecisionLogEntry.EndWeek ? DecisionLogEntry.EndMonth : e.Kind == DecisionLogEntry.BeginWeek ? DecisionLogEntry.BeginMonth : e.Kind;
+                if (kind != DecisionLogEntry.QuizAnswer) Add(kind, 1);
+                if (kind == DecisionLogEntry.EndMonth && e.Payload != null)
                     Add(MissionDef.FreeActionKind, (JObject.Parse(e.Payload)["FreeActions"] as JArray)?.Count ?? 0);
             }
             m.LogCursor = s.Log.Count;

@@ -268,7 +268,7 @@ namespace UnpaidCeo.Game.Tests
             _ui.SetBusy(true);
             yield return null;
             Assert.IsFalse(_ui.NextMonthButton.enabledSelf, "a month is running: the button shows it cannot be pressed");
-            Assert.AreEqual("Month in progress…", _ui.NextMonthButton.text, "and says why");
+            Assert.AreEqual("Week in progress…", _ui.NextMonthButton.text, "and says why");
             _ui.SetBusy(false);
             yield return null;
             Assert.IsTrue(_ui.NextMonthButton.enabledSelf);
@@ -367,7 +367,7 @@ namespace UnpaidCeo.Game.Tests
             var hint = _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-hint");
             Assert.IsNotNull(hint, "a new player is told what the sliders do");
             Assert.IsTrue(Shown(hint) && UiText.IsLocalized(hint) && hint.text.Length > 40 && !hint.text.StartsWith("decisions."));
-            Assert.AreEqual("Month plan", _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-title").text, "the popup is named like the button that opens it");
+            Assert.AreEqual("Week plan", _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-title").text, "the popup is named like the button that opens it");
             _ui.Open(UiRoot.Company);
             yield return null;
             Assert.AreEqual("Report", _ui.Screen(UiRoot.Company).Q<Label>("company-title").text);

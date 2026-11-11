@@ -36,8 +36,8 @@ namespace UnpaidCeo.CloudCode.Tests
         {
             var h = new Harness(Wednesday);
             await h.Server.Hello("p1");
-            h.Clock.NowUnix += 7 * Day;   // a week of play, plus a day of slack, allows 2 + 8 × 9 = 74 months
-            var (e, s, last) = OnlineRuns.PlayCareer(41, 40);
+            h.Clock.NowUnix += 7 * Day;   // a week of play, plus a day of slack, allows 2 + (7 + 8) × 9 = 137 turns (weeks); 30 legacy months are 120
+            var (e, s, last) = OnlineRuns.PlayCareer(41, 30);
 
             var r = await h.Server.SubmitCareer("p1", Career(s));
 
@@ -92,9 +92,9 @@ namespace UnpaidCeo.CloudCode.Tests
         [Fact]
         public async Task Careers_ahead_of_real_time_rank_their_paced_months()
         {
-            var h = new Harness(Wednesday);   // first seen just now; a day of slack allows 2 + 8 × 2 = 18 months
+            var h = new Harness(Wednesday);   // first seen just now; a day of slack allows 2 + (7 + 8) × 2 = 32 turns (weeks) = 8 legacy months
             var (e, s, _) = OnlineRuns.PlayCareer(41, 40);
-            var (_, s18, _) = OnlineRuns.PlayCareer(41, 18);   // the same career, stopped where real time allows
+            var (_, s18, _) = OnlineRuns.PlayCareer(41, 8);   // the same career, stopped where real time allows
             long paced = Chapters.NetWorth(s18, e.Content).Cents;
             Assert.NotEqual(Chapters.NetWorth(s, e.Content).Cents, paced);
 

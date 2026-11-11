@@ -5,10 +5,28 @@ using UnpaidCeo.Core.Primitives;
 
 namespace UnpaidCeo.Core.Game
 {
-    /// <summary>The month's P&L and side effects, shown to the player as the waterfall.</summary>
+    /// <summary>One named amount of a week's result: a bill paid, a loan payment, what falls due next week.</summary>
+    public sealed class LineItem
+    {
+        public string Key { get; set; }
+        public Money Amount { get; set; }
+        public LineItem() { }
+        public LineItem(string key, Money amount) { Key = key; Amount = amount; }
+    }
+
+    /// <summary>The turn's P&L and side effects (a week since stage 4B; a month in legacy logs), shown as the waterfall.</summary>
     public sealed class MonthReport
     {
         public int Month { get; set; }
+        public int Week { get; set; }
+        /// <summary>A week's result (stage 4B) rather than a legacy month's.</summary>
+        public bool IsWeek { get; set; }
+        /// <summary>1–4; a legacy month report is 1.</summary>
+        public int WeekOfMonth { get; set; } = 1;
+        /// <summary>Bills and loan payments made this turn, by name.</summary>
+        public List<LineItem> Paid { get; set; } = new List<LineItem>();
+        /// <summary>What falls due next week (bills, a loan payment), so the player can plan for it.</summary>
+        public List<LineItem> DueNext { get; set; } = new List<LineItem>();
         public Money Revenue { get; set; }
         public Money Cogs { get; set; }
         public Money GrossProfit { get; set; }

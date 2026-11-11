@@ -211,7 +211,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>A month is being played: "Next month" shows it cannot be pressed.</summary>
         public void SetBusy(bool busy)
         {
-            if (busy != _busy && _next != null) UiText.Bind(_next, busy ? "hud.month_running" : "hud.next_month");
+            if (busy != _busy && _next != null) UiText.Bind(_next, busy ? "hud.week_running" : "hud.next_week");
             _busy = busy;
             ApplyNext();
         }
@@ -229,7 +229,7 @@ namespace UnpaidCeo.Game.Ui
             _answeredAtMonthStart.Clear();
             if (_state == null || _engine == null) return 0;
             foreach (var k in _state.QuizAnswers.Keys) _answeredAtMonthStart.Add(k);
-            if (!TurnGate.IsStudyMonth(_state.Month)) return 0;
+            if (!TurnGate.IsStudyTurn(_state.Week)) return 0;
             int open = 0;
             foreach (var lesson in _engine.Content.LessonsInOrder)
             {
@@ -240,11 +240,11 @@ namespace UnpaidCeo.Game.Ui
             return Math.Min(TurnGate.DefaultAnswers, open);
         }
 
-        /// <summary>A month began (boot or after a report): the checklist starts over for it.</summary>
+        /// <summary>A week began (boot or after a result): the checklist starts over for it.</summary>
         void StartGateMonth()
         {
             if (_state == null) return;
-            _gate.StartMonth(_state.Month);
+            _gate.StartTurn(_state.Week);
             _gate.AnswersNeeded = StudyNeeded();
             if (_meta != null) _gate.Load(_meta);
             RefreshGate();
@@ -444,7 +444,7 @@ namespace UnpaidCeo.Game.Ui
             var hud = Clone("Hud");
             Root.Add(hud);
             UiText.Bind(hud.Q<Label>("hud-cash-caption"), "hud.cash");
-            UiText.Bind(hud.Q<Label>("hud-month-caption"), "hud.month");
+            UiText.Bind(hud.Q<Label>("hud-month-caption"), "hud.week");
             UiText.Bind(hud.Q<Label>("hud-energy-caption"), "hud.energy");
             _cash = hud.Q<Label>("hud-cash");
             _month = hud.Q<Label>("hud-month");
@@ -585,7 +585,7 @@ namespace UnpaidCeo.Game.Ui
             _turnsBar.style.display = DisplayStyle.None;
             Root.Add(_turnsBar);
 
-            _next = UiText.Bind(new Button(() => NextMonthRequested?.Invoke()) { name = "next-month" }, "hud.next_month");
+            _next = UiText.Bind(new Button(() => NextMonthRequested?.Invoke()) { name = "next-month" }, "hud.next_week");
             _next.AddToClassList("primary-button");
             Root.Add(_next);
 
@@ -678,7 +678,7 @@ namespace UnpaidCeo.Game.Ui
             if (_state == null) return;
             _cash.text = MoneyFormat.Compact(_state.Cash, Language);
             _cash.EnableInClassList("value--negative", _state.Cash.Cents < 0);
-            _month.text = _state.Month.ToString();
+            _month.text = _state.Week.ToString();
             _energyFill.style.width = Length.Percent(_state.Life.Energy);
             if (_chapterBar != null) _chapterBar.style.display = RunMode ? DisplayStyle.None : DisplayStyle.Flex;
             if (_engine != null && _chapterBar != null && !RunMode)

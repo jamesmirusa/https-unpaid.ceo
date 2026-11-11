@@ -5,8 +5,8 @@ using UnpaidCeo.Core.Content;
 namespace UnpaidCeo.Core.Game
 {
     /// <summary>
-    /// Offline progress: one month per AutopilotHoursPerMonth real hours, capped per local day (TurnBudget), no storylets.
-    /// It repeats the routine (time split), never last month's levers or free actions.
+    /// Offline progress: one turn (a week since stage 4B) per AutopilotHoursPerMonth real hours, capped per local day
+    /// (TurnBudget), no storylets. It repeats the routine (time split), never the last turn's levers or free actions.
     /// </summary>
     public static class Autopilot
     {
@@ -24,7 +24,7 @@ namespace UnpaidCeo.Core.Game
             for (int i = 0; i < months; i++)
             {
                 var d = (s.LastDecisions ?? MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null)).Routine();
-                reports.Add(e.EndMonth(s, d));
+                reports.Add(e.EndWeek(s, d));
             }
             return reports;
         }

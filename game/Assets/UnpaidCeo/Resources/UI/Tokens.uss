@@ -341,3 +341,11 @@
 .dialogue .chip__caption { color: var(--text-dim); }
 .dialogue .chip__value.value--positive { color: var(--positive); }
 .dialogue .chip__value.value--negative { color: var(--negative); }
+
+/* Stage 4B · the week's result: what was paid and what falls due next week. */
+.summary__section { margin-top: 10px; padding: 12px 18px; border-radius: 18px; background-color: var(--panel-strong); }
+.summary__section-title { font-size: 26px; -unity-font-style: bold; margin-bottom: 4px; }
+.summary__item { flex-direction: row; justify-content: space-between; padding: 3px 0; }
+.summary__item-caption { font-size: 28px; }
+.summary__item-value { font-size: 28px; -unity-font-style: bold; }
+.app .summary__item-caption { color: var(--text-dim); }

@@ -31,8 +31,8 @@ namespace UnpaidCeo.Core.Online
     public static class RunVerifier
     {
         /// <param name="paceLimit">
-        /// Months real time allows. The whole log is still verified, but a longer run also reports its net worth as it stood
-        /// when month <paramref name="paceLimit"/> + 1 began (before that month's scenes or plan), so it can rank that far.
+        /// Turns (weeks) real time allows. The whole log is still verified, but a longer run also reports its net worth as it
+        /// stood when turn <paramref name="paceLimit"/> + 1 began (before that turn's scenes or plan), so it can rank that far.
         /// </param>
         public static VerifyResult Verify(ContentDb c, string serverContentVersion, RunSubmission s, Func<RunStart, ScenarioDef> scenarioFor,
             int paceLimit = int.MaxValue)
@@ -42,8 +42,10 @@ namespace UnpaidCeo.Core.Online
             long? atLimit = null;
             var r = GameEngine.ReplayStrict(c, s.Start, scenarioFor, s.Log, (state, entry) =>
             {
-                if (atLimit == null && state.Month > paceLimit
-                    && (entry.Kind == DecisionLogEntry.BeginMonth || entry.Kind == DecisionLogEntry.EndMonth))
+                // The limit counts turns (weeks since stage 4B; a legacy month is four of them).
+                if (atLimit == null && state.Week > paceLimit
+                    && (entry.Kind == DecisionLogEntry.BeginMonth || entry.Kind == DecisionLogEntry.EndMonth
+                        || entry.Kind == DecisionLogEntry.BeginWeek || entry.Kind == DecisionLogEntry.EndWeek))
                     atLimit = Chapters.NetWorth(state, c).Cents;
             });
             if (!r.Ok) return new VerifyResult { Error = $"replay:{r.FailedAt}:{r.Error}" };
@@ -52,9 +54,9 @@ namespace UnpaidCeo.Core.Online
             var business = r.State.Businesses.FirstOrDefault(b => c.Industries.TryGetValue(b.IndustryId, out var d) && d.Kind == IndustryKind.Business);
             long revenue = 0;
             if (business != null && r.LastReport != null && r.LastReport.BusinessResults.TryGetValue(business.Id, out var month))
-                revenue = month.Revenue.Cents;
+                revenue = r.LastReport.IsWeek ? month.Revenue.Cents * GameState.WeeksPerMonth : month.Revenue.Cents;   // a monthly rate either way
             long netWorth = Chapters.NetWorth(r.State, c).Cents;
-            bool paced = r.State.Month - 1 > paceLimit;
+            bool paced = r.State.Week - 1 > paceLimit;
             return new VerifyResult
             {
                 Ok = true,

@@ -6,15 +6,14 @@ nav.academy	Academy	Академия
 nav.ranking	Ranking	Рейтинг
 hud.cash	Cash	Деньги
 hud.reserve	Reserve	Резерв
-hud.month	Month	Месяц
+hud.month	Week	Неделя
 hud.energy	Energy	Энергия
-hud.next_month	Next month	Следующий месяц
-hud.turns_left	Months today	Месяцев сегодня
-hud.next_in	New months in	Новые месяцы через
+hud.turns_left	Weeks today	Недель сегодня
+hud.next_in	New weeks in	Новые недели через
 hud.journal	Journal	Журнал
 hud.settings	Settings	Настройки
 company.title	Report	Отчёт
-company.empty	Finish your first month to see the report.	Заверши первый месяц, чтобы увидеть отчёт.
+company.empty	Finish your first week to see the report.	Заверши первую неделю, чтобы увидеть отчёт.
 company.revenue	Revenue	Выручка
 company.cogs	Cost of goods	Себестоимость
 company.gross	Gross profit	Валовая прибыль
@@ -24,9 +23,9 @@ company.mistake	Tired-out mistake	Ошибка от усталости
 company.tax	Tax reserve	Резерв на налоги
 company.net	Net profit	Чистая прибыль
 company.personal	Living costs	Расходы на жизнь
-company.cash_end	Cash at month end	Деньги на конец месяца
+company.cash_end	Cash at week end	Деньги на конец недели
 company.disclaimer	Money in this game is simulated. This is not financial advice.	Деньги в игре симулированные. Это не финансовый совет.
-decisions.title	Month plan	План месяца
+decisions.title	Week plan	План недели
 decisions.time	CEO time	Время CEO
 decisions.work	Work	Работа
 decisions.family	Family	Семья
@@ -97,9 +96,9 @@ onboarding.continue	Got it	Понял
 missions.title	Daily missions	Задания дня
 missions.streak	Streak, days	Серия, дней
 missions.points	CEO points	Очки CEO
-mission.months_1	Play 1 month	Сыграй 1 месяц
-mission.months_3	Play 3 months	Сыграй 3 месяца
-mission.months_6	Play all 6 months of the day	Сыграй все 6 месяцев дня
+mission.months_1	Play 1 week	Сыграй 1 неделю
+mission.months_3	Play 3 weeks	Сыграй 3 недели
+mission.months_6	Play 6 weeks today	Сыграй 6 недель за день
 mission.scenes_1	Make a choice in a scene	Сделай выбор в сцене
 mission.scenes_3	Make choices in 3 scenes	Сделай выбор в 3 сценах
 mission.quiz_1	Answer a quiz question in the Academy	Ответь на вопрос в Академии
@@ -116,7 +115,7 @@ industry.break_even	Break-even, sales	Безубыточность
 industry.lesson	Lesson	Урок
 industry.choose	Choose	Выбрать
 industry.chosen	Your business	Твой бизнес
-industry.offer	You can afford the first location. Open it next month?	Первая точка тебе по карману. Открыть её в следующем месяце?
+industry.offer	You can afford the first location. Open it next week?	Первая точка тебе по карману. Открыть её на следующей неделе?
 industry.open_first	Open the first location	Открыть первую точку
 industry.coffee_cart.name	Coffee cart	Кофейная тележка
 industry.coffee_cart.scale.0	Cart	Тележка
@@ -277,13 +276,13 @@ city.you	You	Ты
 goal.1	Goal: save up cash plus a reserve for one month of living	Цель: накопить деньги и резерв на месяц жизни
 goal.2	Goal: break even and grow your capital to	Цель: выйти в ноль и довести капитал до
 goal.3	Goal: two locations and a team, or capital of	Цель: две точки и команда или капитал
-guide.plan	Plan the month: split your time and pick actions. Then press Next month.	Спланируй месяц: распредели время и выбери действия. Потом жми «Следующий месяц».
-guide.plan.action	Plan the month	Спланировать месяц
-guide.no_turns	Today's months are used up. Meanwhile take a lesson: it is two minutes.	Месяцы на сегодня закончились. Пока пройди урок: это две минуты.
+guide.plan	Plan the week: split your day and pick actions. Then press Next week.	Спланируй неделю: распредели день и выбери действия. Потом жми «Следующая неделя».
+guide.plan.action	Plan the week	Спланировать неделю
+guide.no_turns	Today's weeks are used up. Meanwhile take a lesson: it is two minutes.	Недели на сегодня закончились. Пока пройди урок: это две минуты.
 guide.no_turns.action	Open lessons	Открыть уроки
-guide.lesson	This month opened a new lesson. Read it and answer the quiz.	Этот месяц открыл новый урок. Прочитай его и ответь на вопросы.
+guide.lesson	This week opened a new lesson. Read it and answer the quiz.	Эта неделя открыла новый урок. Прочитай его и ответь на вопросы.
 guide.lesson.action	Open the lesson	Открыть урок
-guide.broke	Cash is below zero. Change the plan before the next month: more paid work, fewer costs.	Денег меньше нуля. Поменяй план до следующего месяца: больше оплачиваемой работы, меньше расходов.
+guide.broke	Cash is below zero. Change the plan before next week: more paid work, fewer costs.	Денег меньше нуля. Поменяй план до следующей недели: больше оплачиваемой работы, меньше трат.
 guide.broke.action	Fix the plan	Исправить план
 guide.choose_business	Time for a real business. Compare the options and choose one.	Пора открыть настоящий бизнес. Сравни варианты и выбери один.
 guide.choose_business.action	Choose a business	Выбрать бизнес
@@ -294,14 +293,13 @@ summary.revenue	Revenue	Выручка
 summary.profit	Net profit	Чистая прибыль
 summary.personal	Living costs	Личные расходы
 summary.cash	Cash now	Денег на счёте
-summary.change	Change over the month	Изменение за месяц
-summary.tip.no_revenue	No revenue this month. Money comes only from sales: open the month plan and give time to paid work.	В этом месяце нет выручки. Деньги приходят только от продаж: открой план месяца и выдели время на оплачиваемую работу.
+summary.change	Change over the week	Изменение за неделю
+summary.tip.no_revenue	No revenue this week. Money comes only from sales: open the week plan and give time to paid work.	На этой неделе нет выручки. Деньги приходят только с продаж: открой план недели и отдай время оплачиваемой работе.
 summary.tip.loss	A loss: costs were higher than revenue. Open the full report and find the biggest cost.	Убыток: расходы оказались больше выручки. Открой полный отчёт и найди самую большую статью расходов.
 summary.tip.cash_down	There was profit, yet cash went down: living costs, purchases and loan payments are paid out of it.	Прибыль есть, а денег стало меньше: из неё оплачены личные расходы, покупки и платежи по кредитам.
 summary.tip.profit	Profit is what stays after every cost. Keep part of it as a reserve and put the rest to work.	Прибыль — это то, что осталось после всех расходов. Часть оставь в резерве, остальное пусть работает.
 summary.ok	Got it	Понятно
 summary.details	Full report	Полный отчёт
-hud.month_running	Month in progress…	Идёт месяц…
 decisions.hint	Split your time. Work earns money, but too much of it burns energy. Rest restores it, family keeps relationships warm, study builds knowledge.	Раздели своё время. Работа приносит деньги, но её избыток сжигает энергию. Отдых её возвращает, семья бережёт отношения, учёба даёт знания.
 city.mentor	Mentor	Наставник
 city.tony	Tony	Тони
@@ -311,8 +309,8 @@ places.title	Your block	Твой квартал
 places.hint	Every place has its own business and its own host. Walk in.	В каждом месте своё дело и свой хозяин. Заходи.
 places.back	All places	Все места
 place.trust	Trust	Доверие
-place.planned	In this month's plan	В плане на этот месяц
-place.hint	What you pick here happens when you press Next month.	Выбранное здесь случится, когда нажмёшь «Следующий месяц».
+place.planned	In this week's plan	В плане на эту неделю
+place.hint	What you pick here happens when you press Next week.	Выбранное здесь случится, когда нажмёшь «Следующая неделя».
 stat.energy	Energy	Энергия
 stat.relationships	Family	Близкие
 stat.connections	Connections	Связи
@@ -360,7 +358,7 @@ place.action.journal	Open the journal	Открыть дневник
 place.action.overtime	Unload Tony's delivery truck	Разгрузить машину для Тони
 place.action.networking	Buy pizza for the right people	Угостить нужных людей пиццей
 place.action.hobby	Pinball night with Jay	Вечер пинбола с Джеем
-place.action.plan	Plan the month	Составить план месяца
+place.action.plan	Plan the week	Составить план недели
 place.action.report	Read the report	Посмотреть отчёт
 place.action.business	Choose a business	Выбрать бизнес
 place.action.loan_shark_loan	Borrow from Mr. Fins	Занять у мистера Финса
@@ -375,7 +373,7 @@ day.travel	Commute	Дорога
 day.chores	Food & chores	Еда и быт
 day.me	My time	Моё время
 day.hours_unit	h	ч
-gate.title	Before next month	До следующего месяца
+gate.title	Before next week	До следующей недели
 gate.plan	Plan your day	Распредели свой день
 gate.place	Drop by a place in the city	Зайди куда-нибудь в городе
 gate.study	Answer the new academy questions	Ответь на новые вопросы академии
@@ -389,3 +387,14 @@ npc.banker_lee	Banker Lee	Банкир Ли
 npc.supplier_rosa	Rosa	Роза
 npc.journalist_mia	Mia	Миа
 npc.cofounder_sam	Sam	Сэм
+hud.next_week	Next week	Следующая неделя
+hud.week_running	Week in progress…	Идёт неделя…
+hud.week	Week	Неделя
+summary.week	Week	Неделя
+summary.paid	Paid this week	Оплачено на этой неделе
+summary.due_next	Next week	На следующей неделе
+bill.room	Rent	Аренда
+bill.food	Food	Еда
+bill.transit	Transit	Транспорт
+bill.essentials	Essentials	Быт и связь
+loan.pay	Loan payment	Платёж по кредиту

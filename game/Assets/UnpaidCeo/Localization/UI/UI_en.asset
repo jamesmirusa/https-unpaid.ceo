@@ -47,7 +47,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425542
-    m_Localized: Month
+    m_Localized: Week
     m_Metadata:
       m_Items: []
   - m_Id: 527425543
@@ -71,7 +71,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425548
-    m_Localized: Finish your first month to see the report.
+    m_Localized: Finish your first week to see the report.
     m_Metadata:
       m_Items: []
   - m_Id: 527425549
@@ -107,7 +107,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425557
-    m_Localized: Cash at month end
+    m_Localized: Cash at week end
     m_Metadata:
       m_Items: []
   - m_Id: 527425558
@@ -115,7 +115,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425559
-    m_Localized: Month plan
+    m_Localized: Week plan
     m_Metadata:
       m_Items: []
   - m_Id: 527425560
@@ -391,11 +391,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 82149070856192
-    m_Localized: Months today
+    m_Localized: Weeks today
     m_Metadata:
       m_Items: []
   - m_Id: 82149079244800
-    m_Localized: New months in
+    m_Localized: New weeks in
     m_Metadata:
       m_Items: []
   - m_Id: 82149079244801
@@ -411,15 +411,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 82149079244804
-    m_Localized: Play 1 month
+    m_Localized: Play 1 week
     m_Metadata:
       m_Items: []
   - m_Id: 82149079244805
-    m_Localized: Play 3 months
+    m_Localized: Play 3 weeks
     m_Metadata:
       m_Items: []
   - m_Id: 82149079244806
-    m_Localized: Play all 6 months of the day
+    m_Localized: Play 6 weeks today
     m_Metadata:
       m_Items: []
   - m_Id: 82149079244807
@@ -487,7 +487,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 89860076462088
-    m_Localized: You can afford the first location. Open it next month?
+    m_Localized: You can afford the first location. Open it next week?
     m_Metadata:
       m_Items: []
   - m_Id: 89860076462089
@@ -1131,15 +1131,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054921
-    m_Localized: 'Plan the month: split your time and pick actions. Then press Next month.'
+    m_Localized: 'Plan the week: split your day and pick actions. Then press Next week.'
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054922
-    m_Localized: Plan the month
+    m_Localized: Plan the week
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054923
-    m_Localized: 'Today''s months are used up. Meanwhile take a lesson: it is two minutes.'
+    m_Localized: 'Today''s weeks are used up. Meanwhile take a lesson: it is two minutes.'
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054924
@@ -1147,7 +1147,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054925
-    m_Localized: This month opened a new lesson. Read it and answer the quiz.
+    m_Localized: This week opened a new lesson. Read it and answer the quiz.
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054926
@@ -1155,7 +1155,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054927
-    m_Localized: 'Cash is below zero. Change the plan before the next month: more paid work, fewer costs.'
+    m_Localized: 'Cash is below zero. Change the plan before next week: more paid work, fewer costs.'
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054928
@@ -1199,11 +1199,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054938
-    m_Localized: Change over the month
+    m_Localized: Change over the week
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054939
-    m_Localized: 'No revenue this month. Money comes only from sales: open the month plan and give time to paid work.'
+    m_Localized: 'No revenue this week. Money comes only from sales: open the week plan and give time to paid work.'
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054940
@@ -1267,11 +1267,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 879340878290948
-    m_Localized: In this month's plan
+    m_Localized: In this week's plan
     m_Metadata:
       m_Items: []
   - m_Id: 879340878290949
-    m_Localized: What you pick here happens when you press Next month.
+    m_Localized: What you pick here happens when you press Next week.
     m_Metadata:
       m_Items: []
   - m_Id: 879340878290950
@@ -1463,7 +1463,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 879340878290997
-    m_Localized: Plan the month
+    m_Localized: Plan the week
     m_Metadata:
       m_Items: []
   - m_Id: 879340878290998
@@ -1523,7 +1523,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 929770912079877
-    m_Localized: Before next month
+    m_Localized: Before next week
     m_Metadata:
       m_Items: []
   - m_Id: 929770912079878
@@ -1576,6 +1576,50 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 929770912079890
     m_Localized: Sam
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181048041472
+    m_Localized: Next week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430080
+    m_Localized: "Week in progress\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430081
+    m_Localized: Week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430082
+    m_Localized: Week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430083
+    m_Localized: Paid this week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430084
+    m_Localized: Next week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430085
+    m_Localized: Rent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430086
+    m_Localized: Food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430087
+    m_Localized: Transit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430088
+    m_Localized: Essentials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1056181056430089
+    m_Localized: Loan payment
     m_Metadata:
       m_Items: []
   references:

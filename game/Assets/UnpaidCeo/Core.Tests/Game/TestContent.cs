@@ -12,10 +12,10 @@ namespace UnpaidCeo.Core.Tests.Game
      ""baseDemand"": 1000000, ""elasticity"": 1.0, ""marketingA"": 0.0, ""marketingK"": 10000, ""capacityPerWorkPoint"": {capacityPerWorkPoint.ToString(System.Globalization.CultureInfo.InvariantCulture)} }}
 ] }}";
 
-        public static string Balance(double errorChance = 0.0, string weights = "[0, 1, 0]") => $@"{{
+        public static string Balance(double errorChance = 0.0, string weights = "[0, 1, 0]", string weekWeights = "[0, 1]", long food = 30000) => $@"{{
   ""taxRate"": 0.25, ""billsStartAfter"": 10000,
-  ""personalCosts"": {{ ""room"": 100000, ""food"": 30000, ""transit"": 15000, ""essentials"": 5000 }},
-  ""chapter1CashGoal"": 100000, ""debtBankruptLine"": -50000, ""eventsPerMonthWeights"": {weights},
+  ""personalCosts"": {{ ""room"": 100000, ""food"": {food}, ""transit"": 15000, ""essentials"": 5000 }},
+  ""chapter1CashGoal"": 100000, ""debtBankruptLine"": -50000, ""eventsPerMonthWeights"": {weights}, ""eventsPerWeekWeights"": {weekWeights},
   ""autopilotHoursPerMonth"": 4, ""autopilotMaxMonths"": 2, ""tutorialGigPay"": 4000,
   ""chapter1Gigs"": [""gig_test""],
   ""life"": {{ ""restBaseline"": 25, ""restCoef"": 0.4, ""workSafe"": 60, ""burnCoef"": 0.5, ""familyBaseline"": 15,
@@ -41,11 +41,11 @@ namespace UnpaidCeo.Core.Tests.Game
   { ""id"": ""save"", ""actionPoints"": 0, ""cost"": 0, ""effects"": [ { ""reserve"": 50000 } ], ""journalKey"": ""journal.save"" }
 ] }";
 
-        public static ContentDb Db(double capacityPerWorkPoint = 1.0, double errorChance = 0.0, string weights = "[0, 1, 0]", string lessons = null) =>
+        public static ContentDb Db(double capacityPerWorkPoint = 1.0, double errorChance = 0.0, string weights = "[0, 1, 0]", string lessons = null, string weekWeights = "[0, 1]", long food = 30000) =>
             ContentDb.FromJson(new ContentFiles
             {
                 Industries = Industries(capacityPerWorkPoint),
-                Balance = Balance(errorChance, weights),
+                Balance = Balance(errorChance, weights, weekWeights, food),
                 Storylets = Storylets,
                 FreeActions = FreeActions,
                 Lessons = lessons,

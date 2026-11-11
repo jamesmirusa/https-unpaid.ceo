@@ -28,8 +28,9 @@
     2,
     1
   ],
-  "autopilotHoursPerMonth": 4,
-  "autopilotMaxMonths": 2,
+  "autopilotHoursPerMonth": 1,
+  "autopilotMaxMonths": 8,
+  "eventsPerWeekWeights": [3, 1],
   "tutorialGigPay": 4000,
   "chapter1Gigs": [
     "gig_delivery",
@@ -82,7 +83,7 @@
       60
     ]
   },
-  "dailyManualMonths": 6,
+  "dailyManualMonths": 7,
   "valuation": {
     "ladder": [
       {

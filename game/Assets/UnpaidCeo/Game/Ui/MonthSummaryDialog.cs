@@ -40,6 +40,8 @@ namespace UnpaidCeo.Game.Ui
             _other = Row(panel, "summary.other", "summary-other");
             _cash = Row(panel, "summary.cash", "summary-cash", total: true);
             _change = Row(panel, "summary.change", "summary-change");
+            _paid = Section(panel, "summary-paid", "summary.paid");
+            _due = Section(panel, "summary-due", "summary.due_next");
             _tip = UiText.Label("summary.tip.profit", "summary__tip");
             _tip.name = "summary-tip";
             panel.Add(_tip);
@@ -51,6 +53,36 @@ namespace UnpaidCeo.Game.Ui
             panel.Add(details);
             Root.Add(panel);
             Root.style.display = DisplayStyle.None;
+        }
+
+        VisualElement _paid, _due;
+
+        /// <summary>A titled list of named amounts (what was paid this week, what falls due next week); hidden while empty.</summary>
+        static VisualElement Section(VisualElement panel, string name, string titleKey)
+        {
+            var box = new VisualElement { name = name };
+            box.AddToClassList("summary__section");
+            box.Add(UiText.Label(titleKey, "summary__section-title"));
+            var items = new VisualElement { name = name + "-items" };
+            box.Add(items);
+            box.style.display = DisplayStyle.None;
+            panel.Add(box);
+            return box;
+        }
+
+        static void Fill(VisualElement box, System.Collections.Generic.IReadOnlyList<LineItem> items, string language)
+        {
+            var list = box.Q(box.name + "-items");
+            list.Clear();
+            foreach (var item in items)
+            {
+                var row = new VisualElement();
+                row.AddToClassList("summary__item");
+                row.Add(UiText.Label(item.Key, "summary__item-caption"));
+                row.Add(UiText.ValueLabel(MoneyFormat.Compact(item.Amount, language), "summary__item-value"));
+                list.Add(row);
+            }
+            box.style.display = items.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         static Label Row(VisualElement panel, string captionKey, string valueName, bool total = false)
@@ -77,7 +109,10 @@ namespace UnpaidCeo.Game.Ui
 
         public void Show(MonthReport report, string language)
         {
-            _month.text = report.Month.ToString();
+            UiText.Bind(_title, report.IsWeek ? "summary.week" : "summary.title");
+            _month.text = (report.IsWeek ? report.Week : report.Month).ToString();
+            Fill(_paid, report.Paid, language);
+            Fill(_due, report.DueNext, language);
             Set(_revenue, report.Revenue, language, signed: false);
             Set(_profit, report.NetProfit, language, signed: true);
             Set(_personal, report.PersonalCosts, language, signed: false);

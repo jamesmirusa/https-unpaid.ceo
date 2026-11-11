@@ -134,11 +134,11 @@ namespace UnpaidCeo.Core.Tests.Game
             long launch = At(20000, 8, 0, 0);
             Assert.IsEmpty(TurnBudget.OnLaunch(e, s, t, launch, 0), "no autopilot on the first launch");
             Assert.IsTrue(TurnBudget.TryConsume(t));
-            int month = s.Month;
+            int week = s.Week;
 
             var reports = TurnBudget.OnLaunch(e, s, t, launch + 9 * 3600, 0);   // back after 9 hours
-            Assert.AreEqual(2, reports.Count, "1 month per 4 hours, at most 2");
-            Assert.AreEqual(month + 2, s.Month);
+            Assert.AreEqual(2, reports.Count, "1 turn per 4 hours, at most 2");
+            Assert.AreEqual(week + 2, s.Week, "a turn is a week");
             Assert.AreEqual(5, t.ManualLeft);
         }
     }

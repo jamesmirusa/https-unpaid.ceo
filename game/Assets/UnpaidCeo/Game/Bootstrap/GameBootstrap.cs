@@ -563,7 +563,7 @@ namespace UnpaidCeo.Game.Bootstrap
             TurnBudget.Refresh(_meta!.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes(), _engine!.Content.Balance);
             if (!TurnBudget.TryConsume(_meta.Turns)) { RefreshTurnsUi(); _busy = false; yield break; }
             MonthReport report;
-            try { report = _engine!.EndMonth(_state!, Ui!.CurrentDecisions()); }
+            try { report = _engine!.EndWeek(_state!, Ui!.CurrentDecisions()); }
             catch (Exception e) { Debug.LogException(e); _meta.Turns.ManualLeft++; _busy = false; yield break; }
             var ui = Ui!;
             ui.SetBusy(true);
@@ -610,7 +610,7 @@ namespace UnpaidCeo.Game.Bootstrap
             _busy = true;
             try
             {
-                _engine.BeginMonth(_state);
+                _engine.BeginWeek(_state);
                 _yarn.Bind(_engine, _state);
                 Ui?.SetSceneOpen(true);   // the dialogue is drawn over the missions panel
                 Ui?.SetBusy(true);        // "Next month" never looks alive while it cannot be pressed

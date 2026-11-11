@@ -11,6 +11,28 @@ namespace UnpaidCeo.Core.Content
         public Money Transit { get; set; }
         public Money Essentials { get; set; }
         public Money Total => Room + Food + Transit + Essentials;
+
+        /// <summary>
+        /// The bills of one week of the month: food and transit every week (a quarter each, the last week takes the odd
+        /// cents), essentials on week 2, rent on the last week (the landlord collects at month end, so the first pay comes
+        /// before the first rent). Four weeks add up to <see cref="Total"/> exactly.
+        /// </summary>
+        public List<Game.LineItem> ForWeek(int weekOfMonth)
+        {
+            var items = new List<Game.LineItem>();
+            int n = Game.GameState.WeeksPerMonth;
+            items.Add(new Game.LineItem("bill.food", Quarter(Food, weekOfMonth, n)));
+            items.Add(new Game.LineItem("bill.transit", Quarter(Transit, weekOfMonth, n)));
+            if (weekOfMonth == 2) items.Add(new Game.LineItem("bill.essentials", Essentials));
+            if (weekOfMonth == n) items.Add(new Game.LineItem("bill.room", Room));
+            return items;
+        }
+
+        static Money Quarter(Money m, int week, int n)
+        {
+            long part = m.Cents / n;
+            return Money.FromCents(week == n ? m.Cents - part * (n - 1) : part);
+        }
     }
 
     public sealed class SourceRef
@@ -75,6 +97,8 @@ namespace UnpaidCeo.Core.Content
         public Money Chapter1CashGoal { get; set; }
         public Money DebtBankruptLine { get; set; }
         public int[] EventsPerMonthWeights { get; set; } = { 1, 2, 1 };
+        /// <summary>Scenes rolled per week (stage 4B): weights for 0, 1, … scenes; the default is about one a month.</summary>
+        public int[] EventsPerWeekWeights { get; set; } = { 3, 1 };
         public int AutopilotHoursPerMonth { get; set; } = 4;
         public int AutopilotMaxMonths { get; set; } = 2;
         public Money TutorialGigPay { get; set; }

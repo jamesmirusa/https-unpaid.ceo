@@ -278,7 +278,7 @@ ru,line:ch1_ai_rush_04,Вежливо отказаться и лечь спат�
 ru,line:ch1_ai_rush_05,Почта молчит. Подушка благодарна.,ch1_city,ch1_ai_rush,148,312cf583,
 ru,line:ch1_onboarding_01,"Unpaid CEO: Эй, новенький. Нулевой урок — бесплатно. Приложению доставки прямо сейчас нужен курьер. Бери заказ.",ch1_onboarding,ch1_onboarding,6,332753ce,
 ru,line:ch1_onboarding_02,"Unpaid CEO: Сорок баксов. Это выручка — деньги, которые пришли. Прибыль — то, что останется после велосипеда, связи и налогов.",ch1_onboarding,ch1_onboarding,7,0a020598,
-ru,line:ch1_onboarding_03,"Unpaid CEO: Теперь жми «Следующий месяц». Город пришлёт счёт, и посмотрим, что у тебя осталось на самом деле.",ch1_onboarding,ch1_onboarding,8,e6577a13,
+ru,line:ch1_onboarding_03,"Unpaid CEO: Теперь жми «Следующая неделя». Город пришлёт первые счета, и посмотрим, что у тебя остаётся на самом деле.",ch1_onboarding,ch1_onboarding,8,e6577a13,
 ru,line:ch2_agency_leads_01,В этом месяце есть два способа найти клиентов: платная реклама в профессиональной сети или рекомендации довольных клиентов.,ch2_agency,ch2_agency_leads,7,98ebb0c0,
 ru,line:ch2_agency_leads_02,Реклама обещает лиды по сорок долларов. Рекомендации стоят ужина в благодарность.,ch2_agency,ch2_agency_leads,8,aaf732a4,
 ru,line:ch2_agency_leads_03,Запустить рекламу и считать каждый доллар.,ch2_agency,ch2_agency_leads,9,38eedd09,
