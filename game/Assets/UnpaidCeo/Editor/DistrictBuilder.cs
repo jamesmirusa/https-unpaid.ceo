@@ -94,7 +94,8 @@ namespace UnpaidCeo.Editor
             Home = "building_walkup",
             Row = new[]
             {
-                ("building_church", -43f, 180f, 9.5f), ("building_check_cashing", -32f, 180f, 9.5f), ("building_pawn_shop", -21f, 180f, 9.5f),
+                // Stage 4 key buildings (Tripo P2 from GPT Image concepts): the academy hall and the bank stand where the places open.
+                ("building_academy", -43f, 180f, 9.5f), ("building_bank", -32f, 270f, 9.5f), ("building_pawn_shop", -21f, 180f, 9.5f),
                 ("building_laundromat", -10f, 180f, 9.5f), ("building_walkup", 11f, 180f, 8f),
                 // Tripo P2 put the bodega's storefront on the model's +X side; turn it to face the avenue.
                 ("building_bodega", 21f, 270f, 9.5f), ("building_pizza", 32f, 180f, 9.5f), ("building_garden_lot", 43f, 180f, 9.5f),
@@ -573,11 +574,12 @@ namespace UnpaidCeo.Editor
                 var dn = Object.FindFirstObjectByType<DayNeonController>();
                 string file = sceneName.ToLowerInvariant();
                 var shots = new List<(string, float, bool)> { ("warmup", 0f, false), ("day", 0f, false), ("night", 1f, false), ("closeup", 0f, true) };
-                if (sceneName != "Bronx") shots.Add(("row", 0f, true));
+                if (sceneName != "Bronx") shots.Add(("row", 0f, true)); else shots.Add(("west", 0f, true));
                 foreach (var (name, night, close) in shots)
                 {
                     dn.SetBlend(night);
                     if (name == "row") { cam.transform.position = new Vector3(-2f, 14f, -10f); cam.transform.LookAt(new Vector3(11f, 3f, 13.5f)); }
+                    else if (name == "west") { cam.transform.position = new Vector3(-30f, 12f, -10f); cam.transform.LookAt(new Vector3(-36f, 4f, 13.5f)); }
                     else if (close) { cam.transform.position = closeFrom; cam.transform.LookAt(closeAt); }
                     var rt = new RenderTexture(1600, 900, 24) { antiAliasing = 4 };
                     cam.targetTexture = rt;

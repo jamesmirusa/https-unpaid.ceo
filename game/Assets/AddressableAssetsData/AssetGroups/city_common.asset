@@ -33,12 +33,6 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
-  - m_GUID: 1afd3e6dbb04746558898b36956cfc2f
-    m_Address: city/building_church
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-    m_FolderGuid: 
   - m_GUID: 2520df91f88834890a4c3875cf57d9e1
     m_Address: city/prop_hydrant
     m_ReadOnly: 0
