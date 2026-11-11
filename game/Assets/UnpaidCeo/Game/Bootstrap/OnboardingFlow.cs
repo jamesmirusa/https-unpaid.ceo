@@ -117,6 +117,9 @@ namespace UnpaidCeo.Game.Bootstrap
                     break;
                 case Step.Lesson:
                     Show(Step.NextMonth, LineNextMonth, null);
+                    // The mentor's walk-through is month 1's plan and visit; the checklist starts asking from month 2.
+                    _ui.Gate.PlanReviewed = true;
+                    _ui.Gate.PlaceVisited = true;
                     _ui.NextLocked = false;
                     _next?.AddToClassList(HighlightClass);
                     _ui.NextMonthRequested += OnNextMonth;

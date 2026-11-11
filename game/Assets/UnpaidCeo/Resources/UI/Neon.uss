@@ -6,6 +6,11 @@
     --panel-strong: #1B1730;
     --accent: #FF3EA5;
     --on-accent: #FFFFFF;
+    --chrome: #120F22;
+    --chrome-dim: #8F86B8;
+    --on-chrome: #F4F1FF;
+    --money-on-chrome: #3DDC84;
+    --card: #1B1730;
     --money: #3DDC84;
     --positive: #2DE2E6;
     --negative: #FF5C7A;

@@ -262,6 +262,7 @@ namespace UnpaidCeo.Game.Tests
         public IEnumerator Next_month_is_off_while_the_game_is_busy()
         {
             yield return Boot();
+            TestGate.Satisfy(_ui, _engine.Content, _state);
             _ui.SetTurns(3, 6, 0);
             string idle = _ui.NextMonthButton.text;
             _ui.SetBusy(true);
@@ -343,12 +344,12 @@ namespace UnpaidCeo.Game.Tests
             yield return Boot(s => s.Cash = Money.FromCents(-5_000));
             var cash = _ui.Root.Q<Label>("hud-cash");
             AssertColour(new Color32(0xD9, 0x48, 0x3B, 255), cash.resolvedStyle.color, "cash below zero is red");
-            AssertColour(new Color32(0x5B, 0x62, 0x75, 255), _ui.Root.Q<Label>("hud-cash-caption").resolvedStyle.color, "captions are dimmer than values");
+            AssertColour(new Color32(0xA9, 0xB4, 0xCC, 255), _ui.Root.Q<Label>("hud-cash-caption").resolvedStyle.color, "captions are dimmer than values on the navy bar");
 
             _state.Cash = Money.FromCents(5_000);
             _ui.RefreshHud();
             yield return null;
-            AssertColour(new Color32(0x2E, 0x9E, 0x5B, 255), cash.resolvedStyle.color, "money is green");
+            AssertColour(new Color32(0x6F, 0xD6, 0x9A, 255), cash.resolvedStyle.color, "money is green (the light green that reads on navy)");
 
             _ui.Transition.Play(2);
             yield return null;

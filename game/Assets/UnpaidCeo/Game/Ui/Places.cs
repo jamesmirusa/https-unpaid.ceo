@@ -50,7 +50,7 @@ namespace UnpaidCeo.Game.Ui
         public const string Home = "home";
         public const int LinesPerPlace = 3;
         /// <summary>Shop-sign height on the shop front (row houses are ~9 m deep, their fronts ~4.5 m from the centre).</summary>
-        const float MarkerHeight = 4.5f, TowardStreet = 5f;
+        const float MarkerHeight = 3.2f, TowardStreet = 5f;
 
         static PlaceAction Plan(string freeAction) => new PlaceAction { Id = freeAction, Kind = PlaceActionKind.Plan, FreeAction = freeAction };
         static PlaceAction Open(string id, string tab, int minChapter = 1) => new PlaceAction { Id = id, Kind = PlaceActionKind.Open, Tab = tab, MinChapter = minChapter };
@@ -67,9 +67,9 @@ namespace UnpaidCeo.Game.Ui
                 Actions = new[] { Open("plan", UiRoot.Decisions), Open("report", UiRoot.Company), Open("business", UiRoot.Industry, minChapter: 2) } },
             new PlaceDef { Id = "pawnshop", Host = "loan_shark", Buildings = new[] { "building_pawn_shop" },
                 Actions = new[] { Plan("loan_shark_loan"), Plan("gray_scheme") } },
-            new PlaceDef { Id = "bank", Host = "banker_lee", Buildings = new[] { "building_check_cashing" },
+            new PlaceDef { Id = "bank", Host = "banker_lee", Buildings = new[] { "building_bank", "building_check_cashing" },
                 Actions = new[] { Plan("reserve_transfer"), new PlaceAction { Id = "loan", Kind = PlaceActionKind.Loan, MinChapter = 2 } } },
-            new PlaceDef { Id = "academy", Host = "mentor", Buildings = new[] { "building_church" },
+            new PlaceDef { Id = "academy", Host = "mentor", Buildings = new[] { "building_academy", "building_church" },
                 Actions = new[] { Plan("study"), Open("lessons", UiRoot.Academy) } },
         };
 

@@ -1498,6 +1498,86 @@ MonoBehaviour:
     m_Localized: Open the lessons
     m_Metadata:
       m_Items: []
+  - m_Id: 929770899496960
+    m_Localized: "My day \xB7 24 h"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079872
+    m_Localized: Sleep
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079873
+    m_Localized: Commute
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079874
+    m_Localized: Food & chores
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079875
+    m_Localized: My time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079876
+    m_Localized: h
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079877
+    m_Localized: Before next month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079878
+    m_Localized: Plan your day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079879
+    m_Localized: Drop by a place in the city
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079880
+    m_Localized: Answer the new academy questions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079881
+    m_Localized: Mentor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079882
+    m_Localized: Tony
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079883
+    m_Localized: The lender
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079884
+    m_Localized: Best friend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079885
+    m_Localized: Mom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079886
+    m_Localized: Fat cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079887
+    m_Localized: Banker Lee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079888
+    m_Localized: Rosa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079889
+    m_Localized: Mia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079890
+    m_Localized: Sam
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

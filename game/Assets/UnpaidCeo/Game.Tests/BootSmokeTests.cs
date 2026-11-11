@@ -136,6 +136,7 @@ namespace UnpaidCeo.Game.Tests
 
             if (Shown(ui.Consent.Root)) Tap(ui.Root.Q<Button>("consent-deny"));
             yield return null;
+            TestGate.Satisfy(ui, Content(), SaveService.Load().State);
             Tap(ui.NextMonthButton);
             yield return Until(() => ui.MonthSummaryOpen, 20f);
             Assert.IsTrue(ui.MonthSummaryOpen, "after the scenes Next month works");
@@ -187,6 +188,10 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual(UnpaidCeo.Game.Ui.UiRoot.City, ui.CurrentTab, "the player is on the main screen");
             Assert.IsTrue(Shown(ui.Guide), "with the guide saying what to do next");
             Assert.AreEqual("2", ui.Root.Q<Label>("hud-month").text, "month 1 is done: the HUD shows the month being planned");
+            Assert.IsFalse(ui.NextMonthButton.enabledSelf, "month 2 waits for its checklist: the plan, a visit and the new lesson's questions");
+            Assert.IsTrue(Shown(ui.Root.Q("gate-study")), "the first lesson opened: month 2 asks for its questions");
+            TestGate.Satisfy(ui, Content(), SaveService.Load().State);
+            Assert.IsTrue(ui.NextMonthButton.enabledSelf, "the checklist done, Next month opens");
 
             Tap(ui.NextMonthButton);
             yield return null;
@@ -196,6 +201,9 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual("3", ui.Root.Q<Label>("hud-month").text, "the calendar moved on");
             Tap(ui.Summary.Root.Q<Button>("month-summary-ok"));
             yield return PlayScenes(dialogue);
+            yield return Until(() => ui.Gate.Month == 3 && !ui.PopupOpen, 5f);
+            Assert.AreEqual(3, ui.Gate.Month, "month 3's checklist is up");
+            TestGate.Satisfy(ui, Content(), SaveService.Load().State);
             yield return Until(() => ui.NextMonthButton.enabledSelf, 5f);
             Assert.IsTrue(ui.NextMonthButton.enabledSelf, "and the game is ready for month 3");
         }

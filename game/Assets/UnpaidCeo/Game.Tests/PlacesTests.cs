@@ -121,7 +121,7 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsFalse(spots.ContainsKey("bank"), "no bank building in this district: no marker (the list of places still has it)");
             Assert.AreEqual(21f, spots["bodega"].x, 0.01f);
             Assert.That(spots["bodega"].z, Is.InRange(7.5f, 9.5f), "the marker hangs on the shop front, on the street side, where the camera sees it");
-            Assert.That(spots["bodega"].y, Is.InRange(3.8f, 5.2f),
+            Assert.That(spots["bodega"].y, Is.InRange(3.0f, 5.2f),
                 "at shop-sign height: higher, the phone camera puts it under the HUD; lower, it covers the hero's and the mentor's tags");
         }
 
@@ -156,7 +156,8 @@ namespace UnpaidCeo.Game.Tests
             yield return null;
             var marker = _ui.Screen(UiRoot.City).Q<Button>("marker-bodega");
             Assert.IsNotNull(marker);
-            Assert.IsTrue(Shown(marker) && UiText.IsLocalized(marker) && marker.text == "Tony's Bodega");
+            var title = marker.Q<Label>("marker-title-bodega");
+            Assert.IsTrue(Shown(marker) && UiText.IsLocalized(title) && title.text == "Tony's Bodega");
 
             Tap(marker);
             yield return null;

@@ -103,6 +103,8 @@ namespace UnpaidCeo.Game.Ui
             return box;
         }
 
+        public void Answer(string lessonId, int q, int option) => Answer(_engine.Content.Lessons[lessonId], q, option);
+
         void Answer(LessonDef lesson, int q, int option)
         {
             bool correct = _engine.AnswerQuiz(_state, lesson.Id, q, option);

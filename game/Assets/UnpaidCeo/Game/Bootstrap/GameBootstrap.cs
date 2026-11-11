@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -286,6 +287,7 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui.RankingPanel.Challenge.Requested += StartRun;
             Ui.RankingPanel.Friends.DuelRequested += StartRun;
             Ui.RankingPanel.Friends.BadgeGranted += () => SaveService.SaveMeta(_meta!);
+            Ui.GateChanged += () => { if (_meta != null && !Ui.RunMode) SaveService.SaveMeta(_meta); };
         }
 
         /// <summary>
@@ -503,6 +505,12 @@ namespace UnpaidCeo.Game.Bootstrap
             runner.DialoguePresenters = new DialoguePresenterBase[] { presenter };
             runner.autoStart = false;
             _yarn = go.AddComponent<YarnBridge>();
+            // A living scene: right after a choice the line shows what it did (cash, a stat, someone's trust).
+            _yarn.ChoiceApplied += (storylet, choice) =>
+            {
+                var def = _engine?.Content.Storylets.FirstOrDefault(x => x.Id == storylet);
+                if (def != null && def.Choices.TryGetValue(choice, out var effects) && Ui != null) presenter.ShowConsequences(effects, Ui.Language);
+            };
             go.SetActive(true);
         }
 

@@ -369,3 +369,23 @@ place.action.reserve_transfer	Put money into the reserve	Отложить ден
 place.action.loan	Take a business loan	Оформить кредит на бизнес
 place.action.study	Sit through the evening class	Отсидеть вечернее занятие
 place.action.lessons	Open the lessons	Открыть уроки
+day.title	My day · 24 h	Мой день · 24 часа
+day.sleep	Sleep	Сон
+day.travel	Commute	Дорога
+day.chores	Food & chores	Еда и быт
+day.me	My time	Моё время
+day.hours_unit	h	ч
+gate.title	Before next month	До следующего месяца
+gate.plan	Plan your day	Распредели свой день
+gate.place	Drop by a place in the city	Зайди куда-нибудь в городе
+gate.study	Answer the new academy questions	Ответь на новые вопросы академии
+npc.mentor	Mentor	Наставник
+npc.tony	Tony	Тони
+npc.loan_shark	The lender	Ростовщик
+npc.best_friend	Best friend	Лучший друг
+npc.mom	Mom	Мама
+npc.fat_cat	Fat cat	Толстосум
+npc.banker_lee	Banker Lee	Банкир Ли
+npc.supplier_rosa	Rosa	Роза
+npc.journalist_mia	Mia	Миа
+npc.cofounder_sam	Sam	Сэм

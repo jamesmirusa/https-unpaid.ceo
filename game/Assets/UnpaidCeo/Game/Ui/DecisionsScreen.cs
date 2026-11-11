@@ -21,7 +21,7 @@ namespace UnpaidCeo.Game.Ui
         readonly UiRoot _ui;
         readonly GameEngine _engine;
         readonly GameState _state;
-        readonly TimeAllocationControl _time;
+        readonly DayPlanControl _time;
         readonly ShareControl _split;
         readonly List<string> _gigIds;
         readonly Label _ap, _businessTitle, _splitTitle, _ownerTime;
@@ -43,7 +43,7 @@ namespace UnpaidCeo.Game.Ui
             _state = state;
             UiText.Bind(root.Q<Label>("decisions-title"), "decisions.title");
             UiText.Bind(root.Q<Label>("decisions-hint"), "decisions.hint");
-            UiText.Bind(root.Q<Label>("time-title"), "decisions.time");
+            UiText.Bind(root.Q<Label>("time-title"), "day.title");
             _splitTitle = UiText.Bind(root.Q<Label>("split-title"), "decisions.split");
             _splitControl = root.Q("split-control");
             _ownerTime = UiText.Label("decisions.owner_time", "hint");
@@ -56,7 +56,7 @@ namespace UnpaidCeo.Game.Ui
             _ap = root.Q<Label>("ap-value");
 
             var last = state.LastDecisions ?? MonthDecisions.Default(state.Businesses.FirstOrDefault()?.Id);
-            _time = new TimeAllocationControl(last.Work, last.Family, last.Rest, last.Study);
+            _time = new DayPlanControl(last.Work, last.Family, last.Rest, last.Study);
             root.Q("time-control").Add(_time);
 
             var gigs = state.Businesses.Where(b => KindOf(b) == IndustryKind.Gig).ToList();

@@ -27,6 +27,7 @@ namespace UnpaidCeo.Game.Narrative
         Label? _text;
         Button? _continue;
         VisualElement? _options;
+        VisualElement? _consequences;
 
         void Awake()
         {
@@ -44,8 +45,12 @@ namespace UnpaidCeo.Game.Narrative
             _continue.AddToClassList("dialogue__continue");
             _options = new VisualElement { name = "dialogue-options" };
             _options.AddToClassList("dialogue__options");
+            _consequences = new VisualElement { name = "dialogue-consequences" };
+            _consequences.AddToClassList("dialogue__consequences");
+            _consequences.style.display = DisplayStyle.None;
             _panel.Add(_speaker);
             _panel.Add(_text);
+            _panel.Add(_consequences);
             _panel.Add(_options);
             _panel.Add(_continue);
             // A scene is a modal: the backdrop covers the game (nothing under it can be pressed) and a tap on it continues.
@@ -71,9 +76,19 @@ namespace UnpaidCeo.Game.Narrative
             return YarnTask.CompletedTask;
         }
 
+        /// <summary>What the choice just made did (cash, stats, trust), shown under the line until the scene ends.</summary>
+        public void ShowConsequences(System.Collections.Generic.IEnumerable<UnpaidCeo.Core.Narrative.Effect> effects, string lang)
+        {
+            if (_consequences == null) return;
+            int n = UnpaidCeo.Game.Ui.EffectChips.Fill(_consequences, effects, lang);
+            _consequences.style.display = n > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+
         public override YarnTask OnDialogueCompleteAsync()
         {
             _options?.Clear();
+            _consequences?.Clear();
+            if (_consequences != null) _consequences.style.display = DisplayStyle.None;
             Show(false);
             return YarnTask.CompletedTask;
         }

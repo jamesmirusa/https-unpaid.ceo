@@ -19,7 +19,6 @@ namespace UnpaidCeo.Game.Ui
     /// </summary>
     public sealed class PlacesScreen
     {
-        const string Minus = "−";
 
         readonly UiRoot _ui;
         readonly GameEngine _engine;
@@ -157,31 +156,8 @@ namespace UnpaidCeo.Game.Ui
         void AddChips(VisualElement chips, FreeActionDef free)
         {
             string lang = _ui.Language;
-            if (free.Cost.Cents > 0) chips.Add(Chip(null, Minus + MoneyFormat.Compact(free.Cost, lang), false));
-            foreach (var e in free.Effects)
-                switch (e)
-                {
-                    case CashEffect c: chips.Add(Chip(null, SignedMoney(c.Amount, lang), c.Amount.Cents >= 0)); break;
-                    case ReserveEffect r: chips.Add(Chip("hud.reserve", SignedMoney(r.Amount, lang), r.Amount.Cents >= 0)); break;
-                    case StatEffect s: chips.Add(Chip("stat." + s.Stat, Signed(s.Delta), s.Delta >= 0)); break;
-                    case StudyXpEffect x: chips.Add(Chip("stat.knowledge", Signed(x.Amount), x.Amount >= 0)); break;
-                }
-        }
-
-        static string Signed(int n) => n < 0 ? Minus + (-n) : "+" + n;
-
-        static string SignedMoney(Money m, string lang) =>
-            m.Cents < 0 ? Minus + MoneyFormat.Compact(Money.FromCents(-m.Cents), lang) : "+" + MoneyFormat.Compact(m, lang);
-
-        static VisualElement Chip(string captionKey, string value, bool good)
-        {
-            var chip = new VisualElement();
-            chip.AddToClassList("chip");
-            if (captionKey != null) chip.Add(UiText.Label(captionKey, "chip__caption"));
-            var v = UiText.ValueLabel(value, "chip__value");
-            v.AddToClassList(good ? "value--positive" : "value--negative");
-            chip.Add(v);
-            return chip;
+            if (free.Cost.Cents > 0) chips.Add(EffectChips.Chip(null, EffectChips.Minus + MoneyFormat.Compact(free.Cost, lang), false));
+            foreach (var c in EffectChips.Describe(free.Effects, lang)) chips.Add(EffectChips.Chip(c.CaptionKey, c.Value, c.Good));
         }
 
         void Do(PlaceAction a)
@@ -213,6 +189,9 @@ namespace UnpaidCeo.Game.Ui
         }
 
         /// <summary>Loads a picture once (kept for the session) and shows it if it is still wanted when it arrives.</summary>
+        /// <summary>A place's light picture onto any element (the signs over the buildings use it).</summary>
+        public static void LoadThumb(string id, VisualElement target) => LoadArt(Places.ThumbAddress(id), target, null);
+
         static void LoadArt(string address, VisualElement target, Func<bool> stillWanted)
         {
             if (Art.TryGetValue(address, out var ready) && ready != null) { target.style.backgroundImage = ready; return; }

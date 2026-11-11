@@ -62,16 +62,4 @@ namespace UnpaidCeo.Game.Ui
             }
         }
     }
-
-    /// <summary>Work / Family / Rest / Study — the CEO's month (spec §3a).</summary>
-    public sealed class TimeAllocationControl : ShareControl
-    {
-        public static readonly string[] LabelKeys = { "decisions.work", "decisions.family", "decisions.rest", "decisions.study" };
-
-        public TimeAllocationControl(int work, int family, int rest, int study)
-            : base(LabelKeys, new[] { work, family, rest, study })
-        {
-            name = "time-allocation";
-        }
-    }
 }

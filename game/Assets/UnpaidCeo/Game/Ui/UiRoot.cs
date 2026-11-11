@@ -82,9 +82,16 @@ namespace UnpaidCeo.Game.Ui
         RankingScreen _ranking;
         public RankingScreen RankingPanel => _ranking;
         /// <summary>Cross-run progress (badges); set by the game after loading the meta record.</summary>
-        public MetaProgress Meta { get; set; }
+        MetaProgress _meta;
+        /// <summary>Progress outside the game (missions, badges, the turn checklist); the checklist picks up this month's record.</summary>
+        public MetaProgress Meta
+        {
+            get => _meta;
+            set { _meta = value; if (value != null) _gate.Load(value); }
+        }
         /// <summary>The screens show a challenge or duel run: no daily turns, no chapter bar. Set before Initialize.</summary>
-        public bool RunMode { get; set; }
+        bool _runMode;
+        public bool RunMode { get => _runMode; set { _runMode = value; RefreshGate(); } }
         ConsentDialog _consent;
         /// <summary>The one-time analytics question.</summary>
         public ConsentDialog Consent => _consent;
@@ -180,6 +187,11 @@ namespace UnpaidCeo.Game.Ui
         public bool PopupOpen => CurrentTab != City;
         /// <summary>The month's result, shown over the main screen after each month.</summary>
         public MonthSummaryDialog Summary => _summary;
+        /// <summary>What has to be done before "Next month" this month (plan, a visit, study every second month).</summary>
+        public TurnGate Gate => _gate;
+        /// <summary>The checklist changed (the bootstrap saves the meta record).</summary>
+        public event Action GateChanged;
+        public AcademyScreen AcademyPanel => _academy;
         public bool MonthSummaryOpen => _summary != null && _summary.IsOpen;
         public void ShowMonthSummary(MonthReport report) => _summary.Show(report, Language);
 
@@ -193,7 +205,7 @@ namespace UnpaidCeo.Game.Ui
         public bool GuideEnabled
         {
             get => _guideEnabled;
-            set { _guideEnabled = value; RefreshGuide(); }
+            set { _guideEnabled = value; RefreshGuide(); RefreshGate(); }
         }
 
         /// <summary>A month is being played: "Next month" shows it cannot be pressed.</summary>
@@ -204,7 +216,71 @@ namespace UnpaidCeo.Game.Ui
             ApplyNext();
         }
 
-        void ApplyNext() => _next?.SetEnabled(!_noTurns && !_busy && !_nextLocked);
+        void ApplyNext() => _next?.SetEnabled(!_noTurns && !_busy && !_nextLocked && !_gateLocked);
+
+        readonly TurnGate _gate = new TurnGate();
+        VisualElement _gateBox, _gateItems;
+        bool _gateLocked;
+
+        /// <summary>Academy questions still open (unlocked, never answered); the gate asks for at most three of them.</summary>
+        readonly HashSet<string> _answeredAtMonthStart = new HashSet<string>();
+        int StudyNeeded()
+        {
+            _answeredAtMonthStart.Clear();
+            if (_state == null || _engine == null) return 0;
+            foreach (var k in _state.QuizAnswers.Keys) _answeredAtMonthStart.Add(k);
+            if (!TurnGate.IsStudyMonth(_state.Month)) return 0;
+            int open = 0;
+            foreach (var lesson in _engine.Content.LessonsInOrder)
+            {
+                if (!_state.LessonsSeen.ContainsKey(lesson.Id)) continue;
+                for (int q = 0; q < lesson.Quiz.Count; q++)
+                    if (!_state.QuizAnswers.ContainsKey(lesson.Id + "/" + q)) open++;
+            }
+            return Math.Min(TurnGate.DefaultAnswers, open);
+        }
+
+        /// <summary>A month began (boot or after a report): the checklist starts over for it.</summary>
+        void StartGateMonth()
+        {
+            if (_state == null) return;
+            _gate.StartMonth(_state.Month);
+            _gate.AnswersNeeded = StudyNeeded();
+            if (_meta != null) _gate.Load(_meta);
+            RefreshGate();
+        }
+
+        void RefreshGate()
+        {
+            if (_gateBox == null) return;
+            bool show = !RunMode && _state != null && _guideEnabled;   // the onboarding mentor speaks alone
+            _gateBox.style.display = show ? DisplayStyle.Flex : DisplayStyle.None;
+            _gateLocked = show && !_gate.AllMet;
+            ApplyNext();
+            _gateItems.Clear();
+            if (!show) return;
+            GateItem(TurnGate.Plan, _gate.PlanReviewed, null, () => Open(Decisions));
+            GateItem(TurnGate.Place, _gate.PlaceVisited, null, OpenPlaces);
+            if (_gate.StudyRequired)
+                GateItem(TurnGate.StudyItem, _gate.AnswersGiven >= _gate.AnswersNeeded,
+                    Math.Min(_gate.AnswersGiven, _gate.AnswersNeeded) + " / " + _gate.AnswersNeeded, () => Open(Academy));
+            if (_meta != null) _gate.CopyTo(_meta);
+            GateChanged?.Invoke();
+        }
+
+        void GateItem(string id, bool done, string count, Action open)
+        {
+            var item = new Button(open) { name = "gate-" + id };
+            item.AddToClassList("gate__item");
+            item.EnableInClassList("gate__item--done", done);
+            var check = new Label(done ? "\u2713" : "") { name = "gate-check-" + id };
+            check.AddToClassList("gate__check");
+            check.AddToClassList("value");
+            item.Add(check);
+            item.Add(UiText.Label("gate." + id, "gate__text"));
+            if (count != null) item.Add(UiText.ValueLabel(count, "gate__count"));
+            _gateItems.Add(item);
+        }
 
         PlacesScreen _places;
         /// <summary>The block and its places (Home, the bodega, the bank…).</summary>
@@ -222,6 +298,7 @@ namespace UnpaidCeo.Game.Ui
         {
             _places.Show(id);
             Open(PlacesTab);
+            _gate.PlaceVisited = true;
         }
 
         readonly Dictionary<string, Button> _markers = new Dictionary<string, Button>();
@@ -233,8 +310,17 @@ namespace UnpaidCeo.Game.Ui
             if (!_markers.TryGetValue(id, out var marker))
             {
                 if (panelPosition == null) return;
-                marker = UiText.Bind(new Button(() => OpenPlace(id)) { name = "marker-" + id }, $"place.{id}.title");
+                // A shop sign over the building: the place's picture with its name under it; a tap walks in.
+                // (A Button draws its own text under its children, so the name is a Label of its own.)
+                marker = new Button(() => OpenPlace(id)) { name = "marker-" + id };
                 marker.AddToClassList("place-marker");
+                var pic = new VisualElement { name = "marker-pic-" + id };
+                pic.AddToClassList("place-marker__pic");
+                marker.Add(pic);
+                var title = UiText.Label($"place.{id}.title", "place-marker__title");
+                title.name = "marker-title-" + id;
+                marker.Add(title);
+                PlacesScreen.LoadThumb(id, pic);
                 var city = _screens[City];
                 city.Insert(city.IndexOf(_heroTag), marker);
                 _markers[id] = marker;
@@ -252,10 +338,10 @@ namespace UnpaidCeo.Game.Ui
             marker.style.display = DisplayStyle.Flex;
         }
 
-        /// <summary>The city hint's band at the top plus a marker's height: a sign above this would cover them.</summary>
-        const float MarkerClearTop = 150f;
+        /// <summary>A sign's height: one hanging higher than this would be drawn over the HUD and the chapter bar.</summary>
+        const float MarkerClearTop = 210f;
         /// <summary>Half of a long marker's width ("Laundromat Office").</summary>
-        const float MarkerHalfWidth = 130f;
+        const float MarkerHalfWidth = 110f;
 
         readonly Dictionary<string, Label> _tags = new Dictionary<string, Label>();
 
@@ -419,7 +505,8 @@ namespace UnpaidCeo.Game.Ui
             _popupClose.AddToClassList("popup-close");
             content.Add(_popupClose);
 
-            UiText.Bind(_screens[City].Q<Label>("city-hint"), "city.hint");
+            // The hint band is gone: the checklist ("drop by a place in the city") says it, and the signs need the room.
+            _screens[City].Q<Label>("city-hint").style.display = DisplayStyle.None;
             _ranking = new RankingScreen(_screens[Ranking], this, engine, state);
             _company = new CompanyScreen(_screens[Company], this, engine, state);
             _decisions = new DecisionsScreen(_screens[Decisions], this, engine, state);
@@ -427,7 +514,11 @@ namespace UnpaidCeo.Game.Ui
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
             _industry.Chosen += id => { _decisions.Refresh(); RefreshHud(); AnalyticsEvents.IndustryChosen(Online.Analytics, id); IndustryChosen?.Invoke(id); };
             _academy = new AcademyScreen(_screens[Academy], engine, state);
-            _academy.Answered += (lesson, q) => QuizAnswered?.Invoke(lesson, q);
+            _academy.Answered += (lesson, q) =>
+            {
+                if (!_answeredAtMonthStart.Contains(lesson + "/" + q)) _gate.RecordAnswer(lesson + "/" + q);
+                QuizAnswered?.Invoke(lesson, q);
+            };
             _academy.LessonViewed += id => AnalyticsEvents.LessonViewed(Online.Analytics, id);
             _academy.QuizPassed += id => AnalyticsEvents.QuizPassed(Online.Analytics, id);
             _opened = new HashSet<string>(OpenBusinesses());
@@ -451,6 +542,13 @@ namespace UnpaidCeo.Game.Ui
             _duelCard.style.display = DisplayStyle.None;
             stack.Add(_duelCard);
             stack.Add(_missions);
+            _gateBox = new VisualElement { name = "turn-gate" };
+            _gateBox.AddToClassList("gate");
+            _gateBox.Add(UiText.Label("gate.title", "gate__title"));
+            _gateItems = new VisualElement { name = "gate-items" };
+            _gateBox.Add(_gateItems);
+            stack.Add(_gateBox);
+            _gate.Changed += RefreshGate;
             _guide = new VisualElement { name = "guide" };
             _guide.AddToClassList("guide");
             _guideText = new Label { name = "guide-text" };
@@ -507,6 +605,7 @@ namespace UnpaidCeo.Game.Ui
 
             Open(NeedsBusiness ? Industry : City);
             RefreshHud();
+            StartGateMonth();
         }
 
         /// <summary>Moves to the next chapter when its goal is met: title card, then (chapter 2) the business choice.</summary>
@@ -548,6 +647,7 @@ namespace UnpaidCeo.Game.Ui
             UnpaidCeo.Game.City.CameraRig.InputBlocked = popup;   // drags belong to the popup, not to the city under it
             foreach (var b in _nav) b.Value.EnableInClassList("nav-button--active", b.Key == tab);
             CurrentTab = tab;
+            if (tab == Decisions) _gate.PlanReviewed = true;
             if (tab == Academy) { _newLesson = false; _academy.Refresh(); }
             if (tab == Journal) _journal.Refresh();
             if (tab == Settings) { _settings.Refresh(); _account.Refresh(); }
@@ -570,6 +670,7 @@ namespace UnpaidCeo.Game.Ui
             _journal.Refresh();
             _academy.Refresh();
             RefreshHud();
+            StartGateMonth();
         }
 
         public void RefreshHud()

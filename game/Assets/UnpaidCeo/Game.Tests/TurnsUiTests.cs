@@ -18,6 +18,8 @@ namespace UnpaidCeo.Game.Tests
         GameObject _host;
         UiRoot _ui;
         RenderTexture _target;
+        GameEngine _engine;
+        GameState _state;
 
         static ContentDb Content()
         {
@@ -37,9 +39,9 @@ namespace UnpaidCeo.Game.Tests
             _target = new RenderTexture(1080, 1920, 24);
             _host = new GameObject("ui");
             _ui = _host.AddComponent<UiRoot>();
-            var engine = new GameEngine(Content());
-            var state = engine.NewGame(5, new HeroAppearance());
-            _ui.Initialize(engine, state, _target);
+            _engine = new GameEngine(Content());
+            _state = _engine.NewGame(5, new HeroAppearance());
+            _ui.Initialize(_engine, _state, _target);
             yield return _ui.SetLanguage("en");
             for (int i = 0; i < 5; i++) yield return null;
         }
@@ -55,6 +57,7 @@ namespace UnpaidCeo.Game.Tests
         public IEnumerator Next_month_is_disabled_with_a_countdown_when_no_turns_left()
         {
             yield return Boot();
+            TestGate.Satisfy(_ui, _engine.Content, _state);
             _ui.SetTurns(0, 6, 3723);
             yield return null;
             Assert.IsFalse(_ui.NextMonthButton.enabledSelf, "no turns: the button is off");

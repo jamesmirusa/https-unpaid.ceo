@@ -12,11 +12,11 @@
 .app Label, .app Button { color: var(--text); }
 
 /* HUD */
-.hud { flex-direction: row; align-items: center; padding: 16px 24px; background-color: var(--panel); border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; }
+.hud { flex-direction: row; align-items: center; padding: 16px 24px; background-color: var(--chrome); border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; }
 .hud__block { flex-direction: column; margin-right: 28px; }
-.hud__caption { font-size: 26px; color: var(--text-dim); }
-.hud__value { font-size: 44px; -unity-font-style: bold; color: var(--money); }
-.hud__value--plain { color: var(--text); }
+.hud__caption { font-size: 26px; color: var(--chrome-dim); }
+.hud__value { font-size: 44px; -unity-font-style: bold; color: var(--money-on-chrome); }
+.hud__value--plain { color: var(--on-chrome); }
 .hud__spacer { flex-grow: 1; }
 .energy-bar { width: 170px; height: 22px; margin-top: 10px; background-color: var(--track); border-radius: 11px; overflow: hidden; }
 .energy-bar__fill { height: 100%; background-color: var(--energy); }
@@ -45,10 +45,10 @@
 /* Primary action and navigation */
 .primary-button { height: 120px; margin: 0 24px 16px 24px; border-radius: 32px; border-width: 0; background-color: var(--accent); font-size: 44px; -unity-font-style: bold; }
 .app .primary-button { color: var(--on-accent); }
-.bottom-nav { flex-direction: row; height: 124px; padding: 14px 12px 18px 12px; background-color: var(--panel); border-top-left-radius: 32px; border-top-right-radius: 32px; }
-.nav-button { flex-grow: 1; flex-basis: 0; margin: 0 6px; padding: 0 4px; border-width: 2px; border-color: var(--track); border-radius: 24px; background-color: var(--panel-strong); font-size: 28px; }
-.app .nav-button { color: var(--text); }
-.app .nav-button--active { border-color: var(--accent); -unity-font-style: bold; }
+.bottom-nav { flex-direction: row; height: 124px; padding: 10px 12px 14px 12px; background-color: var(--chrome); border-top-left-radius: 32px; border-top-right-radius: 32px; }
+.nav-button { flex-grow: 1; flex-basis: 0; margin: 0 6px; padding: 0 4px; border-width: 0; border-bottom-width: 6px; border-bottom-color: rgba(0, 0, 0, 0); border-radius: 0; background-color: rgba(0, 0, 0, 0); font-size: 28px; }
+.app .nav-button { color: var(--chrome-dim); }
+.app .nav-button--active { color: var(--on-chrome); border-bottom-color: var(--accent); -unity-font-style: bold; }
 
 /* Decisions */
 .share-row { flex-direction: row; align-items: center; height: 72px; }
@@ -214,9 +214,9 @@
 
 /* Text colours with meaning. The base rule (.app Label, .app Button) is stronger than a single class, so every
    colour set by one class above is repeated here with .app in front; keep the two in step. */
-.app .hud__caption { color: var(--text-dim); }
-.app .hud__value { color: var(--money); }
-.app .hud__value--plain { color: var(--text); }
+.app .hud__caption { color: var(--chrome-dim); }
+.app .hud__value { color: var(--money-on-chrome); }
+.app .hud__value--plain { color: var(--on-chrome); }
 .app .hint { color: var(--text-dim); }
 .app .disclaimer { color: var(--text-dim); }
 .app .value--negative { color: var(--negative); }
@@ -243,11 +243,12 @@
 .app Button.popup-close:hover, .app Button.popup-close:focus, .app Button.popup-close:active,
 .app Button.chapter-bar__advance:hover, .app Button.chapter-bar__advance:focus, .app Button.chapter-bar__advance:active,
 .dialogue Button.dialogue__continue:hover, .dialogue Button.dialogue__continue:focus, .dialogue Button.dialogue__continue:active { background-color: var(--accent); }
-.app Button.nav-button:hover, .app Button.nav-button:focus, .app Button.choice-button:hover, .app Button.choice-button:focus,
+.app Button.nav-button:hover, .app Button.nav-button:focus, .app Button.nav-button:active { background-color: rgba(255, 255, 255, 0.08); }
+.app Button.choice-button:hover, .app Button.choice-button:focus,
 .app Button.icon-button:hover, .app Button.icon-button:focus, .app Button.academy__item:hover, .app Button.academy__item:focus,
 .app Button.academy__option:hover, .app Button.academy__option:focus,
 .dialogue Button.dialogue__option:hover, .dialogue Button.dialogue__option:focus { background-color: var(--panel-strong); }
-.app Button.nav-button:active, .app Button.choice-button:active, .app Button.icon-button:active, .app Button.academy__item:active,
+.app Button.choice-button:active, .app Button.icon-button:active, .app Button.academy__item:active,
 .app Button.academy__option:active, .dialogue Button.dialogue__option:active { background-color: var(--track); }
 .app Button.missions__toggle:hover, .app Button.missions__toggle:focus, .app Button.missions__toggle:active,
 .app Button.link-button:hover, .app Button.link-button:focus, .app Button.link-button:active { background-color: rgba(0, 0, 0, 0); }
@@ -279,7 +280,9 @@
 .chip__value { font-size: 28px; -unity-font-style: bold; }
 .place-action__planned { display: none; margin-top: 6px; font-size: 26px; -unity-font-style: bold; -unity-text-align: middle-left; }
 .place-action--planned .place-action__planned { display: flex; }
-.place-marker { position: absolute; translate: -50% -100%; height: 60px; margin: 0; padding: 0 22px; border-radius: 30px; border-width: 3px; border-color: var(--accent); background-color: var(--panel-strong); font-size: 28px; -unity-font-style: bold; }
+.place-marker { position: absolute; translate: -50% -100%; flex-direction: column; align-items: center; width: 210px; margin: 0; padding: 8px 8px 6px 8px; border-radius: 22px; border-width: 3px; border-color: var(--accent); background-color: var(--card); font-size: 26px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-center; }
+.place-marker__pic { width: 190px; height: 112px; margin-bottom: 4px; border-radius: 14px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.place-marker__title { font-size: 26px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-center; }
 .app .place-card__host, .app .place__host, .app .chip__caption { color: var(--text-dim); }
 .app .chip__value.value--positive { color: var(--positive); }
 .app .chip__value.value--negative { color: var(--negative); }
@@ -291,3 +294,50 @@
 
 /* The city clips its name tags and markers to its own area: nothing of it is drawn over the HUD or the chapter bar. */
 #city { overflow: hidden; }
+
+/* Stage 4 · "My day · 24 hours": a segmented bar of the day and an hour stepper per slot the CEO can give. */
+.day-plan { margin-bottom: 8px; }
+.day-bar { flex-direction: row; height: 44px; margin: 8px 0 14px 0; border-radius: 22px; overflow: hidden; background-color: var(--track); }
+.day-bar__seg { height: 100%; flex-basis: 0; }
+.day-bar__seg--sleep { background-color: #4A5A7A; }
+.day-bar__seg--travel { background-color: #8C97AD; }
+.day-bar__seg--chores { background-color: #C9B79C; }
+.day-bar__seg--work { background-color: var(--accent); }
+.day-bar__seg--family { background-color: #E26D5A; }
+.day-bar__seg--me { background-color: #2E9E5B; }
+.day-bar__seg--study { background-color: #4C7BD9; }
+.day-dot { width: 22px; height: 22px; border-radius: 11px; margin-right: 12px; flex-shrink: 0; }
+.day-fixed { flex-direction: row; flex-wrap: wrap; margin-bottom: 6px; }
+.day-fixed__item { flex-direction: row; align-items: center; margin: 0 26px 8px 0; }
+.day-fixed__label { font-size: 28px; margin-right: 8px; }
+.day-fixed__hours { font-size: 28px; -unity-font-style: bold; }
+.day-row { flex-direction: row; align-items: center; height: 92px; padding: 0 8px 0 16px; margin-bottom: 8px; border-radius: 24px; background-color: var(--panel); }
+.day-row__label { flex-grow: 1; font-size: 34px; }
+.day-row__step { width: 76px; height: 76px; margin: 0; padding: 0; border-radius: 38px; border-width: 3px; border-color: var(--track); background-color: var(--panel-strong); font-size: 40px; -unity-font-style: bold; }
+.day-row__step:disabled { opacity: 0.35; }
+.day-row__hours { width: 110px; flex-direction: row; justify-content: center; align-items: flex-end; }
+.day-row__number { font-size: 38px; -unity-font-style: bold; }
+.day-row__unit { font-size: 26px; margin: 0 0 5px 2px; }
+.app .day-row__unit { color: var(--text-dim); }
+.app .day-fixed__label { color: var(--text-dim); }
+.app Button.day-row__step:hover, .app Button.day-row__step:focus { background-color: var(--panel-strong); border-color: var(--accent); }
+.app Button.day-row__step:active { background-color: var(--track); }
+
+/* Stage 4 · the checklist before "Next month": each line opens the screen where it is done. */
+.gate { margin-top: 12px; padding: 16px 24px 8px 24px; background-color: var(--panel); border-radius: 28px; }
+.gate__title { font-size: 28px; -unity-font-style: bold; margin-bottom: 6px; }
+.gate__item { flex-direction: row; align-items: center; height: 76px; margin: 0 0 8px 0; padding: 0 12px 0 6px; border-radius: 20px; border-width: 0; background-color: rgba(0, 0, 0, 0); }
+.gate__check { width: 44px; height: 44px; margin-right: 14px; border-radius: 22px; border-width: 3px; border-color: var(--text-dim); font-size: 28px; -unity-font-style: bold; -unity-text-align: middle-center; flex-shrink: 0; }
+.gate__item--done .gate__check { border-color: var(--accent); background-color: var(--accent); }
+.gate__text { flex-grow: 1; flex-shrink: 1; font-size: 30px; white-space: normal; -unity-text-align: middle-left; }
+.gate__count { font-size: 30px; -unity-font-style: bold; margin-left: 12px; }
+.app .gate__item--done .gate__text { color: var(--text-dim); }
+.app .gate__item--done .gate__check { color: var(--on-accent); }
+.app Button.gate__item:hover, .app Button.gate__item:focus { background-color: var(--panel-strong); }
+.app Button.gate__item:active { background-color: var(--track); }
+
+/* Stage 4 · a living scene: what the choice did, under the line. */
+.dialogue__consequences { flex-direction: row; flex-wrap: wrap; margin: 0 0 14px 0; padding: 10px 16px; border-radius: 18px; background-color: var(--panel-strong); }
+.dialogue .chip__caption { color: var(--text-dim); }
+.dialogue .chip__value.value--positive { color: var(--positive); }
+.dialogue .chip__value.value--negative { color: var(--negative); }

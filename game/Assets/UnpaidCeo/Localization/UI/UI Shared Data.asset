@@ -1495,6 +1495,86 @@ MonoBehaviour:
     m_Key: place.action.lessons
     m_Metadata:
       m_Items: []
+  - m_Id: 929770899496960
+    m_Key: day.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079872
+    m_Key: day.sleep
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079873
+    m_Key: day.travel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079874
+    m_Key: day.chores
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079875
+    m_Key: day.me
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079876
+    m_Key: day.hours_unit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079877
+    m_Key: gate.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079878
+    m_Key: gate.plan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079879
+    m_Key: gate.place
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079880
+    m_Key: gate.study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079881
+    m_Key: npc.mentor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079882
+    m_Key: npc.tony
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079883
+    m_Key: npc.loan_shark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079884
+    m_Key: npc.best_friend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079885
+    m_Key: npc.mom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079886
+    m_Key: npc.fat_cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079887
+    m_Key: npc.banker_lee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079888
+    m_Key: npc.supplier_rosa
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079889
+    m_Key: npc.journalist_mia
+    m_Metadata:
+      m_Items: []
+  - m_Id: 929770912079890
+    m_Key: npc.cofounder_sam
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
