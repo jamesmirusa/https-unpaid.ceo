@@ -83,6 +83,7 @@ namespace UnpaidCeo.Game.Ui
             Set(_cash, report.CashEnd, language, signed: true);
             var change = report.CashEnd - report.CashStart;
             Set(_change, change, language, signed: true);
+            if (change > Money.Zero) _change.text = "+" + _change.text;
             UiText.Bind(_tip, TipKey(report));
             Root.style.display = DisplayStyle.Flex;
             Root.BringToFront();

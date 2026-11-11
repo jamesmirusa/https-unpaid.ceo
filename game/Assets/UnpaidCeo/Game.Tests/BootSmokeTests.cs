@@ -124,8 +124,11 @@ namespace UnpaidCeo.Game.Tests
             var dialogue = Object.FindFirstObjectByType<UnpaidCeo.Game.Narrative.UitkDialoguePresenter>().GetComponent<UIDocument>().rootVisualElement;
             yield return Until(() => Shown(dialogue.Q("dialogue-backdrop")), 10f);
             Assert.IsTrue(Shown(dialogue.Q("dialogue-backdrop")), "the month's scenes open");
+            Assert.IsFalse(Shown(ui.Consent.Root), "one thing at a time: the statistics question waits for the scenes");
 
             yield return PlayScenes(dialogue);
+            yield return Until(() => Shown(ui.Consent.Root), 5f);
+            Assert.IsTrue(Shown(ui.Consent.Root), "then the player who was never asked is asked");
             yield return Until(() => SaveService.Load().State.PendingStorylets.Count == 0, 5f);
             var saved = SaveService.Load().State;
             Assert.AreEqual(0, saved.PendingStorylets.Count, "both scenes were played to their choice");

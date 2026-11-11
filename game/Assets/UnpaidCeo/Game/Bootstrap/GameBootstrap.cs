@@ -126,7 +126,7 @@ namespace UnpaidCeo.Game.Bootstrap
             if (_rig != null) _rig.Frame(spot, HeroCameraDistance, raise: HeroScreenRaise);
         }
 
-        const float HeroCameraDistance = 46f;
+        const float HeroCameraDistance = 40f;
         /// <summary>The guide card, "Next month" and the dock cover the bottom of the screen: the hero shows above the middle.</summary>
         const float HeroScreenRaise = 0.12f;
         static int Walkers => GraphicsModeService.Current == GraphicsMode.Eco ? 6 : 10;
@@ -384,8 +384,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 StartCoroutine(_hero.Apply(_state.Hero));
                 RunLaunchAutopilot();
                 StartPlaying();
-                PlayScenes();
-                Ui.AskConsent();
+                StartCoroutine(ScenesAfterSummary());   // then the statistics question, if it was never answered
                 yield break;
             }
 
@@ -523,8 +522,8 @@ namespace UnpaidCeo.Game.Bootstrap
         }
 
         /// <summary>
-        /// After onboarding, one thing at a time: the month's result, then its scenes (the dialogue would cover the
-        /// result), then the one-time question about statistics.
+        /// One thing at a time, after onboarding and on a return visit: the month's result (if one is open), then its
+        /// scenes (the dialogue would cover the result), then the one-time question about statistics.
         /// </summary>
         IEnumerator ScenesAfterSummary()
         {

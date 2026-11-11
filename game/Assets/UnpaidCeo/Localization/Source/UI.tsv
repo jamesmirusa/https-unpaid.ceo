@@ -13,7 +13,7 @@ hud.turns_left	Months today	Месяцев сегодня
 hud.next_in	New months in	Новые месяцы через
 hud.journal	Journal	Журнал
 hud.settings	Settings	Настройки
-company.title	Company	Компания
+company.title	Report	Отчёт
 company.empty	Finish your first month to see the report.	Заверши первый месяц, чтобы увидеть отчёт.
 company.revenue	Revenue	Выручка
 company.cogs	Cost of goods	Себестоимость
@@ -26,7 +26,7 @@ company.net	Net profit	Чистая прибыль
 company.personal	Living costs	Расходы на жизнь
 company.cash_end	Cash at month end	Деньги на конец месяца
 company.disclaimer	Money in this game is simulated. This is not financial advice.	Деньги в игре симулированные. Это не финансовый совет.
-decisions.title	Decisions	Решения
+decisions.title	Month plan	План месяца
 decisions.time	CEO time	Время CEO
 decisions.work	Work	Работа
 decisions.family	Family	Семья
@@ -302,3 +302,4 @@ summary.tip.profit	Profit is what stays after every cost. Keep part of it as a r
 summary.ok	Got it	Понятно
 summary.details	Full report	Полный отчёт
 hud.month_running	Month in progress…	Идёт месяц…
+decisions.hint	Split your time. Work earns money, but too much of it burns energy. Rest restores it, family keeps relationships warm, study builds knowledge.	Раздели своё время. Работа приносит деньги, но её избыток сжигает энергию. Отдых её возвращает, семья бережёт отношения, учёба даёт знания.

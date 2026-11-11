@@ -42,6 +42,7 @@ namespace UnpaidCeo.Game.Ui
             _engine = engine;
             _state = state;
             UiText.Bind(root.Q<Label>("decisions-title"), "decisions.title");
+            UiText.Bind(root.Q<Label>("decisions-hint"), "decisions.hint");
             UiText.Bind(root.Q<Label>("time-title"), "decisions.time");
             _splitTitle = UiText.Bind(root.Q<Label>("split-title"), "decisions.split");
             _splitControl = root.Q("split-control");

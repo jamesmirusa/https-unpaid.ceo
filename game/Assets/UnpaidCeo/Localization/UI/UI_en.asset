@@ -67,7 +67,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425547
-    m_Localized: Company
+    m_Localized: Report
     m_Metadata:
       m_Items: []
   - m_Id: 527425548
@@ -115,7 +115,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425559
-    m_Localized: Decisions
+    m_Localized: Month plan
     m_Metadata:
       m_Items: []
   - m_Id: 527425560
@@ -1228,6 +1228,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 832375335411712
     m_Localized: "Month in progress\u2026"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 839183491915776
+    m_Localized: Split your time. Work earns money, but too much of it burns energy. Rest restores it, family keeps relationships warm, study builds knowledge.
     m_Metadata:
       m_Items: []
   references:

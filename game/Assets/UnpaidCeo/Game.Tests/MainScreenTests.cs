@@ -131,6 +131,9 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual(MoneyFormat.Compact(report.NetProfit, "en"), s.Q<Label>("summary-profit").text);
             Assert.AreEqual(MoneyFormat.Compact(report.PersonalCosts, "en"), s.Q<Label>("summary-personal").text);
             Assert.AreEqual(MoneyFormat.Compact(report.CashEnd, "en"), s.Q<Label>("summary-cash").text);
+            var change = report.CashEnd - report.CashStart;
+            Assert.AreEqual((change > Money.Zero ? "+" : "") + MoneyFormat.Compact(change, "en"), s.Q<Label>("summary-change").text,
+                "the change over the month carries its sign");
             var tip = s.Q<Label>("summary-tip");
             Assert.IsTrue(UiText.IsLocalized(tip) && !string.IsNullOrEmpty(tip.text) && !tip.text.StartsWith("summary."), "one line teaches what the numbers mean");
 
@@ -307,6 +310,47 @@ namespace UnpaidCeo.Game.Tests
             Assert.LessOrEqual(modal.worldBound.xMin, screen.xMin + 1f, "a modal dims the whole screen, not only the column");
             Assert.GreaterOrEqual(modal.worldBound.xMax, screen.xMax - 1f);
             Assert.LessOrEqual(modal.Q<Button>("month-summary-ok").worldBound.width, 1081f, "its panel stays phone-wide");
+        }
+
+        static void AssertColour(Color32 expected, Color actual, string why)
+        {
+            Color32 a = actual;
+            Assert.IsTrue(Mathf.Abs(a.r - expected.r) <= 2 && Mathf.Abs(a.g - expected.g) <= 2 && Mathf.Abs(a.b - expected.b) <= 2, $"{why}: expected {expected}, was {a}");
+        }
+
+        [UnityTest]
+        public IEnumerator Colours_carry_meaning()
+        {
+            yield return Boot(s => s.Cash = Money.FromCents(-5_000));
+            var cash = _ui.Root.Q<Label>("hud-cash");
+            AssertColour(new Color32(0xD9, 0x48, 0x3B, 255), cash.resolvedStyle.color, "cash below zero is red");
+            AssertColour(new Color32(0x5B, 0x62, 0x75, 255), _ui.Root.Q<Label>("hud-cash-caption").resolvedStyle.color, "captions are dimmer than values");
+
+            _state.Cash = Money.FromCents(5_000);
+            _ui.RefreshHud();
+            yield return null;
+            AssertColour(new Color32(0x2E, 0x9E, 0x5B, 255), cash.resolvedStyle.color, "money is green");
+
+            _ui.Transition.Play(2);
+            yield return null;
+            var title = _ui.Transition.Root.Q<Label>(className: "chapter-card__title");
+            AssertColour(new Color32(255, 255, 255, 255), title.resolvedStyle.color, "the chapter card is white on dark");
+            _ui.Transition.Hide();
+        }
+
+        [UnityTest]
+        public IEnumerator The_month_plan_explains_itself()
+        {
+            yield return Boot();
+            _ui.Open(UiRoot.Decisions);
+            yield return null;
+            var hint = _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-hint");
+            Assert.IsNotNull(hint, "a new player is told what the sliders do");
+            Assert.IsTrue(Shown(hint) && UiText.IsLocalized(hint) && hint.text.Length > 40 && !hint.text.StartsWith("decisions."));
+            Assert.AreEqual("Month plan", _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-title").text, "the popup is named like the button that opens it");
+            _ui.Open(UiRoot.Company);
+            yield return null;
+            Assert.AreEqual("Report", _ui.Screen(UiRoot.Company).Q<Label>("company-title").text);
         }
 
         [UnityTest]

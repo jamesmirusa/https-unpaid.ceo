@@ -1227,6 +1227,10 @@ MonoBehaviour:
     m_Key: hud.month_running
     m_Metadata:
       m_Items: []
+  - m_Id: 839183491915776
+    m_Key: decisions.hint
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

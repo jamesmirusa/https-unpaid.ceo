@@ -209,3 +209,37 @@
 .summary__tip { margin: 20px 0 4px 0; padding: 18px 22px; border-radius: 22px; background-color: var(--panel-strong); font-size: 32px; white-space: normal; }
 .link-button { align-self: center; margin: 0; padding: 14px 28px; border-width: 0; background-color: rgba(0, 0, 0, 0); font-size: 30px; }
 .app .link-button { color: var(--text-dim); }
+
+/* Text colours with meaning. The base rule (.app Label, .app Button) is stronger than a single class, so every
+   colour set by one class above is repeated here with .app in front; keep the two in step. */
+.app .hud__caption { color: var(--text-dim); }
+.app .hud__value { color: var(--money); }
+.app .hud__value--plain { color: var(--text); }
+.app .hint { color: var(--text-dim); }
+.app .disclaimer { color: var(--text-dim); }
+.app .value--negative { color: var(--negative); }
+.app .value--positive { color: var(--positive); }
+.app .action-row__cost { color: var(--text-dim); }
+.app .journal-entry__month-caption { color: var(--text-dim); }
+.app .journal-entry__month { color: var(--text-dim); }
+.app .coach__text { color: var(--text); }
+.app .turns-bar__caption { color: var(--text-dim); }
+.app .mission--done .row__label, .app .mission--done .row__value { color: var(--text-dim); }
+.app .missions__caption { color: var(--text-dim); }
+.app .chapter-bar__goal-value { color: var(--money); }
+.app .industry-card__step { color: var(--text-dim); }
+.app .decisions__warning { color: var(--negative); }
+.app .chapter-card__title { color: rgb(255, 255, 255); }
+.app .chapter-card__subtitle { color: rgb(220, 220, 230); }
+.app .rank-row__rank { color: var(--text-dim); }
+.app .duel-row__industry { color: var(--text-dim); }
+
+/* Pointer states: the default theme greys a hovered button, which reads as 'disabled' on a coloured one. */
+.primary-button:hover, .guide__action:hover, .popup-close:hover, .chapter-bar__advance:hover, .dialogue__continue:hover { background-color: var(--accent); opacity: 0.9; }
+.primary-button:active, .guide__action:active, .popup-close:active, .chapter-bar__advance:active, .dialogue__continue:active { background-color: var(--accent); opacity: 0.75; }
+.primary-button:disabled, .primary-button:disabled:hover { opacity: 0.45; }
+.nav-button:hover, .choice-button:hover, .icon-button:hover, .academy__item:hover, .academy__option:hover, .dialogue__option:hover { background-color: var(--panel-strong); }
+.nav-button:hover, .choice-button:hover { border-color: var(--accent); }
+.nav-button:active, .choice-button:active, .icon-button:active, .academy__item:active, .academy__option:active, .dialogue__option:active { background-color: var(--track); }
+.missions__toggle:hover, .missions__toggle:active, .link-button:hover, .link-button:active { background-color: rgba(0, 0, 0, 0); }
+.danger-button:hover, .danger-button:active { background-color: var(--negative); opacity: 0.9; }

@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:ScrollView name="decisions" class="screen screen--panel">
         <ui:Label name="decisions-title" class="screen__title" />
+        <ui:Label name="decisions-hint" class="hint" />
         <ui:Label name="time-title" class="section-title" />
         <ui:VisualElement name="time-control" />
         <ui:Label name="business-title" class="section-title" />
