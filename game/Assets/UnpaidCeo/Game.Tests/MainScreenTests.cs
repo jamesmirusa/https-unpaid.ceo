@@ -365,6 +365,15 @@ namespace UnpaidCeo.Game.Tests
             _ui.PlaceHeroTag(null);
             yield return null;
             Assert.IsFalse(Shown(_ui.HeroTag), "no hero on screen: no tag");
+
+            _ui.PlaceTag("mentor", "city.mentor", new Vector2(300, 400));
+            yield return null;
+            var mentor = _ui.Screen(UiRoot.City).Q<Label>("tag-mentor");
+            Assert.IsNotNull(mentor, "the people of the block carry name tags too");
+            Assert.IsTrue(Shown(mentor) && UiText.IsLocalized(mentor) && mentor.text == "Mentor");
+            _ui.PlaceTag("mentor", "city.mentor", null);
+            yield return null;
+            Assert.IsFalse(Shown(mentor));
         }
     }
 }

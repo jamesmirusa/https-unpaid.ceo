@@ -123,7 +123,16 @@ namespace UnpaidCeo.Game.Bootstrap
             if (_hero == null || _city == null || _city.HomeAnchor == null) return;
             var spot = StreetLife.HomeFront(_city.HomeAnchor);
             _hero.transform.SetPositionAndRotation(spot, _city.HomeAnchor.rotation);
-            if (_rig != null) _rig.Frame(spot, HeroCameraDistance, raise: HeroScreenRaise);
+            FrameHero(Current == Phase.Onboarding && Onboarding != null && Onboarding.Current == OnboardingFlow.Step.Hero);
+        }
+
+        /// <param name="closeUp">Character creation: the hero fills the view above the creator panel.</param>
+        void FrameHero(bool closeUp)
+        {
+            if (_rig == null || _city == null || _city.HomeAnchor == null) return;
+            var spot = StreetLife.HomeFront(_city.HomeAnchor);
+            if (closeUp) _rig.Frame(spot, 24f, raise: 0.2f);
+            else _rig.Frame(spot, HeroCameraDistance, raise: HeroScreenRaise);
         }
 
         const float HeroCameraDistance = 40f;
@@ -136,7 +145,30 @@ namespace UnpaidCeo.Game.Bootstrap
         {
             var go = new GameObject("StreetLife");
             SceneManager.MoveGameObjectToScene(go, scene);
-            go.AddComponent<StreetLife>().Begin(seed: chapter * 7919 + (int)((_state?.Seed ?? 0) % 1000), count: Walkers);
+            _life = go.AddComponent<StreetLife>();
+            _life.Begin(seed: chapter * 7919 + (int)((_state?.Seed ?? 0) % 1000), count: Walkers,
+                residents: StreetLife.ResidentsFor(Chapters.District(chapter), _city != null ? _city.HomeAnchor : null));
+        }
+
+        StreetLife? _life;
+        readonly Dictionary<string, string> _tagged = new Dictionary<string, string>();
+
+        /// <summary>Name tags above the block's residents (those of a district left behind are hidden).</summary>
+        void PlaceResidentTags(Camera cam)
+        {
+            var seen = new HashSet<string>();
+            if (_life != null)
+                foreach (var r in _life.Residents)
+                {
+                    if (r.Transform == null) continue;
+                    var head = r.Transform.position + Vector3.up * (HeroView.Height + 0.5f);
+                    bool inFront = Vector3.Dot(cam.transform.forward, head - cam.transform.position) > 0f;
+                    Ui!.PlaceTag(r.Address, r.TagKey, inFront ? RuntimePanelUtils.CameraTransformWorldToPanel(Ui.Root.panel, head, cam) : (Vector2?)null);
+                    seen.Add(r.Address);
+                    _tagged[r.Address] = r.TagKey;
+                }
+            foreach (var old in new List<string>(_tagged.Keys))
+                if (!seen.Contains(old)) { Ui!.PlaceTag(old, _tagged[old], null); _tagged.Remove(old); }
         }
 
         /// <summary>"You" above the hero, where the camera shows it.</summary>
@@ -144,7 +176,9 @@ namespace UnpaidCeo.Game.Bootstrap
         {
             if (Ui == null || Ui.Root == null) return;
             var cam = _rig != null ? _rig.GetComponent<Camera>() : null;
-            if (cam == null || _hero == null || _hero.Model == null || Ui.Root.panel == null) { Ui.PlaceHeroTag(null); return; }
+            if (cam == null || Ui.Root.panel == null) { Ui.PlaceHeroTag(null); return; }
+            PlaceResidentTags(cam);
+            if (_hero == null || _hero.Model == null) { Ui.PlaceHeroTag(null); return; }
             var at = _hero.Model.transform.position;   // the model walks; its own height is not its feet
             var head = new Vector3(at.x, _hero.transform.position.y + HeroView.Height + 0.5f, at.z);
             if (Vector3.Dot(cam.transform.forward, head - cam.transform.position) <= 0f) { Ui.PlaceHeroTag(null); return; }
@@ -364,7 +398,8 @@ namespace UnpaidCeo.Game.Bootstrap
             StartCoroutine(_audio.LoadMusic(() => _light != null ? _light.NightAmount : 0f, DistrictMusic(_state.Chapter)));
             BuildDialogue();
             _hero = new GameObject("Hero").AddComponent<HeroView>();
-            _hero.gameObject.AddComponent<HeroStroll>().Configure(halfWidth: 4f, speed: 1.3f, restSeconds: 3f);
+            _hero.transform.SetParent(transform);   // leaves with the game (it used to stay behind in the active scene)
+            _hero.gameObject.AddComponent<HeroStroll>().Configure(halfWidth: 2.6f, speed: 1.3f, restSeconds: 3f);
             PlaceHeroAtHome();
 
             Ui = new GameObject("UI").AddComponent<UiRoot>();
@@ -391,7 +426,14 @@ namespace UnpaidCeo.Game.Bootstrap
             Current = Phase.Onboarding;
             Onboarding = new OnboardingFlow(_engine, _state, Ui, _hero, id => _yarn!.LineText(id), (int)(seed % int.MaxValue));
             Onboarding.LineShown += PlayLine;
-            Onboarding.HeroChosen += a => StartCoroutine(_hero.Apply(a));
+            Onboarding.HeroChosen += a =>
+            {
+                StartCoroutine(_hero.Apply(a));
+                _hero.GetComponent<HeroStroll>().enabled = true;
+                FrameHero(closeUp: false);   // back from the character-creation close-up to the block
+            };
+            _hero.GetComponent<HeroStroll>().enabled = false;   // stands still to be looked at while it is created
+            FrameHero(closeUp: true);
             Onboarding.Completed += report =>
             {
                 _city?.Sync(_state);

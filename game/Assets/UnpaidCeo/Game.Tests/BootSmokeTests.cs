@@ -163,6 +163,9 @@ namespace UnpaidCeo.Game.Tests
 
             Tap(ui.Root.Q<Button>("hero-done"));
             yield return null;
+            var rig = Object.FindFirstObjectByType<UnpaidCeo.Game.City.CameraRig>();
+            Assert.GreaterOrEqual(rig.Distance, 36f, "the hero is chosen: the camera steps back to the block");
+            Assert.IsTrue(Object.FindFirstObjectByType<UnpaidCeo.Game.Hero.HeroStroll>().enabled, "and the hero starts its stroll");
             Tap(ui.Root.Q<Button>(OnboardingFlow.ActionButton));
             yield return null;
             Tap(ui.Root.Q<Button>(OnboardingFlow.ActionButton));
@@ -234,6 +237,9 @@ namespace UnpaidCeo.Game.Tests
             var life = Object.FindFirstObjectByType<UnpaidCeo.Game.City.StreetLife>();
             Assert.IsNotNull(life, "the district has street life");
             Assert.GreaterOrEqual(life.Walkers.Count, 8, "people walk the block");
+            Assert.IsTrue(life.Residents.Any(r => r.Address == "npc_mentor_raccoon"), "the raccoon mentor is on the block");
+            Assert.Less(rig.Distance, 30f, "while the hero is created the camera is close to it");
+            Assert.IsFalse(hero.GetComponent<UnpaidCeo.Game.Hero.HeroStroll>().enabled, "and the hero stands still to be looked at");
             Assert.GreaterOrEqual(Object.FindObjectsByType<UnpaidCeo.Game.City.StreetCar>(FindObjectsSortMode.None).Length, 2, "cars drive the avenue");
 
             Assert.IsNotNull(boot.Ui.Online, "screens always have online services (offline until UGS answers)");

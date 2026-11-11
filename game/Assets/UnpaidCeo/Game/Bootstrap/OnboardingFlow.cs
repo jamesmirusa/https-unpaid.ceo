@@ -60,6 +60,7 @@ namespace UnpaidCeo.Game.Bootstrap
         public void Start()
         {
             _ui.GuideEnabled = false;   // one voice at a time: the mentor's coach marks first
+            _ui.NextLocked = true;      // until the mentor asks for it
             _heroOverlay = new VisualElement { name = "onboarding-hero" };
             _heroOverlay.AddToClassList("onboarding-overlay");
             _ui.Root.Add(_heroOverlay);
@@ -116,6 +117,7 @@ namespace UnpaidCeo.Game.Bootstrap
                     break;
                 case Step.Lesson:
                     Show(Step.NextMonth, LineNextMonth, null);
+                    _ui.NextLocked = false;
                     _next?.AddToClassList(HighlightClass);
                     _ui.NextMonthRequested += OnNextMonth;
                     break;

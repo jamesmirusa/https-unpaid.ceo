@@ -104,7 +104,8 @@
 /* Onboarding coach marks */
 /* Full-screen layers reach past the column: transparent side borders carry the background to the screen's edges,
    while children (also absolute ones) stay inside the column. */
-.onboarding-overlay { position: absolute; left: -4000px; right: -4000px; border-left-width: 4000px; border-right-width: 4000px; border-color: rgba(0, 0, 0, 0); top: 0; bottom: 0; justify-content: center; background-color: rgba(16, 21, 33, 0.92); }
+.onboarding-overlay { position: absolute; left: -4000px; right: -4000px; border-left-width: 4000px; border-right-width: 4000px; border-color: rgba(0, 0, 0, 0); top: 0; bottom: 0; justify-content: center; background-color: rgba(16, 21, 33, 0.3); }
+/* (light: the hero being created stands in the city behind this layer) */
 .coach { position: absolute; left: 32px; right: 32px; bottom: 300px; padding: 32px 8px 8px 8px; border-radius: 32px; background-color: var(--panel); border-width: 4px; border-color: var(--accent); }
 .coach__speaker { margin: 0 32px 8px 32px; font-size: 32px; -unity-font-style: bold; color: var(--accent); }
 .coach__text { margin: 0 32px 24px 32px; font-size: 40px; white-space: normal; color: var(--text); }
@@ -234,12 +235,24 @@
 .app .rank-row__rank { color: var(--text-dim); }
 .app .duel-row__industry { color: var(--text-dim); }
 
-/* Pointer states: the default theme greys a hovered button, which reads as 'disabled' on a coloured one. */
-.primary-button:hover, .guide__action:hover, .popup-close:hover, .chapter-bar__advance:hover, .dialogue__continue:hover { background-color: var(--accent); opacity: 0.9; }
-.primary-button:active, .guide__action:active, .popup-close:active, .chapter-bar__advance:active, .dialogue__continue:active { background-color: var(--accent); opacity: 0.75; }
-.primary-button:disabled, .primary-button:disabled:hover { opacity: 0.45; }
-.nav-button:hover, .choice-button:hover, .icon-button:hover, .academy__item:hover, .academy__option:hover, .dialogue__option:hover { background-color: var(--panel-strong); }
-.nav-button:hover, .choice-button:hover { border-color: var(--accent); }
-.nav-button:active, .choice-button:active, .icon-button:active, .academy__item:active, .academy__option:active, .dialogue__option:active { background-color: var(--track); }
-.missions__toggle:hover, .missions__toggle:active, .link-button:hover, .link-button:active { background-color: rgba(0, 0, 0, 0); }
-.danger-button:hover, .danger-button:active { background-color: var(--negative); opacity: 0.9; }
+/* Pointer states. The default theme greys a hovered, focused or pressed button, which reads as "disabled" on a
+   coloured one; these selectors are heavier than the theme's on purpose. */
+.app Button.primary-button:hover, .app Button.primary-button:focus, .app Button.primary-button:active,
+.app Button.guide__action:hover, .app Button.guide__action:focus, .app Button.guide__action:active,
+.app Button.popup-close:hover, .app Button.popup-close:focus, .app Button.popup-close:active,
+.app Button.chapter-bar__advance:hover, .app Button.chapter-bar__advance:focus, .app Button.chapter-bar__advance:active,
+.dialogue Button.dialogue__continue:hover, .dialogue Button.dialogue__continue:focus, .dialogue Button.dialogue__continue:active { background-color: var(--accent); }
+.app Button.nav-button:hover, .app Button.nav-button:focus, .app Button.choice-button:hover, .app Button.choice-button:focus,
+.app Button.icon-button:hover, .app Button.icon-button:focus, .app Button.academy__item:hover, .app Button.academy__item:focus,
+.app Button.academy__option:hover, .app Button.academy__option:focus,
+.dialogue Button.dialogue__option:hover, .dialogue Button.dialogue__option:focus { background-color: var(--panel-strong); }
+.app Button.nav-button:active, .app Button.choice-button:active, .app Button.icon-button:active, .app Button.academy__item:active,
+.app Button.academy__option:active, .dialogue Button.dialogue__option:active { background-color: var(--track); }
+.app Button.missions__toggle:hover, .app Button.missions__toggle:focus, .app Button.missions__toggle:active,
+.app Button.link-button:hover, .app Button.link-button:focus, .app Button.link-button:active { background-color: rgba(0, 0, 0, 0); }
+.app Button.danger-button:hover, .app Button.danger-button:focus, .app Button.danger-button:active { background-color: var(--negative); }
+.app Button.primary-button:active, .app Button.guide__action:active, .app Button.popup-close:active, .dialogue Button.dialogue__continue:active { opacity: 0.75; }
+.app Button.primary-button:disabled { opacity: 0.45; }
+
+/* Name tags of the block's residents (the hero's own tag is the accent one). */
+.npc-tag { position: absolute; translate: -50% -100%; padding: 2px 16px; border-radius: 18px; background-color: var(--panel); font-size: 24px; }

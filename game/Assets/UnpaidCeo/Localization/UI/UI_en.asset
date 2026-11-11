@@ -1234,6 +1234,14 @@ MonoBehaviour:
     m_Localized: Split your time. Work earns money, but too much of it burns energy. Rest restores it, family keeps relationships warm, study builds knowledge.
     m_Metadata:
       m_Items: []
+  - m_Id: 842826840530944
+    m_Localized: Mentor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 842826853113856
+    m_Localized: Tony
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

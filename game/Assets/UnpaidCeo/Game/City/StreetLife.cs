@@ -33,6 +33,42 @@ namespace UnpaidCeo.Game.City
 
         public IReadOnlyList<Pedestrian> Walkers => _walkers;
 
+        /// <summary>Someone who lives on the block and stands at their place: where, facing where, and the name tag's string key.</summary>
+        public readonly struct Resident
+        {
+            public readonly string Address;
+            public readonly Vector3 Position;
+            public readonly Quaternion Rotation;
+            public readonly string TagKey;
+            public Resident(string address, Vector3 position, Quaternion rotation, string tagKey) { Address = address; Position = position; Rotation = rotation; TagKey = tagKey; }
+        }
+
+        /// <summary>A resident standing in the scene.</summary>
+        public sealed class Standing
+        {
+            public string Address;
+            public string TagKey;
+            public Transform Transform;
+        }
+
+        readonly List<Standing> _residents = new List<Standing>();
+        public IReadOnlyList<Standing> Residents => _residents;
+
+        /// <summary>
+        /// Who stands on the district's block: the raccoon mentor beside the hero's door (every district: he moves with
+        /// the hero), and in the Bronx Tony in front of his bodega next door.
+        /// </summary>
+        public static IReadOnlyList<Resident> ResidentsFor(string district, Transform home)
+        {
+            var list = new List<Resident>();
+            if (home == null) return list;
+            var p = home.position + home.forward * 6.1f + home.right * 3.6f;   // the building side of the sidewalk
+            list.Add(new Resident("npc_mentor_raccoon", new Vector3(p.x, SidewalkTop, p.z), home.rotation, "city.mentor"));
+            if (district == "bronx")
+                list.Add(new Resident("npc_tony_bulldog", new Vector3(21.5f, SidewalkTop, 7.4f), Quaternion.Euler(0f, 180f, 0f), "city.tony"));
+            return list;
+        }
+
         /// <summary>Where the hero stands: on the sidewalk straight out of the home's front door.</summary>
         public static Vector3 HomeFront(Transform home)
         {
@@ -55,7 +91,7 @@ namespace UnpaidCeo.Game.City
         }
 
         /// <param name="spawn">Makes a walker's model under its parent (tests); by default models load through Addressables.</param>
-        public void Begin(int seed, int count = 10, Func<string, Transform, GameObject> spawn = null)
+        public void Begin(int seed, int count = 10, Func<string, Transform, GameObject> spawn = null, IReadOnlyList<Resident> residents = null)
         {
             var random = new System.Random(seed);
             var lanes = Lanes();
@@ -72,25 +108,36 @@ namespace UnpaidCeo.Game.City
 
                 string look = Looks[(i + seed) % Looks.Length];
                 var tint = HeroView.Tints[(i / Looks.Length + i) % HeroView.Tints.Length];
-                if (spawn != null) Dress(spawn(look, go.transform), tint);
-                else StartCoroutine(Load(look, go.transform, tint));
+                if (spawn != null) Dress(spawn(look, go.transform), tint, WalkerHeight);
+                else StartCoroutine(Load(look, go.transform, tint, WalkerHeight));
+            }
+
+            if (residents == null) return;
+            foreach (var r in residents)
+            {
+                var go = new GameObject("resident_" + r.Address);
+                go.transform.SetParent(transform, false);
+                go.transform.SetPositionAndRotation(r.Position, r.Rotation);
+                _residents.Add(new Standing { Address = r.Address, TagKey = r.TagKey, Transform = go.transform });
+                if (spawn != null) Dress(spawn(r.Address, go.transform), Color.white, HeroView.Height);
+                else StartCoroutine(Load(r.Address, go.transform, Color.white, HeroView.Height));
             }
         }
 
-        IEnumerator Load(string address, Transform parent, Color tint)
+        IEnumerator Load(string address, Transform parent, Color tint, float height)
         {
             var handle = Addressables.InstantiateAsync(address, parent);
             _handles.Add(handle);
             yield return handle;
-            if (handle.Status == AsyncOperationStatus.Succeeded) Dress(handle.Result, tint);
+            if (handle.Status == AsyncOperationStatus.Succeeded) Dress(handle.Result, tint, height);
         }
 
-        static void Dress(GameObject model, Color tint)
+        static void Dress(GameObject model, Color tint, float height)
         {
             if (model == null) return;
             model.transform.localPosition = Vector3.zero;
             model.transform.localRotation = Quaternion.identity;
-            ModelFit.ToHeight(model, WalkerHeight);
+            ModelFit.ToHeight(model, height);
             var block = new MaterialPropertyBlock();
             foreach (var r in model.GetComponentsInChildren<Renderer>())
             {

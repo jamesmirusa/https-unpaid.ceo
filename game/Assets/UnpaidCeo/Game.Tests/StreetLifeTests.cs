@@ -89,6 +89,29 @@ namespace UnpaidCeo.Game.Tests
             Assert.GreaterOrEqual(moved, 8, "people actually walk");
         }
 
+        [UnityTest]
+        public IEnumerator The_mentor_lives_on_the_block()
+        {
+            var home = Make("home").transform;
+            home.SetPositionAndRotation(new Vector3(11f, 0f, 13.5f), Quaternion.Euler(0f, 180f, 0f));
+            var bronx = StreetLife.ResidentsFor("bronx", home);
+            var mentor = bronx.Single(r => r.Address == "npc_mentor_raccoon");
+            Assert.That(Vector3.Distance(mentor.Position, StreetLife.HomeFront(home)), Is.InRange(1.5f, 5f), "the mentor stands by the hero's door, not on top of the hero");
+            Assert.IsTrue(OnSidewalk(mentor.Position));
+            Assert.AreEqual("city.mentor", mentor.TagKey);
+            Assert.IsTrue(bronx.Any(r => r.Address == "npc_tony_bulldog"), "Tony keeps the bodega next door in the Bronx");
+            Assert.IsFalse(StreetLife.ResidentsFor("queens", home).Any(r => r.Address == "npc_tony_bulldog"), "and stays there");
+
+            var life = Make("life").AddComponent<StreetLife>();
+            life.Begin(seed: 3, count: 2, spawn: (address, parent) => { var b = GameObject.CreatePrimitive(PrimitiveType.Capsule); b.transform.SetParent(parent, false); return b; }, residents: bronx);
+            yield return null;
+            Assert.AreEqual(bronx.Count, life.Residents.Count);
+            var stood = life.Residents[0].Transform.position;
+            for (int i = 0; i < 20; i++) yield return null;
+            Assert.AreEqual(stood, life.Residents[0].Transform.position, "residents stand where they live");
+            Assert.AreEqual(2, life.Walkers.Count, "and are not counted as walkers");
+        }
+
         [Test]
         public void A_walker_turns_round_at_the_end_of_its_lane()
         {

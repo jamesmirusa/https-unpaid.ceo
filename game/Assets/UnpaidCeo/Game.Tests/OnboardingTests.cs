@@ -82,6 +82,7 @@ namespace UnpaidCeo.Game.Tests
             yield return null;
             Assert.AreEqual(OnboardingFlow.Step.Gig, flow.Current, "mentor offers the gig right after the hero");
             Assert.AreEqual(DisplayStyle.None, ui.Guide.resolvedStyle.display, "one voice at a time: the guide waits for the mentor");
+            Assert.IsFalse(ui.NextMonthButton.enabledSelf, "Next month is off until the mentor asks for it: a button that does nothing must not look alive");
 
             Tap(ui.Root.Q<Button>(OnboardingFlow.ActionButton)); taps++;
             yield return null;
@@ -93,6 +94,7 @@ namespace UnpaidCeo.Game.Tests
             var next = ui.Root.Q<Button>("next-month");
             Assert.AreEqual(OnboardingFlow.Step.NextMonth, flow.Current);
             Assert.IsTrue(next.ClassListContains(OnboardingFlow.HighlightClass), "Next month is highlighted");
+            Assert.IsTrue(next.enabledSelf, "and can be pressed now");
 
             Tap(next); taps++;
             yield return null;

@@ -204,7 +204,37 @@ namespace UnpaidCeo.Game.Ui
             ApplyNext();
         }
 
-        void ApplyNext() => _next?.SetEnabled(!_noTurns && !_busy);
+        void ApplyNext() => _next?.SetEnabled(!_noTurns && !_busy && !_nextLocked);
+
+        readonly Dictionary<string, Label> _tags = new Dictionary<string, Label>();
+
+        /// <summary>A name tag above someone in the city (the mentor, Tony); null hides it.</summary>
+        public void PlaceTag(string id, string key, Vector2? panelPosition)
+        {
+            if (_heroTag == null) return;
+            if (!_tags.TryGetValue(id, out var tag))
+            {
+                if (panelPosition == null) return;
+                tag = UiText.Label(key, "npc-tag");
+                tag.name = "tag-" + id;
+                var city = _screens[City];
+                city.Insert(city.IndexOf(_heroTag), tag);   // under the hero's tag and the widgets
+                _tags[id] = tag;
+            }
+            if (panelPosition == null) { tag.style.display = DisplayStyle.None; return; }
+            var local = _screens[City].WorldToLocal(panelPosition.Value);
+            tag.style.left = local.x;
+            tag.style.top = local.y;
+            tag.style.display = DisplayStyle.Flex;
+        }
+
+        bool _nextLocked;
+        /// <summary>Onboarding: "Next month" is off until the mentor asks for it (a button that does nothing must not look alive).</summary>
+        public bool NextLocked
+        {
+            get => _nextLocked;
+            set { _nextLocked = value; ApplyNext(); }
+        }
 
         /// <summary>"You" above the hero in the city.</summary>
         public Label HeroTag => _heroTag;

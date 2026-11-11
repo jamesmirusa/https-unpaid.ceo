@@ -1231,6 +1231,14 @@ MonoBehaviour:
     m_Key: decisions.hint
     m_Metadata:
       m_Items: []
+  - m_Id: 842826840530944
+    m_Key: city.mentor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 842826853113856
+    m_Key: city.tony
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
