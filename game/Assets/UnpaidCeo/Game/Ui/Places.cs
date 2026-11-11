@@ -49,7 +49,8 @@ namespace UnpaidCeo.Game.Ui
     {
         public const string Home = "home";
         public const int LinesPerPlace = 3;
-        const float MarkerHeight = 6f, TowardStreet = 5.5f;
+        /// <summary>Shop-sign height on the shop front (row houses are ~9 m deep, their fronts ~4.5 m from the centre).</summary>
+        const float MarkerHeight = 4.5f, TowardStreet = 5f;
 
         static PlaceAction Plan(string freeAction) => new PlaceAction { Id = freeAction, Kind = PlaceActionKind.Plan, FreeAction = freeAction };
         static PlaceAction Open(string id, string tab, int minChapter = 1) => new PlaceAction { Id = id, Kind = PlaceActionKind.Open, Tab = tab, MinChapter = minChapter };

@@ -120,8 +120,9 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsTrue(spots.ContainsKey(Places.Home) && spots.ContainsKey("bodega") && spots.ContainsKey("pawnshop"));
             Assert.IsFalse(spots.ContainsKey("bank"), "no bank building in this district: no marker (the list of places still has it)");
             Assert.AreEqual(21f, spots["bodega"].x, 0.01f);
-            Assert.Less(spots["bodega"].z, 13.5f, "the marker hangs over the street side of the building, where the camera sees it");
-            Assert.Greater(spots["bodega"].y, 2f);
+            Assert.That(spots["bodega"].z, Is.InRange(7.5f, 9.5f), "the marker hangs on the shop front, on the street side, where the camera sees it");
+            Assert.That(spots["bodega"].y, Is.InRange(3.8f, 5.2f),
+                "at shop-sign height: higher, the phone camera puts it under the HUD; lower, it covers the hero's and the mentor's tags");
         }
 
         [UnityTest]
