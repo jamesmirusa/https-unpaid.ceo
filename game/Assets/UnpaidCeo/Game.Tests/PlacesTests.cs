@@ -169,6 +169,23 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsFalse(Shown(marker), "off screen: no marker");
         }
 
+        /// <summary>Seen live: a marker near the top of the city was drawn over the HUD's Settings button.</summary>
+        [UnityTest]
+        public IEnumerator Markers_never_cover_the_hud()
+        {
+            yield return Boot();
+            var city = _ui.Screen(UiRoot.City);
+            var top = city.worldBound;
+            _ui.PlaceMarker("bodega", new Vector2(top.xMax - 40f, top.yMin + 30f));   // up under the chapter bar, at the right edge
+            yield return null;
+            var marker = city.Q<Button>("marker-bodega");
+            Assert.IsFalse(Shown(marker), "a marker whose sign would reach above the city is not shown");
+
+            _ui.PlaceMarker("bodega", new Vector2(top.center.x, top.center.y));
+            yield return null;
+            Assert.IsTrue(Shown(marker));
+        }
+
         [UnityTest]
         public IEnumerator What_you_do_at_a_place_goes_into_this_months_plan()
         {

@@ -240,11 +240,22 @@ namespace UnpaidCeo.Game.Ui
                 _markers[id] = marker;
             }
             if (panelPosition == null) { marker.style.display = DisplayStyle.None; return; }
-            var local = _screens[City].WorldToLocal(panelPosition.Value);
+            var cityArea = _screens[City];
+            var local = cityArea.WorldToLocal(panelPosition.Value);
+            // The sign hangs above its point (translate -50% -100%): it must clear the city hint at the top and stay inside
+            // the city's sides, or it is drawn over the HUD and the chapter bar.
+            float width = cityArea.layout.width;
+            bool fits = local.y >= MarkerClearTop && local.x >= MarkerHalfWidth && (float.IsNaN(width) || local.x <= width - MarkerHalfWidth);
+            if (!fits) { marker.style.display = DisplayStyle.None; return; }
             marker.style.left = local.x;
             marker.style.top = local.y;
             marker.style.display = DisplayStyle.Flex;
         }
+
+        /// <summary>The city hint's band at the top plus a marker's height: a sign above this would cover them.</summary>
+        const float MarkerClearTop = 150f;
+        /// <summary>Half of a long marker's width ("Laundromat Office").</summary>
+        const float MarkerHalfWidth = 130f;
 
         readonly Dictionary<string, Label> _tags = new Dictionary<string, Label>();
 

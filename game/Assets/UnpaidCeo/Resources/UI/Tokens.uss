@@ -288,3 +288,6 @@
 .app Button.place__back:hover, .app Button.place__back:focus, .app Button.place__back:active { background-color: var(--panel); }
 .app Button.place-marker:hover, .app Button.place-marker:focus, .app Button.place-marker:active { background-color: var(--panel-strong); }
 .app Button.place-card:active, .app Button.place-action:active, .app Button.place-marker:active { opacity: 0.8; }
+
+/* The city clips its name tags and markers to its own area: nothing of it is drawn over the HUD or the chapter bar. */
+#city { overflow: hidden; }
