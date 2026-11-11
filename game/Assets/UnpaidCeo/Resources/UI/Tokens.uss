@@ -257,3 +257,34 @@
 
 /* Name tags of the block's residents (the hero's own tag is the accent one). */
 .npc-tag { position: absolute; translate: -50% -100%; padding: 2px 16px; border-radius: 18px; background-color: var(--panel); font-size: 24px; }
+
+/* Places of the block: the list of cards, a place with its picture and host, and markers over the buildings */
+.places__hint { margin-bottom: 20px; }
+.place-card { flex-direction: row; align-items: center; height: 200px; margin: 0 0 16px 0; padding: 0; border-width: 0; border-radius: 28px; background-color: var(--panel); overflow: hidden; }
+.place-card__thumb { width: 300px; height: 200px; flex-shrink: 0; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.place-card__text { flex-grow: 1; flex-shrink: 1; padding: 0 24px; }
+.place-card__title { font-size: 40px; -unity-font-style: bold; -unity-text-align: middle-left; white-space: normal; }
+.place-card__host { font-size: 28px; -unity-text-align: middle-left; white-space: normal; }
+.place__back { align-self: flex-start; height: 64px; margin: 0 0 12px 0; padding: 0 24px; border-radius: 32px; border-width: 2px; border-color: var(--track); background-color: var(--panel); font-size: 28px; }
+.place__art { height: 620px; margin-bottom: 16px; border-radius: 28px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.place__host { font-size: 30px; margin: -8px 0 14px 0; white-space: normal; }
+.place__line { margin-bottom: 14px; padding: 20px 24px; border-radius: 24px; border-left-width: 10px; border-left-color: var(--accent); background-color: var(--panel); font-size: 34px; white-space: normal; }
+.place-action { flex-direction: column; align-items: stretch; margin: 8px 0; padding: 18px 24px; border-radius: 24px; border-width: 3px; border-color: var(--track); background-color: var(--panel); }
+.place-action--planned { border-color: var(--accent); }
+.place-action:disabled { opacity: 0.45; }
+.place-action__label { font-size: 34px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
+.place-action__chips { flex-direction: row; flex-wrap: wrap; margin-top: 6px; }
+.chip { flex-direction: row; align-items: center; margin-right: 22px; }
+.chip__caption { font-size: 26px; margin-right: 6px; }
+.chip__value { font-size: 28px; -unity-font-style: bold; }
+.place-action__planned { display: none; margin-top: 6px; font-size: 26px; -unity-font-style: bold; -unity-text-align: middle-left; }
+.place-action--planned .place-action__planned { display: flex; }
+.place-marker { position: absolute; translate: -50% -100%; height: 60px; margin: 0; padding: 0 22px; border-radius: 30px; border-width: 3px; border-color: var(--accent); background-color: var(--panel-strong); font-size: 28px; -unity-font-style: bold; }
+.app .place-card__host, .app .place__host, .app .chip__caption { color: var(--text-dim); }
+.app .chip__value.value--positive { color: var(--positive); }
+.app .chip__value.value--negative { color: var(--negative); }
+.app Button.place-card:hover, .app Button.place-card:focus, .app Button.place-card:active,
+.app Button.place-action:hover, .app Button.place-action:focus, .app Button.place-action:active,
+.app Button.place__back:hover, .app Button.place__back:focus, .app Button.place__back:active { background-color: var(--panel); }
+.app Button.place-marker:hover, .app Button.place-marker:focus, .app Button.place-marker:active { background-color: var(--panel-strong); }
+.app Button.place-card:active, .app Button.place-action:active, .app Button.place-marker:active { opacity: 0.8; }

@@ -89,6 +89,26 @@ namespace UnpaidCeo.Game.Ui
 
         int Available => LifeSimulator.ActionPoints(_state.Life, 0, _engine.Content.Balance.Life);
 
+        /// <summary>This month's action points, and how many the planned free actions leave.</summary>
+        public int PointsTotal => Available;
+        public int PointsLeft => Available - _toggles.Where(t => t.Value.value).Sum(t => _engine.Content.FreeActions[t.Key].ActionPoints);
+        /// <summary>A free action was put into the plan or taken out (here or at a place in the city).</summary>
+        public event Action PlanChanged;
+
+        public bool IsPlanned(string freeAction) => _toggles.TryGetValue(freeAction, out var t) && t.value;
+
+        /// <summary>Already planned (it can be taken out), or the points left still pay for it.</summary>
+        public bool CanPlan(string freeAction) =>
+            _toggles.TryGetValue(freeAction, out var t) && (t.value || _engine.Content.FreeActions[freeAction].ActionPoints <= PointsLeft);
+
+        /// <summary>Puts a free action into this month's plan or takes it out: the same list the plan screen ticks.</summary>
+        public void SetPlanned(string freeAction, bool planned)
+        {
+            if (!_toggles.TryGetValue(freeAction, out var t) || t.value == planned || planned && !CanPlan(freeAction)) return;
+            t.SetValueWithoutNotify(planned);
+            RefreshPoints();
+        }
+
         public void Refresh()
         {
             foreach (var t in _toggles.Values) t.SetValueWithoutNotify(false);
@@ -251,6 +271,7 @@ namespace UnpaidCeo.Game.Ui
             _ap.text = $"{left} / {Available}";
             foreach (var t in _toggles)
                 t.Value.SetEnabled(t.Value.value || _engine.Content.FreeActions[t.Key].ActionPoints <= left);
+            PlanChanged?.Invoke();
         }
 
         public MonthDecisions Build()

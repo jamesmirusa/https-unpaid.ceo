@@ -1243,6 +1243,258 @@ MonoBehaviour:
     m_Key: summary.other
     m_Metadata:
       m_Items: []
+  - m_Id: 879340865708032
+    m_Key: dock.places
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290944
+    m_Key: places.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290945
+    m_Key: places.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290946
+    m_Key: places.back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290947
+    m_Key: place.trust
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290948
+    m_Key: place.planned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290949
+    m_Key: place.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290950
+    m_Key: stat.energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290951
+    m_Key: stat.relationships
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290952
+    m_Key: stat.connections
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290953
+    m_Key: stat.reputation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290954
+    m_Key: stat.honesty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290955
+    m_Key: stat.knowledge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290956
+    m_Key: place.home.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290957
+    m_Key: place.home.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290958
+    m_Key: place.home.line.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290959
+    m_Key: place.home.line.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290960
+    m_Key: place.home.line.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290961
+    m_Key: place.bodega.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290962
+    m_Key: place.bodega.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290963
+    m_Key: place.bodega.line.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290964
+    m_Key: place.bodega.line.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290965
+    m_Key: place.bodega.line.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290966
+    m_Key: place.bar.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290967
+    m_Key: place.bar.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290968
+    m_Key: place.bar.line.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290969
+    m_Key: place.bar.line.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290970
+    m_Key: place.bar.line.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290971
+    m_Key: place.office.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290972
+    m_Key: place.office.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290973
+    m_Key: place.office.line.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290974
+    m_Key: place.office.line.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290975
+    m_Key: place.office.line.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290976
+    m_Key: place.pawnshop.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290977
+    m_Key: place.pawnshop.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290978
+    m_Key: place.pawnshop.line.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290979
+    m_Key: place.pawnshop.line.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290980
+    m_Key: place.pawnshop.line.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290981
+    m_Key: place.bank.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290982
+    m_Key: place.bank.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290983
+    m_Key: place.bank.line.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290984
+    m_Key: place.bank.line.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290985
+    m_Key: place.bank.line.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290986
+    m_Key: place.academy.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290987
+    m_Key: place.academy.host
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290988
+    m_Key: place.academy.line.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290989
+    m_Key: place.academy.line.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290990
+    m_Key: place.academy.line.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290991
+    m_Key: place.action.rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290992
+    m_Key: place.action.family_time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290993
+    m_Key: place.action.journal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290994
+    m_Key: place.action.overtime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290995
+    m_Key: place.action.networking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290996
+    m_Key: place.action.hobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290997
+    m_Key: place.action.plan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290998
+    m_Key: place.action.report
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290999
+    m_Key: place.action.business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291000
+    m_Key: place.action.loan_shark_loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291001
+    m_Key: place.action.gray_scheme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291002
+    m_Key: place.action.reserve_transfer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291003
+    m_Key: place.action.loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291004
+    m_Key: place.action.study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291005
+    m_Key: place.action.lessons
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

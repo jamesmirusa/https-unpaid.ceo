@@ -102,6 +102,9 @@ namespace UnpaidCeo.Game.Bootstrap
             var scene = handle.Result.Scene;
             _city = InScene<CityView>(scene);
             _rig = InScene<CameraRig>(scene);
+            var everything = new List<Transform>();
+            foreach (var root in scene.GetRootGameObjects()) everything.AddRange(root.GetComponentsInChildren<Transform>(true));
+            _placeSpots = Places.FindSpots(everything, _city != null ? _city.HomeAnchor : null);
             StartStreetLife(scene, chapter);
             _light = InScene<DayNeonController>(scene);
             _timelapse = InScene<TimelapseDirector>(scene);
@@ -151,6 +154,20 @@ namespace UnpaidCeo.Game.Bootstrap
         }
 
         StreetLife? _life;
+        Dictionary<string, Vector3> _placeSpots = new Dictionary<string, Vector3>();
+
+        /// <summary>Markers of the places over their buildings; none while the mentor leads the first steps.</summary>
+        void PlaceMarkers(Camera cam)
+        {
+            foreach (var place in Places.All)
+            {
+                Vector2? at = null;
+                if (Current == Phase.Playing && _placeSpots.TryGetValue(place.Id, out var spot)
+                    && Vector3.Dot(cam.transform.forward, spot - cam.transform.position) > 0f)
+                    at = RuntimePanelUtils.CameraTransformWorldToPanel(Ui!.Root.panel, spot, cam);
+                Ui!.PlaceMarker(place.Id, at);
+            }
+        }
         readonly Dictionary<string, string> _tagged = new Dictionary<string, string>();
 
         /// <summary>Name tags above the block's residents (those of a district left behind are hidden).</summary>
@@ -178,6 +195,7 @@ namespace UnpaidCeo.Game.Bootstrap
             var cam = _rig != null ? _rig.GetComponent<Camera>() : null;
             if (cam == null || Ui.Root.panel == null) { Ui.PlaceHeroTag(null); return; }
             PlaceResidentTags(cam);
+            PlaceMarkers(cam);
             if (_hero == null || _hero.Model == null) { Ui.PlaceHeroTag(null); return; }
             var at = _hero.Model.transform.position;   // the model walks; its own height is not its feet
             var head = new Vector3(at.x, _hero.transform.position.y + HeroView.Height + 0.5f, at.z);

@@ -81,7 +81,7 @@ settings.reset	Start over	Начать заново
 settings.reset.confirm	Tap again to erase your progress.	Нажми ещё раз, чтобы стереть прогресс.
 ranking.title	Ranking	Рейтинг
 ranking.soon	Weekly challenges and the leaderboard are coming soon.	Недельные челленджи и рейтинг скоро появятся.
-city.hint	Your block in the Bronx	Твой квартал в Бронксе
+city.hint	Tap a place in the city to walk in	Нажми на место в городе, чтобы зайти
 hero.title	Create your hero	Создай героя
 hero.species	Species	Вид
 hero.outfit	Outfit	Образ
@@ -267,7 +267,7 @@ consent.deny	No thanks	Нет, спасибо
 settings.analytics	Anonymous statistics	Анонимная статистика
 settings.analytics.on	On	Вкл
 settings.analytics.off	Off	Выкл
-dock.decisions	Month plan	План месяца
+dock.decisions	Plan	План
 dock.company	Report	Отчёт
 dock.academy	Lessons	Уроки
 dock.ranking	Ranking	Рейтинг
@@ -306,3 +306,66 @@ decisions.hint	Split your time. Work earns money, but too much of it burns energ
 city.mentor	Mentor	Наставник
 city.tony	Tony	Тони
 summary.other	Other: one-off income, purchases, loans	Прочее: разовые доходы, покупки, кредиты
+dock.places	Places	Места
+places.title	Your block	Твой квартал
+places.hint	Every place has its own business and its own host. Walk in.	В каждом месте своё дело и свой хозяин. Заходи.
+places.back	All places	Все места
+place.trust	Trust	Доверие
+place.planned	In this month's plan	В плане на этот месяц
+place.hint	What you pick here happens when you press Next month.	Выбранное здесь случится, когда нажмёшь «Следующий месяц».
+stat.energy	Energy	Энергия
+stat.relationships	Family	Близкие
+stat.connections	Connections	Связи
+stat.reputation	Reputation	Репутация
+stat.honesty	Honesty	Честность
+stat.knowledge	Knowledge	Знания
+place.home.title	Home	Дом
+place.home.host	Unpaid CEO · your mentor	Unpaid CEO · твой наставник
+place.home.line.1	Home is your base. Skip sleep and tomorrow you earn less.	Дом — твоя база. Не выспишься — завтра заработаешь меньше.
+place.home.line.2	Pay yourself first: set a little aside before you spend the rest.	Сначала заплати себе: отложи хоть немного до того, как потратишь остальное.
+place.home.line.3	Family is not a cost line. They are who stays when the money runs out.	Семья — не статья расходов. Это те, кто останется, когда деньги кончатся.
+place.bodega.title	Tony's Bodega	Бодега Тони
+place.bodega.host	Tony · runs the bodega	Тони · хозяин бодеги
+place.bodega.line.1	My margin is cents a can. I live on turnover, not on markup.	У меня маржа — центы с банки. Живу на обороте, а не на наценке.
+place.bodega.line.2	I need hands to unload. I pay right away, in cash.	Нужны руки на разгрузку. Плачу сразу, наличными.
+place.bodega.line.3	Learn a customer's name and he walks past three other stores to yours.	Запомни покупателя по имени — и он пройдёт мимо трёх других магазинов к тебе.
+place.bar.title	Pizza Bar	Бар-пиццерия
+place.bar.host	Jay · your best friend	Джей · лучший друг
+place.bar.line.1	Half the deals in this city come through people you know. Sit down, I'll introduce you.	Половина заказов в этом городе приходит через знакомых. Садись, познакомлю.
+place.bar.line.2	All work again? Burn out and nobody earns.	Опять одна работа? Сгоришь — и никто не заработает.
+place.bar.line.3	The people who hire sit at the next table. Buy them a slice.	За соседним столом сидят те, кто нанимает. Угости их куском пиццы.
+place.office.title	Laundromat Office	Офис в прачечной
+place.office.host	Sam · your future partner	Сэм · будущий партнёр
+place.office.line.1	A laundromat, free Wi-Fi, humming machines. The best office we can afford.	Прачечная, бесплатный вайфай, гул машин. Лучший офис, который нам по карману.
+place.office.line.2	Plan first, then the month. Or the month decides for you.	Сначала план, потом месяц. Иначе месяц решит за тебя.
+place.office.line.3	Read the report every month. Numbers don't lie, even when you want them to.	Смотри в отчёт каждый месяц. Цифры не врут, даже когда очень хочется.
+place.pawnshop.title	Pawnshop	Ломбард
+place.pawnshop.host	Mr. Fins · lends money	Мистер Финс · даёт в долг
+place.pawnshop.line.1	Money today. No questions. The interest comes later.	Деньги сегодня. Вопросов не задаю. Проценты — потом.
+place.pawnshop.line.2	Fast money is the most expensive kind. But you are in a hurry, aren't you?	Быстрые деньги — самые дорогие. Но ты же торопишься?
+place.pawnshop.line.3	I know a scheme. Not exactly clean. But quick.	Есть одна схема. Не совсем чистая. Зато быстрая.
+place.bank.title	Bank	Банк
+place.bank.host	Ms. Lee · banker	Мисс Ли · банкир
+place.bank.line.1	A reserve is money that buys you a calm night's sleep.	Резерв — это деньги, которые покупают вам спокойный сон.
+place.bank.line.2	Three months of costs in reserve first. Risk comes after.	Сначала три месяца расходов в резерве. Риск — потом.
+place.bank.line.3	A bank lends to those who can show a profit. Come back with numbers.	Банк даёт кредит тем, кто может показать прибыль. Приходите с цифрами.
+place.academy.title	CEO Academy	Академия CEO
+place.academy.host	Unpaid CEO · teaches the class	Unpaid CEO · ведёт занятия
+place.academy.line.1	Class is in the evening, after your shift. Nobody promised easy.	Занятие вечером, после смены. Лёгкой жизни никто не обещал.
+place.academy.line.2	Knowledge is the one asset nobody can take from you.	Знания — единственный актив, который у тебя не отнимут.
+place.academy.line.3	Revenue is not profit. Profit is not cash. Write it down three times.	Выручка — не прибыль. Прибыль — не деньги. Запиши три раза.
+place.action.rest	Get a full night's sleep	Выспаться как следует
+place.action.family_time	Call Mom and visit the family	Позвонить маме и съездить к своим
+place.action.journal	Open the journal	Открыть дневник
+place.action.overtime	Unload Tony's delivery truck	Разгрузить машину для Тони
+place.action.networking	Buy pizza for the right people	Угостить нужных людей пиццей
+place.action.hobby	Pinball night with Jay	Вечер пинбола с Джеем
+place.action.plan	Plan the month	Составить план месяца
+place.action.report	Read the report	Посмотреть отчёт
+place.action.business	Choose a business	Выбрать бизнес
+place.action.loan_shark_loan	Borrow from Mr. Fins	Занять у мистера Финса
+place.action.gray_scheme	Run the gray scheme	Провернуть серую схему
+place.action.reserve_transfer	Put money into the reserve	Отложить деньги в резерв
+place.action.loan	Take a business loan	Оформить кредит на бизнес
+place.action.study	Sit through the evening class	Отсидеть вечернее занятие
+place.action.lessons	Open the lessons	Открыть уроки

@@ -37,9 +37,9 @@ namespace UnpaidCeo.Game.Ui
         public static readonly string[] Languages = { "en", "ru" };
 
         public const string City = "city", Company = "company", Decisions = "decisions", Academy = "academy",
-            Ranking = "ranking", Journal = "journal", Settings = "settings", Industry = "industry";
-        public static readonly IReadOnlyList<string> Tabs = new[] { City, Company, Decisions, Academy, Ranking, Journal, Settings, Industry };
-        static readonly string[] NavTabs = { Decisions, Company, Academy, Ranking };
+            Ranking = "ranking", Journal = "journal", Settings = "settings", Industry = "industry", PlacesTab = "places";
+        public static readonly IReadOnlyList<string> Tabs = new[] { City, Company, Decisions, Academy, Ranking, Journal, Settings, Industry, PlacesTab };
+        static readonly string[] NavTabs = { PlacesTab, Decisions, Company, Academy, Ranking };
 
         readonly Dictionary<string, VisualElement> _screens = new Dictionary<string, VisualElement>();
         readonly Dictionary<string, Button> _nav = new Dictionary<string, Button>();
@@ -206,6 +206,46 @@ namespace UnpaidCeo.Game.Ui
 
         void ApplyNext() => _next?.SetEnabled(!_noTurns && !_busy && !_nextLocked);
 
+        PlacesScreen _places;
+        /// <summary>The block and its places (Home, the bodega, the bank…).</summary>
+        public PlacesScreen PlacesPanel => _places;
+
+        /// <summary>The list of places.</summary>
+        public void OpenPlaces()
+        {
+            _places.ShowList();
+            Open(PlacesTab);
+        }
+
+        /// <summary>Walks into a place.</summary>
+        public void OpenPlace(string id)
+        {
+            _places.Show(id);
+            Open(PlacesTab);
+        }
+
+        readonly Dictionary<string, Button> _markers = new Dictionary<string, Button>();
+
+        /// <summary>A place's marker over its building in the city: a tap walks in. Null hides it.</summary>
+        public void PlaceMarker(string id, Vector2? panelPosition)
+        {
+            if (_heroTag == null || RunMode) return;
+            if (!_markers.TryGetValue(id, out var marker))
+            {
+                if (panelPosition == null) return;
+                marker = UiText.Bind(new Button(() => OpenPlace(id)) { name = "marker-" + id }, $"place.{id}.title");
+                marker.AddToClassList("place-marker");
+                var city = _screens[City];
+                city.Insert(city.IndexOf(_heroTag), marker);
+                _markers[id] = marker;
+            }
+            if (panelPosition == null) { marker.style.display = DisplayStyle.None; return; }
+            var local = _screens[City].WorldToLocal(panelPosition.Value);
+            marker.style.left = local.x;
+            marker.style.top = local.y;
+            marker.style.display = DisplayStyle.Flex;
+        }
+
         readonly Dictionary<string, Label> _tags = new Dictionary<string, Label>();
 
         /// <summary>A name tag above someone in the city (the mentor, Tony); null hides it.</summary>
@@ -363,6 +403,7 @@ namespace UnpaidCeo.Game.Ui
             AddScreen(content, Journal, Clone("Journal"));
             AddScreen(content, Settings, Clone("Settings"));
             AddScreen(content, Industry, Clone("Industry"));
+            AddScreen(content, PlacesTab, Clone("Places"));
             _popupClose = UiText.Bind(new Button(() => Open(City)) { name = "popup-close" }, "popup.close");
             _popupClose.AddToClassList("popup-close");
             content.Add(_popupClose);
@@ -371,6 +412,7 @@ namespace UnpaidCeo.Game.Ui
             _ranking = new RankingScreen(_screens[Ranking], this, engine, state);
             _company = new CompanyScreen(_screens[Company], this, engine, state);
             _decisions = new DecisionsScreen(_screens[Decisions], this, engine, state);
+            _places = new PlacesScreen(_screens[PlacesTab], this, engine, state, _decisions);
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
             _industry.Chosen += id => { _decisions.Refresh(); RefreshHud(); AnalyticsEvents.IndustryChosen(Online.Analytics, id); IndustryChosen?.Invoke(id); };
             _academy = new AcademyScreen(_screens[Academy], engine, state);
@@ -444,7 +486,7 @@ namespace UnpaidCeo.Game.Ui
             {
                 var t = tab;
                 var b = UiText.Bind(nav.Q<Button>("nav-" + tab), "dock." + tab);
-                b.clicked += () => Open(t);
+                b.clicked += () => { if (t == PlacesTab) OpenPlaces(); else Open(t); };
                 _nav[tab] = b;
             }
 
@@ -501,6 +543,7 @@ namespace UnpaidCeo.Game.Ui
             if (tab == Ranking) _ranking.RefreshSoon();
             if (tab == Industry) _industry.Show(_engine, _state);
             if (tab == Company) _company.Refresh();
+            if (tab == PlacesTab) { _places.LoadThumbs(); _places.Refresh(); }
             RefreshGuide();
         }
 
@@ -512,6 +555,7 @@ namespace UnpaidCeo.Game.Ui
             _company.Show(report);
             _decisions.Refresh();
             _decisions.ShowRejections(report);
+            _places.Refresh();
             _journal.Refresh();
             _academy.Refresh();
             RefreshHud();

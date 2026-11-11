@@ -335,7 +335,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425614
-    m_Localized: Your block in the Bronx
+    m_Localized: Tap a place in the city to walk in
     m_Metadata:
       m_Items: []
   - m_Id: 8989772341248
@@ -1091,7 +1091,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 829442665472000
-    m_Localized: Month plan
+    m_Localized: Plan
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054912
@@ -1244,6 +1244,258 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 849569226153984
     m_Localized: 'Other: one-off income, purchases, loans'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340865708032
+    m_Localized: Places
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290944
+    m_Localized: Your block
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290945
+    m_Localized: Every place has its own business and its own host. Walk in.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290946
+    m_Localized: All places
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290947
+    m_Localized: Trust
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290948
+    m_Localized: In this month's plan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290949
+    m_Localized: What you pick here happens when you press Next month.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290950
+    m_Localized: Energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290951
+    m_Localized: Family
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290952
+    m_Localized: Connections
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290953
+    m_Localized: Reputation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290954
+    m_Localized: Honesty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290955
+    m_Localized: Knowledge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290956
+    m_Localized: Home
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290957
+    m_Localized: "Unpaid CEO \xB7 your mentor"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290958
+    m_Localized: Home is your base. Skip sleep and tomorrow you earn less.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290959
+    m_Localized: 'Pay yourself first: set a little aside before you spend the rest.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290960
+    m_Localized: Family is not a cost line. They are who stays when the money runs out.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290961
+    m_Localized: Tony's Bodega
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290962
+    m_Localized: "Tony \xB7 runs the bodega"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290963
+    m_Localized: My margin is cents a can. I live on turnover, not on markup.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290964
+    m_Localized: I need hands to unload. I pay right away, in cash.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290965
+    m_Localized: Learn a customer's name and he walks past three other stores to yours.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290966
+    m_Localized: Pizza Bar
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290967
+    m_Localized: "Jay \xB7 your best friend"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290968
+    m_Localized: Half the deals in this city come through people you know. Sit down, I'll introduce you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290969
+    m_Localized: All work again? Burn out and nobody earns.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290970
+    m_Localized: The people who hire sit at the next table. Buy them a slice.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290971
+    m_Localized: Laundromat Office
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290972
+    m_Localized: "Sam \xB7 your future partner"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290973
+    m_Localized: A laundromat, free Wi-Fi, humming machines. The best office we can afford.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290974
+    m_Localized: Plan first, then the month. Or the month decides for you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290975
+    m_Localized: Read the report every month. Numbers don't lie, even when you want them to.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290976
+    m_Localized: Pawnshop
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290977
+    m_Localized: "Mr. Fins \xB7 lends money"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290978
+    m_Localized: Money today. No questions. The interest comes later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290979
+    m_Localized: Fast money is the most expensive kind. But you are in a hurry, aren't you?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290980
+    m_Localized: I know a scheme. Not exactly clean. But quick.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290981
+    m_Localized: Bank
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290982
+    m_Localized: "Ms. Lee \xB7 banker"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290983
+    m_Localized: A reserve is money that buys you a calm night's sleep.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290984
+    m_Localized: Three months of costs in reserve first. Risk comes after.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290985
+    m_Localized: A bank lends to those who can show a profit. Come back with numbers.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290986
+    m_Localized: CEO Academy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290987
+    m_Localized: "Unpaid CEO \xB7 teaches the class"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290988
+    m_Localized: Class is in the evening, after your shift. Nobody promised easy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290989
+    m_Localized: Knowledge is the one asset nobody can take from you.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290990
+    m_Localized: Revenue is not profit. Profit is not cash. Write it down three times.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290991
+    m_Localized: Get a full night's sleep
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290992
+    m_Localized: Call Mom and visit the family
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290993
+    m_Localized: Open the journal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290994
+    m_Localized: Unload Tony's delivery truck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290995
+    m_Localized: Buy pizza for the right people
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290996
+    m_Localized: Pinball night with Jay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290997
+    m_Localized: Plan the month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290998
+    m_Localized: Read the report
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878290999
+    m_Localized: Choose a business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291000
+    m_Localized: Borrow from Mr. Fins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291001
+    m_Localized: Run the gray scheme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291002
+    m_Localized: Put money into the reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291003
+    m_Localized: Take a business loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291004
+    m_Localized: Sit through the evening class
+    m_Metadata:
+      m_Items: []
+  - m_Id: 879340878291005
+    m_Localized: Open the lessons
     m_Metadata:
       m_Items: []
   references:
