@@ -157,6 +157,25 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual(UiRoot.Company, _ui.CurrentTab);
         }
 
+        [UnityTest]
+        public IEnumerator The_month_result_adds_up()
+        {
+            yield return Boot();
+            Money M(long dollars) => Money.FromCents(dollars * 100);
+            var report = new MonthReport { Month = 3, Revenue = M(2470), NetProfit = M(1746), PersonalCosts = M(1714), CashStart = M(103), CashEnd = M(195) };
+            _ui.ShowMonthSummary(report);
+            yield return null;
+            var other = _ui.Summary.Root.Q<Label>("summary-other");
+            Assert.IsNotNull(other, "profit minus living costs is +$32 but cash grew by $92: the popup must say where the other $60 came from");
+            Assert.IsTrue(Shown(other));
+            Assert.AreEqual("+" + MoneyFormat.Compact(M(60), "en"), other.text);
+
+            report.CashEnd = M(135);   // exactly profit minus living costs
+            _ui.ShowMonthSummary(report);
+            yield return null;
+            Assert.IsFalse(Shown(other), "nothing else moved the cash: no empty row");
+        }
+
         [Test]
         public void The_month_result_picks_the_lesson_the_numbers_call_for()
         {

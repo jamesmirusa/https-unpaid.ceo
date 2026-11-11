@@ -7,12 +7,12 @@ using UnpaidCeo.Core.Primitives;
 namespace UnpaidCeo.Game.Ui
 {
     /// <summary>
-    /// The month's result as a popup on the main screen: revenue, net profit, living costs, cash, and one line that
+    /// The month's result as a popup on the main screen: revenue, net profit, living costs, whatever else moved the cash, and one line that
     /// says what the numbers mean. "Got it" goes on with the game; "Full report" opens the company screen.
     /// </summary>
     public sealed class MonthSummaryDialog
     {
-        readonly Label _title, _month, _revenue, _profit, _personal, _cash, _change, _tip;
+        readonly Label _title, _month, _revenue, _profit, _personal, _other, _cash, _change, _tip;
 
         public VisualElement Root { get; }
         public bool IsOpen => Root.style.display == DisplayStyle.Flex;
@@ -37,6 +37,7 @@ namespace UnpaidCeo.Game.Ui
             _revenue = Row(panel, "summary.revenue", "summary-revenue");
             _profit = Row(panel, "summary.profit", "summary-profit");
             _personal = Row(panel, "summary.personal", "summary-personal");
+            _other = Row(panel, "summary.other", "summary-other");
             _cash = Row(panel, "summary.cash", "summary-cash", total: true);
             _change = Row(panel, "summary.change", "summary-change");
             _tip = UiText.Label("summary.tip.profit", "summary__tip");
@@ -82,6 +83,12 @@ namespace UnpaidCeo.Game.Ui
             Set(_personal, report.PersonalCosts, language, signed: false);
             Set(_cash, report.CashEnd, language, signed: true);
             var change = report.CashEnd - report.CashStart;
+            // Profit minus living costs is not always the change in cash: overtime, a scene's windfall, a purchase or a
+            // loan payment move it too. The row makes the popup add up, and stays away when there is nothing to add.
+            var other = change - (report.NetProfit - report.PersonalCosts);
+            Set(_other, other, language, signed: true);
+            if (other > Money.Zero) _other.text = "+" + _other.text;
+            _other.parent.style.display = other != Money.Zero ? DisplayStyle.Flex : DisplayStyle.None;
             Set(_change, change, language, signed: true);
             if (change > Money.Zero) _change.text = "+" + _change.text;
             UiText.Bind(_tip, TipKey(report));
