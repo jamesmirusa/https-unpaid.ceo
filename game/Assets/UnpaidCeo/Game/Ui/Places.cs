@@ -74,8 +74,10 @@ namespace UnpaidCeo.Game.Ui
 
         public static PlaceDef Find(string id) => All.FirstOrDefault(p => p.Id == id);
 
-        /// <summary>Addressable address of a place's picture.</summary>
+        /// <summary>Addressable address of a place's 4K picture, loaded when the player walks in.</summary>
         public static string ArtAddress(string id) => "place_" + id;
+        /// <summary>The card's small picture in the list of places (768x512).</summary>
+        public static string ThumbAddress(string id) => "place_thumb_" + id;
 
         /// <summary>
         /// Where each place's marker hangs in a district: over the street side of its building (the row faces the

@@ -116,7 +116,7 @@ namespace UnpaidCeo.Game.Ui
         {
             if (_thumbsRequested) return;
             _thumbsRequested = true;
-            foreach (var t in _thumbs) LoadArt(t.Key, t.Value, null);
+            foreach (var t in _thumbs) LoadArt(Places.ThumbAddress(t.Key), t.Value, null);
         }
 
         public void Show(string id)
@@ -129,7 +129,7 @@ namespace UnpaidCeo.Game.Ui
             UiText.Bind(_title, $"place.{id}.title");
             UiText.Bind(_host, $"place.{id}.host");
             _art.style.backgroundImage = StyleKeyword.None;
-            LoadArt(id, _art, () => CurrentPlace == id);   // a slow picture must not land on the next place
+            LoadArt(Places.ArtAddress(id), _art, () => CurrentPlace == id);   // a slow picture must not land on the next place
 
             _actions.Clear();
             _buttons.Clear();
@@ -212,14 +212,15 @@ namespace UnpaidCeo.Game.Ui
             }
         }
 
-        static void LoadArt(string id, VisualElement target, Func<bool> stillWanted)
+        /// <summary>Loads a picture once (kept for the session) and shows it if it is still wanted when it arrives.</summary>
+        static void LoadArt(string address, VisualElement target, Func<bool> stillWanted)
         {
-            if (Art.TryGetValue(id, out var ready) && ready != null) { target.style.backgroundImage = ready; return; }
-            var handle = Addressables.LoadAssetAsync<Texture2D>(Places.ArtAddress(id));
+            if (Art.TryGetValue(address, out var ready) && ready != null) { target.style.backgroundImage = ready; return; }
+            var handle = Addressables.LoadAssetAsync<Texture2D>(address);
             handle.Completed += h =>
             {
                 if (h.Status != AsyncOperationStatus.Succeeded || h.Result == null) return;
-                Art[id] = h.Result;
+                Art[address] = h.Result;
                 if (stillWanted == null || stillWanted()) target.style.backgroundImage = h.Result;
             };
         }

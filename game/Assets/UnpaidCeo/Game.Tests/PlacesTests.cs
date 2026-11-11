@@ -259,5 +259,27 @@ namespace UnpaidCeo.Game.Tests
                 Addressables.Release(find);
             }
         }
+
+        /// <summary>
+        /// The list of places shows seven cards: they get small thumbnails. The 4K picture (several MB each) is loaded
+        /// only when the player walks in, or opening the list would download all seven on a phone.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator Cards_use_light_thumbnails_and_the_4k_picture_waits_for_the_visit()
+        {
+            Assert.AreNotEqual(Places.ArtAddress("bank"), Places.ThumbAddress("bank"));
+            foreach (var place in Places.All)
+            {
+                var load = Addressables.LoadAssetAsync<Texture2D>(Places.ThumbAddress(place.Id));
+                yield return load;
+                Assert.AreEqual(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded, load.Status, "no thumbnail for " + place.Id);
+                Assert.LessOrEqual(Mathf.Max(load.Result.width, load.Result.height), 1024, place.Id + ": a card thumbnail stays small");
+                Addressables.Release(load);
+            }
+            var full = Addressables.LoadAssetAsync<Texture2D>(Places.ArtAddress("bank"));
+            yield return full;
+            Assert.GreaterOrEqual(full.Result.width, 4000, "inside a place the picture is 4K");
+            Addressables.Release(full);
+        }
     }
 }
