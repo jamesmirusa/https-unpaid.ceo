@@ -11,7 +11,7 @@ namespace UnpaidCeo.Game.City
     public sealed class CameraRig : MonoBehaviour
     {
         [SerializeField] Vector3 focus = Vector3.zero;
-        [SerializeField] float distance = 70f, minDistance = 30f, maxDistance = 120f;
+        [SerializeField] float distance = 70f, minDistance = 24f, maxDistance = 120f;
         [SerializeField] float pitch = 38f, yaw = 45f;
         [SerializeField] Vector2 panLimit = new Vector2(45f, 30f);
         [SerializeField] float panSpeed = 0.08f, zoomSpeed = 0.05f;
@@ -21,6 +21,26 @@ namespace UnpaidCeo.Game.City
 
         public Vector3 Focus => focus;
         public float Distance => distance;
+
+        /// <summary>A popup or dialogue is open: drags and the wheel belong to it, not to the city.</summary>
+        public static bool InputBlocked { get; set; }
+        /// <summary>A scene's dialogue is on screen: taps continue it.</summary>
+        public static bool SceneOpen { get; set; }
+
+        /// <summary>Looks at a point from a distance (both kept inside the district's limits), e.g. at the hero in front of home.</summary>
+        /// <param name="raise">Shows the point above the middle of the screen by this share of its height (the bottom of the screen is under the UI).</param>
+        public void Frame(Vector3 point, float fromDistance, float raise = 0f)
+        {
+            distance = Mathf.Clamp(fromDistance, minDistance, maxDistance);
+            if (raise != 0f)
+            {
+                // Looking at a ground point nearer the camera lifts everything behind it on the screen.
+                float screenHeight = 2f * distance * Mathf.Tan(GetComponent<Camera>().fieldOfView * 0.5f * Mathf.Deg2Rad);
+                point -= Quaternion.Euler(0f, yaw, 0f) * Vector3.forward * (raise * screenHeight / Mathf.Sin(pitch * Mathf.Deg2Rad));
+            }
+            focus = new Vector3(Mathf.Clamp(point.x, -panLimit.x, panLimit.x), point.y, Mathf.Clamp(point.z, -panLimit.y, panLimit.y));
+            Apply();
+        }
 
         void OnEnable() => Apply();
 
@@ -46,6 +66,12 @@ namespace UnpaidCeo.Game.City
 
         void Update()
         {
+            if (InputBlocked || SceneOpen)
+            {
+                if (Mouse.current != null) _lastPointer = Mouse.current.position.ReadValue();
+                _lastPinch = 0;
+                return;
+            }
             var touch = Touchscreen.current;
             if (touch != null && touch.touches.Count > 0)
             {

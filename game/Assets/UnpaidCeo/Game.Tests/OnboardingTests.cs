@@ -81,6 +81,7 @@ namespace UnpaidCeo.Game.Tests
             Tap(ui.Root.Q<Button>("hero-done")); taps++;
             yield return null;
             Assert.AreEqual(OnboardingFlow.Step.Gig, flow.Current, "mentor offers the gig right after the hero");
+            Assert.AreEqual(DisplayStyle.None, ui.Guide.resolvedStyle.display, "one voice at a time: the guide waits for the mentor");
 
             Tap(ui.Root.Q<Button>(OnboardingFlow.ActionButton)); taps++;
             yield return null;
@@ -98,7 +99,9 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual(OnboardingFlow.Step.Done, flow.Current);
             Assert.IsNotNull(flow.Report);
             Assert.AreEqual(1, flow.Report.Month);
-            Assert.AreEqual(UiRoot.Company, ui.CurrentTab, "the month 1 report is on screen");
+            Assert.AreEqual(UiRoot.City, ui.CurrentTab, "the player stays on the main screen");
+            Assert.IsTrue(ui.MonthSummaryOpen, "the month 1 result pops up");
+            Assert.AreEqual(DisplayStyle.Flex, ui.Guide.resolvedStyle.display, "onboarding is over: the guide takes it from here");
             Assert.IsFalse(next.ClassListContains(OnboardingFlow.HighlightClass));
             Assert.LessOrEqual(taps, 6);
             CollectionAssert.AreEqual(new[] { "line:ch1_onboarding_01", "line:ch1_onboarding_02", "line:ch1_onboarding_03" }, lines);

@@ -93,6 +93,9 @@ namespace UnpaidCeo.Game.Tests
                 Assert.IsNotNull(Object.FindFirstObjectByType<DayNeonController>());
                 Assert.IsNotNull(Object.FindFirstObjectByType<CameraRig>());
                 Assert.IsNotNull(Object.FindFirstObjectByType<TimelapseDirector>());
+                var cars = Object.FindObjectsByType<StreetCar>(FindObjectsSortMode.None);
+                Assert.GreaterOrEqual(cars.Length, 2, address + " needs cars on the avenue");
+                Assert.IsTrue(cars.All(c => !c.gameObject.isStatic), address + ": a static car is batched into the scene and cannot move");
             }
         }
 

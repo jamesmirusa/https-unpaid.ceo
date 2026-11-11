@@ -164,6 +164,7 @@ namespace UnpaidCeo.Editor
                 ("prop_newspaper_box", new Vector3(-4.8f, 0.16f, -7.6f), 0f, 1.2f, true),
                 ("prop_food_cart", new Vector3(-4.8f, 0.16f, 7.4f), 180f, 2.4f, false),
                 ("prop_taxi", new Vector3(-12f, 0.02f, 2.4f), -90f, 4.6f, false),
+                ("prop_taxi", new Vector3(24f, 0.02f, -2.4f), 90f, 4.6f, false),
             },
         };
 
@@ -236,8 +237,15 @@ namespace UnpaidCeo.Editor
                     lamps.Add(light);
                 }
             }
+            int cars = 0;
             foreach (var (prefab, at, yaw, size, byHeight) in d.Props)
-                Place(prefab, props, at, yaw, footprint: byHeight ? 0 : size, height: byHeight ? size : 0);
+            {
+                var prop = Place(prefab, props, at, yaw, footprint: byHeight ? 0 : size, height: byHeight ? size : 0);
+                if (prefab != "prop_taxi") continue;
+                // Cars drive: a static object is batched into the scene mesh and could not move.
+                foreach (var t in prop.GetComponentsInChildren<Transform>(true)) t.gameObject.isStatic = false;
+                prop.AddComponent<StreetCar>().Configure(speed: 6f + 2.5f * (cars++ % 3), halfLength: 68f);
+            }
 
             var lighting = new GameObject("Lighting").transform;
             lighting.SetParent(root);

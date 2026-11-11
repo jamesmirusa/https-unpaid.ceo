@@ -125,7 +125,7 @@ namespace UnpaidCeo.Game.Tests
             _ui.RefreshHud();
             yield return null;
             Assert.AreEqual(DisplayStyle.None, button.resolvedStyle.display, "chosen: the HUD button goes away");
-            Assert.AreEqual(UiRoot.Company, _ui.HomeTab);
+            Assert.AreEqual(UiRoot.City, _ui.HomeTab, "with a business the game stays on the main screen");
         }
 
         [UnityTest]
@@ -133,7 +133,7 @@ namespace UnpaidCeo.Game.Tests
         {
             yield return Boot();
             Assert.AreEqual(DisplayStyle.None, _ui.ChooseBusinessButton.resolvedStyle.display);
-            Assert.AreEqual(UiRoot.Company, _ui.HomeTab);
+            Assert.AreEqual(UiRoot.City, _ui.HomeTab, "with a business the game stays on the main screen");
             Assert.AreEqual(UiRoot.City, _ui.CurrentTab, "chapter 1 still opens on the city");
         }
 

@@ -55,6 +55,7 @@ namespace UnpaidCeo.Game.Bootstrap
         RunController? _runs;
         RunBanner? _banner;
         CityView? _city;
+        CameraRig? _rig;
         DayNeonController? _light;
         TimelapseDirector? _timelapse;
         AudioDirector? _audio;
@@ -100,6 +101,8 @@ namespace UnpaidCeo.Game.Bootstrap
             _district = handle;
             var scene = handle.Result.Scene;
             _city = InScene<CityView>(scene);
+            _rig = InScene<CameraRig>(scene);
+            StartStreetLife(scene, chapter);
             _light = InScene<DayNeonController>(scene);
             _timelapse = InScene<TimelapseDirector>(scene);
         }
@@ -114,10 +117,38 @@ namespace UnpaidCeo.Game.Bootstrap
             return null;
         }
 
+        /// <summary>The hero strolls on the sidewalk in front of home, and the camera opens on it.</summary>
         void PlaceHeroAtHome()
         {
-            if (_hero != null && _city != null && _city.HomeAnchor != null)
-                _hero.transform.SetPositionAndRotation(_city.HomeAnchor.position, _city.HomeAnchor.rotation);
+            if (_hero == null || _city == null || _city.HomeAnchor == null) return;
+            var spot = StreetLife.HomeFront(_city.HomeAnchor);
+            _hero.transform.SetPositionAndRotation(spot, _city.HomeAnchor.rotation);
+            if (_rig != null) _rig.Frame(spot, HeroCameraDistance, raise: HeroScreenRaise);
+        }
+
+        const float HeroCameraDistance = 46f;
+        /// <summary>The guide card, "Next month" and the dock cover the bottom of the screen: the hero shows above the middle.</summary>
+        const float HeroScreenRaise = 0.12f;
+        static int Walkers => GraphicsModeService.Current == GraphicsMode.Eco ? 6 : 10;
+
+        /// <summary>People on the district's sidewalks; they leave with the district scene.</summary>
+        void StartStreetLife(Scene scene, int chapter)
+        {
+            var go = new GameObject("StreetLife");
+            SceneManager.MoveGameObjectToScene(go, scene);
+            go.AddComponent<StreetLife>().Begin(seed: chapter * 7919 + (int)((_state?.Seed ?? 0) % 1000), count: Walkers);
+        }
+
+        /// <summary>"You" above the hero, where the camera shows it.</summary>
+        void LateUpdate()
+        {
+            if (Ui == null || Ui.Root == null) return;
+            var cam = _rig != null ? _rig.GetComponent<Camera>() : null;
+            if (cam == null || _hero == null || _hero.Model == null || Ui.Root.panel == null) { Ui.PlaceHeroTag(null); return; }
+            var at = _hero.Model.transform.position;   // the model walks; its own height is not its feet
+            var head = new Vector3(at.x, _hero.transform.position.y + HeroView.Height + 0.5f, at.z);
+            if (Vector3.Dot(cam.transform.forward, head - cam.transform.position) <= 0f) { Ui.PlaceHeroTag(null); return; }
+            Ui.PlaceHeroTag(RuntimePanelUtils.CameraTransformWorldToPanel(Ui.Root.panel, head, cam));
         }
 
         /// <summary>Connects in the background; screens see the result through <see cref="UiRoot.Online"/>.</summary>
@@ -262,7 +293,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 Ui.NextMonthRequested += () => { if (!_busy && !_swapping) StartCoroutine(NextMonth()); };
                 RefreshTurnsUi();
                 RefreshMissionsUi();
-                Ui.Open(UiRoot.Ranking);
+                Ui.Open(UiRoot.Ranking);   // a run starts and ends on the ranking popup
             }
         }
 
@@ -275,6 +306,7 @@ namespace UnpaidCeo.Game.Bootstrap
             catch (Exception e) { Debug.LogException(e); _busy = false; yield break; }
             Ui.ShowReport(report);
             Ui.Open(Ui.HomeTab);
+            Ui.ShowMonthSummary(report);
             _banner?.Show(_runs.Current.MonthsDone, _runs.Current.Months);
             _busy = false;
             if (_runs.Current.Finished) FinishRun();
@@ -332,7 +364,7 @@ namespace UnpaidCeo.Game.Bootstrap
             StartCoroutine(_audio.LoadMusic(() => _light != null ? _light.NightAmount : 0f, DistrictMusic(_state.Chapter)));
             BuildDialogue();
             _hero = new GameObject("Hero").AddComponent<HeroView>();
-            _hero.gameObject.AddComponent<HeroStroll>();
+            _hero.gameObject.AddComponent<HeroStroll>().Configure(halfWidth: 4f, speed: 1.3f, restSeconds: 3f);
             PlaceHeroAtHome();
 
             Ui = new GameObject("UI").AddComponent<UiRoot>();
@@ -369,8 +401,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 DailyMissions.Sync(_meta.Meta, _meta.Turns, _state, _engine.Content);
                 SaveService.SaveMeta(_meta);
                 StartPlaying();
-                PlayScenes();
-                Ui.AskConsent();   // once, after onboarding
+                StartCoroutine(ScenesAfterSummary());
             };
             Onboarding.Start();
         }
@@ -467,6 +498,9 @@ namespace UnpaidCeo.Game.Bootstrap
             MonthReport report;
             try { report = _engine!.EndMonth(_state!, Ui!.CurrentDecisions()); }
             catch (Exception e) { Debug.LogException(e); _meta.Turns.ManualLeft++; _busy = false; yield break; }
+            var ui = Ui!;
+            ui.SetBusy(true);
+            ui.Open(UiRoot.City);   // the month plays out in the city
             Achievements.Update(_meta.Meta, _state!, report);   // badges; the meta is saved with the action below
             _city?.Sync(_state!);
             if (_timelapse != null)
@@ -475,14 +509,32 @@ namespace UnpaidCeo.Game.Bootstrap
                 _timelapse.Play(report);
                 while (_timelapse.IsPlaying) yield return null;
             }
-            Ui.ShowReport(report);
+            ui.ShowReport(report);
             _hero?.React(report);
-            Ui.Open(Ui.HomeTab);
+            ui.Open(ui.HomeTab);
+            ui.ShowMonthSummary(report);
             SaveService.Save(_state!);
             PushCloud();
             AfterAction();
+            ui.SetBusy(false);
+            while (ui != null && ui.MonthSummaryOpen) yield return null;   // the scenes wait for "Got it"
             _busy = false;
             PlayScenes();
+        }
+
+        /// <summary>
+        /// After onboarding, one thing at a time: the month's result, then its scenes (the dialogue would cover the
+        /// result), then the one-time question about statistics.
+        /// </summary>
+        IEnumerator ScenesAfterSummary()
+        {
+            _busy = true;
+            var ui = Ui;
+            while (ui != null && ui.MonthSummaryOpen) yield return null;
+            _busy = false;
+            PlayScenes();
+            while (_busy) yield return null;
+            if (ui != null) ui.AskConsent();
         }
 
         async void PlayScenes()
@@ -494,6 +546,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 _engine.BeginMonth(_state);
                 _yarn.Bind(_engine, _state);
                 Ui?.SetSceneOpen(true);   // the dialogue is drawn over the missions panel
+                Ui?.SetBusy(true);        // "Next month" never looks alive while it cannot be pressed
                 await _yarn.PlayPendingAsync();
                 if (this == null || !isActiveAndEnabled) return; // destroyed mid-scene (reset deleted the save): do not write it back
                 Ui?.SetSceneOpen(false);
@@ -504,7 +557,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 AfterAction();
             }
             catch (Exception e) { Debug.LogException(e); }
-            finally { _busy = false; if (this != null) Ui?.SetSceneOpen(false); }
+            finally { _busy = false; if (this != null) { Ui?.SetSceneOpen(false); Ui?.SetBusy(false); } }
         }
 
         void OnQuizAnswered(string lessonId, int question)

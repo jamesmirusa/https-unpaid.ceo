@@ -20,7 +20,9 @@ namespace UnpaidCeo.Game.Narrative
         /// <summary>Raised when the player is about to choose (the hero plays its think clip).</summary>
         public System.Action? OptionsShown { get; set; }
 
+        VisualElement? _backdrop;
         VisualElement? _panel;
+        System.Action? _advance;
         Label? _speaker;
         Label? _text;
         Button? _continue;
@@ -37,7 +39,8 @@ namespace UnpaidCeo.Game.Narrative
             _speaker.AddToClassList("dialogue__speaker");
             _text = new Label { name = "dialogue-text" };
             _text.AddToClassList("dialogue__text");
-            _continue = new Button { name = "dialogue-continue", text = "▶" };
+            // A word from the string table: the UI font has no glyph for a play symbol, and a full-width button is hard to miss.
+            _continue = UnpaidCeo.Game.Ui.UiText.Bind(new Button { name = "dialogue-continue" }, "dialogue.continue");
             _continue.AddToClassList("dialogue__continue");
             _options = new VisualElement { name = "dialogue-options" };
             _options.AddToClassList("dialogue__options");
@@ -45,14 +48,22 @@ namespace UnpaidCeo.Game.Narrative
             _panel.Add(_text);
             _panel.Add(_options);
             _panel.Add(_continue);
-            document.rootVisualElement.Add(_panel);
+            // A scene is a modal: the backdrop covers the game (nothing under it can be pressed) and a tap on it continues.
+            _backdrop = new VisualElement { name = "dialogue-backdrop" };
+            _backdrop.AddToClassList("dialogue-backdrop");
+            _backdrop.RegisterCallback<ClickEvent>(_ => _advance?.Invoke());
+            _backdrop.Add(_panel);
+            document.rootVisualElement.Add(_backdrop);
             Show(false);
         }
 
         void Show(bool visible)
         {
-            if (_panel != null) _panel.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            if (_backdrop != null) _backdrop.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            UnpaidCeo.Game.City.CameraRig.SceneOpen = visible;   // taps continue the scene, they do not drag the city
         }
+
+        void OnDestroy() => UnpaidCeo.Game.City.CameraRig.SceneOpen = false;
 
         public override YarnTask OnDialogueStartedAsync()
         {
@@ -81,8 +92,10 @@ namespace UnpaidCeo.Game.Narrative
             var done = new YarnTaskCompletionSource();
             void Advance() => done.TrySetResult();
             _continue.clicked += Advance;
+            _advance = Advance;
             using (token.NextContentToken.Register(Advance))
                 await done.Task;
+            _advance = null;
             _continue.clicked -= Advance;
             Audio?.StopVoice();
         }

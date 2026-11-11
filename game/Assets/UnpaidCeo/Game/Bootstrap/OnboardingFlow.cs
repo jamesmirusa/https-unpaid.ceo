@@ -12,7 +12,7 @@ namespace UnpaidCeo.Game.Bootstrap
     /// <summary>
     /// The first 60 seconds of a new game, as coach marks over the real UI: pick a hero (one tap, a random
     /// preset is ready), the mentor offers a $40 delivery gig, explains revenue vs profit, highlights
-    /// Next month, and the month 1 report opens. Mentor lines come from Yarn (ch1_onboarding.yarn) so they
+    /// Next month, and the month 1 result pops up on the main screen. Mentor lines come from Yarn (ch1_onboarding.yarn) so they
     /// are localised and voiced like the rest of the chapter.
     /// </summary>
     public sealed class OnboardingFlow
@@ -59,6 +59,7 @@ namespace UnpaidCeo.Game.Bootstrap
 
         public void Start()
         {
+            _ui.GuideEnabled = false;   // one voice at a time: the mentor's coach marks first
             _heroOverlay = new VisualElement { name = "onboarding-hero" };
             _heroOverlay.AddToClassList("onboarding-overlay");
             _ui.Root.Add(_heroOverlay);
@@ -129,7 +130,8 @@ namespace UnpaidCeo.Game.Bootstrap
             _coach?.RemoveFromHierarchy();
             Report = _engine.EndMonth(_state, _ui.CurrentDecisions());
             _ui.ShowReport(Report);
-            _ui.Open(UiRoot.Company);
+            _ui.GuideEnabled = true;
+            _ui.ShowMonthSummary(Report);
             Current = Step.Done;
             AnalyticsEvents.TutorialStep(_ui.Online.Analytics, (int)Step.Done);
             Completed?.Invoke(Report);

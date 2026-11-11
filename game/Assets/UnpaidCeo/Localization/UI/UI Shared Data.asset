@@ -1087,6 +1087,146 @@ MonoBehaviour:
     m_Key: settings.analytics.off
     m_Metadata:
       m_Items: []
+  - m_Id: 829442665472000
+    m_Key: dock.decisions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054912
+    m_Key: dock.company
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054913
+    m_Key: dock.academy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054914
+    m_Key: dock.ranking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054915
+    m_Key: popup.close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054916
+    m_Key: dialogue.continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054917
+    m_Key: city.you
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054918
+    m_Key: goal.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054919
+    m_Key: goal.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054920
+    m_Key: goal.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054921
+    m_Key: guide.plan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054922
+    m_Key: guide.plan.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054923
+    m_Key: guide.no_turns
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054924
+    m_Key: guide.no_turns.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054925
+    m_Key: guide.lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054926
+    m_Key: guide.lesson.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054927
+    m_Key: guide.broke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054928
+    m_Key: guide.broke.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054929
+    m_Key: guide.choose_business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054930
+    m_Key: guide.choose_business.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054931
+    m_Key: guide.next_chapter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054932
+    m_Key: guide.next_chapter.action
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054933
+    m_Key: summary.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054934
+    m_Key: summary.revenue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054935
+    m_Key: summary.profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054936
+    m_Key: summary.personal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054937
+    m_Key: summary.cash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054938
+    m_Key: summary.change
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054939
+    m_Key: summary.tip.no_revenue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054940
+    m_Key: summary.tip.loss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054941
+    m_Key: summary.tip.cash_down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054942
+    m_Key: summary.tip.profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054943
+    m_Key: summary.ok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054944
+    m_Key: summary.details
+    m_Metadata:
+      m_Items: []
+  - m_Id: 832375335411712
+    m_Key: hud.month_running
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

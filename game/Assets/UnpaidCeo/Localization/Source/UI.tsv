@@ -267,3 +267,38 @@ consent.deny	No thanks	Нет, спасибо
 settings.analytics	Anonymous statistics	Анонимная статистика
 settings.analytics.on	On	Вкл
 settings.analytics.off	Off	Выкл
+dock.decisions	Month plan	План месяца
+dock.company	Report	Отчёт
+dock.academy	Lessons	Уроки
+dock.ranking	Ranking	Рейтинг
+popup.close	Close	Закрыть
+dialogue.continue	Continue	Дальше
+city.you	You	Ты
+goal.1	Goal: save up cash plus a reserve for one month of living	Цель: накопить деньги и резерв на месяц жизни
+goal.2	Goal: break even and grow your capital to	Цель: выйти в ноль и довести капитал до
+goal.3	Goal: two locations and a team, or capital of	Цель: две точки и команда или капитал
+guide.plan	Plan the month: split your time and pick actions. Then press Next month.	Спланируй месяц: распредели время и выбери действия. Потом жми «Следующий месяц».
+guide.plan.action	Plan the month	Спланировать месяц
+guide.no_turns	Today's months are used up. Meanwhile take a lesson: it is two minutes.	Месяцы на сегодня закончились. Пока пройди урок: это две минуты.
+guide.no_turns.action	Open lessons	Открыть уроки
+guide.lesson	This month opened a new lesson. Read it and answer the quiz.	Этот месяц открыл новый урок. Прочитай его и ответь на вопросы.
+guide.lesson.action	Open the lesson	Открыть урок
+guide.broke	Cash is below zero. Change the plan before the next month: more paid work, fewer costs.	Денег меньше нуля. Поменяй план до следующего месяца: больше оплачиваемой работы, меньше расходов.
+guide.broke.action	Fix the plan	Исправить план
+guide.choose_business	Time for a real business. Compare the options and choose one.	Пора открыть настоящий бизнес. Сравни варианты и выбери один.
+guide.choose_business.action	Choose a business	Выбрать бизнес
+guide.next_chapter	Chapter goal reached! Move on to the next district.	Цель главы выполнена! Переезжай в следующий район.
+guide.next_chapter.action	Next chapter	Новая глава
+summary.title	Month	Месяц
+summary.revenue	Revenue	Выручка
+summary.profit	Net profit	Чистая прибыль
+summary.personal	Living costs	Личные расходы
+summary.cash	Cash now	Денег на счёте
+summary.change	Change over the month	Изменение за месяц
+summary.tip.no_revenue	No revenue this month. Money comes only from sales: open the month plan and give time to paid work.	В этом месяце нет выручки. Деньги приходят только от продаж: открой план месяца и выдели время на оплачиваемую работу.
+summary.tip.loss	A loss: costs were higher than revenue. Open the full report and find the biggest cost.	Убыток: расходы оказались больше выручки. Открой полный отчёт и найди самую большую статью расходов.
+summary.tip.cash_down	There was profit, yet cash went down: living costs, purchases and loan payments are paid out of it.	Прибыль есть, а денег стало меньше: из неё оплачены личные расходы, покупки и платежи по кредитам.
+summary.tip.profit	Profit is what stays after every cost. Keep part of it as a reserve and put the rest to work.	Прибыль — это то, что осталось после всех расходов. Часть оставь в резерве, остальное пусть работает.
+summary.ok	Got it	Понятно
+summary.details	Full report	Полный отчёт
+hud.month_running	Month in progress…	Идёт месяц…

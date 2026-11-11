@@ -24,8 +24,9 @@ namespace UnpaidCeo.Game.Ui
     }
 
     /// <summary>
-    /// Phone-first UI (spec §5): HUD (cash, month, energy), the screen area, the "Next month" button under the thumb,
-    /// and the bottom nav City · Company · Decisions · Academy · Ranking. Journal and Settings open from the HUD.
+    /// Phone-first UI on one main screen: the HUD (cash, month, energy), the chapter goal, the city with the guide card
+    /// ("what to do now") and today's missions, the "Next month" button under the thumb, and a dock that opens the month
+    /// plan, the report, lessons and ranking as popups over the city. Journal and Settings open from the HUD the same way.
     /// All words come from the "UI" / "Academy" string tables; numbers and names carry the .value class.
     /// </summary>
     public sealed class UiRoot : MonoBehaviour
@@ -38,7 +39,7 @@ namespace UnpaidCeo.Game.Ui
         public const string City = "city", Company = "company", Decisions = "decisions", Academy = "academy",
             Ranking = "ranking", Journal = "journal", Settings = "settings", Industry = "industry";
         public static readonly IReadOnlyList<string> Tabs = new[] { City, Company, Decisions, Academy, Ranking, Journal, Settings, Industry };
-        static readonly string[] NavTabs = { City, Company, Decisions, Academy, Ranking };
+        static readonly string[] NavTabs = { Decisions, Company, Academy, Ranking };
 
         readonly Dictionary<string, VisualElement> _screens = new Dictionary<string, VisualElement>();
         readonly Dictionary<string, Button> _nav = new Dictionary<string, Button>();
@@ -117,8 +118,8 @@ namespace UnpaidCeo.Game.Ui
         public bool NeedsBusiness => _engine != null && _state != null && _state.Chapter >= 2
             && !_state.Businesses.Any(b => _engine.Content.Industries.TryGetValue(b.IndustryId, out var d) && d.Kind == UnpaidCeo.Core.Economy.IndustryKind.Business);
 
-        /// <summary>The tab the game returns to after a month: the industry choice until there is a business, else the company.</summary>
-        public string HomeTab => NeedsBusiness ? Industry : Company;
+        /// <summary>Where the game is after a month: the industry choice until there is a business, else the main screen.</summary>
+        public string HomeTab => NeedsBusiness ? Industry : City;
 
         public void OpenBusinessChoice() => Open(Industry);
 
@@ -162,6 +163,87 @@ namespace UnpaidCeo.Game.Ui
             get => _journal?.LineText;
             set { if (_journal != null) { _journal.LineText = value; _journal.Refresh(); } }
         }
+
+        VisualElement _popupBackdrop, _guide, _missionsBody;
+        Button _popupClose, _guideAction;
+        Label _guideText, _heroTag, _goal, _goalValue;
+        MonthSummaryDialog _summary;
+        string _guideKey = "";
+        Action _guideRun;
+        bool _guideEnabled = true, _noTurns, _busy, _newLesson, _missionsOpen;
+        int _goalChapter;
+
+        /// <summary>Dims the city while another screen is open over it; a tap on it closes that screen.</summary>
+        public VisualElement PopupBackdrop => _popupBackdrop;
+        public Button PopupClose => _popupClose;
+        /// <summary>A screen other than the city is open (as a popup over it).</summary>
+        public bool PopupOpen => CurrentTab != City;
+        /// <summary>The month's result, shown over the main screen after each month.</summary>
+        public MonthSummaryDialog Summary => _summary;
+        public bool MonthSummaryOpen => _summary != null && _summary.IsOpen;
+        public void ShowMonthSummary(MonthReport report) => _summary.Show(report, Language);
+
+        /// <summary>"What to do now": one line and one button on the main screen.</summary>
+        public VisualElement Guide => _guide;
+        public Label GuideText => _guideText;
+        public Button GuideAction => _guideAction;
+        /// <summary>String-table key of the guide's current advice ("" while it is hidden).</summary>
+        public string GuideKey => _guideKey;
+        /// <summary>Off while the onboarding mentor is talking.</summary>
+        public bool GuideEnabled
+        {
+            get => _guideEnabled;
+            set { _guideEnabled = value; RefreshGuide(); }
+        }
+
+        /// <summary>A month is being played: "Next month" shows it cannot be pressed.</summary>
+        public void SetBusy(bool busy)
+        {
+            if (busy != _busy && _next != null) UiText.Bind(_next, busy ? "hud.month_running" : "hud.next_month");
+            _busy = busy;
+            ApplyNext();
+        }
+
+        void ApplyNext() => _next?.SetEnabled(!_noTurns && !_busy);
+
+        /// <summary>"You" above the hero in the city.</summary>
+        public Label HeroTag => _heroTag;
+
+        /// <param name="panelPosition">Where the hero's head is on the panel; null hides the tag.</param>
+        public void PlaceHeroTag(Vector2? panelPosition)
+        {
+            if (_heroTag == null) return;
+            if (panelPosition == null) { _heroTag.style.display = DisplayStyle.None; return; }
+            var local = _screens[City].WorldToLocal(panelPosition.Value);
+            _heroTag.style.left = local.x;
+            _heroTag.style.top = local.y;
+            _heroTag.style.display = DisplayStyle.Flex;
+        }
+
+        void RefreshGuide()
+        {
+            if (_guide == null) return;
+            if (_engine == null || _state == null || RunMode || !_guideEnabled)
+            {
+                _guide.style.display = DisplayStyle.None;
+                _guideKey = "";
+                return;
+            }
+            string key;
+            if (_engine.Chapter(_state).GoalMet && _state.Chapter < Chapters.LastChapter) { key = "guide.next_chapter"; _guideRun = Advance; }
+            else if (NeedsBusiness) { key = "guide.choose_business"; _guideRun = OpenBusinessChoice; }
+            else if (_newLesson) { key = "guide.lesson"; _guideRun = () => Open(Academy); }
+            else if (_noTurns) { key = "guide.no_turns"; _guideRun = () => Open(Academy); }
+            else if (_state.Cash.Cents < 0) { key = "guide.broke"; _guideRun = () => Open(Decisions); }
+            else { key = "guide.plan"; _guideRun = () => Open(Decisions); }
+            _guide.style.display = DisplayStyle.Flex;
+            if (key == _guideKey) return;
+            _guideKey = key;
+            UiText.Bind(_guideText, key);
+            UiText.Bind(_guideAction, key + ".action");
+        }
+
+        void OnDestroy() => UnpaidCeo.Game.City.CameraRig.InputBlocked = false;
 
         public static string PickLanguage() =>
             LanguagePicker.Pick(PlayerPrefs.GetString(LanguagePrefsKey, null), Application.systemLanguage.ToString(), Languages);
@@ -207,19 +289,30 @@ namespace UnpaidCeo.Game.Ui
 
             _chapterBar = new VisualElement { name = "chapter-bar" };
             _chapterBar.AddToClassList("chapter-bar");
-            _chapterBar.Add(UiText.Label("hud.chapter_goal", "chapter-bar__caption"));
+            var goalRow = new VisualElement();
+            goalRow.AddToClassList("chapter-bar__goal");
+            _goal = UiText.Label("goal.1", "chapter-bar__caption");
+            _goal.name = "chapter-goal";
+            _goalValue = UiText.ValueLabel("", "chapter-bar__goal-value");
+            _goalValue.name = "chapter-goal-value";
+            goalRow.Add(_goal);
+            goalRow.Add(_goalValue);
+            _chapterBar.Add(goalRow);
+            var progressRow = new VisualElement();
+            progressRow.AddToClassList("chapter-bar__row");
             var track = new VisualElement();
             track.AddToClassList("chapter-bar__track");
             _chapterFill = new VisualElement { name = "chapter-fill" };
             _chapterFill.AddToClassList("chapter-bar__fill");
             track.Add(_chapterFill);
-            _chapterBar.Add(track);
+            progressRow.Add(track);
             _advance = UiText.Bind(new Button(Advance) { name = "chapter-advance" }, "hud.advance");
             _advance.AddToClassList("chapter-bar__advance");
-            _chapterBar.Add(_advance);
+            progressRow.Add(_advance);
             _chooseBusiness = UiText.Bind(new Button(OpenBusinessChoice) { name = "chapter-business" }, "industry.title");
             _chooseBusiness.AddToClassList("chapter-bar__advance");
-            _chapterBar.Add(_chooseBusiness);
+            progressRow.Add(_chooseBusiness);
+            _chapterBar.Add(progressRow);
             Root.Add(_chapterBar);
             _loan = new LoanDialog(this, engine, state);
             _loan.Taken += (_, __) => { RefreshHud(); _company?.Refresh(); LoanTaken?.Invoke(); };
@@ -229,6 +322,10 @@ namespace UnpaidCeo.Game.Ui
             content.AddToClassList("content");
             Root.Add(content);
             AddScreen(content, City, Clone("City"));
+            _popupBackdrop = new VisualElement { name = "popup-backdrop" };
+            _popupBackdrop.AddToClassList("popup-backdrop");
+            _popupBackdrop.RegisterCallback<ClickEvent>(_ => Open(City));
+            content.Add(_popupBackdrop);
             AddScreen(content, Company, Clone("Company"));
             AddScreen(content, Decisions, Clone("Decisions"));
             AddScreen(content, Academy, Clone("Academy"));
@@ -236,6 +333,9 @@ namespace UnpaidCeo.Game.Ui
             AddScreen(content, Journal, Clone("Journal"));
             AddScreen(content, Settings, Clone("Settings"));
             AddScreen(content, Industry, Clone("Industry"));
+            _popupClose = UiText.Bind(new Button(() => Open(City)) { name = "popup-close" }, "popup.close");
+            _popupClose.AddToClassList("popup-close");
+            content.Add(_popupClose);
 
             UiText.Bind(_screens[City].Q<Label>("city-hint"), "city.hint");
             _ranking = new RankingScreen(_screens[Ranking], this, engine, state);
@@ -249,10 +349,16 @@ namespace UnpaidCeo.Game.Ui
             _academy.QuizPassed += id => AnalyticsEvents.QuizPassed(Online.Analytics, id);
             _opened = new HashSet<string>(OpenBusinesses());
             _wasBankrupt = state.Facts.Has("bankrupt");
+            _heroTag = UiText.Label("city.you", "hero-tag");
+            _heroTag.name = "hero-tag";
+            _heroTag.style.display = DisplayStyle.None;
+            _screens[City].Add(_heroTag);
+            var stack = new VisualElement { name = "city-stack" };
+            stack.AddToClassList("city-stack");
+            _screens[City].Add(stack);
             _missions = new VisualElement { name = "city-missions" };
             _missions.AddToClassList("missions");
             _missions.style.display = DisplayStyle.None;
-            _screens[City].Add(_missions);
             _duelCard = new VisualElement { name = "city-duel" };
             _duelCard.AddToClassList("missions");
             _duelCard.Add(UiText.Label("duel.waiting", "missions__title"));
@@ -260,7 +366,17 @@ namespace UnpaidCeo.Game.Ui
             openDuels.AddToClassList("choice-button");
             _duelCard.Add(openDuels);
             _duelCard.style.display = DisplayStyle.None;
-            _screens[City].Add(_duelCard);
+            stack.Add(_duelCard);
+            stack.Add(_missions);
+            _guide = new VisualElement { name = "guide" };
+            _guide.AddToClassList("guide");
+            _guideText = new Label { name = "guide-text" };
+            _guideText.AddToClassList("guide__text");
+            _guideAction = new Button(() => _guideRun?.Invoke()) { name = "guide-action" };
+            _guideAction.AddToClassList("guide__action");
+            _guide.Add(_guideText);
+            _guide.Add(_guideAction);
+            stack.Add(_guide);
             _journal = new JournalScreen(_screens[Journal], engine, state);
             _settings = new SettingsScreen(_screens[Settings], this);
             _settings.ResetRequested += () => ResetRequested?.Invoke();
@@ -268,6 +384,8 @@ namespace UnpaidCeo.Game.Ui
             _account.Changed += change => AccountChanged?.Invoke(change);
             _consent = new ConsentDialog(this);
             Root.Add(_consent.Root);
+            _summary = new MonthSummaryDialog();
+            _summary.DetailsRequested += () => Open(Company);
 
             _turnsBar = new VisualElement { name = "turns-bar" };
             _turnsBar.AddToClassList("turns-bar");
@@ -295,11 +413,12 @@ namespace UnpaidCeo.Game.Ui
             foreach (var tab in NavTabs)
             {
                 var t = tab;
-                var b = UiText.Bind(nav.Q<Button>("nav-" + tab), "nav." + tab);
+                var b = UiText.Bind(nav.Q<Button>("nav-" + tab), "dock." + tab);
                 b.clicked += () => Open(t);
                 _nav[tab] = b;
             }
 
+            Root.Add(_summary.Root);
             Root.Add(_loan.Root);
             Root.Add(_transition.Root);
 
@@ -340,21 +459,26 @@ namespace UnpaidCeo.Game.Ui
         public void Open(string tab)
         {
             if (!_screens.ContainsKey(tab)) throw new ArgumentException("unknown tab " + tab, nameof(tab));
-            foreach (var s in _screens) s.Value.style.display = s.Key == tab ? DisplayStyle.Flex : DisplayStyle.None;
+            bool popup = tab != City;
+            foreach (var s in _screens) s.Value.style.display = s.Key == tab || s.Key == City ? DisplayStyle.Flex : DisplayStyle.None;
+            _popupBackdrop.style.display = _popupClose.style.display = popup ? DisplayStyle.Flex : DisplayStyle.None;
+            UnpaidCeo.Game.City.CameraRig.InputBlocked = popup;   // drags belong to the popup, not to the city under it
             foreach (var b in _nav) b.Value.EnableInClassList("nav-button--active", b.Key == tab);
             CurrentTab = tab;
-            if (tab == Academy) _academy.Refresh();
+            if (tab == Academy) { _newLesson = false; _academy.Refresh(); }
             if (tab == Journal) _journal.Refresh();
             if (tab == Settings) { _settings.Refresh(); _account.Refresh(); }
             if (tab == Ranking) _ranking.RefreshSoon();
             if (tab == Industry) _industry.Show(_engine, _state);
             if (tab == Company) _company.Refresh();
+            RefreshGuide();
         }
 
         /// <summary>Call after each EndMonth.</summary>
         public void ShowReport(MonthReport report)
         {
             if (!RunMode) RecordMonth(report);
+            if (report.Lessons.Count > 0) _newLesson = true;
             _company.Show(report);
             _decisions.Refresh();
             _decisions.ShowRejections(report);
@@ -377,8 +501,17 @@ namespace UnpaidCeo.Game.Ui
                 _chapterFill.style.width = Length.Percent((float)(chapter.Progress * 100));
                 bool canMove = chapter.GoalMet && _state.Chapter < Chapters.LastChapter;
                 _advance.style.display = canMove ? DisplayStyle.Flex : DisplayStyle.None;
+                int shown = Mathf.Clamp(_state.Chapter, 1, Chapters.LastChapter);
+                if (shown != _goalChapter)
+                {
+                    _goalChapter = shown;
+                    UiText.Bind(_goal, "goal." + shown);
+                }
+                var balance = _engine.Content.Balance;
+                _goalValue.text = MoneyFormat.Compact(shown == 1 ? balance.Chapter1CashGoal : shown == 2 ? balance.Chapter2CapitalGoal : balance.Chapter3CapitalGoal, Language);
             }
             if (_chooseBusiness != null) _chooseBusiness.style.display = NeedsBusiness ? DisplayStyle.Flex : DisplayStyle.None;
+            RefreshGuide();
         }
 
         public MonthDecisions CurrentDecisions() => _decisions.Build();
@@ -406,9 +539,12 @@ namespace UnpaidCeo.Game.Ui
             _turnsBar.style.display = DisplayStyle.Flex;
             _turnsValue.text = $"{Math.Max(0, left)}/{perDay}";
             bool none = left <= 0;
-            _next.SetEnabled(!none);
+            bool changed = none != _noTurns;
+            _noTurns = none;
+            ApplyNext();
             _waitRow.style.display = none ? DisplayStyle.Flex : DisplayStyle.None;
             _countdownValue.text = Countdown(secondsToRefill);
+            if (changed) RefreshGuide();
         }
 
         public static string Countdown(long seconds)
@@ -421,7 +557,18 @@ namespace UnpaidCeo.Game.Ui
         public void SetMissions(IReadOnlyList<MissionView> missions, int streak, int ceoPoints)
         {
             _missions.Clear();
-            _missions.Add(UiText.Label("missions.title", "missions__title"));
+            var toggle = new Button(() =>
+            {
+                _missionsOpen = !_missionsOpen;
+                _missionsBody.style.display = _missionsOpen ? DisplayStyle.Flex : DisplayStyle.None;
+            }) { name = "missions-toggle" };
+            toggle.AddToClassList("missions__toggle");
+            toggle.Add(UiText.Label("missions.title", "missions__title"));
+            toggle.Add(UiText.ValueLabel($"{missions.Count(m => m.Done)}/{missions.Count}", "missions__count"));
+            _missions.Add(toggle);
+            _missionsBody = new VisualElement { name = "missions-body" };
+            _missionsBody.style.display = _missionsOpen ? DisplayStyle.Flex : DisplayStyle.None;
+            _missions.Add(_missionsBody);
             foreach (var m in missions)
             {
                 var row = new VisualElement();
@@ -430,7 +577,7 @@ namespace UnpaidCeo.Game.Ui
                 row.EnableInClassList("mission--done", m.Done);
                 row.Add(UiText.Label(m.TitleKey, "row__label"));
                 row.Add(UiText.ValueLabel($"{Math.Min(m.Progress, m.Target)}/{m.Target}", "row__value"));
-                _missions.Add(row);
+                _missionsBody.Add(row);
             }
             var footer = new VisualElement();
             footer.AddToClassList("missions__footer");
@@ -438,7 +585,7 @@ namespace UnpaidCeo.Game.Ui
             footer.Add(UiText.ValueLabel(streak.ToString(), "missions__value"));
             footer.Add(UiText.Label("missions.points", "missions__caption"));
             footer.Add(UiText.ValueLabel(ceoPoints.ToString(), "missions__value"));
-            _missions.Add(footer);
+            _missionsBody.Add(footer);
             _missions.style.display = missions.Count > 0 && !_sceneOpen ? DisplayStyle.Flex : DisplayStyle.None;
         }
 

@@ -1090,6 +1090,146 @@ MonoBehaviour:
     m_Localized: Off
     m_Metadata:
       m_Items: []
+  - m_Id: 829442665472000
+    m_Localized: Month plan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054912
+    m_Localized: Report
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054913
+    m_Localized: Lessons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054914
+    m_Localized: Ranking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054915
+    m_Localized: Close
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054916
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054917
+    m_Localized: You
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054918
+    m_Localized: 'Goal: save up cash plus a reserve for one month of living'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054919
+    m_Localized: 'Goal: break even and grow your capital to'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054920
+    m_Localized: 'Goal: two locations and a team, or capital of'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054921
+    m_Localized: 'Plan the month: split your time and pick actions. Then press Next month.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054922
+    m_Localized: Plan the month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054923
+    m_Localized: 'Today''s months are used up. Meanwhile take a lesson: it is two minutes.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054924
+    m_Localized: Open lessons
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054925
+    m_Localized: This month opened a new lesson. Read it and answer the quiz.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054926
+    m_Localized: Open the lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054927
+    m_Localized: 'Cash is below zero. Change the plan before the next month: more paid work, fewer costs.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054928
+    m_Localized: Fix the plan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054929
+    m_Localized: Time for a real business. Compare the options and choose one.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054930
+    m_Localized: Choose a business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054931
+    m_Localized: Chapter goal reached! Move on to the next district.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054932
+    m_Localized: Next chapter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054933
+    m_Localized: Month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054934
+    m_Localized: Revenue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054935
+    m_Localized: Net profit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054936
+    m_Localized: Living costs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054937
+    m_Localized: Cash now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054938
+    m_Localized: Change over the month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054939
+    m_Localized: 'No revenue this month. Money comes only from sales: open the month plan and give time to paid work.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054940
+    m_Localized: 'A loss: costs were higher than revenue. Open the full report and find the biggest cost.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054941
+    m_Localized: 'There was profit, yet cash went down: living costs, purchases and loan payments are paid out of it.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054942
+    m_Localized: Profit is what stays after every cost. Keep part of it as a reserve and put the rest to work.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054943
+    m_Localized: Got it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 829442678054944
+    m_Localized: Full report
+    m_Metadata:
+      m_Items: []
+  - m_Id: 832375335411712
+    m_Localized: "Month in progress\u2026"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

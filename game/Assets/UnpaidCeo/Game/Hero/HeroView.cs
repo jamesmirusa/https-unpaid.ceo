@@ -10,11 +10,12 @@ namespace UnpaidCeo.Game.Hero
 {
     /// <summary>
     /// Shows the player's hero: loads the species/outfit model through Addressables (so heroes are not in the
-    /// initial web download), sizes it to 1.6 m and applies the chosen colour as a tint.
+    /// initial web download), sizes it and applies the chosen colour as a tint.
     /// </summary>
     public sealed class HeroView : MonoBehaviour
     {
-        public const float Height = 1.6f;
+        /// <summary>Taller than life (the row houses are ~12 m): from the city camera a 1.6 m hero is a few pixels.</summary>
+        public const float Height = 2.6f;
         public static readonly Color[] Tints =
         {
             Color.white, new Color(1f, 0.9f, 0.78f), new Color(0.82f, 0.9f, 1f), new Color(0.86f, 1f, 0.88f),
