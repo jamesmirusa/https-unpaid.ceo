@@ -37,6 +37,7 @@ namespace UnpaidCeo.Editor.Tests
         [Test] public void All_imported_buildings_within_budget() => AssertBudget(Load("building_"), AssetKind.Building, 21);
         [Test] public void All_imported_props_within_budget() => AssertBudget(Load("prop_"), AssetKind.Prop, 17);
         [Test] public void All_characters_within_budget() => AssertBudget(Load("hero_", "npc_"), AssetKind.Character, 11);
+        [Test] public void All_generated_rooms_within_budget() => AssertBudget(Load("room_"), AssetKind.Interior, 6);
 
         static readonly string[] KeyBuildings =
         {

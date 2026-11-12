@@ -1626,6 +1626,54 @@ MonoBehaviour:
     m_Localized: To me
     m_Metadata:
       m_Items: []
+  - m_Id: 1245345932632064
+    m_Localized: Talk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020672
+    m_Localized: Leave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020673
+    m_Localized: Good call. A rested CEO makes fewer expensive mistakes.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020674
+    m_Localized: Call your mom. Money comes back; these evenings don't.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020675
+    m_Localized: Deal! Unload the truck and I pay cash, same day.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020676
+    m_Localized: I'll introduce you around. Half the deals in this borough start at this bar.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020677
+    m_Localized: Finally! A slice, some music, and you'll remember why you work.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020678
+    m_Localized: 'Pleasure doing business. Remember: I always collect. With interest.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020679
+    m_Localized: Quick money, no questions. Just pray nobody asks them later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020680
+    m_Localized: Smart. Money in the reserve is a calm night's sleep.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020681
+    m_Localized: Sit down, open the notebook. Knowledge compounds faster than money.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1245345941020682
+    m_Localized: Changed your mind? No problem, the offer stands.
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

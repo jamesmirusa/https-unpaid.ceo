@@ -399,3 +399,15 @@ bill.transit	Transit	Транспорт
 bill.essentials	Essentials	Быт и связь
 loan.pay	Loan payment	Платёж по кредиту
 city.home	To me	Ко мне
+visit.talk	Talk	Поговорить
+visit.exit	Leave	Выйти на улицу
+place.react.rest	Good call. A rested CEO makes fewer expensive mistakes.	Правильно. Отдохнувший CEO делает меньше дорогих ошибок.
+place.react.family_time	Call your mom. Money comes back; these evenings don't.	Позвони маме. Деньги вернутся, а такие вечера — нет.
+place.react.overtime	Deal! Unload the truck and I pay cash, same day.	Договорились! Разгрузишь машину — плачу наличными в тот же день.
+place.react.networking	I'll introduce you around. Half the deals in this borough start at this bar.	Познакомлю тебя со всеми. Половина сделок в районе начинается у этой стойки.
+place.react.hobby	Finally! A slice, some music, and you'll remember why you work.	Наконец-то! Пицца, музыка — и вспомнишь, ради чего работаешь.
+place.react.loan_shark_loan	Pleasure doing business. Remember: I always collect. With interest.	Приятно иметь дело. Запомни: я всегда забираю своё. С процентами.
+place.react.gray_scheme	Quick money, no questions. Just pray nobody asks them later.	Быстрые деньги, без вопросов. Главное — чтобы потом никто не спросил.
+place.react.reserve_transfer	Smart. Money in the reserve is a calm night's sleep.	Разумно. Деньги в резерве — это спокойный сон.
+place.react.study	Sit down, open the notebook. Knowledge compounds faster than money.	Садись, открывай тетрадь. Знания растут быстрее, чем деньги.
+place.react.unplanned	Changed your mind? No problem, the offer stands.	Передумал? Без проблем, предложение в силе.

@@ -349,6 +349,48 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>The block and its places (Home, the bodega, the bank…).</summary>
         public PlacesScreen PlacesPanel => _places;
 
+        VisitPanel _visit;
+        /// <summary>The conversation inside a place (over the 3D room, or over the street when the room cannot load).</summary>
+        public VisitPanel Visit => _visit;
+        /// <summary>Signs and the street strip walk the hero into a 3D room instead of opening the flat place popup.</summary>
+        public bool Enter3D { get; set; }
+        /// <summary>A place's sign was tapped with <see cref="Enter3D"/> on: the city walks the hero in.</summary>
+        public event Action<string> PlaceEnterRequested;
+        bool _visiting;
+        VisualElement _fade;
+        /// <summary>Inside a place: the street's widgets step aside for the room and the conversation.</summary>
+        public bool Visiting => _visiting;
+
+        public void SetVisiting(bool on)
+        {
+            _visiting = on;
+            Root.EnableInClassList("visiting", on);
+            if (on)
+            {
+                _gate.PlaceVisited = true;
+                foreach (var m in _markers.Values) m.style.display = DisplayStyle.None;
+                foreach (var t in _tags.Values) t.style.display = DisplayStyle.None;
+                if (_heroTag != null) _heroTag.style.display = DisplayStyle.None;
+            }
+            UnpaidCeo.Game.City.CameraRig.InputBlocked = on || PopupOpen;
+        }
+
+        /// <summary>Fades the whole screen to black (1) or back (0): the walk through a door.</summary>
+        public System.Collections.IEnumerator Fade(float to, float seconds)
+        {
+            if (_fade == null) yield break;
+            _fade.style.display = DisplayStyle.Flex;
+            _fade.BringToFront();
+            float from = _fade.style.opacity.value;
+            for (float t = 0f; t < seconds; t += Time.unscaledDeltaTime)
+            {
+                _fade.style.opacity = Mathf.Lerp(from, to, t / seconds);
+                yield return null;
+            }
+            _fade.style.opacity = to;
+            if (to <= 0f) _fade.style.display = DisplayStyle.None;
+        }
+
         /// <summary>The list of places.</summary>
         public void OpenPlaces()
         {
@@ -359,6 +401,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Walks into a place.</summary>
         public void OpenPlace(string id)
         {
+            if (Enter3D && PlaceEnterRequested != null) { SetFocusedPlace(null); PlaceEnterRequested(id); return; }
             _places.Show(id);
             Open(PlacesTab);
             _gate.PlaceVisited = true;
@@ -369,6 +412,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>A place's marker over its building in the city: a tap walks in. Null hides it.</summary>
         public void PlaceMarker(string id, Vector2? panelPosition)
         {
+            if (_visiting) panelPosition = null;
             if (_heroTag == null || RunMode) return;
             if (!_markers.TryGetValue(id, out var marker))
             {
@@ -411,6 +455,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>A name tag above someone in the city (the mentor, Tony); null hides it.</summary>
         public void PlaceTag(string id, string key, Vector2? panelPosition)
         {
+            if (_visiting) panelPosition = null;
             if (_heroTag == null) return;
             if (!_tags.TryGetValue(id, out var tag))
             {
@@ -442,6 +487,7 @@ namespace UnpaidCeo.Game.Ui
         /// <param name="panelPosition">Where the hero's head is on the panel; null hides the tag.</param>
         public void PlaceHeroTag(Vector2? panelPosition)
         {
+            if (_visiting) panelPosition = null;
             if (_heroTag == null) return;
             if (panelPosition == null) { _heroTag.style.display = DisplayStyle.None; return; }
             var local = _screens[City].WorldToLocal(panelPosition.Value);
@@ -574,6 +620,7 @@ namespace UnpaidCeo.Game.Ui
             _company = new CompanyScreen(_screens[Company], this, engine, state);
             _decisions = new DecisionsScreen(_screens[Decisions], this, engine, state);
             _places = new PlacesScreen(_screens[PlacesTab], this, engine, state, _decisions);
+            _visit = new VisitPanel(this, engine, state, _decisions);
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
             _industry.Chosen += id => { _decisions.Refresh(); RefreshHud(); AnalyticsEvents.IndustryChosen(Online.Analytics, id); IndustryChosen?.Invoke(id); };
             _academy = new AcademyScreen(_screens[Academy], engine, state);
@@ -663,9 +710,15 @@ namespace UnpaidCeo.Game.Ui
                 _nav[tab] = b;
             }
 
+            Root.Add(_visit.Root);
             Root.Add(_summary.Root);
             Root.Add(_loan.Root);
             Root.Add(_transition.Root);
+            _fade = new VisualElement { name = "fade" };
+            _fade.AddToClassList("fade");
+            _fade.style.opacity = 0f;
+            _fade.style.display = DisplayStyle.None;
+            Root.Add(_fade);
 
             Open(NeedsBusiness ? Industry : City);
             RefreshHud();
@@ -708,7 +761,7 @@ namespace UnpaidCeo.Game.Ui
             bool popup = tab != City;
             foreach (var s in _screens) s.Value.style.display = s.Key == tab || s.Key == City ? DisplayStyle.Flex : DisplayStyle.None;
             _popupBackdrop.style.display = _popupClose.style.display = popup ? DisplayStyle.Flex : DisplayStyle.None;
-            UnpaidCeo.Game.City.CameraRig.InputBlocked = popup;   // drags belong to the popup, not to the city under it
+            UnpaidCeo.Game.City.CameraRig.InputBlocked = popup || _visiting;   // drags belong to the popup (or the room), not to the city under it
             foreach (var b in _nav) b.Value.EnableInClassList("nav-button--active", b.Key == tab);
             CurrentTab = tab;
             if (tab == Decisions) _gate.PlanReviewed = true;

@@ -61,12 +61,29 @@ namespace UnpaidCeo.Game.Hero
         /// <summary>Plays the think clip, e.g. while the player picks a dialogue option.</summary>
         public void Think() => GetComponentInChildren<CharacterAnimator>()?.PlayOnce(CharacterAnimator.State.Think);
 
+        /// <summary>A copy of the hero as it looks now (model, clips, tint) for a room; the caller owns and destroys it.</summary>
+        public GameObject CopyForStage()
+        {
+            if (Model == null) return null;
+            var copy = Instantiate(Model);
+            copy.name = Model.name;
+            TintModel(copy, _tint);
+            return copy;
+        }
+
+        int _tint;
+
         void Tint(int index)
         {
-            if (Model == null) return;
+            _tint = index;
+            if (Model != null) TintModel(Model, index);
+        }
+
+        void TintModel(GameObject model, int index)
+        {
             _block ??= new MaterialPropertyBlock();
             var tint = Tints[Mathf.Clamp(index, 0, Tints.Length - 1)];
-            foreach (var r in Model.GetComponentsInChildren<Renderer>())
+            foreach (var r in model.GetComponentsInChildren<Renderer>())
             {
                 r.GetPropertyBlock(_block);
                 _block.SetColor(BaseColor, tint);

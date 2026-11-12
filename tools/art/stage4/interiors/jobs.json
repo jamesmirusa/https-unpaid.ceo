@@ -1,0 +1,12 @@
+{
+  "note": "Stage 4 interiors: Nano Banana Pro 2K edit of the 4K place picture into an isometric two-wall cutaway diorama (2 cr) -> Tripo H3.1 standard, no PBR, texture aligned to the image (9 cr). The 1.5M-triangle meshes are simplified to ~20k with gltf-transform simplify --ratio 0.014 --error 0.02 into Art/Imported/Interiors.",
+  "interiors": [
+    {"id": "bodega", "concept_job": "4b669ba5-3662-468b-bb4a-04d3a438f1e0", "mesh_job": "222fa6cd-4014-43bb-bd22-659c4f3edb10"},
+    {"id": "bar", "concept_job": "58a13158-1245-44a2-9348-b1b444f044aa", "mesh_job": "c174a872-8e39-4934-8be1-259bd4c61eda"},
+    {"id": "office", "concept_job": "d0fc0c61-1de9-46bc-b0c2-2666fd9b975b", "mesh_job": "5d1d703c-6f0f-4bcd-a761-7e3be2311d5a"},
+    {"id": "pawnshop", "concept_job": "f5387192-af0a-410a-9c45-a858c879e327", "mesh_job": "39ff72ea-c5f1-48c1-8bb3-b9115d22d362"},
+    {"id": "bank", "concept_job": "3ca4b0fc-5ed9-4450-a08e-b93a45fdf122", "mesh_job": "7843a72b-e067-4501-b023-644bcc899668"},
+    {"id": "academy", "concept_job": "e75b825d-5938-46bc-9edc-5b7282b75a94", "mesh_job": "251f319f-fa7f-4f00-a2c2-97fcbebbf481"},
+    {"id": "home", "concept_job": "2864c0cd-8787-4793-80b6-93db636fd20c", "mesh_job": "990836e9-4717-4f2c-b9c5-17ed24400ebf", "note": "edit of the bodega concept as style reference; face_limit 20000 instead of decimation"}
+  ]
+}

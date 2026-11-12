@@ -363,3 +363,33 @@
 .app Button.strip__item:hover, .app Button.strip__item:focus, .app Button.strip__item:active { background-color: var(--card); }
 .app Button.camera-button:hover, .app Button.camera-button:focus { background-color: var(--panel-strong); border-color: var(--accent); }
 .app Button.camera-button:active { background-color: var(--track); }
+
+/* Inside a place: the 3D room above, the conversation below; the street's widgets step aside. */
+.visiting #city-strip, .visiting .camera-buttons, .visiting .city-stack, .visiting #next-month, .visiting .bottom-nav,
+.visiting .chapter-bar, .visiting .guide { display: none; }
+.visiting .turns-bar { visibility: hidden; }
+.visit { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 20px 22px 16px 22px; border-radius: 30px; border-width: 4px; border-color: var(--accent); background-color: var(--card); }
+.visit__head { flex-direction: row; align-items: center; margin-bottom: 10px; }
+.visit__portrait { width: 132px; height: 88px; border-radius: 16px; margin-right: 16px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.visit__names { flex-grow: 1; flex-shrink: 1; }
+.visit__speaker { font-size: 36px; -unity-font-style: bold; }
+.visit__place { font-size: 26px; }
+.visit__line { font-size: 34px; white-space: normal; margin: 4px 0 12px 0; padding: 14px 18px; border-radius: 20px; border-left-width: 8px; border-left-color: var(--accent); background-color: var(--panel); }
+.visit__consequences { flex-direction: row; flex-wrap: wrap; margin: 0 0 10px 0; padding: 8px 14px; border-radius: 16px; background-color: var(--panel-strong); }
+.visit__choices { margin-bottom: 6px; }
+.visit__choice { flex-direction: column; align-items: stretch; margin: 6px 0; padding: 14px 20px; border-radius: 22px; border-width: 3px; border-color: var(--track); background-color: var(--panel); }
+.visit__choice--planned { border-color: var(--accent); background-color: var(--panel-strong); }
+.visit__choice:disabled { opacity: 0.45; }
+.visit__choice-label { font-size: 32px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
+.visit__choice-chips { flex-direction: row; flex-wrap: wrap; margin-top: 4px; }
+.visit__row { flex-direction: row; margin-top: 6px; }
+.visit__talk, .visit__exit { flex-grow: 1; flex-basis: 0; height: 84px; margin: 0 6px 0 0; border-radius: 26px; font-size: 30px; -unity-font-style: bold; }
+.visit__talk { border-width: 3px; border-color: var(--accent); background-color: var(--card); }
+.visit__exit { margin: 0 0 0 6px; border-width: 0; background-color: var(--accent); }
+.app .visit__place { color: var(--text-dim); }
+.app .visit__exit { color: var(--on-accent); }
+.app Button.visit__choice:hover, .app Button.visit__choice:focus { background-color: var(--panel-strong); border-color: var(--accent); }
+.app Button.visit__choice:active { background-color: var(--track); }
+.app Button.visit__talk:hover, .app Button.visit__talk:focus, .app Button.visit__talk:active { background-color: var(--panel-strong); }
+.app Button.visit__exit:hover, .app Button.visit__exit:focus, .app Button.visit__exit:active { background-color: var(--accent); }
+.fade { position: absolute; left: -4000px; right: -4000px; top: 0; bottom: 0; background-color: rgb(8, 9, 16); }

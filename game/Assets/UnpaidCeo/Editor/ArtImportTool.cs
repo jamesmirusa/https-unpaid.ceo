@@ -21,9 +21,19 @@ namespace UnpaidCeo.Editor
         {
             AssetDatabase.Refresh();
             var report = new StringBuilder("# Art import report\n\n");
-            foreach (var (folder, kind) in new[] { ("Buildings", AssetKind.Building), ("Props", AssetKind.Prop), ("Characters", AssetKind.Character) })
+            foreach (var (folder, kind) in new[] { ("Buildings", AssetKind.Building), ("Props", AssetKind.Prop), ("Characters", AssetKind.Character), ("Interiors", AssetKind.Interior) })
                 report.Append(ImportFolder($"{ImportedRoot}/{folder}", kind, "../tools/art/previews"));
             File.WriteAllText("../tools/art/import-report.md", report.ToString());
+        }
+
+        /// <summary>Only the rooms (Art/Imported/Interiors), then the walk-in interiors built from them; report in tools/art/stage4/interiors.</summary>
+        public static void ImportInteriors()
+        {
+            AssetDatabase.Refresh();
+            var md = "# Interiors\n\n" + ImportFolder($"{ImportedRoot}/Interiors", AssetKind.Interior, "../tools/art/stage4/interiors");
+            File.WriteAllText("../tools/art/stage4/interiors/import-report.md", md);
+            Debug.Log("[art] " + md);
+            InteriorBuilder.BuildAll();
         }
 
         /// <summary>Batchmode entry for the pilot: Art/Imported/Pilot as buildings, previews and report in tools/art/pilot.</summary>

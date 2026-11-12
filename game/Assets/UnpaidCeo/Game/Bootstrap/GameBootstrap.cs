@@ -62,6 +62,7 @@ namespace UnpaidCeo.Game.Bootstrap
         AudioDirector? _audio;
         YarnBridge? _yarn;
         HeroView? _hero;
+        InteriorStage? _stage;
         PlayerMeta? _meta;
         AsyncOperationHandle<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance> _district;
         bool _busy, _swapping;
@@ -69,6 +70,11 @@ namespace UnpaidCeo.Game.Bootstrap
         int _ticks;
 
         void Start() => StartCoroutine(Boot());
+
+        /// <summary>The player's hero on the street (null until the game has booted).</summary>
+        public HeroView? Hero => _hero;
+        /// <summary>Where each place's sign hangs, just in front of its door on the street side.</summary>
+        public IReadOnlyDictionary<string, Vector3> PlaceSpots => _placeSpots;
 
         /// <summary>Addressable scene of the chapter's district: Bronx (1), Brooklyn (2), Queens (3).</summary>
         public static string DistrictAddress(int chapter) => "district_" + Chapters.District(chapter);
@@ -136,7 +142,7 @@ namespace UnpaidCeo.Game.Bootstrap
             if (_rig == null || _city == null || _city.HomeAnchor == null) return;
             var spot = StreetLife.HomeFront(_city.HomeAnchor);
             if (closeUp) _rig.Frame(spot, 24f, raise: 0.07f);   // between the HUD and the creator panel
-            else _rig.Frame(spot, HeroCameraDistance, raise: HeroScreenRaise);
+            else _rig.Frame(_hero != null ? _hero.transform.position : spot, HeroCameraDistance, raise: HeroScreenRaise);   // wherever the hero went
         }
 
         const float HeroCameraDistance = 40f;
@@ -298,7 +304,118 @@ namespace UnpaidCeo.Game.Bootstrap
             };
             Ui.HeroFocusRequested += () => FrameHero(false);
             Ui.CameraZoomRequested += z => _rig?.Zoom(z);
+            // A sign walks the hero into the place: a 3D room with its host, and the conversation under them.
+            Ui.Enter3D = true;
+            Ui.PlaceEnterRequested += id => { if (!_busy && !_swapping && !_entering) StartCoroutine(EnterPlace(id)); };
+            Ui.Visit.ActionChosen += _ => { _stage?.HostReacts(CharacterAnimator.State.Cheer); _stage?.HeroReacts(CharacterAnimator.State.Think); };
+            Ui.Visit.Talked += () => _stage?.HostReacts(CharacterAnimator.State.Think);
+            Ui.Visit.Exited += () => StartCoroutine(LeavePlace());
         }
+
+        bool _entering;
+        Vector3? _door;
+        Vector3 _toStreet = Vector3.back;
+        readonly List<AsyncOperationHandle<GameObject>> _visitAssets = new List<AsyncOperationHandle<GameObject>>();
+        const float DoorApproach = 3.5f, WalkSpeed = 1.6f, FadeSeconds = 0.35f;
+
+        /// <summary>
+        /// The hero walks up to the place's door and in; behind a short fade the place's room (Addressable, downloaded on
+        /// the first visit) opens with the host facing the hero, and the conversation starts. Without a room the
+        /// conversation runs over the street.
+        /// </summary>
+        public IEnumerator EnterPlace(string id)
+        {
+            var place = Places.Find(id);
+            if (_entering || Ui == null || _hero == null || place == null) yield break;
+            _entering = true;
+            Ui.SetVisiting(true);   // the street's widgets step aside and the camera holds while the hero walks
+            var stroll = _hero.GetComponent<HeroStroll>();
+            if (stroll != null) stroll.enabled = false;
+            _door = null;
+            if (_placeSpots.TryGetValue(id, out var spot)) yield return WalkToDoor(spot);
+            if (this == null || Ui == null) yield break;
+            yield return Ui.Fade(1f, FadeSeconds);
+
+            var roomLoad = Addressables.LoadAssetAsync<GameObject>(Interiors.RoomAddress(id));
+            _visitAssets.Add(roomLoad);
+            string? hostAddress = Interiors.HostModel(place.Host);
+            var hostLoad = hostAddress != null ? Addressables.LoadAssetAsync<GameObject>(hostAddress) : default;
+            if (hostAddress != null) _visitAssets.Add(hostLoad);
+            yield return roomLoad;
+            if (hostLoad.IsValid()) yield return hostLoad;
+            if (this == null || Ui == null) yield break;
+
+            if (roomLoad.Status == AsyncOperationStatus.Succeeded)
+            {
+                var room = Instantiate(roomLoad.Result);
+                room.name = Interiors.RoomAddress(id);
+                GameObject? host = null;
+                if (hostLoad.IsValid() && hostLoad.Status == AsyncOperationStatus.Succeeded)
+                {
+                    host = Instantiate(hostLoad.Result);
+                    host.name = hostAddress!;
+                }
+                if (_stage == null) _stage = new GameObject("InteriorStage").AddComponent<InteriorStage>();
+                _stage.transform.SetParent(transform, false);
+                _stage.Show(room, _hero.CopyForStage(), host, _rig != null ? _rig.GetComponent<Camera>() : null);
+            }
+            else ReleaseVisitAssets();
+            Ui.Visit.Show(id);
+            _stage?.HostReacts(CharacterAnimator.State.Cheer);   // the host greets the hero
+            yield return Ui.Fade(0f, FadeSeconds);
+            _entering = false;
+        }
+
+        /// <summary>From a few steps out on the sidewalk, facing the door, the hero walks up to it under the camera.</summary>
+        IEnumerator WalkToDoor(Vector3 spot)
+        {
+            _toStreet = new Vector3(0f, 0f, spot.z > 0f ? -1f : 1f);   // places stand on both sides of a street along X
+            float ground = _hero!.transform.position.y;
+            var door = new Vector3(spot.x, ground, spot.z);
+            _door = door;
+            var model = _hero.Model;
+            if (model != null) { model.transform.localPosition = Vector3.zero; model.transform.localRotation = Quaternion.identity; }
+            _hero.transform.SetPositionAndRotation(door + _toStreet * DoorApproach, Quaternion.LookRotation(-_toStreet, Vector3.up));
+            _rig?.Frame(door, HeroCameraDistance * 0.75f, raise: HeroScreenRaise);
+            var animator = _hero.GetComponentInChildren<CharacterAnimator>();
+            animator?.Play(CharacterAnimator.State.Walk);
+            while (_hero != null && Vector3.Distance(_hero.transform.position, door) > 0.01f)
+            {
+                _hero.transform.position = Vector3.MoveTowards(_hero.transform.position, door, WalkSpeed * Time.deltaTime);
+                yield return null;
+            }
+            animator?.Play(CharacterAnimator.State.Idle);
+        }
+
+        /// <summary>Back on the street, just outside the door, facing the street; the hero strolls there and the camera finds it.</summary>
+        IEnumerator LeavePlace()
+        {
+            if (Ui == null) yield break;
+            bool inside = _stage != null && _stage.Showing;
+            if (inside) yield return Ui.Fade(1f, FadeSeconds);
+            _stage?.Clear();
+            yield return null;   // the room's copies are gone before its bundle may unload
+            ReleaseVisitAssets();
+            if (_hero != null)
+            {
+                if (_door is Vector3 door) _hero.transform.SetPositionAndRotation(door + _toStreet * 1.5f, Quaternion.LookRotation(_toStreet, Vector3.up));
+                var model = _hero.Model;
+                if (model != null) { model.transform.localPosition = Vector3.zero; model.transform.localRotation = Quaternion.identity; }
+                var stroll = _hero.GetComponent<HeroStroll>();
+                if (stroll != null) stroll.enabled = true;
+                _rig?.Frame(_hero.transform.position, HeroCameraDistance, raise: HeroScreenRaise);
+            }
+            if (inside && Ui != null) yield return Ui.Fade(0f, FadeSeconds);
+            _entering = false;
+        }
+
+        void ReleaseVisitAssets()
+        {
+            foreach (var h in _visitAssets) if (h.IsValid()) Addressables.Release(h);
+            _visitAssets.Clear();
+        }
+
+        void OnDestroy() => ReleaseVisitAssets();
 
         /// <summary>
         /// Plays a challenge or duel run on the same screens: the career is saved and left untouched, the screens show the
