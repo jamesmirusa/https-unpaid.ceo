@@ -58,6 +58,7 @@ namespace UnpaidCeo.Game.Ui
         Button _advance;
         Label _cash, _month;
         VisualElement _energyFill;
+        Label _energyValue;
         Button _next;
         VisualElement _turnsBar, _waitRow, _missions;
         Label _turnsValue, _countdownValue;
@@ -558,6 +559,7 @@ namespace UnpaidCeo.Game.Ui
             _cash = hud.Q<Label>("hud-cash");
             _month = hud.Q<Label>("hud-month");
             _energyFill = hud.Q("hud-energy-fill");
+            _energyValue = hud.Q<Label>("hud-energy-value");
             var journalButton = UiText.Bind(hud.Q<Button>("hud-journal"), "hud.journal");
             journalButton.clicked += () => Open(Journal);
             var settingsButton = UiText.Bind(hud.Q<Button>("hud-settings"), "hud.settings");
@@ -619,6 +621,7 @@ namespace UnpaidCeo.Game.Ui
             _ranking = new RankingScreen(_screens[Ranking], this, engine, state);
             _company = new CompanyScreen(_screens[Company], this, engine, state);
             _decisions = new DecisionsScreen(_screens[Decisions], this, engine, state);
+            _decisions.PlanChanged += RefreshHud;   // the energy a choice takes shows the moment it is made
             _places = new PlacesScreen(_screens[PlacesTab], this, engine, state, _decisions);
             _visit = new VisitPanel(this, engine, state, _decisions);
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
@@ -796,7 +799,10 @@ namespace UnpaidCeo.Game.Ui
             _cash.text = MoneyFormat.Compact(_state.Cash, Language);
             _cash.EnableInClassList("value--negative", _state.Cash.Cents < 0);
             _month.text = _state.Week.ToString();
-            _energyFill.style.width = Length.Percent(_state.Life.Energy);
+            // The energy the week's plan leaves, New2NYC-style: a choice made in a room takes its energy at once.
+            int energyAfter = _decisions != null ? _decisions.EnergyAfterPlan : _state.Life.Energy;
+            _energyFill.style.width = Length.Percent(energyAfter);
+            if (_energyValue != null) _energyValue.text = VisitPanel.EnergyText(_state.Life.Energy, energyAfter);
             if (_chapterBar != null) _chapterBar.style.display = RunMode ? DisplayStyle.None : DisplayStyle.Flex;
             if (_engine != null && _chapterBar != null && !RunMode)
             {

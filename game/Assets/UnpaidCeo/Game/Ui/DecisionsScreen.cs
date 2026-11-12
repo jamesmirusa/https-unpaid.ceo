@@ -87,19 +87,35 @@ namespace UnpaidCeo.Game.Ui
 
         IEnumerable<BusinessState> Businesses => _state.Businesses.Where(b => KindOf(b) == IndustryKind.Business);
 
-        int Available => LifeSimulator.ActionPoints(_state.Life, 0, _engine.Content.Balance.Life);
+        /// <summary>The free actions ticked for this week, in the order the week settles them.</summary>
+        public IEnumerable<string> Planned => _toggles.Where(t => t.Value.value).Select(t => t.Key);
 
-        /// <summary>This month's action points, and how many the planned free actions leave.</summary>
-        public int PointsTotal => Available;
-        public int PointsLeft => Available - _toggles.Where(t => t.Value.value).Sum(t => _engine.Content.FreeActions[t.Key].ActionPoints);
+        /// <summary>
+        /// The points this week can spend: the first week of a month refills the pool, later weeks spend what the
+        /// month has left (as the engine settles it), and how many the planned free actions leave.
+        /// </summary>
+        public int PointsTotal => ActionChoices.PointsTotal(_state, _engine.Content);
+        public int PointsLeft => ActionChoices.PointsLeft(_state, _engine.Content, Planned);
+        /// <summary>The hero's energy once this week's planned actions are done.</summary>
+        public int EnergyAfterPlan => ActionChoices.EnergyAfter(_state, _engine.Content, Planned);
         /// <summary>A free action was put into the plan or taken out (here or at a place in the city).</summary>
         public event Action PlanChanged;
 
         public bool IsPlanned(string freeAction) => _toggles.TryGetValue(freeAction, out var t) && t.value;
 
-        /// <summary>Already planned (it can be taken out), or the points left still pay for it.</summary>
-        public bool CanPlan(string freeAction) =>
-            _toggles.TryGetValue(freeAction, out var t) && (t.value || _engine.Content.FreeActions[freeAction].ActionPoints <= PointsLeft);
+        /// <summary>Whether a free action can go into this week's plan, and if not, why (the engine settles the same way).</summary>
+        public ChoiceState State(string freeAction) => ActionChoices.State(_state, _engine.Content, Planned, freeAction);
+
+        /// <summary>It answers what the hero lacks most right now (rest when tired, family when they drift…).</summary>
+        public bool Recommended(string freeAction) => ActionChoices.Recommended(_state, _engine.Content, freeAction, Planned);
+
+        /// <summary>Already planned (it can be taken out), or the week can still take it.</summary>
+        public bool CanPlan(string freeAction)
+        {
+            if (!_toggles.ContainsKey(freeAction)) return false;
+            var state = State(freeAction);
+            return state == ChoiceState.Planned || state == ChoiceState.Open;
+        }
 
         /// <summary>Puts a free action into this month's plan or takes it out: the same list the plan screen ticks.</summary>
         public void SetPlanned(string freeAction, bool planned)
@@ -266,11 +282,8 @@ namespace UnpaidCeo.Game.Ui
 
         void RefreshPoints()
         {
-            int used = _toggles.Where(t => t.Value.value).Sum(t => _engine.Content.FreeActions[t.Key].ActionPoints);
-            int left = Available - used;
-            _ap.text = $"{left} / {Available}";
-            foreach (var t in _toggles)
-                t.Value.SetEnabled(t.Value.value || _engine.Content.FreeActions[t.Key].ActionPoints <= left);
+            _ap.text = $"{PointsLeft} / {PointsTotal}";
+            foreach (var t in _toggles) t.Value.SetEnabled(CanPlan(t.Key));
             PlanChanged?.Invoke();
         }
 

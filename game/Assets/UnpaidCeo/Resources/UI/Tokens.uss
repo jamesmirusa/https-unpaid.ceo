@@ -19,7 +19,9 @@
 .hud__value--plain { color: var(--on-chrome); }
 .hud__spacer { flex-grow: 1; }
 .energy-bar { width: 170px; height: 22px; margin-top: 10px; background-color: var(--track); border-radius: 11px; overflow: hidden; }
-.energy-bar__fill { height: 100%; background-color: var(--energy); }
+.energy-bar__fill { height: 100%; background-color: var(--energy); transition-property: width; transition-duration: 0.35s; }
+.hud__caption-row { flex-direction: row; align-items: center; }
+.hud__energy-value { margin-left: 8px; -unity-font-style: bold; }
 .icon-button { padding: 8px 18px; margin-left: 10px; font-size: 26px; border-radius: 20px; border-width: 0; background-color: var(--panel-strong); }
 
 /* Screens */
@@ -382,6 +384,13 @@
 .visit__choice:disabled { opacity: 0.45; }
 .visit__choice-label { font-size: 32px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
 .visit__choice-chips { flex-direction: row; flex-wrap: wrap; margin-top: 4px; }
+.visit__choice-status { font-size: 24px; margin-top: 4px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; color: var(--text-dim); }
+.visit__choice--recommended { border-color: var(--energy); }
+.visit__choice--recommended .visit__choice-status { color: var(--energy); }
+.visit__choice--planned .visit__choice-status { color: var(--accent); }
+.visit__budget { flex-direction: row; align-items: center; flex-wrap: wrap; margin: 0 0 6px 0; }
+.visit__budget-caption { font-size: 24px; margin-right: 6px; color: var(--text-dim); }
+.visit__budget-value { font-size: 26px; margin-right: 22px; -unity-font-style: bold; }
 .visit__row { flex-direction: row; margin-top: 6px; }
 .visit__talk, .visit__exit { flex-grow: 1; flex-basis: 0; height: 84px; margin: 0 6px 0 0; border-radius: 26px; font-size: 30px; -unity-font-style: bold; }
 .visit__talk { border-width: 3px; border-color: var(--accent); background-color: var(--card); }

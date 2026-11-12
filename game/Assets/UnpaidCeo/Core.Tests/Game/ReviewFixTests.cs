@@ -46,6 +46,7 @@ namespace UnpaidCeo.Core.Tests.Game
         public void Duplicate_free_actions_in_one_month_count_once()
         {
             var (engine, s) = NewGame();
+            s.Cash = Money.FromDollars(1000);   // a free action is paid for: the hero can afford one treat
             var report = engine.EndMonth(s, TestContent.Decisions(0, 0, 100, 0, "treat", "treat", "treat"));
             Assert.AreEqual(2, report.RejectedActions.Count(a => a == "treat"));
         }
@@ -77,6 +78,7 @@ namespace UnpaidCeo.Core.Tests.Game
         public void Month_that_spends_more_than_it_earns_is_the_first_loss()
         {
             var (engine, s) = NewGame();
+            s.Cash = Money.FromDollars(100);   // the $50 treat is paid from cash on hand
             var report = engine.EndMonth(s, TestContent.Decisions(0, 0, 100, 0, "treat"));
             Assert.Less(report.CashEnd.Cents, report.CashStart.Cents);
             Assert.IsTrue(s.Facts.Has("first_loss"));

@@ -60,17 +60,17 @@ namespace UnpaidCeo.Game.Ui
             new PlaceDef { Id = Home, Host = "mentor",
                 Actions = new[] { Plan("rest"), Plan("family_time"), Open("journal", UiRoot.Journal) } },
             new PlaceDef { Id = "bodega", Host = "tony", Buildings = new[] { "building_bodega" },
-                Actions = new[] { Plan("overtime") } },
+                Actions = new[] { Plan("overtime"), Plan("night_shift") } },
             new PlaceDef { Id = "bar", Host = "best_friend", Buildings = new[] { "building_pizza", "building_bakery" },
-                Actions = new[] { Plan("networking"), Plan("hobby") } },
+                Actions = new[] { Plan("networking"), Plan("pitch_night"), Plan("hobby") } },
             new PlaceDef { Id = "office", Host = "cofounder_sam", Buildings = new[] { "building_laundromat", "building_barbershop" },
                 Actions = new[] { Open("plan", UiRoot.Decisions), Open("report", UiRoot.Company), Open("business", UiRoot.Industry, minChapter: 2) } },
             new PlaceDef { Id = "pawnshop", Host = "loan_shark", Buildings = new[] { "building_pawn_shop" },
                 Actions = new[] { Plan("loan_shark_loan"), Plan("gray_scheme") } },
             new PlaceDef { Id = "bank", Host = "banker_lee", Buildings = new[] { "building_bank", "building_check_cashing" },
-                Actions = new[] { Plan("reserve_transfer"), new PlaceAction { Id = "loan", Kind = PlaceActionKind.Loan, MinChapter = 2 } } },
+                Actions = new[] { Plan("reserve_transfer"), Plan("budget_review"), new PlaceAction { Id = "loan", Kind = PlaceActionKind.Loan, MinChapter = 2 } } },
             new PlaceDef { Id = "academy", Host = "mentor", Buildings = new[] { "building_academy", "building_church" },
-                Actions = new[] { Plan("study"), Open("lessons", UiRoot.Academy) } },
+                Actions = new[] { Plan("study"), Plan("certificate_course"), Open("lessons", UiRoot.Academy) } },
         };
 
         public static PlaceDef Find(string id) => All.FirstOrDefault(p => p.Id == id);

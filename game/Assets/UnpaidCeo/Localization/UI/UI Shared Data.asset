@@ -1671,6 +1671,98 @@ MonoBehaviour:
     m_Key: place.react.unplanned
     m_Metadata:
       m_Items: []
+  - m_Id: 1446730443776000
+    m_Key: choice.recommended
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358912
+    m_Key: choice.planned
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358913
+    m_Key: choice.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358914
+    m_Key: choice.waiting
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358915
+    m_Key: choice.no_points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358916
+    m_Key: choice.no_money
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358917
+    m_Key: choice.no_energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677165297664
+    m_Key: action.night_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880576
+    m_Key: action.pitch_night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880577
+    m_Key: action.budget_review
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880578
+    m_Key: action.certificate_course
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880579
+    m_Key: journal.action.night_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880580
+    m_Key: journal.action.pitch_night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880581
+    m_Key: journal.action.budget_review
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880582
+    m_Key: journal.action.certificate_course
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880583
+    m_Key: place.action.night_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880584
+    m_Key: place.action.pitch_night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880585
+    m_Key: place.action.budget_review
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880586
+    m_Key: place.action.certificate_course
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880587
+    m_Key: place.react.night_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880588
+    m_Key: place.react.pitch_night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880589
+    m_Key: place.react.budget_review
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880590
+    m_Key: place.react.certificate_course
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

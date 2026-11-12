@@ -304,7 +304,8 @@ namespace UnpaidCeo.Core.Game
             ApplyLevers(s, d, report);
 
             // Free actions spend the month's pool of action points, refilled on its first week; each action at most
-            // once a month, and an action that opens a fact (a debt, a scheme) waits until that fact is resolved.
+            // once a month, an action that opens a fact (a debt, a scheme) waits until that fact is resolved, and an
+            // action needs the money and the energy it takes (ActionChoices.Check: the buttons close the same ones).
             if (monthStart)
             {
                 s.ActionPointsLeft = LifeSimulator.ActionPoints(s.Life, 0, b.Life);
@@ -313,8 +314,8 @@ namespace UnpaidCeo.Core.Game
             double errorChance = LifeSimulator.ErrorChance(s.Life, b.Life);
             foreach (var id in d.FreeActions)
             {
-                if (!_c.FreeActions.TryGetValue(id, out var fa) || fa.ActionPoints > s.ActionPointsLeft || s.ActionsThisMonth.Contains(id)
-                    || fa.Effects.OfType<SetFactEffect>().Any(f => s.Facts.Has(f.FactId)))
+                if (!_c.FreeActions.TryGetValue(id, out var fa)
+                    || ActionChoices.Check(fa, s.ActionPointsLeft, s.Life.Energy, s.Cash, s.ActionsThisMonth, s.Facts) != ChoiceState.Open)
                 { report.RejectedActions.Add(id); continue; }
                 s.ActionPointsLeft -= fa.ActionPoints;
                 s.ActionsThisMonth.Add(id);

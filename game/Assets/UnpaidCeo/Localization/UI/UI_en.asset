@@ -1674,6 +1674,98 @@ MonoBehaviour:
     m_Localized: Changed your mind? No problem, the offer stands.
     m_Metadata:
       m_Items: []
+  - m_Id: 1446730443776000
+    m_Localized: "\u2605 Recommended"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358912
+    m_Localized: "\u2713 In this week's plan \u2014 tap to undo"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358913
+    m_Localized: "Done this month \u2014 again next month"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358914
+    m_Localized: Settle the last one first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358915
+    m_Localized: No actions left this month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358916
+    m_Localized: Not enough money
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1446730456358917
+    m_Localized: "Not enough energy \u2014 rest at home"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677165297664
+    m_Localized: Night shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880576
+    m_Localized: Startup pitch night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880577
+    m_Localized: Budget review
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880578
+    m_Localized: Certificate course
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880579
+    m_Localized: You worked the night shift at Tony's.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880580
+    m_Localized: You pitched your idea at the startup night.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880581
+    m_Localized: You went over your budget with Ms. Lee.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880582
+    m_Localized: You finished a weekend certificate course.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880583
+    m_Localized: Take the night shift at the register
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880584
+    m_Localized: Pitch your idea at the startup night
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880585
+    m_Localized: Go over your budget with Ms. Lee
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880586
+    m_Localized: Take the weekend certificate course
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880587
+    m_Localized: The night shift's yours. Coffee's on the house; sleep isn't.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880588
+    m_Localized: Two minutes, one idea, a room full of people with money. Go get them!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880589
+    m_Localized: Every dollar needs a job. Let's see where yours really go.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447677177880590
+    m_Localized: "A certificate on the wall opens doors a r\xE9sum\xE9 can't."
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

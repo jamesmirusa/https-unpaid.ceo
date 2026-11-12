@@ -20,8 +20,9 @@ namespace UnpaidCeo.Game.Ui
         readonly GameState _state;
         readonly DecisionsScreen _plan;
         readonly VisualElement _portrait, _choices, _consequences;
-        readonly Label _speaker, _place, _line;
+        readonly Label _speaker, _place, _line, _energy, _points;
         readonly Dictionary<string, Button> _buttons = new Dictionary<string, Button>();
+        readonly Dictionary<string, Label> _status = new Dictionary<string, Label>();
         int _lineIndex;
 
         public VisualElement Root { get; }
@@ -65,6 +66,18 @@ namespace UnpaidCeo.Game.Ui
             _consequences = new VisualElement { name = "visit-consequences" };
             _consequences.AddToClassList("visit__consequences");
             Root.Add(_consequences);
+            // What the week still allows, New2NYC-style: the energy the plan leaves and the actions left.
+            var budget = new VisualElement { name = "visit-budget" };
+            budget.AddToClassList("visit__budget");
+            budget.Add(UiText.Label("stat.energy", "visit__budget-caption"));
+            _energy = UiText.ValueLabel("", "visit__budget-value");
+            _energy.name = "visit-energy";
+            budget.Add(_energy);
+            budget.Add(UiText.Label("decisions.ap", "visit__budget-caption"));
+            _points = UiText.ValueLabel("", "visit__budget-value");
+            _points.name = "visit-points";
+            budget.Add(_points);
+            Root.Add(budget);
             _choices = new VisualElement { name = "visit-choices" };
             _choices.AddToClassList("visit__choices");
             Root.Add(_choices);
@@ -97,6 +110,7 @@ namespace UnpaidCeo.Game.Ui
 
             _choices.Clear();
             _buttons.Clear();
+            _status.Clear();
             foreach (var action in place.Actions)
             {
                 if (_state.Chapter < action.MinChapter) continue;
@@ -111,6 +125,10 @@ namespace UnpaidCeo.Game.Ui
                     if (free.Cost.Cents > 0) chips.Add(EffectChips.Chip(null, EffectChips.Minus + MoneyFormat.Compact(free.Cost, _ui.Language), false));
                     foreach (var c in EffectChips.Describe(free.Effects, _ui.Language)) chips.Add(EffectChips.Chip(c.CaptionKey, c.Value, c.Good));
                     b.Add(chips);
+                    var status = UiText.Label("choice.recommended", "visit__choice-status");
+                    status.name = "visit-status-" + a.Id;
+                    b.Add(status);
+                    _status[a.Id] = status;
                 }
                 _buttons[a.Id] = b;
                 _choices.Add(b);
@@ -163,6 +181,11 @@ namespace UnpaidCeo.Game.Ui
             Talked?.Invoke();
         }
 
+        /// <summary>
+        /// Each choice says whether the week can take it and, if not, why (New2NYC's greyed-out buttons with a reason);
+        /// an open choice that answers the hero's need says it is recommended. The budget row shows the energy the
+        /// plan leaves and the actions left.
+        /// </summary>
         void RefreshChoices()
         {
             var place = CurrentPlace != null ? Places.Find(CurrentPlace) : null;
@@ -170,8 +193,35 @@ namespace UnpaidCeo.Game.Ui
             foreach (var a in place.Actions)
             {
                 if (a.Kind != PlaceActionKind.Plan || !_buttons.TryGetValue(a.Id, out var b)) continue;
-                b.EnableInClassList("visit__choice--planned", _plan.IsPlanned(a.FreeAction));
-                b.SetEnabled(_plan.CanPlan(a.FreeAction));
+                var state = _plan.State(a.FreeAction);
+                bool recommended = state == ChoiceState.Open && _plan.Recommended(a.FreeAction);
+                b.EnableInClassList("visit__choice--planned", state == ChoiceState.Planned);
+                b.EnableInClassList("visit__choice--recommended", recommended);
+                b.SetEnabled(state == ChoiceState.Open || state == ChoiceState.Planned);
+                if (!_status.TryGetValue(a.Id, out var status)) continue;
+                string key = recommended ? "choice.recommended" : StatusKey(state);
+                status.style.display = key != null ? DisplayStyle.Flex : DisplayStyle.None;
+                if (key != null) UiText.Bind(status, key);
+            }
+            int now = _state.Life.Energy, after = _plan.EnergyAfterPlan;
+            _energy.text = EnergyText(now, after);
+            _points.text = $"{_plan.PointsLeft} / {_plan.PointsTotal}";
+        }
+
+        /// <summary>"70", or "70 → 60" while the plan changes it.</summary>
+        public static string EnergyText(int now, int after) => after == now ? now.ToString() : $"{now} → {after}";
+
+        static string StatusKey(ChoiceState state)
+        {
+            switch (state)
+            {
+                case ChoiceState.Planned: return "choice.planned";
+                case ChoiceState.DoneThisMonth: return "choice.done";
+                case ChoiceState.Waiting: return "choice.waiting";
+                case ChoiceState.NoPoints: return "choice.no_points";
+                case ChoiceState.NoMoney: return "choice.no_money";
+                case ChoiceState.NoEnergy: return "choice.no_energy";
+                default: return null;
             }
         }
 
