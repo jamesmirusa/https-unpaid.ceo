@@ -4,6 +4,8 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 using UnpaidCeo.Core.Content;
@@ -154,6 +156,46 @@ namespace UnpaidCeo.Game.Tests
             yield return null;
             Assert.IsTrue(city.enabled, "outside again, the city camera is back");
             Assert.IsTrue(room == null && hero == null && npc == null, "the room and its people are gone");
+        }
+
+        [UnityTest]
+        public IEnumerator The_two_stand_at_the_rooms_talk_spot_when_it_has_one()
+        {
+            var room = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            room.transform.localScale = new Vector3(10f, 0.2f, 10f);
+            var root = new GameObject("room");
+            room.transform.SetParent(root.transform, false);
+            var spot = new GameObject(Interiors.TalkSpot).transform;
+            spot.SetParent(root.transform, false);
+            spot.localPosition = new Vector3(-2f, 0f, 1.5f);   // where the builder found clear floor
+            var stageGo = new GameObject("stage");
+            _made.Add(stageGo);
+            var stage = stageGo.AddComponent<InteriorStage>();
+            stage.Show(root, GameObject.CreatePrimitive(PrimitiveType.Capsule), GameObject.CreatePrimitive(PrimitiveType.Capsule), null);
+            yield return null;
+            var between = (stage.Hero.transform.position + stage.Host.transform.position) * 0.5f;
+            Assert.AreEqual(spot.position.x, between.x, 0.05f, "they meet at the talk spot");
+            Assert.AreEqual(spot.position.z, between.z, 0.05f);
+            var expected = InteriorLayout.At(new Vector3(-2f, 0f, 1.5f));
+            Assert.AreEqual(expected.CameraPosition.x, stage.Layout.CameraPosition.x, 1e-3f, "and the camera frames them there");
+        }
+
+        [UnityTest]
+        public IEnumerator Inside_the_streets_tilt_shift_blur_is_off_and_it_comes_back_outside()
+        {
+            var stageGo = new GameObject("stage");
+            _made.Add(stageGo);
+            var stage = stageGo.AddComponent<InteriorStage>();
+            stage.Show(GameObject.CreatePrimitive(PrimitiveType.Cube), null, null, null);
+            yield return null;
+            var volume = stage.GetComponentInChildren<Volume>();
+            Assert.IsNotNull(volume, "the room brings its own look");
+            Assert.IsTrue(volume.isGlobal && volume.enabled && volume.priority > 10f, "over the district's day and night volumes");
+            Assert.IsTrue(volume.profile.TryGet<DepthOfField>(out var dof) && dof.mode.overrideState && dof.mode.value == DepthOfFieldMode.Off,
+                "the street's blur is tuned for a camera 40 m up and smears a room seen from 18 m");
+            stage.Clear();
+            yield return null;
+            Assert.IsFalse(volume.enabled, "outside, the street looks as before");
         }
 
         // ---------- walking in ----------

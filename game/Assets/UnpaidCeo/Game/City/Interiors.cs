@@ -1,5 +1,6 @@
 #nullable enable
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnpaidCeo.Game.Hero;
 
@@ -18,6 +19,9 @@ namespace UnpaidCeo.Game.City
         public const float Footprint = 10f;
 
         public static string RoomAddress(string placeId) => "interior_" + placeId;
+
+        /// <summary>A room's child marking where the hero and the host meet: clear floor the camera sees (found by the builder).</summary>
+        public const string TalkSpot = "talk_spot";
 
         /// <summary>The host's character prefab, or null while it has no model yet (the conversation shows its portrait).</summary>
         public static string HostModel(string npcId) => npcId switch
@@ -49,15 +53,21 @@ namespace UnpaidCeo.Game.City
         }
 
         /// <summary>Screen right as seen from the open corner, and the way toward the camera.</summary>
-        static readonly Vector3 Side = new Vector3(1f, 0f, 1f).normalized, Toward = new Vector3(1f, 0f, -1f).normalized;
+        public static readonly Vector3 Side = new Vector3(1f, 0f, 1f).normalized, Toward = new Vector3(1f, 0f, -1f).normalized;
         const float HalfGap = 1.2f, TurnToCamera = 0.55f;
         /// <summary>A low camera, like a customer's eye: the back corner's wall tops stay in the frame above the two.</summary>
-        const float CameraBack = 18f, CameraUp = 4.5f, LookHeight = 0.25f, Fov = 28f;
+        const float CameraBack = 16f, CameraUp = 4f, LookHeight = 0.5f, Fov = 28f;
 
-        public static InteriorLayout For(Bounds room)
+        /// <summary>The middle of the floor, nudged toward the open corner: furniture lines the two walls.</summary>
+        public static Vector3 DefaultMiddle(Bounds room) =>
+            new Vector3(room.center.x, 0f, room.center.z) + Toward * (0.15f * Mathf.Min(room.size.x, room.size.z));
+
+        public static InteriorLayout For(Bounds room) => At(DefaultMiddle(room));
+
+        /// <summary>The two meet at <paramref name="middle"/> (on the floor, y = 0) and the camera frames them there.</summary>
+        public static InteriorLayout At(Vector3 middle)
         {
-            // The middle of the floor, nudged toward the open corner: furniture lines the two walls.
-            var middle = new Vector3(room.center.x, 0f, room.center.z) + Toward * (0.05f * Mathf.Min(room.size.x, room.size.z));
+            middle.y = 0f;
             var hero = middle - Side * HalfGap;
             var host = middle + Side * HalfGap;
             var heroFacing = Quaternion.LookRotation((Side + Toward * TurnToCamera).normalized, Vector3.up);
@@ -75,6 +85,7 @@ namespace UnpaidCeo.Game.City
     {
         Camera? _camera, _city;
         Light? _lamp;
+        Volume? _look;
         GameObject? _room, _hero, _host;
         Transform? _heroSpot, _hostSpot;
 
@@ -83,6 +94,33 @@ namespace UnpaidCeo.Game.City
         public GameObject? Host => _host;
         public bool Showing => _room != null;
         public InteriorLayout Layout { get; private set; }
+
+        /// <summary>
+        /// The room's look over the district's volumes while inside: no tilt-shift blur (it is tuned for the street camera
+        /// 40 m up and smears a room seen from 18 m), softer bloom and a touch less exposure for the generated textures,
+        /// which already carry their own light.
+        /// </summary>
+        Volume Look => _look != null ? _look : _look = MakeLook();
+
+        Volume MakeLook()
+        {
+            var go = new GameObject("interior_look");
+            go.transform.SetParent(transform, false);
+            var v = go.AddComponent<Volume>();
+            v.isGlobal = true;
+            v.priority = 100f;
+            v.weight = 1f;
+            var profile = ScriptableObject.CreateInstance<VolumeProfile>();
+            profile.name = "interior_look";
+            profile.Add<DepthOfField>(true).mode.Override(DepthOfFieldMode.Off);
+            var bloom = profile.Add<Bloom>(true);
+            bloom.intensity.Override(0.08f);
+            bloom.threshold.Override(1.6f);
+            profile.Add<ColorAdjustments>(true).postExposure.Override(-0.2f);
+            v.sharedProfile = profile;
+            v.enabled = false;
+            return v;
+        }
 
         Camera MakeCamera()
         {
@@ -110,9 +148,14 @@ namespace UnpaidCeo.Game.City
             room.transform.SetParent(transform, false);
             room.transform.localPosition = Vector3.zero;
 
-            var local = ModelFit.RendererBounds(room);
-            local.center -= transform.position;
-            Layout = InteriorLayout.For(local);
+            var talk = room.transform.Find(Interiors.TalkSpot);
+            if (talk != null) Layout = InteriorLayout.At(transform.InverseTransformPoint(talk.position));
+            else
+            {
+                var local = ModelFit.RendererBounds(room);
+                local.center -= transform.position;
+                Layout = InteriorLayout.For(local);
+            }
 
             _heroSpot = Spot("hero_spot", Layout.HeroSpot, Layout.HeroFacing);
             _hostSpot = Spot("host_spot", Layout.HostSpot, Layout.HostFacing);
@@ -125,11 +168,12 @@ namespace UnpaidCeo.Game.City
                 _lamp.transform.SetParent(transform, false);
                 _lamp.type = LightType.Point;
                 _lamp.range = 16f;
-                _lamp.intensity = 1.1f;   // a warm fill on the faces; the district's sun still lights the room
+                _lamp.intensity = 0.6f;   // a warm fill on the faces; the district's sun still lights the room
                 _lamp.color = new Color(1f, 0.86f, 0.68f);
             }
             _lamp.transform.localPosition = Layout.HostSpot + Vector3.up * 5f + (Layout.CameraPosition - Layout.HostSpot).normalized * 2f;
             _lamp.enabled = true;
+            Look.enabled = true;
 
             var cam = Camera;
             cam.fieldOfView = Layout.FieldOfView;
@@ -169,6 +213,7 @@ namespace UnpaidCeo.Game.City
             foreach (var t in new[] { _heroSpot, _hostSpot }) if (t != null) Destroy(t.gameObject);
             _room = _hero = _host = null;
             if (_lamp != null) _lamp.enabled = false;
+            if (_look != null) _look.enabled = false;
             if (_camera != null) _camera.enabled = false;
             if (_city != null) _city.enabled = true;
             _city = null;
@@ -177,6 +222,7 @@ namespace UnpaidCeo.Game.City
         void OnDestroy()
         {
             if (_city != null) _city.enabled = true;
+            if (_look != null && _look.sharedProfile != null) Destroy(_look.sharedProfile);
         }
     }
 }

@@ -46,6 +46,7 @@ namespace UnpaidCeo.Editor
                 var root = new GameObject(Interiors.RoomAddress(place.Id));
                 bool ok = BuildGenerated(place.Id, root.transform, report) || (place.Id == Places.Home && BuildHome(root.transform));
                 if (!ok) { Object.DestroyImmediate(root); continue; }
+                PlaceTalkSpot(place.Id, root.transform, report);
                 var path = $"{Out}/{root.name}.prefab";
                 PrefabUtility.SaveAsPrefabAsset(root, path);
                 MakeAddressable(path, root.name);
@@ -95,6 +96,65 @@ namespace UnpaidCeo.Editor
             float floor = floors.Count > 0 ? floors.Min() : fitted.min.y;
             room.transform.position -= new Vector3(0f, floor, 0f);
             report.Add($"{id}: yaw {yaw:0} floor {floor:0.00} size {fitted.size.x:0.0}x{fitted.size.y:0.0}x{fitted.size.z:0.0}");
+            return true;
+        }
+
+        /// <summary>
+        /// Marks where the two meet (<see cref="Interiors.TalkSpot"/>): the nearest point to the middle of the floor where
+        /// both stand on clear floor (not in a bench or behind a counter) and nothing hides them from the camera.
+        /// </summary>
+        static void PlaceTalkSpot(string id, Transform root, List<string> report)
+        {
+            var colliders = new List<MeshCollider>();
+            foreach (var mf in root.GetComponentsInChildren<MeshFilter>(true))
+                if (mf.sharedMesh != null) { var mc = mf.gameObject.AddComponent<MeshCollider>(); mc.sharedMesh = mf.sharedMesh; colliders.Add(mc); }
+            Physics.SyncTransforms();
+            var preferred = InteriorLayout.DefaultMiddle(ModelFit.RendererBounds(root.gameObject));
+            Vector3? best = null;
+            float bestScore = float.MaxValue;
+            for (float t = -2.5f; t <= 3.5f; t += 0.25f)
+                for (float side = -2.5f; side <= 2.5f; side += 0.25f)
+                {
+                    var middle = preferred + InteriorLayout.Toward * t + InteriorLayout.Side * side;
+                    float score = t * t + 1.5f * side * side;   // stay central across the view rather than in depth
+                    if (score >= bestScore) continue;
+                    var l = InteriorLayout.At(middle);
+                    if (ClearFloor(l.HeroSpot) && ClearFloor(l.HostSpot) && InView(l.CameraPosition, l.HeroSpot) && InView(l.CameraPosition, l.HostSpot))
+                    {
+                        best = middle;
+                        bestScore = score;
+                    }
+                }
+            foreach (var mc in colliders) Object.DestroyImmediate(mc);
+            var spot = new GameObject(Interiors.TalkSpot).transform;
+            spot.SetParent(root, false);
+            spot.localPosition = best ?? preferred;
+            report.Add(best == null ? $"{id}: NO clear talk spot, using the middle" : $"{id}: talk spot {spot.localPosition.x:0.0},{spot.localPosition.z:0.0}");
+        }
+
+        /// <summary>Clear floor for a person: rays down within their reach land on the floor, not on furniture.</summary>
+        public static bool ClearFloor(Vector3 at)
+        {
+            const float Reach = 0.65f;   // a 2.6 m character is about a metre across with its arms
+            for (int i = 0; i <= 8; i++)
+            {
+                var p = at + (i == 0 ? Vector3.zero : Quaternion.Euler(0f, i * 45f, 0f) * Vector3.forward * Reach);
+                if (!Physics.Raycast(new Vector3(p.x, at.y + 20f, p.z), Vector3.down, out var hit, 40f)) return false;   // off the floor
+                if (hit.point.y > at.y + 0.2f || hit.point.y < at.y - 0.3f) return false;
+            }
+            return true;
+        }
+
+        /// <summary>Nothing between the camera and a person standing there (knees, chest and head).</summary>
+        public static bool InView(Vector3 camera, Vector3 at)
+        {
+            var across = Vector3.Cross(Vector3.up, (at - camera).normalized).normalized * 0.55f;
+            foreach (var h in new[] { 0.45f, 1.0f, 1.6f, 2.3f })   // feet may hide behind a box, not knees behind a bench
+                foreach (var side in new[] { -1f, -0.5f, 0f, 0.5f, 1f })
+                {
+                    var d = at + Vector3.up * h + across * side - camera;
+                    if (Physics.Raycast(camera, d.normalized, d.magnitude - 0.6f)) return false;
+                }
             return true;
         }
 
@@ -191,7 +251,8 @@ namespace UnpaidCeo.Editor
         static void Preview(string id, GameObject room)
         {
             var b = ModelFit.RendererBounds(room);
-            var layout = InteriorLayout.For(b);
+            var talk = room.transform.Find(Interiors.TalkSpot);
+            var layout = talk != null ? InteriorLayout.At(talk.position) : InteriorLayout.For(b);
             var sun = new GameObject("sun").AddComponent<Light>();
             sun.type = LightType.Directional;
             sun.shadows = LightShadows.Soft;
@@ -200,7 +261,7 @@ namespace UnpaidCeo.Editor
             var lamp = new GameObject("lamp").AddComponent<Light>();
             lamp.type = LightType.Point;
             lamp.range = 16f;
-            lamp.intensity = 1.1f;
+            lamp.intensity = 0.6f;
             lamp.color = new Color(1f, 0.86f, 0.68f);
             lamp.transform.position = layout.HostSpot + Vector3.up * 5f + (layout.CameraPosition - layout.HostSpot).normalized * 2f;
             var people = new List<GameObject>();
