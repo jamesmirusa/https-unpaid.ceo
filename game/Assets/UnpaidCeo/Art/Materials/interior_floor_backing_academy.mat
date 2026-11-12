@@ -41,7 +41,7 @@ Material:
     - _BumpScale: 1
     - _RimPower: 3
     m_Colors:
-    - _BaseColor: {r: 0.5424382, g: 0.2958314, b: 0.14172266, a: 1}
+    - _BaseColor: {r: 0.57522917, g: 0.40522915, b: 0.22848162, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShadeColor: {r: 0.7, g: 0.72, b: 0.82, a: 1}

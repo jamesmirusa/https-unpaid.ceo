@@ -59,11 +59,33 @@
       },
       "bank": {
         "upscale": "31cf29dd-c794-4e0e-8477-f02a8c3a63ef",
-        "mesh": "d5c076b7-e12f-4cde-b6aa-7d0e6dd7ea63"
+        "mesh": "d5c076b7-e12f-4cde-b6aa-7d0e6dd7ea63",
+        "floor_paint": {
+          "tool": "tools/art/max/paint_floor.py",
+          "pattern": "checker",
+          "across": 8,
+          "why": "P2 flattened the concept's marble checkerboard into blank white; painted in texture space at each texel's world position."
+        },
+        "floor_concept": {
+          "edit": "513cbebc-471d-4060-95b4-c959281cfa2f",
+          "media_2k": "74524bb7-f6d6-40bd-91a8-d013f37a69bd",
+          "note": "Nano Banana Pro edit with a black/cream marble checkerboard. Tripo P2/H3.1 failed 7 times on 2026-11-12 (refunded); Hunyuan v3 ce7c198e and Meshy 7 1645c643 not used (Hunyuan mesh is Z-up with a thick double-shelled pedestal, Meshy atlas garbled)."
+        }
       },
       "academy": {
         "upscale": "c7a3f130-a3bf-4671-8d08-30329cde4464",
-        "mesh": "6adf0b93-ab52-4700-bdca-09e26f0f7f82"
+        "mesh": "6adf0b93-ab52-4700-bdca-09e26f0f7f82",
+        "floor_paint": {
+          "tool": "tools/art/max/paint_floor.py",
+          "pattern": "herringbone",
+          "across": 24,
+          "why": "P2 flattened the parquet into one flat orange."
+        },
+        "floor_concept": {
+          "edit": "955a4aac-5adb-451b-8dd4-b5d69f7fa66d",
+          "media_2k": "b181ee91-c7fa-4f85-8b0a-3ff182525631",
+          "note": "Herringbone parquet edit; P2/H3.1 failed (refunded); Hunyuan e5d21de1 and Meshy 7 5e72f1fa not used."
+        }
       },
       "home": {
         "concept_edit": "3c2c7783-7bc5-43b3-8335-ba30a328484a",
