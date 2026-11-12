@@ -99,6 +99,17 @@ namespace UnpaidCeo.Core.Content
         public int[] EventsPerMonthWeights { get; set; } = { 1, 2, 1 };
         /// <summary>Scenes rolled per week (stage 4B): weights for 0, 1, … scenes; the default is about one a month.</summary>
         public int[] EventsPerWeekWeights { get; set; } = { 3, 1 };
+        /// <summary>
+        /// The week's modes (stage 5A): mode id → work, family, rest, study shares summing to 100. "balance" is the
+        /// default plan; the order on screen is <see cref="Game.WeekPlanning.ModeOrder"/>.
+        /// </summary>
+        public Dictionary<string, int[]> WeekModes { get; set; } = new Dictionary<string, int[]>
+        {
+            ["hustle"] = new[] { 70, 10, 15, 5 },
+            ["balance"] = new[] { 55, 15, 20, 10 },
+            ["study"] = new[] { 45, 10, 20, 25 },
+            ["family"] = new[] { 45, 25, 25, 5 },
+        };
         public int AutopilotHoursPerMonth { get; set; } = 4;
         public int AutopilotMaxMonths { get; set; } = 2;
         public Money TutorialGigPay { get; set; }
