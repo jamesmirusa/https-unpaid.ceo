@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 8492983027137579924}
   - component: {fileID: 6378664069470068668}
   - component: {fileID: 7932782083534547131}
+  - component: {fileID: 2770359710526777446}
   m_Layer: 0
   m_Name: npc_sam_beaver
   m_TagString: Untagged
@@ -829,6 +830,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 67061455ff6d64425a7e986594563bd2, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 7f2c58fef3ec54ba08d45f5463a9818c, type: 3}
   think: {fileID: 8742671007458294780, guid: bd17db6caceae49c0b2435d37bed4cbe, type: 3}
+--- !u!114 &2770359710526777446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7836679913792560501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.017802684
+  top: 1.5990002
 --- !u!1 &8201185508193276283
 GameObject:
   m_ObjectHideFlags: 0

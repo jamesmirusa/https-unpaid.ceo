@@ -861,6 +861,7 @@ GameObject:
   - component: {fileID: 2556891673113197295}
   - component: {fileID: 6107544622164970388}
   - component: {fileID: 5140015506280928221}
+  - component: {fileID: 5734634947773733400}
   m_Layer: 0
   m_Name: hero_raccoon_hoodie
   m_TagString: Untagged
@@ -922,6 +923,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 25096aad962134ece8a69301009cf815, type: 3}
   cheer: {fileID: 5367736691436404421, guid: ec44a6a73851c4f0395077138311cbb3, type: 3}
   think: {fileID: 8742671007458294780, guid: 2faaa287e3c3d42cfa5648e2cc8f0436, type: 3}
+--- !u!114 &5734634947773733400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7833789528040549585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.0037296587
+  top: 1.6607723
 --- !u!1 &8032009625645828085
 GameObject:
   m_ObjectHideFlags: 0

@@ -96,10 +96,11 @@ namespace UnpaidCeo.Editor.Tests
             MeshLodUtility.GenerateMeshLods(room, 2);
             CollectionAssert.IsEmpty(AssetBudgetValidator.Check(Building(room, Stylized()), AssetKind.Interior));
             Assert.That(AssetBudgetValidator.Check(Building(room, Stylized()), AssetKind.Building), Has.Some.Contains("LOD0"));
-            var heavy = Grid(40000);
+            var heavy = Grid(70000);
             MeshLodUtility.GenerateMeshLods(heavy, 2);
-            Assert.That(AssetBudgetValidator.Check(Building(heavy, Stylized()), AssetKind.Interior), Has.Some.Contains("30000"));
-            Assert.AreEqual(GlbPrefabBuilder.MaxTextureSize(AssetKind.Building), GlbPrefabBuilder.MaxTextureSize(AssetKind.Interior));
+            Assert.That(AssetBudgetValidator.Check(Building(heavy, Stylized()), AssetKind.Interior), Has.Some.Contains("60000"));
+            Assert.AreEqual(2048, GlbPrefabBuilder.MaxTextureSize(AssetKind.Interior), "a room fills the phone screen: twice a building's texture");
+            Assert.AreEqual(1024, GlbPrefabBuilder.WebNormalSize(AssetKind.Interior));
         }
 
         [Test]

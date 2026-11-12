@@ -125,10 +125,20 @@ namespace UnpaidCeo.Game.Tests
                 {
                     var v = cam.WorldToViewportPoint(spot + Vector3.up * h);
                     Assert.That(v.x, Is.InRange(0.08f, 0.92f), "inside the screen's width");
-                    Assert.That(v.y, Is.InRange(0.42f, 0.95f), "above the conversation panel at the bottom");
+                    Assert.That(v.y, Is.InRange(0.40f, 0.8f), "above the conversation panel at the bottom, the room above them");
                     Assert.Greater(v.z, 0f);
                 }
+                var head = cam.WorldToViewportPoint(spot + Vector3.up * HeroView.Height);
+                var feet = cam.WorldToViewportPoint(spot);
+                Assert.That(head.y - feet.y, Is.InRange(0.28f, 0.34f), "people carry the scene, and the room around them still shows");
             }
+            // The floor's front edges (and the slab under them) stay under the conversation panel, which covers the bottom quarter.
+            for (float s = -5f; s <= 5f; s += 0.5f)
+                foreach (var edge in new[] { new Vector3(5f, 0f, s), new Vector3(s, 0f, -5f) })
+                {
+                    var v = cam.WorldToViewportPoint(edge);
+                    if (v.z > 0f && v.x >= 0f && v.x <= 1f) Assert.Less(v.y, 0.24f, $"the floor's front edge at {edge} shows above the panel");
+                }
         }
 
         [UnityTest]
@@ -180,6 +190,69 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual(spot.position.z, between.z, 0.05f);
             var expected = InteriorLayout.At(new Vector3(-2f, 0f, 1.5f));
             Assert.AreEqual(expected.CameraPosition.x, stage.Layout.CameraPosition.x, 1e-3f, "and the camera frames them there");
+        }
+
+        [UnityTest]
+        public IEnumerator The_room_has_its_own_light_and_crisp_shadows_and_gives_the_street_its_sun_back()
+        {
+            var sun = new GameObject("district sun").AddComponent<Light>();
+            sun.type = LightType.Directional;
+            _made.Add(sun.gameObject);
+            var urp = (UniversalRenderPipelineAsset)GraphicsSettings.currentRenderPipeline;
+            float streetShadows = urp.shadowDistance;
+            var stageGo = new GameObject("stage");
+            _made.Add(stageGo);
+            var stage = stageGo.AddComponent<InteriorStage>();
+            stage.Show(GameObject.CreatePrimitive(PrimitiveType.Cube), null, null, null);
+            yield return null;
+            try
+            {
+                Assert.IsFalse(sun.enabled, "the district's sun does not shine into a room 400 m under the street");
+                var key = stage.GetComponentsInChildren<Light>().FirstOrDefault(l => l.type == LightType.Directional);
+                Assert.IsNotNull(key, "the room has its own key light");
+                Assert.IsTrue(key.enabled && key.shadows == LightShadows.Soft);
+                Assert.LessOrEqual(urp.shadowDistance, InteriorStage.ShadowDistance, "shadows cover the room, not the whole street: sharp and touching the feet");
+            }
+            finally { stage.Clear(); }
+            yield return null;
+            Assert.IsTrue(sun.enabled, "outside, the sun is back");
+            Assert.AreEqual(streetShadows, urp.shadowDistance, 1e-3f, "and the street's shadow distance");
+        }
+
+        [UnityTest]
+        public IEnumerator People_get_a_soft_contact_shadow_and_stand_on_the_rooms_measured_floor()
+        {
+            var root = new GameObject("room");
+            var floor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            floor.transform.SetParent(root.transform, false);
+            floor.transform.localScale = new Vector3(10f, 0.2f, 10f);
+            var talk = new GameObject(Interiors.TalkSpot).transform;
+            talk.SetParent(root.transform, false);
+            var layout = InteriorLayout.At(Vector3.zero);
+            var heroFloor = new GameObject(Interiors.HeroFloor).transform;
+            heroFloor.SetParent(talk, false);
+            heroFloor.position = layout.HeroSpot + Vector3.up * 0.12f;   // a rug
+            var hostFloor = new GameObject(Interiors.HostFloor).transform;
+            hostFloor.SetParent(talk, false);
+            hostFloor.position = layout.HostSpot + Vector3.down * 0.05f;
+            var stageGo = new GameObject("stage");
+            _made.Add(stageGo);
+            var stage = stageGo.AddComponent<InteriorStage>();
+            var hero = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            var host = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+            stage.Show(root, hero, host, null);
+            yield return null;
+            Assert.AreEqual(stage.transform.position.y + 0.12f, ModelFit.RendererBounds(hero).min.y, 0.02f, "the hero stands on the rug, not in it");
+            Assert.AreEqual(stage.transform.position.y - 0.05f, ModelFit.RendererBounds(host).min.y, 0.02f, "the host on the lower floorboards, not above them");
+            foreach (var person in new[] { hero, host })
+            {
+                var blob = person.transform.parent.Find(InteriorStage.ContactShadowName);
+                Assert.IsNotNull(blob, "a soft shadow where the feet touch the floor");
+                var r = blob.GetComponent<Renderer>();
+                Assert.IsTrue(r.enabled && r.sharedMaterial != null && r.sharedMaterial.renderQueue >= 3000, "drawn as a transparent decal");
+                Assert.AreEqual(person.transform.parent.position.y, blob.position.y, 0.03f, "on the floor under the feet");
+            }
+            stage.Clear();
         }
 
         [UnityTest]

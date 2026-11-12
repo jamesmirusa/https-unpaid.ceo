@@ -673,6 +673,7 @@ GameObject:
   - component: {fileID: 8588017122504758558}
   - component: {fileID: 1927387502314826771}
   - component: {fileID: 1636796605559674087}
+  - component: {fileID: 4833645597208461299}
   m_Layer: 0
   m_Name: npc_tony_bulldog
   m_TagString: Untagged
@@ -734,6 +735,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: ea4464fead8ae46e6ad2b715db3f9d60, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 0b207557b84d341cdab725db028ece1a, type: 3}
   think: {fileID: 8742671007458294780, guid: 4f6ab2026ca8c448d978e988dbbf5cd7, type: 3}
+--- !u!114 &4833645597208461299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6850634578198799022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.017729973
+  top: 1.6455314
 --- !u!1 &7208976927488822323
 GameObject:
   m_ObjectHideFlags: 0

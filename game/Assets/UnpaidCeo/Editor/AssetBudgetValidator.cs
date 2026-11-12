@@ -21,7 +21,7 @@ namespace UnpaidCeo.Editor
             {
                 case AssetKind.Building: return (2000, 8000);
                 case AssetKind.Prop: return (200, 3000);
-                case AssetKind.Interior: return (8000, 30000);
+                case AssetKind.Interior: return (8000, 60000);
                 default: return (15000, 22000);
             }
         }

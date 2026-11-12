@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 1963443147765057188}
   - component: {fileID: 5022787783843533848}
   - component: {fileID: 4727516730228190938}
+  - component: {fileID: 997248008044455291}
   m_Layer: 0
   m_Name: npc_ms_lee_owl
   m_TagString: Untagged
@@ -423,6 +424,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: e857276e1cd764009bc5841e192d9ce5, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 639f3f1f57dae4043ad7e0d41cb88ee3, type: 3}
   think: {fileID: 8742671007458294780, guid: 227c11ba00a2d42b987b3f1fd073211d, type: 3}
+--- !u!114 &997248008044455291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3658343059835780985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.07695029
+  top: 1.6648643
 --- !u!1 &3875383424138245779
 GameObject:
   m_ObjectHideFlags: 0

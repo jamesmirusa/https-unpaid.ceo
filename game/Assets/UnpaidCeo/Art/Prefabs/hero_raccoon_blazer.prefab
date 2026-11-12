@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7713573909764380651}
   - component: {fileID: 7962072488652878902}
   - component: {fileID: 3301539296763175795}
+  - component: {fileID: 8557614683835770739}
   m_Layer: 0
   m_Name: hero_raccoon_blazer
   m_TagString: Untagged
@@ -104,6 +105,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: d2dac82ee820042ec992a61d18c84731, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 58965d7d840dd44f083bdeeec2164833, type: 3}
   think: {fileID: 8742671007458294780, guid: 88539feb64dd3498c9acb7d85f49ccca, type: 3}
+--- !u!114 &8557614683835770739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302949369474221394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.0047280905
+  top: 1.6477036
 --- !u!1 &328611361744303328
 GameObject:
   m_ObjectHideFlags: 0

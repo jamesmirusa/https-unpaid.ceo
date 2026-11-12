@@ -137,7 +137,7 @@ namespace UnpaidCeo.Game.City
             if (model == null) return;
             model.transform.localPosition = Vector3.zero;
             model.transform.localRotation = Quaternion.identity;
-            ModelFit.ToHeight(model, height);
+            ModelFit.Stand(model, height);
             var block = new MaterialPropertyBlock();
             foreach (var r in model.GetComponentsInChildren<Renderer>())
             {

@@ -48,7 +48,7 @@ namespace UnpaidCeo.Game.Hero
                 Model.name = address;
                 Model.transform.localPosition = Vector3.zero;
                 Model.transform.localRotation = Quaternion.identity;
-                ModelFit.ToHeight(Model, Height);
+                ModelFit.Stand(Model, Height);
                 LoadedAddress = address;
             }
             Tint(a.ColorIndex);

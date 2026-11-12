@@ -927,6 +927,7 @@ GameObject:
   - component: {fileID: 7893238679917755421}
   - component: {fileID: 6503136653376536377}
   - component: {fileID: 298871940470805256}
+  - component: {fileID: 9221834037760845459}
   m_Layer: 0
   m_Name: hero_cat_blazer
   m_TagString: Untagged
@@ -988,3 +989,17 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 3b475dcbbcf5b4e52ac1f454e86cbc86, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 8098a32931b0e4c239a296bbb4b2b5cd, type: 3}
   think: {fileID: 8742671007458294780, guid: 19dd0561f06ff463f80215386b60221f, type: 3}
+--- !u!114 &9221834037760845459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962084015396520865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.00812161
+  top: 1.6508406

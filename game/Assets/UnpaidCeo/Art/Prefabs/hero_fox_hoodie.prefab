@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 1619221508093758529}
   - component: {fileID: 3760603044446180312}
   - component: {fileID: 3099132237005865108}
+  - component: {fileID: 2064650123297070521}
   m_Layer: 0
   m_Name: hero_fox_hoodie
   m_TagString: Untagged
@@ -860,6 +861,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 2c4749b56fb01433ab69d5c8d40d4ace, type: 3}
   cheer: {fileID: 5367736691436404421, guid: a194cdf369ff2467e885da79c8cb2e5d, type: 3}
   think: {fileID: 8742671007458294780, guid: 004acbc0bf8494a2c8004f4ddf91ad01, type: 3}
+--- !u!114 &2064650123297070521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7369020923971064630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.012778472
+  top: 1.6502022
 --- !u!1 &7729474720802650019
 GameObject:
   m_ObjectHideFlags: 0

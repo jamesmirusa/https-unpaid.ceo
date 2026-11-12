@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: 7598414244334139411}
   - component: {fileID: 1309366359723506555}
   - component: {fileID: 1683405961204659924}
+  - component: {fileID: 4891387706111031959}
   m_Layer: 0
   m_Name: npc_whiskerton_cat
   m_TagString: Untagged
@@ -568,6 +569,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 1e6a51f596a1a4a1597ea736b7f49fcf, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 1e2dc4d584d3e420eaa95a7cad273f3e, type: 3}
   think: {fileID: 8742671007458294780, guid: 2e074a14468e94130902e507a170a2fb, type: 3}
+--- !u!114 &4891387706111031959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4823980712413597597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.029528867
+  top: 1.6495242
 --- !u!1 &5123736923546056877
 GameObject:
   m_ObjectHideFlags: 0

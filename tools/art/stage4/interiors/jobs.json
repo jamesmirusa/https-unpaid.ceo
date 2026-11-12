@@ -1,12 +1,81 @@
 {
   "note": "Stage 4 interiors: Nano Banana Pro 2K edit of the 4K place picture into an isometric two-wall cutaway diorama (2 cr) -> Tripo H3.1 standard, no PBR, texture aligned to the image (9 cr). The 1.5M-triangle meshes are simplified to ~20k with gltf-transform simplify --ratio 0.014 --error 0.02 into Art/Imported/Interiors.",
   "interiors": [
-    {"id": "bodega", "concept_job": "4b669ba5-3662-468b-bb4a-04d3a438f1e0", "mesh_job": "222fa6cd-4014-43bb-bd22-659c4f3edb10"},
-    {"id": "bar", "concept_job": "58a13158-1245-44a2-9348-b1b444f044aa", "mesh_job": "c174a872-8e39-4934-8be1-259bd4c61eda"},
-    {"id": "office", "concept_job": "d0fc0c61-1de9-46bc-b0c2-2666fd9b975b", "mesh_job": "5d1d703c-6f0f-4bcd-a761-7e3be2311d5a"},
-    {"id": "pawnshop", "concept_job": "f5387192-af0a-410a-9c45-a858c879e327", "mesh_job": "39ff72ea-c5f1-48c1-8bb3-b9115d22d362"},
-    {"id": "bank", "concept_job": "3ca4b0fc-5ed9-4450-a08e-b93a45fdf122", "mesh_job": "7843a72b-e067-4501-b023-644bcc899668"},
-    {"id": "academy", "concept_job": "e75b825d-5938-46bc-9edc-5b7282b75a94", "mesh_job": "251f319f-fa7f-4f00-a2c2-97fcbebbf481"},
-    {"id": "home", "concept_job": "2864c0cd-8787-4793-80b6-93db636fd20c", "mesh_job": "990836e9-4717-4f2c-b9c5-17ed24400ebf", "note": "edit of the bodega concept as style reference; face_limit 20000 instead of decimation"}
-  ]
+    {
+      "id": "bodega",
+      "concept_job": "4b669ba5-3662-468b-bb4a-04d3a438f1e0",
+      "mesh_job": "222fa6cd-4014-43bb-bd22-659c4f3edb10"
+    },
+    {
+      "id": "bar",
+      "concept_job": "58a13158-1245-44a2-9348-b1b444f044aa",
+      "mesh_job": "c174a872-8e39-4934-8be1-259bd4c61eda"
+    },
+    {
+      "id": "office",
+      "concept_job": "d0fc0c61-1de9-46bc-b0c2-2666fd9b975b",
+      "mesh_job": "5d1d703c-6f0f-4bcd-a761-7e3be2311d5a"
+    },
+    {
+      "id": "pawnshop",
+      "concept_job": "f5387192-af0a-410a-9c45-a858c879e327",
+      "mesh_job": "39ff72ea-c5f1-48c1-8bb3-b9115d22d362"
+    },
+    {
+      "id": "bank",
+      "concept_job": "3ca4b0fc-5ed9-4450-a08e-b93a45fdf122",
+      "mesh_job": "7843a72b-e067-4501-b023-644bcc899668"
+    },
+    {
+      "id": "academy",
+      "concept_job": "e75b825d-5938-46bc-9edc-5b7282b75a94",
+      "mesh_job": "251f319f-fa7f-4f00-a2c2-97fcbebbf481"
+    },
+    {
+      "id": "home",
+      "concept_job": "2864c0cd-8787-4793-80b6-93db636fd20c",
+      "mesh_job": "990836e9-4717-4f2c-b9c5-17ed24400ebf",
+      "note": "edit of the bodega concept as style reference; face_limit 20000 instead of decimation"
+    }
+  ],
+  "max_pass": {
+    "note": "Owner 2026-11-12: 'quality is bad, upscale, detailed versions'. Concepts upscaled to 4K (bytedance upscale, 2 cr) -> Tripo P2, face_limit 50000, texture_quality extreme, PBR, texture v3.5, delight (40 cr). No post-simplification. Room materials: rim off, 6 bands, lighter shade (GlbPrefabBuilder.LightSoftly). Crack board in the floor's colour.",
+    "rooms": {
+      "bodega": {
+        "upscale": "6ab9ccb6-30cb-42e6-8443-1e52335a0907",
+        "mesh": "e8cc8cbf-2171-4854-918a-2a34c8e44b2d"
+      },
+      "bar": {
+        "upscale": "f306b113-e9f7-48fa-85f9-62813c19a639",
+        "mesh": "0b9ba61d-9926-4a55-9df2-c2a1cba9c8ea"
+      },
+      "office": {
+        "upscale": "b09598fb-e2d7-49b3-849a-469543bbc821",
+        "mesh": "1828ada4-3833-47c4-b562-0c4b5c6069d3"
+      },
+      "pawnshop": {
+        "upscale": "f68eb69f-9728-4c5e-b1dc-6a1dae3085c8",
+        "mesh": "dfe9acf0-a668-447d-b76e-3e70d0282756"
+      },
+      "bank": {
+        "upscale": "31cf29dd-c794-4e0e-8477-f02a8c3a63ef",
+        "mesh": "d5c076b7-e12f-4cde-b6aa-7d0e6dd7ea63"
+      },
+      "academy": {
+        "upscale": "c7a3f130-a3bf-4671-8d08-30329cde4464",
+        "mesh": "6adf0b93-ab52-4700-bdca-09e26f0f7f82"
+      },
+      "home": {
+        "concept_edit": "3c2c7783-7bc5-43b3-8335-ba30a328484a",
+        "note": "Nano Banana Pro 4K edit of the upscaled home: front boxes, plant and shoe rack removed so nothing stands between the camera and the two. Final mesh: P2 from the edit downsized to 2K and uploaded (media d0f17632). The 'chrome' look of the earlier tries was the house shader's rim and 3 light bands on pale surfaces, not the meshes: interiors now get no rim and 6 bands.",
+        "mesh": "a081dceb-a8c1-4b5c-909d-3971471b24ca",
+        "input_media": "d0f17632-0d23-4e42-b75e-a7b479e74925",
+        "tried": [
+          "35cdd45a (boxes back)",
+          "81b0be75 (P2, uploaded 4K edit)",
+          "62cf98ce (H3.1 detailed, not used)"
+        ]
+      }
+    }
+  }
 }
