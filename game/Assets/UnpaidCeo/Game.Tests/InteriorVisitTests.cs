@@ -101,6 +101,8 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual("npc_mr_fins_shark", Interiors.HostModel("loan_shark"));
             Assert.AreEqual("npc_jay_otter", Interiors.HostModel("best_friend"));
             Assert.AreEqual("npc_mentor_raccoon", Interiors.HostModel("mentor"));
+            Assert.AreEqual("npc_ms_lee_owl", Interiors.HostModel("banker_lee"), "every host stands in their room");
+            Assert.AreEqual("npc_sam_beaver", Interiors.HostModel("cofounder_sam"));
         }
 
         [Test]

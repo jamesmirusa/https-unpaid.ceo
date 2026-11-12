@@ -31,6 +31,8 @@ namespace UnpaidCeo.Game.City
             "best_friend" => "npc_jay_otter",
             "loan_shark" => "npc_mr_fins_shark",
             "fat_cat" => "npc_whiskerton_cat",
+            "banker_lee" => "npc_ms_lee_owl",
+            "cofounder_sam" => "npc_sam_beaver",
             _ => null,
         };
     }

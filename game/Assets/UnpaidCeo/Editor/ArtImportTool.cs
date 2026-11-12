@@ -45,7 +45,20 @@ namespace UnpaidCeo.Editor
             Debug.Log("[art] " + md);
         }
 
-        public static string ImportFolder(string folder, AssetKind kind, string previewDir)
+        /// <summary>Only GLBs that have no prefab yet (new characters, buildings, props, rooms); the rest stay untouched.</summary>
+        public static void ImportNew()
+        {
+            AssetDatabase.Refresh();
+            var report = new StringBuilder("# New art\n\n");
+            foreach (var (folder, kind) in new[] { ("Buildings", AssetKind.Building), ("Props", AssetKind.Prop), ("Characters", AssetKind.Character), ("Interiors", AssetKind.Interior) })
+                report.Append(ImportFolder($"{ImportedRoot}/{folder}", kind, "../tools/art/previews",
+                    path => !File.Exists($"Assets/UnpaidCeo/Art/Prefabs/{Path.GetFileNameWithoutExtension(path)}.prefab")));
+            DistrictBuilder.MarkCharactersAddressable();   // a new hero or NPC loads on demand like the others
+            AssetDatabase.SaveAssets();
+            Debug.Log("[art] " + report);
+        }
+
+        public static string ImportFolder(string folder, AssetKind kind, string previewDir, System.Func<string, bool> include = null)
         {
             if (!AssetDatabase.IsValidFolder(folder)) return "";
             var sb = new StringBuilder($"## {Path.GetFileName(folder)} ({kind})\n\n| asset | file | LOD0 tris | LOD levels | materials | textures | budget |\n|---|---|---|---|---|---|---|\n");
@@ -53,6 +66,7 @@ namespace UnpaidCeo.Editor
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 if (!path.EndsWith(".glb") || path.Contains($"/{GlbPrefabBuilder.ClipsFolder}/")) continue;
+                if (include != null && !include(path)) continue;
                 string name = Path.GetFileNameWithoutExtension(path);
                 long bytes = new FileInfo(path).Length;
                 string prefabPath;

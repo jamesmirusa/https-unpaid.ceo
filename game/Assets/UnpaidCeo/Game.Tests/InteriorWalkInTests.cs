@@ -117,15 +117,15 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
-        public IEnumerator A_host_without_a_model_yet_still_receives_the_hero_in_a_room()
+        public IEnumerator Ms_Lee_receives_the_hero_in_the_bank()
         {
             yield return Boot(new GameEngine(Content()).NewGame(12, new UnpaidCeo.Core.Game.HeroAppearance()));
             var boot = Object.FindFirstObjectByType<GameBootstrap>();
             yield return boot.EnterPlace("bank");
             var stage = Object.FindFirstObjectByType<InteriorStage>();
             Assert.IsTrue(stage != null && stage.Showing, "the bank's room is up");
-            Assert.IsNull(stage.Host, "Ms. Lee has no model yet: her portrait speaks in the panel");
-            Assert.IsTrue(Shown(boot.Ui.Root.Q("visit-portrait")));
+            Assert.AreEqual("npc_ms_lee_owl", stage.Host?.name, "the banker stands behind her bank");
+            Assert.IsNotNull(stage.Host.GetComponentInChildren<UnpaidCeo.Game.Hero.CharacterAnimator>(), "and moves");
             boot.Ui.Visit.Close();
             for (float t = 0f; t < 5f && stage.Showing; t += Time.unscaledDeltaTime) yield return null;
             Assert.IsFalse(stage.Showing);

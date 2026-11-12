@@ -521,7 +521,7 @@ namespace UnpaidCeo.Editor
         }
 
         /// <summary>Heroes and NPCs load on demand (address = prefab name), keeping them out of the initial web download.</summary>
-        static void MarkCharactersAddressable()
+        public static void MarkCharactersAddressable()
         {
             foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { Prefabs }))
             {
