@@ -12,13 +12,13 @@ namespace UnpaidCeo.Core.Game
     public enum ChoiceState
     {
         Open,
-        /// <summary>Already in this week's plan (tapping again takes it out).</summary>
+        /// <summary>Already in this week's plan: done, and closed until next week.</summary>
         Planned,
-        /// <summary>Each free action at most once a month.</summary>
-        DoneThisMonth,
+        /// <summary>Already taken in this turn (a plan that lists it twice): each free action at most once a turn.</summary>
+        DoneThisTurn,
         /// <summary>It opens a fact (a debt, a scheme) that is still open.</summary>
         Waiting,
-        /// <summary>The month's action points are spent.</summary>
+        /// <summary>The week's action points are spent.</summary>
         NoPoints,
         NoMoney,
         NoEnergy,
@@ -36,9 +36,8 @@ namespace UnpaidCeo.Core.Game
         public const int LowRelationships = 40;
         public const int FewConnections = 15;
 
-        /// <summary>The pool the coming week spends: the first week of a month refills it, later weeks spend what is left.</summary>
-        public static int PointsTotal(GameState s, ContentDb c) =>
-            s.WeekOfMonth == 1 ? LifeSimulator.ActionPoints(s.Life, 0, c.Balance.Life) : s.ActionPointsLeft;
+        /// <summary>The pool the coming week spends: every week brings its own (stage 5A).</summary>
+        public static int PointsTotal(GameState s, ContentDb c) => LifeSimulator.WeeklyActionPoints(s.Life, c.Balance.Life);
 
         public static int PointsLeft(GameState s, ContentDb c, IEnumerable<string> planned) =>
             PointsTotal(s, c) - Defs(c, planned).Sum(fa => fa.ActionPoints);
@@ -58,12 +57,12 @@ namespace UnpaidCeo.Core.Game
         }
 
         /// <summary>
-        /// The one rule for a free action at the moment the week settles it: once a month, not while its fact is open,
+        /// The one rule for a free action at the moment the turn settles it: once a turn, not while its fact is open,
         /// within the points left, paid for, and never more energy than the hero has.
         /// </summary>
-        public static ChoiceState Check(FreeActionDef fa, int pointsLeft, int energy, Money cash, ICollection<string> doneThisMonth, FactStore facts)
+        public static ChoiceState Check(FreeActionDef fa, int pointsLeft, int energy, Money cash, ICollection<string> doneThisTurn, FactStore facts)
         {
-            if (doneThisMonth.Contains(fa.Id)) return ChoiceState.DoneThisMonth;
+            if (doneThisTurn.Contains(fa.Id)) return ChoiceState.DoneThisTurn;
             if (fa.Effects.OfType<SetFactEffect>().Any(f => facts.Has(f.FactId))) return ChoiceState.Waiting;
             if (fa.ActionPoints > pointsLeft) return ChoiceState.NoPoints;
             if (fa.Cost.Cents > 0 && cash < fa.Cost) return ChoiceState.NoMoney;
@@ -83,7 +82,7 @@ namespace UnpaidCeo.Core.Game
             set.Add(id);
             int points = PointsTotal(s, c), energy = s.Life.Energy;
             var cash = s.Cash;
-            var done = new HashSet<string>(s.WeekOfMonth == 1 ? Enumerable.Empty<string>() : s.ActionsThisMonth);
+            var done = new HashSet<string>();   // every week starts fresh: only this plan counts
             ChoiceState? other = null;
             foreach (var fa in Ordered(c, set))
             {

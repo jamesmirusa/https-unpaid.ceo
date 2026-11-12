@@ -129,19 +129,18 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
-        public IEnumerator A_choice_made_earlier_this_month_is_closed_in_its_room_and_the_points_are_what_is_left()
+        public IEnumerator A_choice_done_last_week_is_open_again_and_the_week_has_its_own_points()
         {
             yield return Boot(s =>
             {
                 s.Week = 2;   // the second week of month 1
-                s.ActionsThisMonth.Add("overtime");
-                s.ActionPointsLeft = 2;
+                s.ActionsThisTurn.Add("overtime");   // taken last week
+                s.ActionPointsLeft = 0;
             });
-            Assert.AreEqual(2, _ui.DecisionsPanel.PointsTotal, "the month's pool, not a fresh one");
+            Assert.AreEqual(2, _ui.DecisionsPanel.PointsTotal, "a fresh pool every week");
             _ui.Visit.Show("bodega");
             yield return null;
-            Assert.IsFalse(Choice("overtime").enabledSelf);
-            Assert.AreEqual(Localized("choice.done"), Status("overtime").text);
+            Assert.IsTrue(Choice("overtime").enabledSelf, "last week's choice is open again");
         }
 
         /// <summary>

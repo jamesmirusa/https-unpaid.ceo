@@ -216,7 +216,7 @@ namespace UnpaidCeo.Game.Ui
             switch (state)
             {
                 case ChoiceState.Planned: return "choice.planned";
-                case ChoiceState.DoneThisMonth: return "choice.done";
+                case ChoiceState.DoneThisTurn: return "choice.done";
                 case ChoiceState.Waiting: return "choice.waiting";
                 case ChoiceState.NoPoints: return "choice.no_points";
                 case ChoiceState.NoMoney: return "choice.no_money";

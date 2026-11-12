@@ -45,7 +45,7 @@
     "familyBaseline": 15,
     "familyCoef": 0.5,
     "studyCoef": 1.0,
-    "baseActionPoints": 3,
+    "baseActionPoints": 3, "baseWeeklyActionPoints": 2,
     "burnoutThreshold": 30,
     "burnoutErrorChance": 0.25
   },

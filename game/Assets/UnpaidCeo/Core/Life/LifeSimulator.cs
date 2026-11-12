@@ -28,6 +28,10 @@ namespace UnpaidCeo.Core.Life
             return Math.Max(1, ap);
         }
 
+        /// <summary>A week's points: the weekly base, minus one when burnt out; never below one.</summary>
+        public static int WeeklyActionPoints(LifeStats s, LifeBalance b) =>
+            Math.Max(1, b.BaseWeeklyActionPoints - (s.Energy < b.BurnoutThreshold ? 1 : 0));
+
         public static double ErrorChance(LifeStats s, LifeBalance b) =>
             s.Energy < b.BurnoutThreshold ? b.BurnoutErrorChance : 0.0;
     }

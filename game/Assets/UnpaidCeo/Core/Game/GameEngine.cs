@@ -45,7 +45,7 @@ namespace UnpaidCeo.Core.Game
                 s.Businesses.Add(new BusinessState { Id = id, IndustryId = id, Price = def.Price });
             }
             s.LastDecisions = MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null);
-            s.ActionPointsLeft = LifeSimulator.ActionPoints(s.Life, 0, _c.Balance.Life);
+            s.ActionPointsLeft = LifeSimulator.WeeklyActionPoints(s.Life, _c.Balance.Life);
             return s;
         }
 
@@ -295,7 +295,7 @@ namespace UnpaidCeo.Core.Game
 
             var b = _c.Balance;
             int wk = weekly ? s.WeekOfMonth : 1;
-            bool monthStart = !weekly || wk == 1, monthEnd = !weekly || wk == GameState.WeeksPerMonth;
+            bool monthEnd = !weekly || wk == GameState.WeeksPerMonth;
             double share = weekly ? 1.0 / GameState.WeeksPerMonth : 1.0;
             var rng = Pcg32.FromState(s.Rng);
             var report = new MonthReport { Month = s.Month, Week = s.Week, WeekOfMonth = wk, IsWeek = weekly, CashStart = s.Cash };
@@ -303,22 +303,20 @@ namespace UnpaidCeo.Core.Game
 
             ApplyLevers(s, d, report);
 
-            // Free actions spend the month's pool of action points, refilled on its first week; each action at most
-            // once a month, an action that opens a fact (a debt, a scheme) waits until that fact is resolved, and an
-            // action needs the money and the energy it takes (ActionChoices.Check: the buttons close the same ones).
-            if (monthStart)
-            {
-                s.ActionPointsLeft = LifeSimulator.ActionPoints(s.Life, 0, b.Life);
-                s.ActionsThisMonth.Clear();
-            }
+            // Every turn spends its own pool of action points (stage 5A): a week's, or a legacy month's for scenarios.
+            // Each action at most once a turn, an action that opens a fact (a debt, a scheme) waits until that fact is
+            // resolved, and an action needs the money and the energy it takes (ActionChoices.Check: the buttons close
+            // the same ones).
+            s.ActionPointsLeft = weekly ? LifeSimulator.WeeklyActionPoints(s.Life, b.Life) : LifeSimulator.ActionPoints(s.Life, 0, b.Life);
+            s.ActionsThisTurn.Clear();
             double errorChance = LifeSimulator.ErrorChance(s.Life, b.Life);
             foreach (var id in d.FreeActions)
             {
                 if (!_c.FreeActions.TryGetValue(id, out var fa)
-                    || ActionChoices.Check(fa, s.ActionPointsLeft, s.Life.Energy, s.Cash, s.ActionsThisMonth, s.Facts) != ChoiceState.Open)
+                    || ActionChoices.Check(fa, s.ActionPointsLeft, s.Life.Energy, s.Cash, s.ActionsThisTurn, s.Facts) != ChoiceState.Open)
                 { report.RejectedActions.Add(id); continue; }
                 s.ActionPointsLeft -= fa.ActionPoints;
-                s.ActionsThisMonth.Add(id);
+                s.ActionsThisTurn.Add(id);
                 s.Cash -= fa.Cost;
                 EffectApplier.ApplyAll(fa.Effects, s);
                 AddJournal(s, "decision", fa.JournalKey ?? $"journal.{id}", ("action", id));

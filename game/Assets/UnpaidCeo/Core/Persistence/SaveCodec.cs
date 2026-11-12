@@ -74,8 +74,8 @@ namespace UnpaidCeo.Core.Persistence
         static void MigrateToWeeks(GameState s)
         {
             s.Week = GameState.FirstWeekOf(s.Month);
-            s.ActionsThisMonth = s.ActionsThisMonth ?? new System.Collections.Generic.List<string>();
-            s.ActionsThisMonth.Clear();
+            s.ActionsThisTurn = s.ActionsThisTurn ?? new System.Collections.Generic.List<string>();
+            s.ActionsThisTurn.Clear();
             s.ActionPointsLeft = 0;
             foreach (var b in s.Businesses)
             {
@@ -101,7 +101,7 @@ namespace UnpaidCeo.Core.Persistence
             s.PendingLessons = s.PendingLessons ?? new System.Collections.Generic.List<string>();
             s.LessonsSeen = s.LessonsSeen ?? new System.Collections.Generic.Dictionary<string, int>();
             s.Skills = s.Skills ?? new System.Collections.Generic.Dictionary<string, int>();
-            s.ActionsThisMonth = s.ActionsThisMonth ?? new System.Collections.Generic.List<string>();
+            s.ActionsThisTurn = s.ActionsThisTurn ?? new System.Collections.Generic.List<string>();
             s.QuizAnswers = s.QuizAnswers ?? new System.Collections.Generic.Dictionary<string, int>();
             s.Businesses = s.Businesses ?? new System.Collections.Generic.List<Economy.BusinessState>();
             s.Loans = s.Loans ?? new System.Collections.Generic.List<Economy.LoanState>();

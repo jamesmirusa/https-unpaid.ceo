@@ -44,33 +44,32 @@ namespace UnpaidCeo.Core.Tests.Game
             ActionChoices.State(s, e.Content, planned, id);
 
         [Test]
-        public void The_first_week_refills_the_months_points_and_later_weeks_spend_what_is_left()
+        public void Every_week_has_two_points_and_the_plan_spends_them()
         {
             var e = Engine();
             var s = Game(e);
-            Assert.AreEqual(3, ActionChoices.PointsTotal(s, e.Content));
+            Assert.AreEqual(2, ActionChoices.PointsTotal(s, e.Content));
+            Assert.AreEqual(1, ActionChoices.PointsLeft(s, e.Content, new[] { "rest" }));
+            Assert.AreEqual(ChoiceState.NoPoints, State(e, s, "family_time", "rest", "study"));
             e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime", "study"));
-            Assert.AreEqual(1, ActionChoices.PointsTotal(s, e.Content), "two of the month's three points are gone");
-            Assert.AreEqual(0, ActionChoices.PointsLeft(s, e.Content, new[] { "rest" }));
-            Assert.AreEqual(ChoiceState.NoPoints, State(e, s, "family_time", "rest"));
+            Assert.AreEqual(2, ActionChoices.PointsTotal(s, e.Content), "next week brings its own two");
         }
 
         [Test]
-        public void A_choice_made_earlier_this_month_waits_for_the_next_month()
+        public void A_choice_done_last_week_is_open_again_this_week()
         {
             var e = Engine();
             var s = Game(e);
             e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime"));
-            Assert.AreEqual(ChoiceState.DoneThisMonth, State(e, s, "overtime"));
-            for (int i = 0; i < 3; i++) e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0));
-            Assert.AreEqual(1, s.WeekOfMonth);
-            Assert.AreEqual(ChoiceState.Open, State(e, s, "overtime"), "a new month, a new chance");
+            Assert.AreEqual(2, s.WeekOfMonth, "still the same month");
+            Assert.AreEqual(ChoiceState.Open, State(e, s, "overtime"));
         }
 
         [Test]
         public void A_choice_that_would_take_more_energy_than_is_left_is_closed_until_the_hero_rests()
         {
             var e = Engine();
+            e.Content.Balance.Life.BaseWeeklyActionPoints = 3;   // points to spare: energy, not points, decides here
             var s = Game(e, energy: 8);
             Assert.AreEqual(ChoiceState.NoEnergy, State(e, s, "overtime"));
             Assert.AreEqual(ChoiceState.Open, State(e, s, "overtime", "rest"), "rest comes first: 8 + 12 − 10");
@@ -81,6 +80,7 @@ namespace UnpaidCeo.Core.Tests.Game
         public void A_choice_that_would_drain_the_energy_a_planned_one_needs_is_closed_too()
         {
             var e = Engine();
+            e.Content.Balance.Life.BaseWeeklyActionPoints = 3;   // points to spare: energy, not points, decides here
             var s = Game(e, energy: 12);
             // overtime runs before study: 12 − 10 = 2, and study then lacks its 3.
             Assert.AreEqual(ChoiceState.NoEnergy, State(e, s, "overtime", "study"));
@@ -125,7 +125,7 @@ namespace UnpaidCeo.Core.Tests.Game
             int points = ActionChoices.PointsTotal(s, e.Content);   // a burnt-out hero has one point fewer
             var r = e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime", "course"));
             CollectionAssert.AreEquivalent(new[] { "overtime", "course" }, r.RejectedActions);
-            Assert.IsFalse(s.ActionsThisMonth.Contains("overtime"));
+            Assert.IsFalse(s.ActionsThisTurn.Contains("overtime"));
             Assert.AreEqual(points, s.ActionPointsLeft, "nothing was spent");
         }
 

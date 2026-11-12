@@ -40,10 +40,10 @@ namespace UnpaidCeo.Core.Game
         [JsonIgnore] public int WeekOfMonth => Week <= 0 ? 1 : (Week - 1) % WeeksPerMonth + 1;
         public static int MonthOf(int week) => week <= 0 ? 1 : (week - 1) / WeeksPerMonth + 1;
         public static int FirstWeekOf(int month) => (month - 1) * WeeksPerMonth + 1;
-        /// <summary>Action points left in the month's pool (refilled on its first week).</summary>
+        /// <summary>Action points left in this turn's pool (a week's, or a legacy month's), refilled every turn.</summary>
         public int ActionPointsLeft { get; set; }
-        /// <summary>Free actions already taken this month: each at most once a month.</summary>
-        public List<string> ActionsThisMonth { get; set; } = new List<string>();
+        /// <summary>Free actions taken in the turn just played: each at most once a turn. Saved under its stage-4 name.</summary>
+        [JsonProperty("ActionsThisMonth")] public List<string> ActionsThisTurn { get; set; } = new List<string>();
         /// <summary>Week whose scenes were already rolled (0 = none yet).</summary>
         public int ScenesRolledWeek { get; set; }
         public int Chapter { get; set; } = 1;

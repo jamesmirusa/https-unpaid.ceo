@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using UnpaidCeo.Core.Economy;
 using UnpaidCeo.Core.Game;
+using UnpaidCeo.Core.Life;
 using UnpaidCeo.Core.Persistence;
 using UnpaidCeo.Core.Primitives;
 
@@ -94,20 +95,48 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
-        public void Action_points_are_a_monthly_pool_spent_across_the_weeks()
+        public void Each_week_refills_its_two_points_and_an_action_opens_again_next_week()
         {
             var e = Engine();
             var s = e.NewGame(1, TestContent.Hero);
-            var r1 = e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime"));   // 2 of 3 points
-            Assert.IsEmpty(r1.RejectedActions);
-            var r2 = e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "network"));    // 2 points, 1 left
-            CollectionAssert.Contains(r2.RejectedActions, "network");
-            var r3 = e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime"));   // once a month
-            CollectionAssert.Contains(r3.RejectedActions, "overtime");
-            e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0));
-            var r5 = e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime"));   // a new month, a new pool
-            Assert.IsEmpty(r5.RejectedActions);
-            Assert.AreEqual(1, s.ActionPointsLeft);
+            Assert.IsEmpty(e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime")).RejectedActions);   // 2 of 2 points
+            Assert.AreEqual(0, s.ActionPointsLeft, "two points a week");
+            Assert.IsEmpty(e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime")).RejectedActions, "a new week, a new pool");
+        }
+
+        [Test]
+        public void A_burnt_out_hero_has_one_point_a_week()
+        {
+            var e = Engine();
+            var s = e.NewGame(1, TestContent.Hero);
+            s.Life.Energy = 20;
+            Assert.AreEqual(1, LifeSimulator.WeeklyActionPoints(s.Life, e.Content.Balance.Life));
+            CollectionAssert.Contains(e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime")).RejectedActions, "overtime",
+                "overtime takes two points");
+        }
+
+        /// <summary>Guard: challenge and duel scenarios still play whole months with the monthly pool.</summary>
+        [Test]
+        public void A_legacy_month_still_gets_the_monthly_pool()
+        {
+            var e = Engine();
+            var s = e.NewGame(1, TestContent.Hero);
+            Assert.IsEmpty(e.EndMonth(s, TestContent.Decisions(60, 15, 25, 0, "overtime")).RejectedActions);
+            Assert.AreEqual(1, s.ActionPointsLeft, "three a month, two spent");
+        }
+
+        [Test]
+        public void An_old_save_from_the_middle_of_a_month_opens_with_a_fresh_week()
+        {
+            var e = Engine();
+            var obj = JObject.Parse(SaveCodec.Encode(e.NewGame(1, TestContent.Hero)));
+            obj["Week"] = 6;
+            obj["Month"] = 2;
+            obj["ActionsThisMonth"] = new JArray("overtime");
+            obj["ActionPointsLeft"] = 0;
+            var s = SaveCodec.Decode(obj.ToString()).State;
+            Assert.AreEqual(ChoiceState.Open, ActionChoices.State(s, e.Content, new string[0], "overtime"));
+            Assert.AreEqual(2, ActionChoices.PointsTotal(s, e.Content));
         }
 
         [Test]
