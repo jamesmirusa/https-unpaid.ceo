@@ -1,0 +1,4 @@
+# SDD ledger — plan: docs/superpowers/plans/2026-11-12-stage5a-week-of-buttons.md
+Spec: docs/superpowers/specs/2026-11-12-stage5-week-dialogue-story-design.md (approved by the owner 2026-11-12: «Да утверждаю и сделай все грамотно и чтобы игра была удобной и комфортной, демонстрации всего должно быть в хорошем качестве»).
+Executor: inline (owner: «делай все сам доконца»; no subagents unless asked). Base: a71b744..acef09d (design) on feat/stage5-story, stacked on feat/stage4-places d938b24.
+Pre-flight: T2 produces WeeklyActionPoints/ActionsThisTurn/DoneThisTurn → consumed by T4 (pacing), T5 (ChoiceCard states), T6 (Week screen) — consistent. T3 produces WeekPlanning → consumed by T4 (modes in bots: bots keep their own shares, modes not required) and T6 — consistent. T5 produces ChoiceCard + DecisionsScreen.Plan → consumed by T6 — consistent.
