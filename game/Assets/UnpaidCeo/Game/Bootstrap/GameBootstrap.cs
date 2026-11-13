@@ -69,7 +69,11 @@ namespace UnpaidCeo.Game.Bootstrap
         float _nextTick;
         int _ticks;
 
-        void Start() => StartCoroutine(Boot());
+        void Start()
+        {
+            Debug.developerConsoleEnabled = false;   // players never see the on-screen error console (the Cloud Code package logs its 404s as errors)
+            StartCoroutine(Boot());
+        }
 
         /// <summary>The player's hero on the street (null until the game has booted).</summary>
         public HeroView? Hero => _hero;

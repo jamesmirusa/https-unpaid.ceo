@@ -34,3 +34,7 @@ tools/art/max/rig/
 tools/art/restyle/glb/
 tools/art/stage2/glb/
 __pycache__/
+
+# Stage 6: Addressables content state of iOS builds (build output, like the WebGL one)
+game/Assets/AddressableAssetsData/iOS/
+game/Assets/AddressableAssetsData/iOS.meta

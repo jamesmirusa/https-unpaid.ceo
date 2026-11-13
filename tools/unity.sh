@@ -3,6 +3,7 @@
 #   tools/unity.sh test-editmode [testFilter]
 #   tools/unity.sh test-playmode [testFilter]
 #   tools/unity.sh build-web
+#   tools/unity.sh build-ios          (UC_IOS_SIM=1 for the simulator)
 # Unity path: $UNITY_PATH, else the newest /Applications/Unity/Hub/Editor/6000.*
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -49,8 +50,17 @@ case "$CMD" in
     echo "exit=$code"
     exit $code
     ;;
+  build-ios)
+    # UC_IOS_SIM=1 tools/unity.sh build-ios → Builds/iOSSim (Simulator SDK); otherwise Builds/iOS (device, signing in Xcode)
+    "$UNITY" -batchmode -quit -buildTarget iOS -projectPath "$PROJECT" \
+      -executeMethod UnpaidCeo.Editor.BuildScript.BuildIos -logFile "$PROJECT/Logs/build-ios.log"
+    code=$?
+    grep -E "error CS[0-9]+|Build (succeeded|failed)|\[build\]" "$PROJECT/Logs/build-ios.log" | tail -20
+    echo "exit=$code"
+    exit $code
+    ;;
   *)
-    echo "usage: tools/unity.sh test-editmode|test-playmode [filter] | build-web" >&2
+    echo "usage: tools/unity.sh test-editmode|test-playmode [filter] | build-web | build-ios" >&2
     exit 2
     ;;
 esac

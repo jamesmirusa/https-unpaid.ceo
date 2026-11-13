@@ -63,6 +63,67 @@ namespace UnpaidCeo.Editor
             SetWasmOptimization("DiskSizeLTO");
         }
 
+        public const string IosOutput = "Builds/iOS", IosSimOutput = "Builds/iOSSim";
+        public const string BundleId = "ceo.unpaid.game";
+
+        /// <summary>
+        /// Stage 6 · iPhone: an Xcode project from the same game (IL2CPP, ARM64, Metal), Addressables built for iOS first.
+        /// UC_IOS_SIM=1 targets the Simulator SDK (Builds/iOSSim). Run: tools/unity.sh build-ios
+        /// Signing stays with the owner: automatic signing on, team chosen in Xcode.
+        /// </summary>
+        public static void BuildIos()
+        {
+            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.iOS)
+                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.iOS, BuildTarget.iOS);
+            bool sim = Environment.GetEnvironmentVariable("UC_IOS_SIM") == "1";
+            EditorUserBuildSettings.development = false;   // no on-screen development console in what players (and the owner) see
+            ConfigureIos(sim);
+
+            AddressableAssetSettings.CleanPlayerContent();
+            AddressableAssetSettings.BuildPlayerContent(out var content);
+            if (!string.IsNullOrEmpty(content.Error)) Fail("Addressables build failed: " + content.Error);
+            Debug.Log("[build] addressables (iOS) ok in " + content.Duration.ToString("0.0") + " s");
+
+            var scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
+            if (scenes.Length == 0) Fail("no scenes in build settings (run BootSceneBuilder.BuildAll)");
+            // A fresh folder each time: replacing an existing Xcode project makes Unity ask Xcode (scripting bridge) whether
+            // it is open, and that query crashes the editor with Xcode 27 ("-[SBApplication workspaceDocuments]").
+            string output = sim ? IosSimOutput : IosOutput;
+            if (System.IO.Directory.Exists(output)) System.IO.Directory.Delete(output, true);
+            var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
+            {
+                scenes = scenes,
+                locationPathName = output,
+                target = BuildTarget.iOS,
+                options = BuildOptions.None,
+            });
+            Debug.Log("[build] iOS " + (sim ? "simulator " : "") + report.summary.result + ", " + report.summary.totalSize / 1024 / 1024 + " MB, "
+                      + report.summary.totalTime.TotalSeconds.ToString("0") + " s");
+            if (report.summary.result != BuildResult.Succeeded) Fail("player build " + report.summary.result);
+        }
+
+        public static void ConfigureIos(bool simulator)
+        {
+            PlayerSettings.companyName = "Unpaid CEO";
+            PlayerSettings.productName = "Unpaid CEO";
+            PlayerSettings.SetApplicationIdentifier(NamedBuildTarget.iOS, BundleId);
+            PlayerSettings.bundleVersion = "0.6.0";
+            PlayerSettings.iOS.buildNumber = "1";
+            PlayerSettings.iOS.targetOSVersionString = "16.0";
+            PlayerSettings.iOS.sdkVersion = simulator ? iOSSdkVersion.SimulatorSDK : iOSSdkVersion.DeviceSDK;
+            PlayerSettings.iOS.targetDevice = iOSTargetDevice.iPhoneAndiPad;
+            PlayerSettings.iOS.requiresFullScreen = true;
+            PlayerSettings.iOS.hideHomeButton = false;
+            PlayerSettings.iOS.appleEnableAutomaticSigning = true;
+            PlayerSettings.SetScriptingBackend(NamedBuildTarget.iOS, ScriptingImplementation.IL2CPP);
+            PlayerSettings.SetArchitecture(NamedBuildTarget.iOS, 1);   // ARM64
+            PlayerSettings.SetManagedStrippingLevel(NamedBuildTarget.iOS, ManagedStrippingLevel.Medium);
+            PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
+            PlayerSettings.statusBarHidden = true;
+            PlayerSettings.SetUseDefaultGraphicsAPIs(BuildTarget.iOS, true);   // Metal
+            Debug.Log("[build] iOS settings: " + BundleId + ", iOS 16+, IL2CPP ARM64, " + (simulator ? "Simulator SDK" : "Device SDK"));
+        }
+
         /// <summary>UnityEditor.WebGL.UserBuildSettings lives in the WebGL module; set it by name so the editor assembly needs no platform reference.</summary>
         static void SetWasmOptimization(string value)
         {
