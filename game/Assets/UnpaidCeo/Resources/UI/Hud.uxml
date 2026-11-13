@@ -9,7 +9,10 @@
             <ui:Label name="hud-month" class="hud__value hud__value--plain value" />
         </ui:VisualElement>
         <ui:VisualElement class="hud__block">
-            <ui:Label name="hud-energy-caption" class="hud__caption" />
+            <ui:VisualElement class="hud__caption-row">
+                <ui:Label name="hud-energy-caption" class="hud__caption" />
+                <ui:Label name="hud-energy-value" class="hud__caption hud__energy-value value" />
+            </ui:VisualElement>
             <ui:VisualElement name="hud-energy" class="energy-bar">
                 <ui:VisualElement name="hud-energy-fill" class="energy-bar__fill" />
             </ui:VisualElement>

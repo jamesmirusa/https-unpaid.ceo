@@ -45,6 +45,10 @@ namespace UnpaidCeo.Core.Content
             if (b.EventsPerMonthWeights == null || b.EventsPerMonthWeights.Length != 3 ||
                 b.EventsPerMonthWeights.Any(w => w < 0) || b.EventsPerMonthWeights.Sum() <= 0)
                 r.Errors.Add("balance.eventsPerMonthWeights: need 3 non-negative weights with a positive sum");
+            if (b.WeekModes == null || !b.WeekModes.ContainsKey("balance")) r.Errors.Add("balance.weekModes: needs a 'balance' mode");
+            foreach (var m in b.WeekModes ?? new Dictionary<string, int[]>())
+                if (m.Value == null || m.Value.Length != 4 || m.Value.Any(v => v < 0) || m.Value.Sum() != 100)
+                    r.Errors.Add($"balance.weekModes.{m.Key}: needs 4 non-negative shares summing to 100");
             if (b.AutopilotHoursPerMonth <= 0) r.Errors.Add("balance.autopilotHoursPerMonth: must be > 0");
             if (b.AutopilotMaxMonths < 0) r.Errors.Add("balance.autopilotMaxMonths: must be >= 0");
             foreach (var id in b.Chapter1Gigs.Where(id => !db.Industries.ContainsKey(id)))

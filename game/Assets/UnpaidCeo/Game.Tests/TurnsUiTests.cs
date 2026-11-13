@@ -18,6 +18,8 @@ namespace UnpaidCeo.Game.Tests
         GameObject _host;
         UiRoot _ui;
         RenderTexture _target;
+        GameEngine _engine;
+        GameState _state;
 
         static ContentDb Content()
         {
@@ -37,9 +39,9 @@ namespace UnpaidCeo.Game.Tests
             _target = new RenderTexture(1080, 1920, 24);
             _host = new GameObject("ui");
             _ui = _host.AddComponent<UiRoot>();
-            var engine = new GameEngine(Content());
-            var state = engine.NewGame(5, new HeroAppearance());
-            _ui.Initialize(engine, state, _target);
+            _engine = new GameEngine(Content());
+            _state = _engine.NewGame(5, new HeroAppearance());
+            _ui.Initialize(_engine, _state, _target);
             yield return _ui.SetLanguage("en");
             for (int i = 0; i < 5; i++) yield return null;
         }
@@ -55,6 +57,7 @@ namespace UnpaidCeo.Game.Tests
         public IEnumerator Next_month_is_disabled_with_a_countdown_when_no_turns_left()
         {
             yield return Boot();
+            TestGate.Satisfy(_ui, _engine.Content, _state);
             _ui.SetTurns(0, 6, 3723);
             yield return null;
             Assert.IsFalse(_ui.NextMonthButton.enabledSelf, "no turns: the button is off");
@@ -67,6 +70,33 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsTrue(_ui.NextMonthButton.enabledSelf);
             Assert.AreEqual(DisplayStyle.None, _ui.CountdownRow.resolvedStyle.display);
             Assert.AreEqual("4/6", _ui.TurnsValue.text);
+        }
+
+        [UnityTest]
+        public IEnumerator Missions_step_aside_while_a_scene_is_on_screen()
+        {
+            yield return Boot();
+            _ui.SetMissions(new[]
+            {
+                new MissionView("mission.months_3", 1, 3, false),
+                new MissionView("mission.quiz_1", 1, 1, true),
+                new MissionView("mission.scenes_1", 0, 1, false),
+            }, streak: 4, ceoPoints: 12);
+            _ui.Open(UiRoot.City);
+            Assert.AreEqual(DisplayStyle.Flex, _ui.MissionsPanel.style.display.value);
+
+            _ui.SetSceneOpen(true);   // the dialogue is drawn where the missions are
+            Assert.AreEqual(DisplayStyle.None, _ui.MissionsPanel.style.display.value);
+            _ui.SetMissions(new[]
+            {
+                new MissionView("mission.months_3", 1, 3, false),
+                new MissionView("mission.quiz_1", 1, 1, true),
+                new MissionView("mission.scenes_1", 0, 1, false),
+            }, streak: 4, ceoPoints: 12);
+            Assert.AreEqual(DisplayStyle.None, _ui.MissionsPanel.style.display.value, "a refresh during the scene keeps them hidden");
+
+            _ui.SetSceneOpen(false);
+            Assert.AreEqual(DisplayStyle.Flex, _ui.MissionsPanel.style.display.value);
         }
 
         [UnityTest]

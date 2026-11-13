@@ -57,12 +57,37 @@ namespace UnpaidCeo.Core.Persistence
                 var state = obj.ToObject<GameState>(JsonSerializer.Create(Settings));
                 if (state == null || state.Month < 1 || state.Life == null || state.Hero == null) return Corrupt(json);
                 FillNulls(state);
+                if (v < 3 || state.Week < 1) MigrateToWeeks(state);
                 state.Version = GameState.CurrentVersion;
                 return new LoadResult { State = state, Status = migrated ? LoadStatus.Migrated : LoadStatus.Ok };
             }
             catch (Exception e) when (e is JsonException || e is FormatException || e is InvalidCastException || e is ArgumentException || e is OverflowException)
             {
                 return Corrupt(json);
+            }
+        }
+
+        /// <summary>
+        /// Version 3 (stage 4B): the turn is a week. An old save opens at the first week of its month; its monthly
+        /// receivables are split into four weekly ones; the action-point pool refills on that first week.
+        /// </summary>
+        static void MigrateToWeeks(GameState s)
+        {
+            s.Week = GameState.FirstWeekOf(s.Month);
+            s.ActionsThisTurn = s.ActionsThisTurn ?? new System.Collections.Generic.List<string>();
+            s.ActionsThisTurn.Clear();
+            s.ActionPointsLeft = 0;
+            foreach (var b in s.Businesses)
+            {
+                if (b.Receivables == null || b.Receivables.Count == 0) continue;
+                var weekly = new System.Collections.Generic.List<UnpaidCeo.Core.Primitives.Money>();
+                foreach (var m in b.Receivables)
+                {
+                    long part = m.Cents / GameState.WeeksPerMonth;
+                    for (int w = 1; w < GameState.WeeksPerMonth; w++) weekly.Add(UnpaidCeo.Core.Primitives.Money.FromCents(part));
+                    weekly.Add(UnpaidCeo.Core.Primitives.Money.FromCents(m.Cents - part * (GameState.WeeksPerMonth - 1)));
+                }
+                b.Receivables = weekly;
             }
         }
 
@@ -76,6 +101,8 @@ namespace UnpaidCeo.Core.Persistence
             s.PendingLessons = s.PendingLessons ?? new System.Collections.Generic.List<string>();
             s.LessonsSeen = s.LessonsSeen ?? new System.Collections.Generic.Dictionary<string, int>();
             s.Skills = s.Skills ?? new System.Collections.Generic.Dictionary<string, int>();
+            s.ActionsThisTurn = s.ActionsThisTurn ?? new System.Collections.Generic.List<string>();
+            s.ActionLastWeek = s.ActionLastWeek ?? new System.Collections.Generic.Dictionary<string, int>();
             s.QuizAnswers = s.QuizAnswers ?? new System.Collections.Generic.Dictionary<string, int>();
             s.Businesses = s.Businesses ?? new System.Collections.Generic.List<Economy.BusinessState>();
             s.Loans = s.Loans ?? new System.Collections.Generic.List<Economy.LoanState>();
@@ -113,6 +140,12 @@ namespace UnpaidCeo.Core.Persistence
                 m.Meta.MissionsDone = m.Meta.MissionsDone ?? new System.Collections.Generic.List<string>();
                 m.Meta.SkillXp = m.Meta.SkillXp ?? new System.Collections.Generic.Dictionary<string, int>();
                 m.Meta.QuizKeysToday = m.Meta.QuizKeysToday ?? new System.Collections.Generic.List<string>();
+                if (m.Meta.WeekPlan != null)
+                {
+                    m.Meta.WeekPlan.Actions = m.Meta.WeekPlan.Actions ?? new System.Collections.Generic.List<string>();
+                    m.Meta.WeekPlan.Levers = m.Meta.WeekPlan.Levers ?? new System.Collections.Generic.List<LeverChange>();
+                    m.Meta.WeekPlan.Levers.RemoveAll(l => l == null);
+                }
                 return m;
             }
             catch (Exception e) when (e is JsonException || e is FormatException || e is InvalidCastException || e is ArgumentException || e is OverflowException)

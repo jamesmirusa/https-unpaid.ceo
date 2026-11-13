@@ -94,7 +94,8 @@ namespace UnpaidCeo.Editor
             Home = "building_walkup",
             Row = new[]
             {
-                ("building_church", -43f, 180f, 9.5f), ("building_check_cashing", -32f, 180f, 9.5f), ("building_pawn_shop", -21f, 180f, 9.5f),
+                // Stage 4 key buildings (Tripo P2 from GPT Image concepts): the academy hall and the bank stand where the places open.
+                ("building_academy", -43f, 180f, 9.5f), ("building_bank", -32f, 270f, 9.5f), ("building_pawn_shop", -21f, 180f, 9.5f),
                 ("building_laundromat", -10f, 180f, 9.5f), ("building_walkup", 11f, 180f, 8f),
                 // Tripo P2 put the bodega's storefront on the model's +X side; turn it to face the avenue.
                 ("building_bodega", 21f, 270f, 9.5f), ("building_pizza", 32f, 180f, 9.5f), ("building_garden_lot", 43f, 180f, 9.5f),
@@ -164,6 +165,7 @@ namespace UnpaidCeo.Editor
                 ("prop_newspaper_box", new Vector3(-4.8f, 0.16f, -7.6f), 0f, 1.2f, true),
                 ("prop_food_cart", new Vector3(-4.8f, 0.16f, 7.4f), 180f, 2.4f, false),
                 ("prop_taxi", new Vector3(-12f, 0.02f, 2.4f), -90f, 4.6f, false),
+                ("prop_taxi", new Vector3(24f, 0.02f, -2.4f), 90f, 4.6f, false),
             },
         };
 
@@ -236,8 +238,15 @@ namespace UnpaidCeo.Editor
                     lamps.Add(light);
                 }
             }
+            int cars = 0;
             foreach (var (prefab, at, yaw, size, byHeight) in d.Props)
-                Place(prefab, props, at, yaw, footprint: byHeight ? 0 : size, height: byHeight ? size : 0);
+            {
+                var prop = Place(prefab, props, at, yaw, footprint: byHeight ? 0 : size, height: byHeight ? size : 0);
+                if (prefab != "prop_taxi") continue;
+                // Cars drive: a static object is batched into the scene mesh and could not move.
+                foreach (var t in prop.GetComponentsInChildren<Transform>(true)) t.gameObject.isStatic = false;
+                prop.AddComponent<StreetCar>().Configure(speed: 6f + 2.5f * (cars++ % 3), halfLength: 68f);
+            }
 
             var lighting = new GameObject("Lighting").transform;
             lighting.SetParent(root);
@@ -512,7 +521,7 @@ namespace UnpaidCeo.Editor
         }
 
         /// <summary>Heroes and NPCs load on demand (address = prefab name), keeping them out of the initial web download.</summary>
-        static void MarkCharactersAddressable()
+        public static void MarkCharactersAddressable()
         {
             foreach (var guid in AssetDatabase.FindAssets("t:Prefab", new[] { Prefabs }))
             {
@@ -565,11 +574,12 @@ namespace UnpaidCeo.Editor
                 var dn = Object.FindFirstObjectByType<DayNeonController>();
                 string file = sceneName.ToLowerInvariant();
                 var shots = new List<(string, float, bool)> { ("warmup", 0f, false), ("day", 0f, false), ("night", 1f, false), ("closeup", 0f, true) };
-                if (sceneName != "Bronx") shots.Add(("row", 0f, true));
+                if (sceneName != "Bronx") shots.Add(("row", 0f, true)); else shots.Add(("west", 0f, true));
                 foreach (var (name, night, close) in shots)
                 {
                     dn.SetBlend(night);
                     if (name == "row") { cam.transform.position = new Vector3(-2f, 14f, -10f); cam.transform.LookAt(new Vector3(11f, 3f, 13.5f)); }
+                    else if (name == "west") { cam.transform.position = new Vector3(-30f, 12f, -10f); cam.transform.LookAt(new Vector3(-36f, 4f, 13.5f)); }
                     else if (close) { cam.transform.position = closeFrom; cam.transform.LookAt(closeAt); }
                     var rt = new RenderTexture(1600, 900, 24) { antiAliasing = 4 };
                     cam.targetTexture = rt;

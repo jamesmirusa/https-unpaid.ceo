@@ -17,10 +17,19 @@ namespace UnpaidCeo.Editor
         public const string ClipsFolder = "Clips";
 
         /// <summary>Largest texture in the web build per kind: the web build has a 20 MB budget (spec §6), quality levels go lower still.</summary>
-        public static int MaxTextureSize(AssetKind kind) => kind == AssetKind.Prop ? 512 : 1024;
+        public static int MaxTextureSize(AssetKind kind) => kind == AssetKind.Prop ? 512 : kind == AssetKind.Interior ? 2048 : 1024;
 
         /// <summary>Largest texture in the store apps and desktop builds, where the download budget does not apply.</summary>
         public static int AppTextureSize(AssetKind kind) => kind == AssetKind.Prop ? 1024 : 2048;
+
+        /// <summary>The house shader's most light bands: a room's pale surfaces shade smoothly instead of in steps.</summary>
+        public const float InteriorBands = 6f;
+
+        /// <summary>
+        /// Normal maps in the web build: enough for surface detail at the isometric camera distance; a room fills a phone
+        /// screen during a visit (downloaded only then), so its maps are larger.
+        /// </summary>
+        public static int WebNormalSize(AssetKind kind) => kind == AssetKind.Interior ? 1024 : WebNormalMapSize;
 
         /// <summary>Normal maps in the web build: enough for surface detail at the isometric camera distance.</summary>
         public const int WebNormalMapSize = 512;
@@ -35,7 +44,7 @@ namespace UnpaidCeo.Editor
             importer.mipmapEnabled = true;
             var web = importer.GetPlatformTextureSettings("WebGL");
             web.overridden = true;
-            web.maxTextureSize = normalMap ? WebNormalMapSize : MaxTextureSize(kind);
+            web.maxTextureSize = normalMap ? WebNormalSize(kind) : MaxTextureSize(kind);
             importer.SetPlatformTextureSettings(web);
             importer.SaveAndReimport();
         }
@@ -50,7 +59,11 @@ namespace UnpaidCeo.Editor
             foreach (var r in copy.GetComponentsInChildren<Renderer>(true))
             {
                 var mats = r.sharedMaterials;
-                for (int i = 0; i < mats.Length; i++) mats[i] = Stylize(mats[i], shader, AppTextureSize(kind));
+                for (int i = 0; i < mats.Length; i++)
+                {
+                    mats[i] = Stylize(mats[i], shader, AppTextureSize(kind));
+                    if (kind == AssetKind.Interior) LightSoftly(mats[i]);
+                }
                 r.sharedMaterials = mats;
                 EnsureTangents(r, mats);
             }
@@ -70,6 +83,18 @@ namespace UnpaidCeo.Editor
                 if (box != null) box.size = Bounds(copy).size;
             }
             return copy;
+        }
+
+        /// <summary>
+        /// A room seen from inside: no warm rim (it lit every floor seen at a glancing angle, adding a third to pale marble)
+        /// and the most light bands, so normal-mapped furniture shades smoothly instead of in chrome-like steps. A lighter
+        /// shade tint, because the room's own key light already leaves its far side in shadow.
+        /// </summary>
+        public static void LightSoftly(Material m)
+        {
+            m.SetColor("_RimColor", Color.black);
+            m.SetFloat("_Bands", InteriorBands);
+            m.SetColor("_ShadeColor", new Color(0.7f, 0.72f, 0.82f, 1f));
         }
 
         /// <summary>Normal mapping needs tangents; generated meshes sometimes ship without them.</summary>
@@ -118,7 +143,12 @@ namespace UnpaidCeo.Editor
             try
             {
                 foreach (var folder in new[] { "Prefabs", "Meshes", "Materials", "Textures" }) Directory.CreateDirectory($"{root}/{folder}");
-                if (kind == AssetKind.Character) AddClips(prepared, glbPath);
+                if (kind == AssetKind.Character)
+                {
+                    AddClips(prepared, glbPath);
+                    var (sole, top) = CharacterPoseBaker.Measure(prepared);
+                    (prepared.GetComponent<UnpaidCeo.Game.Hero.StandingPose>() ?? prepared.AddComponent<UnpaidCeo.Game.Hero.StandingPose>()).Set(sole, top);
+                }
                 SaveTextures(prepared, $"{root}/Textures/{name}", kind);
                 int n = 0;
                 foreach (var mf in prepared.GetComponentsInChildren<MeshFilter>(true))

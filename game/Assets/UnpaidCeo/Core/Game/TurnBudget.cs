@@ -98,7 +98,8 @@ namespace UnpaidCeo.Core.Game
         /// AutopilotMaxMonths per local day however often the game is opened, then today's refill.
         /// Nothing runs on the very first launch.
         /// </summary>
-        public static IReadOnlyList<MonthReport> OnLaunch(GameEngine e, GameState s, TurnState t, long nowUnix, int utcOffsetMinutes)
+        public static IReadOnlyList<MonthReport> OnLaunch(GameEngine e, GameState s, TurnState t, long nowUnix, int utcOffsetMinutes,
+            MonthDecisions thisWeek = null)
         {
             IReadOnlyList<MonthReport> reports = Array.Empty<MonthReport>();
             if (t.Started && t.LastSeenUnix > 0)
@@ -109,7 +110,7 @@ namespace UnpaidCeo.Core.Game
                 if (t.AutopilotDay != today) { t.AutopilotDay = today; t.AutopilotUsed = 0; }
                 months = Math.Min(months, Math.Max(0, b.AutopilotMaxMonths - t.AutopilotUsed));
                 t.AutopilotUsed += months;
-                reports = Autopilot.Run(e, s, months);
+                reports = Autopilot.Run(e, s, months, thisWeek);
             }
             Refresh(t, nowUnix, utcOffsetMinutes, e.Content.Balance);
             return reports;

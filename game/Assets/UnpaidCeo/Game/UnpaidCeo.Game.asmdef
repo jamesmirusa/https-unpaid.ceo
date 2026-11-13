@@ -9,7 +9,15 @@
         "Unity.RenderPipelines.Universal.Runtime",
         "Unity.RenderPipelines.Core.Runtime",
         "Unity.Addressables",
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "Unity.Services.Core",
+        "Unity.Services.Authentication",
+        "Unity.Services.CloudSave",
+        "Unity.Services.Leaderboards",
+        "Unity.Services.CloudCode",
+        "Unity.Services.RemoteConfig",
+        "Unity.Services.Analytics",
+        "Unity.Services.Friends"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

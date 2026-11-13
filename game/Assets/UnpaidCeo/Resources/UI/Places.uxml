@@ -1,0 +1,3 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:ScrollView name="places" class="screen screen--panel places" />
+</ui:UXML>

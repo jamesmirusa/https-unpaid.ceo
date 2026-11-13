@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Rules of the Cloud Code module against in-memory ports; honest runs come from the Unity test bots (linked). -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>$(NoWarn);CS8632</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../../game/Assets/UnpaidCeo/Core.Tests/Game/Bots.cs" Link="Shared/Bots.cs" />
+    <Compile Include="../../../game/Assets/UnpaidCeo/Core.Tests/Game/TestContent.cs" Link="Shared/TestContent.cs" />
+    <Compile Include="../../../game/Assets/UnpaidCeo/Core.Tests/Online/OnlineRuns.cs" Link="Shared/OnlineRuns.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../UnpaidCeo.CloudCode/UnpaidCeo.CloudCode.csproj" />
+  </ItemGroup>
+</Project>

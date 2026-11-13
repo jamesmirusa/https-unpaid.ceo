@@ -20,9 +20,9 @@ namespace UnpaidCeo.Game.Tests
             yield return LocalizationSettings.SelectedLocaleAsync;
             var en = LocalizationSettings.AvailableLocales.GetLocale("en");
             LocalizationSettings.SelectedLocale = en;
-            var label = UiText.Bind(new Label(), "hud.next_month");
+            var label = UiText.Bind(new Label(), "hud.next_week");
             for (int i = 0; i < 10 && string.IsNullOrEmpty(label.text); i++) yield return null;
-            Assert.AreEqual("Next month", label.text);
+            Assert.AreEqual("Next week", label.text);
             Assert.IsTrue(UiText.IsLocalized(label));
         }
 

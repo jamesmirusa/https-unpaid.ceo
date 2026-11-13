@@ -90,6 +90,20 @@ namespace UnpaidCeo.Editor.Tests
         }
 
         [Test]
+        public void A_room_fills_the_screen_so_its_budget_is_above_a_buildings()
+        {
+            var room = Grid(20000);
+            MeshLodUtility.GenerateMeshLods(room, 2);
+            CollectionAssert.IsEmpty(AssetBudgetValidator.Check(Building(room, Stylized()), AssetKind.Interior));
+            Assert.That(AssetBudgetValidator.Check(Building(room, Stylized()), AssetKind.Building), Has.Some.Contains("LOD0"));
+            var heavy = Grid(70000);
+            MeshLodUtility.GenerateMeshLods(heavy, 2);
+            Assert.That(AssetBudgetValidator.Check(Building(heavy, Stylized()), AssetKind.Interior), Has.Some.Contains("60000"));
+            Assert.AreEqual(2048, GlbPrefabBuilder.MaxTextureSize(AssetKind.Interior), "a room fills the phone screen: twice a building's texture");
+            Assert.AreEqual(1024, GlbPrefabBuilder.WebNormalSize(AssetKind.Interior));
+        }
+
+        [Test]
         public void Wrong_material_and_missing_collider_are_reported()
         {
             var mesh = Grid(4000);

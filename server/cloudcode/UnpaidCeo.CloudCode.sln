@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnpaidCeo.CloudCode", "UnpaidCeo.CloudCode\UnpaidCeo.CloudCode.csproj", "{40A123AD-C7FE-4BE0-BC9F-9CBB036D1E6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnpaidCeo.CloudCode.Tests", "UnpaidCeo.CloudCode.Tests\UnpaidCeo.CloudCode.Tests.csproj", "{77DAA7EE-2D04-45A8-AF64-C3B59075E12A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40A123AD-C7FE-4BE0-BC9F-9CBB036D1E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40A123AD-C7FE-4BE0-BC9F-9CBB036D1E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40A123AD-C7FE-4BE0-BC9F-9CBB036D1E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40A123AD-C7FE-4BE0-BC9F-9CBB036D1E6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77DAA7EE-2D04-45A8-AF64-C3B59075E12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77DAA7EE-2D04-45A8-AF64-C3B59075E12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77DAA7EE-2D04-45A8-AF64-C3B59075E12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77DAA7EE-2D04-45A8-AF64-C3B59075E12A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

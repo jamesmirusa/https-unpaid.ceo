@@ -5,12 +5,14 @@ using UnpaidCeo.Core.Game;
 using UnpaidCeo.Game.Hero;
 using UnpaidCeo.Game.Ui;
 
+using UnpaidCeo.Game.Services.Online;
+
 namespace UnpaidCeo.Game.Bootstrap
 {
     /// <summary>
     /// The first 60 seconds of a new game, as coach marks over the real UI: pick a hero (one tap, a random
     /// preset is ready), the mentor offers a $40 delivery gig, explains revenue vs profit, highlights
-    /// Next month, and the month 1 report opens. Mentor lines come from Yarn (ch1_onboarding.yarn) so they
+    /// Next month, and the month 1 result pops up on the main screen. Mentor lines come from Yarn (ch1_onboarding.yarn) so they
     /// are localised and voiced like the rest of the chapter.
     /// </summary>
     public sealed class OnboardingFlow
@@ -57,11 +59,14 @@ namespace UnpaidCeo.Game.Bootstrap
 
         public void Start()
         {
+            _ui.GuideEnabled = false;   // one voice at a time: the mentor's coach marks first
+            _ui.NextLocked = true;      // until the mentor asks for it
             _heroOverlay = new VisualElement { name = "onboarding-hero" };
             _heroOverlay.AddToClassList("onboarding-overlay");
             _ui.Root.Add(_heroOverlay);
             var creator = new HeroCreator(_heroOverlay, _view, _seed);
             creator.Confirmed += OnHeroChosen;
+            AnalyticsEvents.TutorialStep(_ui.Online.Analytics, (int)Step.Hero);
         }
 
         void OnHeroChosen(HeroAppearance hero)
@@ -94,6 +99,7 @@ namespace UnpaidCeo.Game.Bootstrap
         void Show(Step step, string lineId, string? actionKey)
         {
             Current = step;
+            AnalyticsEvents.TutorialStep(_ui.Online.Analytics, (int)step);
             _text!.text = _lineText(lineId) ?? string.Empty;
             if (actionKey != null) UiText.Bind(_action!, actionKey);
             _action!.style.display = actionKey != null ? DisplayStyle.Flex : DisplayStyle.None;
@@ -111,6 +117,10 @@ namespace UnpaidCeo.Game.Bootstrap
                     break;
                 case Step.Lesson:
                     Show(Step.NextMonth, LineNextMonth, null);
+                    // The mentor's walk-through is month 1's plan and visit; the checklist starts asking from month 2.
+                    _ui.Gate.PlanReviewed = true;
+                    _ui.Gate.PlaceVisited = true;
+                    _ui.NextLocked = false;
                     _next?.AddToClassList(HighlightClass);
                     _ui.NextMonthRequested += OnNextMonth;
                     break;
@@ -123,10 +133,12 @@ namespace UnpaidCeo.Game.Bootstrap
             _ui.NextMonthRequested -= OnNextMonth;
             _next?.RemoveFromClassList(HighlightClass);
             _coach?.RemoveFromHierarchy();
-            Report = _engine.EndMonth(_state, _ui.CurrentDecisions());
+            Report = _engine.EndWeek(_state, _ui.CurrentDecisions());
             _ui.ShowReport(Report);
-            _ui.Open(UiRoot.Company);
+            _ui.GuideEnabled = true;
+            _ui.ShowMonthSummary(Report);
             Current = Step.Done;
+            AnalyticsEvents.TutorialStep(_ui.Online.Analytics, (int)Step.Done);
             Completed?.Invoke(Report);
         }
     }

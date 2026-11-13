@@ -26,6 +26,8 @@ namespace UnpaidCeo.Game.Narrative
         public event Action<string, string> ChoiceApplied;
 
         public bool IsPlaying => runner != null && runner.IsDialogueRunning;
+        /// <summary>Id of the storylet whose scene is on screen (null between scenes).</summary>
+        public string CurrentStorylet => _currentStorylet;
 
         void Awake()
         {
@@ -88,6 +90,10 @@ namespace UnpaidCeo.Game.Narrative
             {
                 await runner.StartDialogue(storylet.YarnNode);
                 await runner.DialogueTask;
+                // DialogueTask completes from inside the runner's own completion, itself inside the Yarn VM's Continue().
+                // A dialogue started right here is dropped by the VM (it is still "running") and the runner then clears
+                // the new dialogue's completion source: the next scene never plays and never ends. Let the runner unwind.
+                await YarnTask.Yield();
             }
             finally
             {

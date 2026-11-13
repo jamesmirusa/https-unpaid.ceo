@@ -4,7 +4,9 @@
 
 | asset | file | LOD0 tris | LOD levels | materials | textures | budget |
 |---|---|---|---|---|---|---|
+| building_academy | 4584 KB | 6526 | 3 | 1 | 1024×1024 | OK |
 | building_bakery | 3453 KB | 6335 | 3 | 1 | 1024×1024 | OK |
+| building_bank | 3468 KB | 6925 | 3 | 1 | 1024×1024 | OK |
 | building_barbershop | 3871 KB | 6663 | 3 | 1 | 1024×1024 | OK |
 | building_bodega | 4100 KB | 6364 | 3 | 1 | 1024×1024 | OK |
 | building_brownstone_row | 4899 KB | 7404 | 3 | 1 | 1024×1024 | OK |
@@ -21,7 +23,7 @@
 | building_laundromat | 3397 KB | 5953 | 3 | 1 | 1024×1024 | OK |
 | building_office | 4187 KB | 5401 | 3 | 1 | 1024×1024 | OK |
 | building_pawn_shop | 3794 KB | 6759 | 3 | 1 | 1024×1024 | OK |
-| building_pizza | 1498 KB | 7055 | 3 | 1 | 1024×1024 | OK |
+| building_pizza | 3741 KB | 5902 | 3 | 1 | 1024×1024 | OK |
 | building_queens_house | 4254 KB | 6990 | 3 | 1 | 1024×1024 | OK |
 | building_walkup | 4416 KB | 5622 | 3 | 1 | 1024×1024 | OK |
 | building_warehouse | 4288 KB | 7330 | 3 | 1 | 1024×1024 | OK |

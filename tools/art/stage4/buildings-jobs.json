@@ -1,0 +1,8 @@
+{
+  "note": "Stage 4 key buildings: concept GPT Image 2.6 (1:1, 2k, high, style ref a84f1199-2bc1-46ee-8429-8dc616494f35, icon-only signs) -> tripo_p2_image_to_3d (face_limit 8000, texture_quality extreme, pbr, texture_version v3.5-20260815, delight). ~2.75 + 40 credits each.",
+  "buildings": [
+    {"name": "building_bank", "concept_job": "acff7c97-0f50-4b2f-a79e-e8f5e302efe2", "mesh_job": "965813b4-90ef-4102-9429-f58c76eb1907"},
+    {"name": "building_academy", "concept_job": "7d3ae174-242c-4a75-b5ee-d887cdae2097", "mesh_job": "578f429b-6d65-41b7-a48e-045bd3828755"},
+    {"name": "building_pizza", "concept_job": "4f70dbf3-a452-411b-806a-39940185acd9", "mesh_job": "0b9fae24-41be-4408-a5f3-4352ea71139f"}
+  ]
+}

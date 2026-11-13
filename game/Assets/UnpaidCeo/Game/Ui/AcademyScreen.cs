@@ -14,6 +14,10 @@ namespace UnpaidCeo.Game.Ui
 
         /// <summary>After every quiz answer: lesson id and question index.</summary>
         public event System.Action<string, int> Answered;
+        /// <summary>The player opened a lesson.</summary>
+        public event System.Action<string> LessonViewed;
+        /// <summary>Every question of a lesson is now answered correctly.</summary>
+        public event System.Action<string> QuizPassed;
 
         readonly GameEngine _engine;
         readonly GameState _state;
@@ -46,7 +50,7 @@ namespace UnpaidCeo.Game.Ui
                 bool unlocked = _state.LessonsSeen.ContainsKey(lesson.Id);
                 if (_selected == null && unlocked) _selected = lesson.Id;
                 var id = lesson.Id;
-                var item = UiText.Bind(new Button(() => { _selected = id; Hide(_feedback); Refresh(); }) { name = "lesson-" + id }, lesson.TitleKey, Table);
+                var item = UiText.Bind(new Button(() => { _selected = id; Hide(_feedback); Refresh(); LessonViewed?.Invoke(id); }) { name = "lesson-" + id }, lesson.TitleKey, Table);
                 item.SetEnabled(unlocked);
                 item.AddToClassList("academy__item");
                 item.EnableInClassList("academy__item--locked", !unlocked);
@@ -99,6 +103,8 @@ namespace UnpaidCeo.Game.Ui
             return box;
         }
 
+        public void Answer(string lessonId, int q, int option) => Answer(_engine.Content.Lessons[lessonId], q, option);
+
         void Answer(LessonDef lesson, int q, int option)
         {
             bool correct = _engine.AnswerQuiz(_state, lesson.Id, q, option);
@@ -106,6 +112,10 @@ namespace UnpaidCeo.Game.Ui
             Show(_feedback);
             ShowSelected();
             Answered?.Invoke(lesson.Id, q);
+            bool passed = true;
+            for (int i = 0; i < lesson.Quiz.Count; i++)
+                passed &= _state.QuizAnswers.TryGetValue(lesson.Id + "/" + i, out int c) && c == lesson.Quiz[i].CorrectIndex;
+            if (correct && passed) QuizPassed?.Invoke(lesson.Id);
         }
     }
 }

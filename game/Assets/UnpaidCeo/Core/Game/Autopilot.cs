@@ -5,8 +5,9 @@ using UnpaidCeo.Core.Content;
 namespace UnpaidCeo.Core.Game
 {
     /// <summary>
-    /// Offline progress: one month per AutopilotHoursPerMonth real hours, capped per local day (TurnBudget), no storylets.
-    /// It repeats the routine (time split), never last month's levers or free actions.
+    /// Offline progress: one turn (a week since stage 4B) per AutopilotHoursPerMonth real hours, capped per local day
+    /// (TurnBudget), no storylets. It repeats the routine (time split), never the last turn's levers or free actions —
+    /// except the week the player already decided before leaving, which is played as they decided it.
     /// </summary>
     public static class Autopilot
     {
@@ -18,13 +19,16 @@ namespace UnpaidCeo.Core.Game
             return (int)Math.Min(months, Math.Max(0, b.AutopilotMaxMonths));
         }
 
-        public static IReadOnlyList<MonthReport> Run(GameEngine e, GameState s, int months)
+        /// <param name="thisWeek">What the player decided for the current week before leaving (null: the routine).</param>
+        public static IReadOnlyList<MonthReport> Run(GameEngine e, GameState s, int months, MonthDecisions thisWeek = null)
         {
             var reports = new List<MonthReport>();
             for (int i = 0; i < months; i++)
             {
-                var d = (s.LastDecisions ?? MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null)).Routine();
-                reports.Add(e.EndMonth(s, d));
+                var d = i == 0 && thisWeek != null
+                    ? thisWeek
+                    : (s.LastDecisions ?? MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null)).Routine();
+                reports.Add(e.EndWeek(s, d));
             }
             return reports;
         }

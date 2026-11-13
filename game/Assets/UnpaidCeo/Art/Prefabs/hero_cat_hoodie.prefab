@@ -638,6 +638,7 @@ GameObject:
   - component: {fileID: 8969238546575016900}
   - component: {fileID: 9051353484796654973}
   - component: {fileID: 8620173280703969729}
+  - component: {fileID: 3424541965130055845}
   m_Layer: 0
   m_Name: hero_cat_hoodie
   m_TagString: Untagged
@@ -699,6 +700,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: d5ca48f28de2641f5b5627206fa5ac98, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 7aa98e84f205a41ad80e3ec344848077, type: 3}
   think: {fileID: 8742671007458294780, guid: 373c5da5778d7409ba6fc30decae7dcc, type: 3}
+--- !u!114 &3424541965130055845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6235579328332323971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.0077534667
+  top: 1.6609013
 --- !u!1 &6264763408321440255
 GameObject:
   m_ObjectHideFlags: 0

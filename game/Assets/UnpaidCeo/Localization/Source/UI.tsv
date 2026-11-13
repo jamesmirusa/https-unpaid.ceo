@@ -6,15 +6,14 @@ nav.academy	Academy	Академия
 nav.ranking	Ranking	Рейтинг
 hud.cash	Cash	Деньги
 hud.reserve	Reserve	Резерв
-hud.month	Month	Месяц
+hud.month	Week	Неделя
 hud.energy	Energy	Энергия
-hud.next_month	Next month	Следующий месяц
-hud.turns_left	Months today	Месяцев сегодня
-hud.next_in	New months in	Новые месяцы через
+hud.turns_left	Weeks today	Недель сегодня
+hud.next_in	New weeks in	Новые недели через
 hud.journal	Journal	Журнал
 hud.settings	Settings	Настройки
-company.title	Company	Компания
-company.empty	Finish your first month to see the report.	Заверши первый месяц, чтобы увидеть отчёт.
+company.title	Report	Отчёт
+company.empty	Finish your first week to see the report.	Заверши первую неделю, чтобы увидеть отчёт.
 company.revenue	Revenue	Выручка
 company.cogs	Cost of goods	Себестоимость
 company.gross	Gross profit	Валовая прибыль
@@ -24,17 +23,15 @@ company.mistake	Tired-out mistake	Ошибка от усталости
 company.tax	Tax reserve	Резерв на налоги
 company.net	Net profit	Чистая прибыль
 company.personal	Living costs	Расходы на жизнь
-company.cash_end	Cash at month end	Деньги на конец месяца
+company.cash_end	Cash at week end	Деньги на конец недели
 company.disclaimer	Money in this game is simulated. This is not financial advice.	Деньги в игре симулированные. Это не финансовый совет.
-decisions.title	Decisions	Решения
-decisions.time	CEO time	Время CEO
+decisions.title	This week	Эта неделя
 decisions.work	Work	Работа
 decisions.family	Family	Семья
 decisions.rest	Rest	Отдых
 decisions.study	Study	Учёба
-decisions.split	Work split	Распределение работы
-decisions.actions	Free actions	Свободные действия
-decisions.ap	Action points	Очки действий
+decisions.actions	This week's deeds	Дела недели
+decisions.ap	Actions left	Действий осталось
 gig.gig_delivery	Delivery	Доставка
 gig.gig_resale	Resale	Перепродажа
 gig.gig_ai_freelance	AI freelance	ИИ-фриланс
@@ -47,6 +44,10 @@ action.hobby	Hobby	Хобби
 action.gray_scheme	Gray scheme	Серая схема
 action.loan_shark_loan	Loan from Mr. Fins	Заём у мистера Финса
 action.reserve_transfer	Move to reserve	Перевести в резерв
+action.night_shift	Night shift	Ночная смена
+action.pitch_night	Startup pitch night	Питч на вечере стартапов
+action.budget_review	Budget review	Разбор бюджета
+action.certificate_course	Certificate course	Курс с сертификатом
 journal.title	Your company's story	История твоей компании
 journal.empty	Your story starts this month.	Твоя история начинается в этом месяце.
 journal.month	Month	Месяц
@@ -68,6 +69,10 @@ journal.action.hobby	You made time for a hobby.	Ты нашёл время дл�
 journal.action.gray_scheme	You ran a gray scheme.	Ты провернул серую схему.
 journal.action.loan_shark_loan	You borrowed from Mr. Fins.	Ты занял у мистера Финса.
 journal.action.reserve_transfer	You moved money to the reserve.	Ты перевёл деньги в резерв.
+journal.action.night_shift	You worked the night shift at Tony's.	Ты отработал ночную смену у Тони.
+journal.action.pitch_night	You pitched your idea at the startup night.	Ты рассказал свою идею на вечере стартапов.
+journal.action.budget_review	You went over your budget with Ms. Lee.	Ты разобрал свой бюджет с мисс Ли.
+journal.action.certificate_course	You finished a weekend certificate course.	Ты прошёл курс выходного дня с сертификатом.
 settings.title	Settings	Настройки
 settings.language	Language	Язык
 settings.graphics	Graphics	Графика
@@ -81,7 +86,7 @@ settings.reset	Start over	Начать заново
 settings.reset.confirm	Tap again to erase your progress.	Нажми ещё раз, чтобы стереть прогресс.
 ranking.title	Ranking	Рейтинг
 ranking.soon	Weekly challenges and the leaderboard are coming soon.	Недельные челленджи и рейтинг скоро появятся.
-city.hint	Your block in the Bronx	Твой квартал в Бронксе
+city.hint	Tap a place in the city to walk in	Нажми на место в городе, чтобы зайти
 hero.title	Create your hero	Создай героя
 hero.species	Species	Вид
 hero.outfit	Outfit	Образ
@@ -97,9 +102,9 @@ onboarding.continue	Got it	Понял
 missions.title	Daily missions	Задания дня
 missions.streak	Streak, days	Серия, дней
 missions.points	CEO points	Очки CEO
-mission.months_1	Play 1 month	Сыграй 1 месяц
-mission.months_3	Play 3 months	Сыграй 3 месяца
-mission.months_6	Play all 6 months of the day	Сыграй все 6 месяцев дня
+mission.months_1	Play 1 week	Сыграй 1 неделю
+mission.months_3	Play 3 weeks	Сыграй 3 недели
+mission.months_6	Play 6 weeks today	Сыграй 6 недель за день
 mission.scenes_1	Make a choice in a scene	Сделай выбор в сцене
 mission.scenes_3	Make choices in 3 scenes	Сделай выбор в 3 сценах
 mission.quiz_1	Answer a quiz question in the Academy	Ответь на вопрос в Академии
@@ -116,7 +121,7 @@ industry.break_even	Break-even, sales	Безубыточность
 industry.lesson	Lesson	Урок
 industry.choose	Choose	Выбрать
 industry.chosen	Your business	Твой бизнес
-industry.offer	You can afford the first location. Open it next month?	Первая точка тебе по карману. Открыть её в следующем месяце?
+industry.offer	You can afford the first location. Open it next week?	Первая точка тебе по карману. Открыть её на следующей неделе?
 industry.open_first	Open the first location	Открыть первую точку
 industry.coffee_cart.name	Coffee cart	Кофейная тележка
 industry.coffee_cart.scale.0	Cart	Тележка
@@ -182,4 +187,282 @@ journal.chapter2_start	You moved to Brooklyn.	Ты переехал в Брук�
 journal.chapter3_start	You moved to Queens.	Ты переехал в Квинс.
 journal.chapter2_done	Chapter 2 goal reached.	Цель второй главы достигнута.
 journal.chapter3_done	Chapter 3 goal reached.	Цель третьей главы достигнута.
-decisions.owner_time	Your work time now runs your business. At 60% work you count as one full-time staff member; gigs no longer pay.	Твоё рабочее время теперь уходит на бизнес. При 60% работы ты — полноценный сотрудник, а подработки больше не платят.
+decisions.owner_time	Your work time now runs your business, and gigs no longer pay. In Hustle you count as a full-time staff member.	Твоё рабочее время теперь уходит на бизнес, подработки больше не платят. В режиме «Пахать» ты — полноценный сотрудник.
+account.title	Account	Аккаунт
+account.status.guest	You're playing as a guest. Create an account to keep your progress on any device.	Ты играешь как гость. Создай аккаунт, чтобы прогресс был с тобой на любом устройстве.
+account.status.signed	Signed in as	Вход выполнен:
+account.status.offline	Accounts need the internet. The game keeps playing offline.	Для аккаунта нужен интернет. Игра продолжается офлайн.
+account.user	Username	Имя пользователя
+account.pass	Password	Пароль
+account.rules	Username: 3–20 letters, digits or . - @ _. Password: 8–30 characters with an upper- and a lowercase letter, a digit and a symbol.	Имя: 3–20 латинских букв, цифр или . - @ _. Пароль: 8–30 символов, заглавная и строчная буква, цифра и символ.
+account.name	Name in the rankings	Имя в рейтинге
+account.signup	Create account	Создать аккаунт
+account.signin	Sign in	Войти
+account.setname	Change name	Сменить имя
+account.signout	Sign out	Выйти
+account.created	Account created. Your progress is saved in the cloud.	Аккаунт создан. Прогресс сохранён в облаке.
+account.welcome	Signed in. Loading your cloud save.	Вход выполнен. Загружаем облачное сохранение.
+account.renamed	Name changed.	Имя изменено.
+account.signed_out	Signed out. You're a new guest, and this device keeps its save.	Выход выполнен. Теперь ты новый гость, сохранение на устройстве осталось.
+account.invalid	Wrong username or password.	Неверное имя или пароль.
+account.taken	That username is taken.	Это имя уже занято.
+account.weak	The password needs 8–30 characters with an upper- and a lowercase letter, a digit and a symbol.	Пароль: 8–30 символов, заглавная и строчная буква, цифра и символ.
+account.bad_user	The username needs 3–20 letters, digits or . - @ _.	Имя: 3–20 латинских букв, цифр или . - @ _.
+account.bad_name	Enter a name first.	Сначала введи имя.
+account.offline	You're offline. Accounts need the internet; the game keeps playing.	Нет связи. Для аккаунта нужен интернет, а игра продолжается.
+account.error	Something went wrong. Try again later.	Что-то пошло не так. Попробуй позже.
+ranking.league	Your league	Твоя лига
+ranking.next	Next league at	Следующая лига от
+ranking.top	Top 20 by capital	Топ-20 по капиталу
+ranking.my_place	Your place	Твоё место
+ranking.empty	No scores yet.	Пока нет результатов.
+ranking.market	Market wars this week	Битва рынков этой недели
+ranking.share	Your share of the top 10	Твоя доля в топ-10
+ranking.badges	Badges	Значки
+ranking.no_badges	No badges yet: they come for break-even streaks, clean books, duel wins and the challenge top 10.	Значков пока нет: их дают за безубыточность подряд, чистую кассу, победы в дуэлях и топ-10 челленджа.
+ranking.offline	Rankings need the internet. Your league is counted on this device.	Для рейтинга нужен интернет. Лига считается на этом устройстве.
+league.rookie	Rookie	Новичок
+league.hustler	Hustler	Делец
+league.boss	Boss	Босс
+league.tycoon	Tycoon	Магнат
+league.legend	Legend	Легенда
+badge.break_even_3	Break-even 3 months in a row	Безубыточность 3 месяца подряд
+badge.clean_cash_12	Clean books for a year	Чистая касса целый год
+badge.duel_winner	Duel winner	Победитель дуэли
+badge.challenge_top10	Weekly challenge top 10	Топ-10 недельного челленджа
+challenge.title	Weekly challenge	Недельный челлендж
+challenge.start	Start cash	Стартовый капитал
+challenge.attempts	Attempts left this week	Попыток на этой неделе
+challenge.best	Your best	Твой лучший результат
+challenge.play	Play	Играть
+challenge.continue	Continue	Продолжить
+run.challenge	Weekly challenge · month	Недельный челлендж · месяц
+run.duel	Duel · month	Дуэль · месяц
+run.exit	Back to career	Вернуться к карьере
+run.sent	Result accepted. Your place this week:	Результат принят. Твоё место на этой неделе:
+run.queued	Saved. Your result will be sent when you're online.	Сохранено. Результат отправится, когда появится интернет.
+run.refused	The server did not accept this run.	Сервер не принял этот забег.
+duel.state.waiting_me	Your move: play the duel.	Твой ход: сыграй дуэль.
+duel.state.waiting_them	Sent. Waiting for your opponent.	Отправлено. Ждём соперника.
+duel.state.won	You won the duel!	Ты выиграл дуэль!
+duel.state.lost	You lost this duel.	Эта дуэль проиграна.
+duel.state.draw	A draw.	Ничья.
+duel.state.expired	The duel expired after 7 days.	Дуэль истекла через 7 дней.
+friends.title	Friends & duels	Друзья и дуэли
+friends.need_account	Create an account (Settings → Account) to add friends and play duels.	Создай аккаунт (Настройки → Аккаунт), чтобы добавлять друзей и играть дуэли.
+friends.add_caption	Add a friend by name, like Name#1234	Добавь друга по имени, например Name#1234
+friends.add	Add	Добавить
+friends.request_sent	Request sent.	Заявка отправлена.
+friends.not_found	No player with that name.	Игрок с таким именем не найден.
+friends.requests	Requests	Заявки
+friends.accept	Accept	Принять
+friends.decline	Decline	Отклонить
+friends.none	No friends yet.	Друзей пока нет.
+friends.challenge	Challenge	Вызвать
+duel.list	Duels	Дуэли
+duel.play	Play	Играть
+duel.created	Duel created. Play your 6 months!	Дуэль создана. Сыграй свои 6 месяцев!
+duel.failed	Could not create the duel.	Не удалось создать дуэль.
+duel.waiting	A duel is waiting for you.	Тебя ждёт дуэль.
+duel.open	Open	Открыть
+consent.title	Help improve the game?	Помочь улучшить игру?
+consent.text	May we collect anonymous play statistics (tutorial steps, months played, lessons)? No personal data. You can change this in Settings.	Можно собирать анонимную статистику игры (шаги обучения, сыгранные месяцы, уроки)? Без личных данных. Это можно изменить в Настройках.
+consent.allow	Allow	Разрешить
+consent.deny	No thanks	Нет, спасибо
+settings.analytics	Anonymous statistics	Анонимная статистика
+settings.analytics.on	On	Вкл
+settings.analytics.off	Off	Выкл
+dock.decisions	Week	Неделя
+dock.company	Report	Отчёт
+dock.academy	Lessons	Уроки
+dock.ranking	Ranking	Рейтинг
+popup.close	Close	Закрыть
+dialogue.continue	Continue	Дальше
+city.you	You	Ты
+goal.1	Goal: save up cash plus a reserve for one month of living	Цель: накопить деньги и резерв на месяц жизни
+goal.2	Goal: break even and grow your capital to	Цель: выйти в ноль и довести капитал до
+goal.3	Goal: two locations and a team, or capital of	Цель: две точки и команда или капитал
+guide.plan	Plan the week: tap a mode and the deeds you want — one tap each. Then press Next week.	Спланируй неделю: нажми режим и нужные дела — по одному нажатию. Потом жми «Следующая неделя».
+guide.plan.action	Plan the week	Спланировать неделю
+guide.no_turns	Today's weeks are used up. Meanwhile take a lesson: it is two minutes.	Недели на сегодня закончились. Пока пройди урок: это две минуты.
+guide.no_turns.action	Open lessons	Открыть уроки
+guide.lesson	This week opened a new lesson. Read it and answer the quiz.	Эта неделя открыла новый урок. Прочитай его и ответь на вопросы.
+guide.lesson.action	Open the lesson	Открыть урок
+guide.broke	Cash is below zero. Change the plan before next week: more paid work, fewer costs.	Денег меньше нуля. Поменяй план до следующей недели: больше оплачиваемой работы, меньше трат.
+guide.broke.action	Fix the plan	Исправить план
+guide.choose_business	Time for a real business. Compare the options and choose one.	Пора открыть настоящий бизнес. Сравни варианты и выбери один.
+guide.choose_business.action	Choose a business	Выбрать бизнес
+guide.next_chapter	Chapter goal reached! Move on to the next district.	Цель главы выполнена! Переезжай в следующий район.
+guide.next_chapter.action	Next chapter	Новая глава
+summary.title	Month	Месяц
+summary.revenue	Revenue	Выручка
+summary.profit	Net profit	Чистая прибыль
+summary.personal	Living costs	Личные расходы
+summary.cash	Cash now	Денег на счёте
+summary.change	Change over the week	Изменение за неделю
+summary.tip.no_revenue	No revenue this week. Money comes only from sales: open the Week and pick Hustle or Balance so time goes to paid work.	На этой неделе нет выручки. Деньги приходят только с продаж: открой «Неделю» и выбери «Пахать» или «Баланс», чтобы время шло на оплачиваемую работу.
+summary.tip.loss	A loss: costs were higher than revenue. Open the full report and find the biggest cost.	Убыток: расходы оказались больше выручки. Открой полный отчёт и найди самую большую статью расходов.
+summary.tip.cash_down	There was profit, yet cash went down: living costs, purchases and loan payments are paid out of it.	Прибыль есть, а денег стало меньше: из неё оплачены личные расходы, покупки и платежи по кредитам.
+summary.tip.profit	Profit is what stays after every cost. Keep part of it as a reserve and put the rest to work.	Прибыль — это то, что осталось после всех расходов. Часть оставь в резерве, остальное пусть работает.
+summary.ok	Got it	Понятно
+summary.details	Full report	Полный отчёт
+decisions.hint	One tap and it's decided. Choices open again next week.	Одно нажатие — и решено. Выборы откроются снова на следующей неделе.
+city.mentor	Mentor	Наставник
+city.tony	Tony	Тони
+summary.other	Other: one-off income, purchases, loans	Прочее: разовые доходы, покупки, кредиты
+dock.places	Places	Места
+places.title	Your block	Твой квартал
+places.hint	Every place has its own business and its own host. Walk in.	В каждом месте своё дело и свой хозяин. Заходи.
+places.back	All places	Все места
+place.trust	Trust	Доверие
+place.hint	What you pick here happens when you press Next week.	Выбранное здесь случится, когда нажмёшь «Следующая неделя».
+stat.energy	Energy	Энергия
+stat.relationships	Family	Близкие
+stat.connections	Connections	Связи
+stat.reputation	Reputation	Репутация
+stat.honesty	Honesty	Честность
+stat.knowledge	Knowledge	Знания
+place.home.title	Home	Дом
+place.home.host	Unpaid CEO · your mentor	Unpaid CEO · твой наставник
+place.home.line.1	Home is your base. Skip sleep and tomorrow you earn less.	Дом — твоя база. Не выспишься — завтра заработаешь меньше.
+place.home.line.2	Pay yourself first: set a little aside before you spend the rest.	Сначала заплати себе: отложи хоть немного до того, как потратишь остальное.
+place.home.line.3	Family is not a cost line. They are who stays when the money runs out.	Семья — не статья расходов. Это те, кто останется, когда деньги кончатся.
+place.bodega.title	Tony's Bodega	Бодега Тони
+place.bodega.host	Tony · runs the bodega	Тони · хозяин бодеги
+place.bodega.line.1	My margin is cents a can. I live on turnover, not on markup.	У меня маржа — центы с банки. Живу на обороте, а не на наценке.
+place.bodega.line.2	I need hands to unload. I pay right away, in cash.	Нужны руки на разгрузку. Плачу сразу, наличными.
+place.bodega.line.3	Learn a customer's name and he walks past three other stores to yours.	Запомни покупателя по имени — и он пройдёт мимо трёх других магазинов к тебе.
+place.bar.title	Pizza Bar	Бар-пиццерия
+place.bar.host	Jay · your best friend	Джей · лучший друг
+place.bar.line.1	Half the deals in this city come through people you know. Sit down, I'll introduce you.	Половина заказов в этом городе приходит через знакомых. Садись, познакомлю.
+place.bar.line.2	All work again? Burn out and nobody earns.	Опять одна работа? Сгоришь — и никто не заработает.
+place.bar.line.3	The people who hire sit at the next table. Buy them a slice.	За соседним столом сидят те, кто нанимает. Угости их куском пиццы.
+place.office.title	Laundromat Office	Офис в прачечной
+place.office.host	Sam · your future partner	Сэм · будущий партнёр
+place.office.line.1	A laundromat, free Wi-Fi, humming machines. The best office we can afford.	Прачечная, бесплатный вайфай, гул машин. Лучший офис, который нам по карману.
+place.office.line.2	Plan first, then the month. Or the month decides for you.	Сначала план, потом месяц. Иначе месяц решит за тебя.
+place.office.line.3	Read the report every month. Numbers don't lie, even when you want them to.	Смотри в отчёт каждый месяц. Цифры не врут, даже когда очень хочется.
+place.pawnshop.title	Pawnshop	Ломбард
+place.pawnshop.host	Mr. Fins · lends money	Мистер Финс · даёт в долг
+place.pawnshop.line.1	Money today. No questions. The interest comes later.	Деньги сегодня. Вопросов не задаю. Проценты — потом.
+place.pawnshop.line.2	Fast money is the most expensive kind. But you are in a hurry, aren't you?	Быстрые деньги — самые дорогие. Но ты же торопишься?
+place.pawnshop.line.3	I know a scheme. Not exactly clean. But quick.	Есть одна схема. Не совсем чистая. Зато быстрая.
+place.bank.title	Bank	Банк
+place.bank.host	Ms. Lee · banker	Мисс Ли · банкир
+place.bank.line.1	A reserve is money that buys you a calm night's sleep.	Резерв — это деньги, которые покупают вам спокойный сон.
+place.bank.line.2	Three months of costs in reserve first. Risk comes after.	Сначала три месяца расходов в резерве. Риск — потом.
+place.bank.line.3	A bank lends to those who can show a profit. Come back with numbers.	Банк даёт кредит тем, кто может показать прибыль. Приходите с цифрами.
+place.academy.title	CEO Academy	Академия CEO
+place.academy.host	Unpaid CEO · teaches the class	Unpaid CEO · ведёт занятия
+place.academy.line.1	Class is in the evening, after your shift. Nobody promised easy.	Занятие вечером, после смены. Лёгкой жизни никто не обещал.
+place.academy.line.2	Knowledge is the one asset nobody can take from you.	Знания — единственный актив, который у тебя не отнимут.
+place.academy.line.3	Revenue is not profit. Profit is not cash. Write it down three times.	Выручка — не прибыль. Прибыль — не деньги. Запиши три раза.
+place.action.rest	Get a full night's sleep	Выспаться как следует
+place.action.family_time	Call Mom and visit the family	Позвонить маме и съездить к своим
+place.action.journal	Open the journal	Открыть дневник
+place.action.overtime	Unload Tony's delivery truck	Разгрузить машину для Тони
+place.action.networking	Buy pizza for the right people	Угостить нужных людей пиццей
+place.action.hobby	Pinball night with Jay	Вечер пинбола с Джеем
+place.action.plan	Plan the week	Составить план недели
+place.action.report	Read the report	Посмотреть отчёт
+place.action.business	Choose a business	Выбрать бизнес
+place.action.loan_shark_loan	Borrow from Mr. Fins	Занять у мистера Финса
+place.action.gray_scheme	Run the gray scheme	Провернуть серую схему
+place.action.reserve_transfer	Put money into the reserve	Отложить деньги в резерв
+place.action.loan	Take a business loan	Оформить кредит на бизнес
+place.action.study	Sit through the evening class	Отсидеть вечернее занятие
+place.action.lessons	Open the lessons	Открыть уроки
+place.action.night_shift	Take the night shift at the register	Взять ночную смену на кассе
+place.action.pitch_night	Pitch your idea at the startup night	Рассказать свою идею на вечере стартапов
+place.action.budget_review	Go over your budget with Ms. Lee	Разобрать бюджет с мисс Ли
+place.action.certificate_course	Take the weekend certificate course	Пройти курс выходного дня с сертификатом
+gate.title	Before next week	До следующей недели
+gate.plan	Choose the week mode	Выбери режим недели
+gate.place	Drop by a place in the city	Зайди куда-нибудь в городе
+gate.study	Answer the new academy questions	Ответь на новые вопросы академии
+npc.mentor	Mentor	Наставник
+npc.tony	Tony	Тони
+npc.loan_shark	The lender	Ростовщик
+npc.best_friend	Best friend	Лучший друг
+npc.mom	Mom	Мама
+npc.fat_cat	Fat cat	Толстосум
+npc.banker_lee	Banker Lee	Банкир Ли
+npc.supplier_rosa	Rosa	Роза
+npc.journalist_mia	Mia	Миа
+npc.cofounder_sam	Sam	Сэм
+hud.next_week	Next week	Следующая неделя
+hud.week_running	Week in progress…	Идёт неделя…
+hud.week	Week	Неделя
+summary.week	Week	Неделя
+summary.paid	Paid this week	Оплачено на этой неделе
+summary.due_next	Next week	На следующей неделе
+bill.room	Rent	Аренда
+bill.food	Food	Еда
+bill.transit	Transit	Транспорт
+bill.essentials	Essentials	Быт и связь
+loan.pay	Loan payment	Платёж по кредиту
+city.home	To me	Ко мне
+visit.talk	Talk	Поговорить
+visit.exit	Leave	Выйти на улицу
+choice.recommended	★ Recommended	★ Рекомендуем
+choice.done	✓ Done — again next week	✓ Сделано — снова на следующей неделе
+choice.waiting	Settle the last one first	Сначала закрой прошлое
+choice.no_points	No actions left this week	Действия этой недели кончились
+choice.no_money	Not enough money	Не хватает денег
+choice.no_energy	Not enough energy — rest at home	Не хватает сил — отдохни дома
+choice.cooldown.1	Once a month — again next week	Раз в месяц — снова на следующей неделе
+choice.cooldown.2	Once a month — again in 2 weeks	Раз в месяц — снова через 2 недели
+choice.cooldown.3	Once a month — again in 3 weeks	Раз в месяц — снова через 3 недели
+choice.cooldown.4	Once a month — again in 4 weeks	Раз в месяц — снова через 4 недели
+place.react.rest	Good call. A rested CEO makes fewer expensive mistakes.	Правильно. Отдохнувший CEO делает меньше дорогих ошибок.
+place.react.family_time	Call your mom. Money comes back; these evenings don't.	Позвони маме. Деньги вернутся, а такие вечера — нет.
+place.react.overtime	Deal! Unload the truck and I pay cash, same day.	Договорились! Разгрузишь машину — плачу наличными в тот же день.
+place.react.networking	I'll introduce you around. Half the deals in this borough start at this bar.	Познакомлю тебя со всеми. Половина сделок в районе начинается у этой стойки.
+place.react.hobby	Finally! A slice, some music, and you'll remember why you work.	Наконец-то! Пицца, музыка — и вспомнишь, ради чего работаешь.
+place.react.loan_shark_loan	Pleasure doing business. Remember: I always collect. With interest.	Приятно иметь дело. Запомни: я всегда забираю своё. С процентами.
+place.react.gray_scheme	Quick money, no questions. Just pray nobody asks them later.	Быстрые деньги, без вопросов. Главное — чтобы потом никто не спросил.
+place.react.reserve_transfer	Smart. Money in the reserve is a calm night's sleep.	Разумно. Деньги в резерве — это спокойный сон.
+place.react.study	Sit down, open the notebook. Knowledge compounds faster than money.	Садись, открывай тетрадь. Знания растут быстрее, чем деньги.
+place.react.night_shift	The night shift's yours. Coffee's on the house; sleep isn't.	Ночная смена твоя. Кофе за счёт заведения, а сон — нет.
+place.react.pitch_night	Two minutes, one idea, a room full of people with money. Go get them!	Две минуты, одна идея, полный зал людей с деньгами. Вперёд!
+place.react.budget_review	Every dollar needs a job. Let's see where yours really go.	У каждого доллара должна быть работа. Посмотрим, куда на самом деле уходят твои.
+place.react.certificate_course	A certificate on the wall opens doors a résumé can't.	Сертификат на стене открывает двери, которые резюме не откроет.
+week.mode	Week mode	Режим недели
+mode.hustle	Hustle	Пахать
+mode.hustle.desc	More income, paid for in energy	Больше дохода — ценой сил
+mode.balance	Balance	Баланс
+mode.balance.desc	A steady week, nothing overdone	Ровная неделя без перекосов
+mode.study	Study	Учёба
+mode.study.desc	Knowledge grows and opens new gigs	Растут знания — открываются новые подработки
+mode.family	Family	Семья
+mode.family.desc	Time with close ones, energy holds	Время с близкими, силы держатся
+week.last	Last week's — tap to keep it	Как на прошлой неделе — нажми, чтобы оставить
+week.mode_set	✓ This week's mode	✓ Режим этой недели
+week.focus	Where I earn	Где зарабатываю
+focus.even	Split evenly	Поровну
+focus.needs_study	Needs knowledge:	Нужно знаний:
+week.focus_set	✓ This week	✓ На этой неделе
+lever.price_down	Price −5%	Цена −5%
+lever.price_up	Price +5%	Цена +5%
+lever.marketing_down	Ads −	Реклама −
+lever.marketing_up	Ads +	Реклама +
+lever.close_unit	Close a location	Закрыть точку
+lever.open_unit	Open a location	Открыть точку
+lever.fire	Let go	Уволить
+lever.hire	Hire	Нанять
+choice.done.cooldown.2	✓ Done — again in 2 weeks	✓ Сделано — снова через 2 недели
+choice.done.cooldown.3	✓ Done — again in 3 weeks	✓ Сделано — снова через 3 недели
+choice.done.cooldown.4	✓ Done — again in 4 weeks	✓ Сделано — снова через 4 недели
+choice.confirm	Tap again to confirm — this cannot be undone	Нажми ещё раз — это нельзя отменить
+lever.close_unit.confirm	Sure? Tap again to close	Точно закрыть? Ещё раз
+lever.fire.confirm	Sure? Tap again to let go	Точно уволить? Ещё раз
+week.locked	You can change this next week	Сменить можно на следующей неделе
+lever.locked	This week's step is taken — the next one next week	Шаг этой недели сделан — следующий на следующей неделе
+lever.price_limit	Price at its limit: from half to twice the market price	Цена на пределе: от половины до двух рыночных
+lever.marketing_none	No ads yet — nothing to cut	Рекламы пока нет — урезать нечего
+lever.marketing_max	Ads are at their maximum	Реклама на максимуме
+lever.units_none	No locations — nothing to close	Точек нет — закрывать нечего
+lever.units_max	The most locations this game allows	Больше точек в игре не бывает
+lever.no_money	Not enough cash for a new location	Не хватает денег на новую точку
+lever.staff_none	No staff — nobody to let go	Сотрудников нет — увольнять некого
+lever.staff_max	Your locations need no more people	Больше людей точкам не нужно

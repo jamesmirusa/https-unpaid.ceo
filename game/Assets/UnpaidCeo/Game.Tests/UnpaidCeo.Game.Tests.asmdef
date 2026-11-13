@@ -4,11 +4,14 @@
     "references": [
         "UnpaidCeo.Core",
         "UnpaidCeo.Game",
+        "Unity.Services.Core",
         "UnityEngine.TestRunner",
         "Unity.Localization",
         "Unity.ResourceManager",
         "Unity.Addressables",
-        "YarnSpinner.Unity"
+        "YarnSpinner.Unity",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

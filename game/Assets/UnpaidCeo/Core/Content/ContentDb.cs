@@ -38,6 +38,10 @@ namespace UnpaidCeo.Core.Content
         public string Id { get; set; }
         public int ActionPoints { get; set; }
         public Money Cost { get; set; }
+        /// <summary>A habit with its own rhythm (the payday transfer to the reserve): weeks before it can be taken again; 0 = every week.</summary>
+        public int CooldownWeeks { get; set; }
+        /// <summary>Asks for a second tap before it is taken (a loan shark, a gray scheme): no stray tap makes a debt.</summary>
+        public bool Confirm { get; set; }
         public List<Effect> Effects { get; set; } = new List<Effect>();
         public string JournalKey { get; set; }
     }

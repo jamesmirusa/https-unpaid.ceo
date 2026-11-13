@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 5738046169196443099}
   - component: {fileID: 4625879638384989938}
   - component: {fileID: 3108866464366001767}
+  - component: {fileID: 3056518210821978876}
   m_Layer: 0
   m_Name: hero_fox_blazer
   m_TagString: Untagged
@@ -166,6 +167,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 33d863a03ce8848e5854150cc6389869, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 8cb848b0eaa104537aef778534150d80, type: 3}
   think: {fileID: 8742671007458294780, guid: 8e95af09256b14e8491a9370834956f5, type: 3}
+--- !u!114 &3056518210821978876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933928759681787069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.0097073065
+  top: 1.6530284
 --- !u!1 &1337140725402642318
 GameObject:
   m_ObjectHideFlags: 0

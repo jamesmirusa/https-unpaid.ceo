@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 1252303223200258334}
   - component: {fileID: 2237618493526888251}
   - component: {fileID: 4413618163609689447}
+  - component: {fileID: 8295379079504983312}
   m_Layer: 0
   m_Name: npc_jay_otter
   m_TagString: Untagged
@@ -348,6 +349,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 5e3e11fdf452946219f8f15c832cc9f8, type: 3}
   cheer: {fileID: 5367736691436404421, guid: 24ccfc5b1928b4afa86910d0c8cb989b, type: 3}
   think: {fileID: 8742671007458294780, guid: b3648668efdc2414093cdedf13d199d3, type: 3}
+--- !u!114 &8295379079504983312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275057319597415098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.013652968
+  top: 1.6285557
 --- !u!1 &2292634111155237347
 GameObject:
   m_ObjectHideFlags: 0

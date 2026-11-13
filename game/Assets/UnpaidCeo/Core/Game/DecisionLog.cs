@@ -7,6 +7,9 @@ namespace UnpaidCeo.Core.Game
         public const string BeginMonth = "beginMonth";
         public const string StoryletChoice = "storyletChoice";
         public const string EndMonth = "endMonth";
+        /// <summary>Stage 4B: the turn is a week.</summary>
+        public const string BeginWeek = "beginWeek";
+        public const string EndWeek = "endWeek";
         public const string QuizAnswer = "quizAnswer";
         public const string TakeLoan = "takeLoan";
         public const string ChooseIndustry = "chooseIndustry";

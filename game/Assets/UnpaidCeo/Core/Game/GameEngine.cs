@@ -7,6 +7,7 @@ using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Economy;
 using UnpaidCeo.Core.Life;
 using UnpaidCeo.Core.Narrative;
+using UnpaidCeo.Core.Online;
 using UnpaidCeo.Core.Primitives;
 
 namespace UnpaidCeo.Core.Game
@@ -31,6 +32,7 @@ namespace UnpaidCeo.Core.Game
             var s = new GameState
             {
                 Seed = seed,
+                Week = 1,
                 Month = 1,
                 Chapter = 1,
                 Hero = hero ?? new HeroAppearance(),
@@ -43,7 +45,38 @@ namespace UnpaidCeo.Core.Game
                 s.Businesses.Add(new BusinessState { Id = id, IndustryId = id, Price = def.Price });
             }
             s.LastDecisions = MonthDecisions.Default(s.Businesses.Count > 0 ? s.Businesses[0].Id : null);
+            s.ActionPointsLeft = LifeSimulator.WeeklyActionPoints(s.Life, _c.Balance.Life);
             return s;
+        }
+
+        /// <summary>
+        /// A challenge or duel start: a new game in chapter 2 (Brooklyn) with the scenario's cash and its industry chosen,
+        /// onboarding and the tutorial gig done. Nothing is logged: the RunStart rebuilds it.
+        /// </summary>
+        public GameState StartScenario(ScenarioDef d, HeroAppearance hero)
+        {
+            if (d == null) throw new ArgumentNullException(nameof(d));
+            if (d.IndustryId == null || !_c.Industries.TryGetValue(d.IndustryId, out var def) || def.Kind != IndustryKind.Business)
+                throw new ArgumentException($"scenario industry '{d.IndustryId}' is not a business", nameof(d));
+            var s = NewGame(d.Seed, hero);
+            s.Chapter = 2;
+            s.Cash = d.StartCash;
+            foreach (var fact in new[] { "onboarding_done", "tutorial_gig_done", "chapter2_start", "industry_chosen" }) s.Facts.Set(fact, s.Month);
+            s.Businesses.Add(new BusinessState { Id = d.IndustryId, IndustryId = d.IndustryId, Units = 0, Price = def.Price });
+            return s;
+        }
+
+        /// <summary>The state a run begins from: a career's NewGame, or its scenario's start.</summary>
+        public static GameState Start(ContentDb c, RunStart r, Func<RunStart, ScenarioDef> scenarioFor) =>
+            StartFor(new GameEngine(c), r, scenarioFor);
+
+        static GameState StartFor(GameEngine e, RunStart r, Func<RunStart, ScenarioDef> scenarioFor)
+        {
+            if (r == null) throw new ArgumentNullException(nameof(r));
+            if (r.Kind == RunStart.Career) return e.NewGame(r.Seed, r.Hero);
+            if (r.Kind != RunStart.Challenge && r.Kind != RunStart.Duel) throw new ArgumentException($"unknown run kind '{r.Kind}'", nameof(r));
+            var d = scenarioFor?.Invoke(r) ?? throw new ArgumentException($"no scenario for a {r.Kind} run", nameof(r));
+            return e.StartScenario(d, r.Hero);
         }
 
         /// <summary>Onboarding gig: pays once, counts toward lifetime earnings.</summary>
@@ -75,6 +108,27 @@ namespace UnpaidCeo.Core.Game
                 s.PendingStorylets.Add(p.Id);
             }
             Log(s, DecisionLogEntry.BeginMonth, null);
+            return picks;
+        }
+
+        /// <summary>Picks this week's scenes (idempotent while scenes are pending): about one a month (Balance.EventsPerWeekWeights).</summary>
+        public IReadOnlyList<StoryletDef> BeginWeek(GameState s)
+        {
+            if (s.PendingStorylets.Count > 0) return s.PendingStorylets.Select(FindStorylet).ToList();
+            if (s.ScenesRolledWeek == s.Week) return Array.Empty<StoryletDef>();
+            s.ScenesRolledWeek = s.Week;
+
+            var rng = Pcg32.FromState(s.Rng);
+            var picks = StoryletSelector.Pick(_c.Storylets, Context(s), s.StoryletLastMonth,
+                s.StoryletsSeen.Keys.ToList(), rng, _c.Balance.EventsPerWeekWeights);
+            s.Rng = rng.State;
+            foreach (var p in picks)
+            {
+                s.StoryletLastMonth[p.Id] = s.Month;
+                if (p.Once) s.StoryletsSeen[p.Id] = s.Month;
+                s.PendingStorylets.Add(p.Id);
+            }
+            Log(s, DecisionLogEntry.BeginWeek, null);
             return picks;
         }
 
@@ -142,7 +196,7 @@ namespace UnpaidCeo.Core.Game
         /// <summary>Takes a bank loan: cash now, annuity payments from the end of this month.</summary>
         public bool TakeLoan(GameState s, Money principal, int months)
         {
-            if (principal.Cents <= 0 || principal > MaxLoan(s) || Array.IndexOf(_c.Balance.Loans.TermsMonths, months) < 0) return false;
+            if (s.Chapter < 2 || principal.Cents <= 0 || principal > MaxLoan(s) || Array.IndexOf(_c.Balance.Loans.TermsMonths, months) < 0) return false;
             double apr = LoanApr(s);
             s.Loans.Add(new LoanState
             {
@@ -224,37 +278,53 @@ namespace UnpaidCeo.Core.Game
             return true;
         }
 
-        public MonthReport EndMonth(GameState s, MonthDecisions d)
+        /// <summary>Legacy turn (stage 1–3 logs): a whole month at once. New games play <see cref="EndWeek"/>.</summary>
+        public MonthReport EndMonth(GameState s, MonthDecisions d) => Settle(s, d, weekly: false);
+
+        /// <summary>
+        /// Stage 4B turn: one week. Gig pay and running costs are a quarter of the month's; rent falls on week 1,
+        /// essentials on week 2, loans on week 4; the month's action points are a pool spent across its weeks.
+        /// </summary>
+        public MonthReport EndWeek(GameState s, MonthDecisions d) => Settle(s, d, weekly: true);
+
+        MonthReport Settle(GameState s, MonthDecisions d, bool weekly)
         {
             if (d == null) throw new ArgumentNullException(nameof(d));
             if (!d.TryGetAllocation(out var time))
                 throw new ArgumentException("time allocation must be four non-negative parts summing to 100", nameof(d));
 
             var b = _c.Balance;
+            int wk = weekly ? s.WeekOfMonth : 1;
+            bool monthEnd = !weekly || wk == GameState.WeeksPerMonth;
+            double share = weekly ? 1.0 / GameState.WeeksPerMonth : 1.0;
             var rng = Pcg32.FromState(s.Rng);
-            var report = new MonthReport { Month = s.Month, CashStart = s.Cash };
+            var report = new MonthReport { Month = s.Month, Week = s.Week, WeekOfMonth = wk, IsWeek = weekly, CashStart = s.Cash };
             report.Storylets.AddRange(s.StoryletLastMonth.Where(kv => kv.Value == s.Month).Select(kv => kv.Key).OrderBy(x => x, StringComparer.Ordinal));
 
             ApplyLevers(s, d, report);
 
-            // Free actions spend action points available at the start of the month.
-            int ap = LifeSimulator.ActionPoints(s.Life, 0, b.Life);
+            // Every turn spends its own pool of action points (stage 5A): a week's, or a legacy month's for scenarios.
+            // Each action at most once a turn, an action that opens a fact (a debt, a scheme) waits until that fact is
+            // resolved, and an action needs the money and the energy it takes (ActionChoices.Check: the buttons close
+            // the same ones).
+            s.ActionPointsLeft = weekly ? LifeSimulator.WeeklyActionPoints(s.Life, b.Life) : LifeSimulator.ActionPoints(s.Life, 0, b.Life);
+            s.ActionsThisTurn.Clear();
             double errorChance = LifeSimulator.ErrorChance(s.Life, b.Life);
-            // Each action at most once a month, and an action that opens a fact (a debt, a scheme) waits until
-            // that fact is resolved, so its consequence cannot be postponed forever.
-            var taken = new HashSet<string>();
             foreach (var id in d.FreeActions)
             {
-                if (!_c.FreeActions.TryGetValue(id, out var fa) || fa.ActionPoints > ap || !taken.Add(id)
-                    || fa.Effects.OfType<SetFactEffect>().Any(f => s.Facts.Has(f.FactId)))
+                if (!_c.FreeActions.TryGetValue(id, out var fa)
+                    || ActionChoices.Check(fa, s.ActionPointsLeft, s.Life.Energy, s.Cash, s.ActionsThisTurn, s.Facts,
+                        ActionChoices.WeeksUntilOpen(s, fa)) != ChoiceState.Open)
                 { report.RejectedActions.Add(id); continue; }
-                ap -= fa.ActionPoints;
+                s.ActionPointsLeft -= fa.ActionPoints;
+                s.ActionsThisTurn.Add(id);
+                if (fa.CooldownWeeks > 0) s.ActionLastWeek[id] = s.Week;
                 s.Cash -= fa.Cost;
                 EffectApplier.ApplyAll(fa.Effects, s);
                 AddJournal(s, "decision", fa.JournalKey ?? $"journal.{id}", ("action", id));
             }
 
-            report.Life = LifeSimulator.Apply(s.Life, time, b.Life);
+            report.Life = LifeSimulator.Apply(s.Life, time, b.Life, share);
             s.StudyXp += report.Life.StudyXp;
 
             // Businesses and gigs.
@@ -269,14 +339,15 @@ namespace UnpaidCeo.Core.Game
             foreach (var bs in s.Businesses)
             {
                 if (!_c.Industries.TryGetValue(bs.IndustryId, out var def)) continue;
-                int share = 0;
+                int share0 = 0;
                 if (def.Kind == IndustryKind.Gig && !ownsUnits && s.StudyXp >= def.RequiredStudy && d.WorkSplit.TryGetValue(bs.Id, out var split))
-                    share = (int)Math.Round(time.Work * Math.Max(0, split) / (double)splitTotal, MidpointRounding.AwayFromZero);
+                    share0 = (int)Math.Round(time.Work * Math.Max(0, split) / (double)splitTotal, MidpointRounding.AwayFromZero);
                 double season = def.Seasonality != null && def.Seasonality.Length == 12 ? def.Seasonality[(s.Month - 1) % 12] : 1.0;
                 double district = b.DistrictDemand.TryGetValue(Chapters.District(s.Chapter), out var df) ? df : 1.0;
                 double events = 1.0;
                 foreach (var m in s.Modifiers) if (m.AppliesTo(def)) events *= m.Factor;
-                var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, events, share, district, b.PayrollOverhead, ownerShare));
+                var r = BusinessSimulator.Simulate(bs, def, new BusinessInputs(repFactor, season, events, share0, district, b.PayrollOverhead, ownerShare),
+                    share, weekly ? def.ReceivableDelayMonths * GameState.WeeksPerMonth : -1);
                 report.BusinessResults[bs.Id] = r;
                 if (def.Kind == IndustryKind.Business && bs.Units >= 1 && (r.Revenue - r.Cogs - r.Fixed - r.Marketing).Cents >= 0)
                     SetOnce(s, "break_even");
@@ -298,17 +369,42 @@ namespace UnpaidCeo.Core.Game
             report.Marketing = marketing;
             report.MistakeLoss = mistakeLoss;
             report.OperatingProfit = report.GrossProfit - fixedCosts - marketing - mistakeLoss;
-            (report.LoanPayments, report.Interest) = PayLoans(s);
+            (report.LoanPayments, report.Interest) = monthEnd ? PayLoans(s) : (Money.Zero, Money.Zero);
+            if (report.LoanPayments.Cents > 0) report.Paid.Add(new LineItem("loan.pay", report.LoanPayments));
             report.TaxReserve = EconomyFormulas.TaxReserve(report.OperatingProfit - report.Interest, b.TaxRate);
             report.NetProfit = report.OperatingProfit - report.Interest - report.TaxReserve;
 
             s.LifetimeEarnings += revenue;
-            report.PersonalCosts = s.LifetimeEarnings >= b.BillsStartAfter ? b.PersonalCostsFor(s.Chapter).Total : Money.Zero;
+            bool bills = s.LifetimeEarnings >= b.BillsStartAfter;
+            var costs = b.PersonalCostsFor(s.Chapter);
+            if (bills)
+            {
+                if (weekly) { foreach (var item in costs.ForWeek(wk)) { report.Paid.Add(item); report.PersonalCosts += item.Amount; } }
+                else
+                {
+                    report.PersonalCosts = costs.Total;
+                    report.Paid.Add(new LineItem("bill.room", costs.Room)); report.Paid.Add(new LineItem("bill.food", costs.Food));
+                    report.Paid.Add(new LineItem("bill.transit", costs.Transit)); report.Paid.Add(new LineItem("bill.essentials", costs.Essentials));
+                }
+            }
 
             s.Cash += collected - cogs - fixedCosts - marketing - mistakeLoss - report.TaxReserve - report.PersonalCosts - report.LoanPayments;
             report.CashEnd = s.Cash;
 
-            UpdateConsequenceFacts(s, report, b);
+            // What next week brings, so the player can plan for it.
+            if (weekly)
+            {
+                int next = wk % GameState.WeeksPerMonth + 1;
+                if (bills) report.DueNext.AddRange(costs.ForWeek(next));
+                if (next == GameState.WeeksPerMonth && s.Loans.Count > 0)
+                {
+                    var due = Money.Zero;
+                    foreach (var loan in s.Loans) due += loan.MonthsLeft <= 1 ? loan.Balance + loan.Balance.MulRound(loan.Apr / 12.0) : loan.Payment;
+                    report.DueNext.Add(new LineItem("loan.pay", due));
+                }
+            }
+
+            UpdateConsequenceFacts(s, report, b, monthEnd);
             QueueTriggeredLessons(s);
 
             // Each lesson reaches the player once, whether a fact or a storylet effect queued it.
@@ -320,12 +416,16 @@ namespace UnpaidCeo.Core.Game
             }
             s.PendingLessons.Clear();
             s.PendingStorylets.Clear();
-            foreach (var m in s.Modifiers) m.MonthsLeft--;
-            s.Modifiers.RemoveAll(m => m.MonthsLeft <= 0);
+            if (monthEnd)
+            {
+                foreach (var m in s.Modifiers) m.MonthsLeft--;
+                s.Modifiers.RemoveAll(m => m.MonthsLeft <= 0);
+            }
             s.LastDecisions = d;
-            Log(s, DecisionLogEntry.EndMonth, JObject.FromObject(d));
+            Log(s, weekly ? DecisionLogEntry.EndWeek : DecisionLogEntry.EndMonth, JObject.FromObject(d));
             s.Rng = rng.State;
-            s.Month++;
+            s.Week += weekly ? 1 : GameState.WeeksPerMonth;
+            s.Month = GameState.MonthOf(s.Week);
             return report;
         }
 
@@ -333,35 +433,88 @@ namespace UnpaidCeo.Core.Game
         {
             var e = new GameEngine(content);
             var s = e.NewGame(seed, hero);
-            foreach (var entry in log.ToList())
-            {
-                switch (entry.Kind)
-                {
-                    case DecisionLogEntry.TutorialGig: e.TutorialGig(s); break;
-                    case DecisionLogEntry.BeginMonth: e.BeginMonth(s); break;
-                    case DecisionLogEntry.StoryletChoice:
-                        var p = JObject.Parse(entry.Payload);
-                        e.ChooseStoryletOption(s, (string)p["storylet"], (string)p["choice"]);
-                        break;
-                    case DecisionLogEntry.EndMonth:
-                        e.EndMonth(s, JsonConvert.DeserializeObject<MonthDecisions>(entry.Payload));
-                        break;
-                    case DecisionLogEntry.TakeLoan:
-                        var l = JObject.Parse(entry.Payload);
-                        e.TakeLoan(s, Money.FromCents((long)l["principal"]), (int)l["months"]);
-                        break;
-                    case DecisionLogEntry.ChooseIndustry:
-                        e.ChooseIndustry(s, (string)JObject.Parse(entry.Payload)["industry"]);
-                        break;
-                    case DecisionLogEntry.AdvanceChapter: e.AdvanceChapter(s); break;
-                    case DecisionLogEntry.QuizAnswer:
-                        var q = JObject.Parse(entry.Payload);
-                        e.AnswerQuiz(s, (string)q["lesson"], (int)q["question"], (int)q["option"]);
-                        break;
-                    default: throw new FormatException($"unknown log entry kind '{entry.Kind}'");
-                }
-            }
+            MonthReport last = null;
+            foreach (var entry in log.ToList()) Apply(e, s, entry, ref last);
             return s;
+        }
+
+        /// <summary>
+        /// Server-side replay: every logged action must succeed exactly as it did when it was logged. Stops at the first
+        /// entry that is refused (<c>refused:&lt;kind&gt;</c>) or unreadable (<c>bad_payload…</c>).
+        /// </summary>
+        /// <param name="beforeEntry">Sees the state before each entry is applied (the server's pacing snapshot).</param>
+        public static ReplayResult ReplayStrict(ContentDb c, RunStart start, Func<RunStart, ScenarioDef> scenarioFor,
+            IReadOnlyList<DecisionLogEntry> log, Action<GameState, DecisionLogEntry> beforeEntry = null)
+        {
+            var e = new GameEngine(c);
+            GameState s;
+            try { s = StartFor(e, start, scenarioFor); }
+            catch (ArgumentException ex) { return new ReplayResult { FailedAt = 0, Error = "bad_start:" + ex.Message }; }
+            bool scenario = start.Kind != RunStart.Career;
+            MonthReport last = null;
+            for (int i = 0; i < (log?.Count ?? 0); i++)
+            {
+                var entry = log[i];
+                try
+                {
+                    if (entry == null) return Fail(i, "bad_payload:null entry");
+                    if (scenario && !ScenarioActions.Contains(entry.Kind)) return Fail(i, "refused:" + entry.Kind);
+                    beforeEntry?.Invoke(s, entry);
+                    if (!Apply(e, s, entry, ref last)) return Fail(i, "refused:" + entry.Kind);
+                }
+                catch (JsonException ex) { return Fail(i, "bad_payload:" + ex.GetType().Name); }
+                catch (FormatException ex) { return Fail(i, "bad_payload:" + ex.Message); }
+                catch (InvalidCastException) { return Fail(i, "bad_payload:type"); }
+                catch (NullReferenceException) { return Fail(i, "bad_payload:missing field"); }
+                catch (ArgumentNullException) { return Fail(i, "bad_payload:missing field"); }
+                catch (ArgumentException) { return Fail(i, "refused:" + entry.Kind); }
+                catch (InvalidOperationException) { return Fail(i, "refused:" + entry.Kind); }
+            }
+            return new ReplayResult { State = s, LastReport = last };
+
+            ReplayResult Fail(int at, string error) => new ReplayResult { State = s, LastReport = last, FailedAt = at, Error = error };
+        }
+
+        /// <summary>
+        /// What a challenge or duel run may log: the client's RunController plays month plans and loans only — no scenes,
+        /// quizzes or chapter moves, so every player of a scenario meets the same market.
+        /// </summary>
+        static readonly HashSet<string> ScenarioActions = new HashSet<string> { DecisionLogEntry.EndMonth, DecisionLogEntry.EndWeek, DecisionLogEntry.TakeLoan };
+
+        /// <summary>Applies one logged action; false when the engine refuses it (a strict replay rejects the log).</summary>
+        static bool Apply(GameEngine e, GameState s, DecisionLogEntry entry, ref MonthReport last)
+        {
+            switch (entry.Kind)
+            {
+                case DecisionLogEntry.TutorialGig:
+                    if (s.Facts.Has("tutorial_gig_done")) return false;
+                    e.TutorialGig(s);
+                    return true;
+                case DecisionLogEntry.BeginMonth: e.BeginMonth(s); return true;
+                case DecisionLogEntry.BeginWeek: e.BeginWeek(s); return true;
+                case DecisionLogEntry.EndWeek:
+                    var wd = JsonConvert.DeserializeObject<MonthDecisions>(entry.Payload) ?? throw new FormatException("empty endWeek");
+                    last = e.EndWeek(s, wd);
+                    return true;
+                case DecisionLogEntry.StoryletChoice:
+                    var p = JObject.Parse(entry.Payload);
+                    e.ChooseStoryletOption(s, (string)p["storylet"], (string)p["choice"]);
+                    return true;
+                case DecisionLogEntry.EndMonth:
+                    var d = JsonConvert.DeserializeObject<MonthDecisions>(entry.Payload) ?? throw new FormatException("empty endMonth");
+                    last = e.EndMonth(s, d);
+                    return true;
+                case DecisionLogEntry.TakeLoan:
+                    var l = JObject.Parse(entry.Payload);
+                    return e.TakeLoan(s, Money.FromCents((long)l["principal"]), (int)l["months"]);
+                case DecisionLogEntry.ChooseIndustry:
+                    return e.ChooseIndustry(s, (string)JObject.Parse(entry.Payload)["industry"]);
+                case DecisionLogEntry.AdvanceChapter: return e.AdvanceChapter(s);
+                case DecisionLogEntry.QuizAnswer:
+                    var q = JObject.Parse(entry.Payload);
+                    return e.AnswerQuiz(s, (string)q["lesson"], (int)q["question"], (int)q["option"]);
+                default: throw new FormatException($"unknown log entry kind '{entry.Kind}'");
+            }
         }
 
         const int MaxUnits = 100;
@@ -432,7 +585,7 @@ namespace UnpaidCeo.Core.Game
                     s.PendingLessons.Add(l.Id);
         }
 
-        void UpdateConsequenceFacts(GameState s, MonthReport r, Balance b)
+        void UpdateConsequenceFacts(GameState s, MonthReport r, Balance b, bool monthEnd = true)
         {
             if (r.Revenue.Cents > 0 && !s.Facts.Has("first_income"))
             {
@@ -468,18 +621,21 @@ namespace UnpaidCeo.Core.Game
             }
             else s.Facts.Clear("in_debt");
 
-            // The comeback clears "bankrupt": restart the count so the same month cannot re-bankrupt the player.
-            if (!s.Facts.Has("bankrupt") && s.MonthsInDeepDebt >= 2) s.MonthsInDeepDebt = 0;
-            s.MonthsInDeepDebt = s.Cash < b.DebtBankruptLine ? s.MonthsInDeepDebt + 1 : 0;
-            if (s.MonthsInDeepDebt >= 2 && !s.Facts.Has("bankrupt"))
+            if (monthEnd)
             {
-                s.Facts.Set("bankrupt", s.Month);
-                AddJournal(s, "consequence", "journal.bankrupt");
+                // The comeback clears "bankrupt": restart the count so the same month cannot re-bankrupt the player.
+                if (!s.Facts.Has("bankrupt") && s.MonthsInDeepDebt >= 2) s.MonthsInDeepDebt = 0;
+                s.MonthsInDeepDebt = s.Cash < b.DebtBankruptLine ? s.MonthsInDeepDebt + 1 : 0;
+                if (s.MonthsInDeepDebt >= 2 && !s.Facts.Has("bankrupt"))
+                {
+                    s.Facts.Set("bankrupt", s.Month);
+                    AddJournal(s, "consequence", "journal.bankrupt");
+                }
             }
             if (s.Cash.Cents >= 0) s.Facts.Clear("bankrupt");
 
             // 6: the chapter-3 team counts only when it is kept from one month end to the next.
-            s.TeamMonths = s.Businesses.Sum(x => x.Employees) >= b.Chapter3EmployeesGoal ? s.TeamMonths + 1 : 0;
+            if (monthEnd) s.TeamMonths = s.Businesses.Sum(x => x.Employees) >= b.Chapter3EmployeesGoal ? s.TeamMonths + 1 : 0;
             RecordChapterDone(s);
         }
 

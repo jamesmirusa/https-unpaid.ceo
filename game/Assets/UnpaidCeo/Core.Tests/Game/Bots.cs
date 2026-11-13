@@ -24,6 +24,8 @@ namespace UnpaidCeo.Core.Tests.Game
     {
         /// <summary>Months played in chapters 1..3 (index = chapter; 0 when not finished).</summary>
         public readonly int[] ChapterMonths = new int[4];
+        /// <summary>Weeks played in chapters 1..3 by <see cref="BotRunner.RunWeekly"/> (0 when not finished).</summary>
+        public readonly int[] ChapterWeeks = new int[4];
         public bool Bankrupt;
         public bool Finished;
         public int ReachedChapter;
@@ -67,6 +69,32 @@ namespace UnpaidCeo.Core.Tests.Game
                 e.AdvanceChapter(s);
                 result.ReachedChapter = s.Chapter;
                 chapterStart = s.Month;
+                if (s.Chapter == 2) bot.StartChapter2(e, s, industry);
+            }
+            return result;
+        }
+
+        /// <summary>The career loop as the game plays it: a week per turn (BeginWeek, scenes, EndWeek).</summary>
+        public static RunResult RunWeekly(ContentDb db, ulong seed, string industry, IBot bot, int maxWeeks = 1600, int stopAfterChapter = 1)
+        {
+            var e = new GameEngine(db);
+            var s = e.NewGame(seed, new HeroAppearance());
+            e.TutorialGig(s);
+            var result = new RunResult { ReachedChapter = 1 };
+            int chapterStart = s.Week;
+            while (s.Week < maxWeeks)
+            {
+                foreach (var scene in e.BeginWeek(s).ToList())
+                    e.ChooseStoryletOption(s, scene.Id, bot.PickChoice(e, s, scene));
+                var report = e.EndWeek(s, bot.Decide(e, s));
+                if (s.Facts.Has("bankrupt")) result.Bankrupt = true;
+                bot.AfterMonth(e, s, report);
+                if (!e.Chapter(s).GoalMet) continue;
+                result.ChapterWeeks[s.Chapter] = s.Week - chapterStart;
+                if (s.Chapter >= stopAfterChapter) { result.Finished = true; break; }
+                e.AdvanceChapter(s);
+                result.ReachedChapter = s.Chapter;
+                chapterStart = s.Week;
                 if (s.Chapter == 2) bot.StartChapter2(e, s, industry);
             }
             return result;
@@ -134,15 +162,21 @@ namespace UnpaidCeo.Core.Tests.Game
     /// </summary>
     internal sealed class OptimalBot : IBot
     {
+        readonly bool _weekly;
+
+        /// <param name="weekly">Plays weekly turns: spends the points the week can take and works the night shift too.</param>
+        public OptimalBot(bool weekly = false) { _weekly = weekly; }
+
         public MonthDecisions Decide(GameEngine e, GameState s)
         {
             var bal = e.Content.Balance;
             // All-in on work, rest just enough to stay out of burnout; the rest action tops energy up.
             var d = BotRunner.Plan(s, 70, 5, 25, 0);
-            int ap = LifeSimulator.ActionPoints(s.Life, 0, bal.Life);
+            int ap = _weekly ? ActionChoices.PointsTotal(s, e.Content) : LifeSimulator.ActionPoints(s.Life, 0, bal.Life);
             if (s.Chapter == 1 && s.Reserve < bal.PersonalCosts.Total && s.Cash.Cents > 20_000) d.FreeActions.Add("reserve_transfer");
             if (s.Life.Energy < 55 && ap-- >= 1) d.FreeActions.Add("rest");
             if (s.Life.Energy >= 65 && ap-- >= 1) d.FreeActions.Add("overtime");
+            if (_weekly && s.Life.Energy >= 75 && ap-- >= 1) d.FreeActions.Add("night_shift");
 
             var b = BotRunner.MainBusiness(e, s);
             if (b == null) return d;
@@ -239,6 +273,9 @@ namespace UnpaidCeo.Core.Tests.Game
     /// </summary>
     internal sealed class CasualBot : IBot
     {
+        /// <param name="weekly">Plays weekly turns (the same habits; the engine decides what a week can take).</param>
+        public CasualBot(bool weekly = false) { }
+
         public MonthDecisions Decide(GameEngine e, GameState s)
         {
             var bal = e.Content.Balance;

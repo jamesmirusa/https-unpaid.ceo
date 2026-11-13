@@ -33,6 +33,18 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
     m_FolderGuid: 
+  - m_GUID: 4ae70e0a3f1b64a7ba6f6e6383a72bd9
+    m_Address: npc_ms_lee_owl
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
+  - m_GUID: 4dd5bc551c5704d1dab1d3be5e79318e
+    m_Address: npc_sam_beaver
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+    m_FolderGuid: 
   - m_GUID: 5507deff9f02b46a983afd42a545a565
     m_Address: hero_cat_blazer
     m_ReadOnly: 0

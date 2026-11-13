@@ -75,7 +75,7 @@ namespace UnpaidCeo.Core.Tests.Content
             Assert.AreEqual(1.5, b.DistrictDemand["queens"], 1e-9);
             Assert.AreEqual(0.12, b.Loans.BaseApr, 1e-9);
             CollectionAssert.AreEqual(new[] { 12, 24, 36, 60 }, b.Loans.TermsMonths);
-            Assert.AreEqual(6, b.DailyManualMonths);
+            Assert.AreEqual(7, b.DailyManualMonths, "seven weeks a day (stage 4B)");
         }
 
         const string BrokenBusiness = @"{ ""industries"": [ { ""id"": ""x"", ""kind"": ""Business"", ""chapter"": 2, ""price"": 500, ""refPrice"": 500,

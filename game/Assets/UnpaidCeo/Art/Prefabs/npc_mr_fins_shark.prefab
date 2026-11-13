@@ -287,6 +287,7 @@ GameObject:
   - component: {fileID: 3154677772447805748}
   - component: {fileID: 1370924601242031026}
   - component: {fileID: 8869022685256370725}
+  - component: {fileID: 8075635872766440407}
   m_Layer: 0
   m_Name: npc_mr_fins_shark
   m_TagString: Untagged
@@ -348,6 +349,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 167bb8dadef9447929ad0c61ab5a311d, type: 3}
   cheer: {fileID: 5367736691436404421, guid: c59b1705aaa67452e94c6d3ed8eb924d, type: 3}
   think: {fileID: 8742671007458294780, guid: a3536cf824b75455fb82893fe931dc19, type: 3}
+--- !u!114 &8075635872766440407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598024852731179713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.01063228
+  top: 1.5992736
 --- !u!1 &3846313571309002266
 GameObject:
   m_ObjectHideFlags: 0

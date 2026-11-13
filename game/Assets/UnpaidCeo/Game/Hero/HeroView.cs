@@ -10,11 +10,12 @@ namespace UnpaidCeo.Game.Hero
 {
     /// <summary>
     /// Shows the player's hero: loads the species/outfit model through Addressables (so heroes are not in the
-    /// initial web download), sizes it to 1.6 m and applies the chosen colour as a tint.
+    /// initial web download), sizes it and applies the chosen colour as a tint.
     /// </summary>
     public sealed class HeroView : MonoBehaviour
     {
-        public const float Height = 1.6f;
+        /// <summary>Taller than life (the row houses are ~12 m): from the city camera a 1.6 m hero is a few pixels.</summary>
+        public const float Height = 2.6f;
         public static readonly Color[] Tints =
         {
             Color.white, new Color(1f, 0.9f, 0.78f), new Color(0.82f, 0.9f, 1f), new Color(0.86f, 1f, 0.88f),
@@ -47,7 +48,7 @@ namespace UnpaidCeo.Game.Hero
                 Model.name = address;
                 Model.transform.localPosition = Vector3.zero;
                 Model.transform.localRotation = Quaternion.identity;
-                ModelFit.ToHeight(Model, Height);
+                ModelFit.Stand(Model, Height);
                 LoadedAddress = address;
             }
             Tint(a.ColorIndex);
@@ -60,12 +61,29 @@ namespace UnpaidCeo.Game.Hero
         /// <summary>Plays the think clip, e.g. while the player picks a dialogue option.</summary>
         public void Think() => GetComponentInChildren<CharacterAnimator>()?.PlayOnce(CharacterAnimator.State.Think);
 
+        /// <summary>A copy of the hero as it looks now (model, clips, tint) for a room; the caller owns and destroys it.</summary>
+        public GameObject CopyForStage()
+        {
+            if (Model == null) return null;
+            var copy = Instantiate(Model);
+            copy.name = Model.name;
+            TintModel(copy, _tint);
+            return copy;
+        }
+
+        int _tint;
+
         void Tint(int index)
         {
-            if (Model == null) return;
+            _tint = index;
+            if (Model != null) TintModel(Model, index);
+        }
+
+        void TintModel(GameObject model, int index)
+        {
             _block ??= new MaterialPropertyBlock();
             var tint = Tints[Mathf.Clamp(index, 0, Tints.Length - 1)];
-            foreach (var r in Model.GetComponentsInChildren<Renderer>())
+            foreach (var r in model.GetComponentsInChildren<Renderer>())
             {
                 r.GetPropertyBlock(_block);
                 _block.SetColor(BaseColor, tint);

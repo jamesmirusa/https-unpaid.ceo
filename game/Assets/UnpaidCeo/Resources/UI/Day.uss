@@ -3,9 +3,14 @@
     --text: #1E2230;
     --text-dim: #5B6275;
     --panel: rgba(255, 250, 242, 0.94);
-    --panel-strong: #FFF6E8;
-    --accent: #F2C14E;
-    --on-accent: #1E2230;
+    --panel-strong: #FFF8EC;
+    --accent: #F5A623;
+    --on-accent: #1B2A4A;
+    --chrome: #1B2A4A;
+    --chrome-dim: #A9B4CC;
+    --on-chrome: #F6F1E7;
+    --money-on-chrome: #6FD69A;
+    --card: #FFF8EC;
     --money: #2E9E5B;
     --positive: #2E9E5B;
     --negative: #D9483B;

@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace UnpaidCeo.Editor
 {
-    public enum AssetKind { Building, Prop, Character }
+    /// <summary>Interior: a generated room seen full-screen during a visit, so it may carry more triangles than a building on the street.</summary>
+    public enum AssetKind { Building, Prop, Character, Interior }
 
     /// <summary>
     /// Checks a generated asset against the stage-1 art budget (spec §6): triangle range at LOD0, Mesh LOD levels
@@ -20,6 +21,7 @@ namespace UnpaidCeo.Editor
             {
                 case AssetKind.Building: return (2000, 8000);
                 case AssetKind.Prop: return (200, 3000);
+                case AssetKind.Interior: return (8000, 60000);
                 default: return (15000, 22000);
             }
         }

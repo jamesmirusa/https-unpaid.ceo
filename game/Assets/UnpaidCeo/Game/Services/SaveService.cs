@@ -46,5 +46,23 @@ namespace UnpaidCeo.Game.Services
             PlayerPrefs.DeleteKey(Key);
             PlayerPrefs.Save();
         }
+
+        /// <summary>A challenge or duel run in progress, apart from the career (one at a time).</summary>
+        public const string RunKey = "unpaidceo.run.v1";
+
+        public static void SaveRun(string json)
+        {
+            PlayerPrefs.SetString(RunKey, json);
+            PlayerPrefs.Save();
+        }
+
+        /// <summary>Null when no run is in progress.</summary>
+        public static string LoadRun() => PlayerPrefs.GetString(RunKey, null);
+
+        public static void DeleteRun()
+        {
+            PlayerPrefs.DeleteKey(RunKey);
+            PlayerPrefs.Save();
+        }
     }
 }

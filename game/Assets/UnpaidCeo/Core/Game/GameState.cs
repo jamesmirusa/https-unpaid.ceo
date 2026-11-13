@@ -26,13 +26,28 @@ namespace UnpaidCeo.Core.Game
     /// <summary>Everything that defines a running game. Serialized whole for saves and hashed for replay checks.</summary>
     public sealed class GameState
     {
-        /// <summary>2: chapters 2–3 (loans, demand modifiers, staff).</summary>
-        public const int CurrentVersion = 2;
+        /// <summary>2: chapters 2–3 (loans, demand modifiers, staff). 3: the turn is a week (stage 4B).</summary>
+        public const int CurrentVersion = 3;
+        public const int WeeksPerMonth = 4;
 
         public int Version { get; set; } = CurrentVersion;
         public ulong Seed { get; set; }
-        /// <summary>The month currently being played, starting at 1.</summary>
+        /// <summary>The week currently being played, starting at 1; four weeks make a month.</summary>
+        public int Week { get; set; }
+        /// <summary>The month the week falls in (kept in step with <see cref="Week"/> by the engine): facts, cooldowns and seasonality count months.</summary>
         public int Month { get; set; }
+        /// <summary>1–4 within the month.</summary>
+        [JsonIgnore] public int WeekOfMonth => Week <= 0 ? 1 : (Week - 1) % WeeksPerMonth + 1;
+        public static int MonthOf(int week) => week <= 0 ? 1 : (week - 1) / WeeksPerMonth + 1;
+        public static int FirstWeekOf(int month) => (month - 1) * WeeksPerMonth + 1;
+        /// <summary>Action points left in this turn's pool (a week's, or a legacy month's), refilled every turn.</summary>
+        public int ActionPointsLeft { get; set; }
+        /// <summary>Free actions taken in the turn just played: each at most once a turn. Saved under its stage-4 name.</summary>
+        [JsonProperty("ActionsThisMonth")] public List<string> ActionsThisTurn { get; set; } = new List<string>();
+        /// <summary>Week a free action with a cooldown (FreeActionDef.CooldownWeeks) was last taken: id → week.</summary>
+        public Dictionary<string, int> ActionLastWeek { get; set; } = new Dictionary<string, int>();
+        /// <summary>Week whose scenes were already rolled (0 = none yet).</summary>
+        public int ScenesRolledWeek { get; set; }
         public int Chapter { get; set; } = 1;
         /// <summary>Where the chapter is played: bronx, brooklyn or queens. Derived, not saved.</summary>
         [JsonIgnore] public string District => Chapters.District(Chapter);

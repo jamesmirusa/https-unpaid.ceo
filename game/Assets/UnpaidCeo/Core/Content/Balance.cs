@@ -11,6 +11,28 @@ namespace UnpaidCeo.Core.Content
         public Money Transit { get; set; }
         public Money Essentials { get; set; }
         public Money Total => Room + Food + Transit + Essentials;
+
+        /// <summary>
+        /// The bills of one week of the month: food and transit every week (a quarter each, the last week takes the odd
+        /// cents), essentials on week 2, rent on the last week (the landlord collects at month end, so the first pay comes
+        /// before the first rent). Four weeks add up to <see cref="Total"/> exactly.
+        /// </summary>
+        public List<Game.LineItem> ForWeek(int weekOfMonth)
+        {
+            var items = new List<Game.LineItem>();
+            int n = Game.GameState.WeeksPerMonth;
+            items.Add(new Game.LineItem("bill.food", Quarter(Food, weekOfMonth, n)));
+            items.Add(new Game.LineItem("bill.transit", Quarter(Transit, weekOfMonth, n)));
+            if (weekOfMonth == 2) items.Add(new Game.LineItem("bill.essentials", Essentials));
+            if (weekOfMonth == n) items.Add(new Game.LineItem("bill.room", Room));
+            return items;
+        }
+
+        static Money Quarter(Money m, int week, int n)
+        {
+            long part = m.Cents / n;
+            return Money.FromCents(week == n ? m.Cents - part * (n - 1) : part);
+        }
     }
 
     public sealed class SourceRef
@@ -32,6 +54,24 @@ namespace UnpaidCeo.Core.Content
         public Money MaxBase { get; set; } = Money.FromCents(1_000_000);
         public Money MaxPerReputation { get; set; } = Money.FromCents(50_000);
         public int[] TermsMonths { get; set; } = { 12, 24, 36 };
+    }
+
+    public sealed class MultipleStep
+    {
+        /// <summary>Yearly profit below which this multiple applies.</summary>
+        public Money Below { get; set; }
+        public double Multiple { get; set; }
+    }
+
+    /// <summary>Company valuation rules (chapters 4–5): see docs/superpowers/specs/2026-11-10-stage3-zero-to-billionaire-design.md.</summary>
+    public sealed class ValuationBalance
+    {
+        /// <summary>Multiples of yearly profit by size, smallest first; profits past the last step use TopMultiple.</summary>
+        public List<MultipleStep> Ladder { get; set; } = new List<MultipleStep>();
+        public double TopMultiple { get; set; } = 8.0;
+        public double PublicMultiple { get; set; } = 15.0;
+        /// <summary>Share of the company sold in one investment round.</summary>
+        public double RoundDilution { get; set; } = 0.20;
     }
 
     /// <summary>Global balance constants (balance.json). Values in cents where money.</summary>
@@ -57,6 +97,19 @@ namespace UnpaidCeo.Core.Content
         public Money Chapter1CashGoal { get; set; }
         public Money DebtBankruptLine { get; set; }
         public int[] EventsPerMonthWeights { get; set; } = { 1, 2, 1 };
+        /// <summary>Scenes rolled per week (stage 4B): weights for 0, 1, … scenes; the default is about one a month.</summary>
+        public int[] EventsPerWeekWeights { get; set; } = { 3, 1 };
+        /// <summary>
+        /// The week's modes (stage 5A): mode id → work, family, rest, study shares summing to 100. "balance" is the
+        /// default plan; the order on screen is <see cref="Game.WeekPlanning.ModeOrder"/>.
+        /// </summary>
+        public Dictionary<string, int[]> WeekModes { get; set; } = new Dictionary<string, int[]>
+        {
+            ["hustle"] = new[] { 70, 10, 15, 5 },
+            ["balance"] = new[] { 55, 15, 20, 10 },
+            ["study"] = new[] { 45, 10, 20, 25 },
+            ["family"] = new[] { 45, 25, 25, 5 },
+        };
         public int AutopilotHoursPerMonth { get; set; } = 4;
         public int AutopilotMaxMonths { get; set; } = 2;
         public Money TutorialGigPay { get; set; }
@@ -78,6 +131,7 @@ namespace UnpaidCeo.Core.Content
         /// <summary>Months a player can play by hand per local calendar day.</summary>
         public int DailyManualMonths { get; set; } = 6;
         public LifeBalance Life { get; set; } = new LifeBalance();
+        public ValuationBalance Valuation { get; set; } = new ValuationBalance();
         public List<SourceRef> Sources { get; set; } = new List<SourceRef>();
     }
 }

@@ -863,6 +863,7 @@ GameObject:
   - component: {fileID: 4182022479264449824}
   - component: {fileID: 589584980040566082}
   - component: {fileID: 4038802945020791117}
+  - component: {fileID: 6566970128484656597}
   m_Layer: 0
   m_Name: npc_mentor_raccoon
   m_TagString: Untagged
@@ -924,6 +925,20 @@ MonoBehaviour:
   walk: {fileID: -6942838043800602937, guid: 7c807022113b84194bdc00cde9cb5213, type: 3}
   cheer: {fileID: 5367736691436404421, guid: b95d6081813864d828b5c58696bbe31c, type: 3}
   think: {fileID: 8742671007458294780, guid: e1f13c1b79e1f4f51bab4be7cd6a80c1, type: 3}
+--- !u!114 &6566970128484656597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7930609064197889826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 571b967bf323b4119857d7df6e37a9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnpaidCeo.Game::UnpaidCeo.Game.Hero.StandingPose
+  sole: -0.010531196
+  top: 1.6696833
 --- !u!1 &8829920728683990947
 GameObject:
   m_ObjectHideFlags: 0

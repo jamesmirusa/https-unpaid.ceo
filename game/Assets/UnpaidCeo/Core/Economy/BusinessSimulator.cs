@@ -18,29 +18,33 @@ namespace UnpaidCeo.Core.Economy
         public static Money Payroll(BusinessState b, IndustryDef d, double overhead) =>
             d.Salary.MulRound(Math.Max(0, b.Employees) * (1.0 + overhead));
 
-        public static BusinessMonthResult Simulate(BusinessState b, IndustryDef d, BusinessInputs i)
+        /// <param name="share">The period as a share of a month: 1 for a month, 0.25 for a week (capacity, demand, fixed costs, payroll and marketing scale).</param>
+        /// <param name="delayPeriods">Receivable delay in periods of this length (default: the industry's months).</param>
+        public static BusinessMonthResult Simulate(BusinessState b, IndustryDef d, BusinessInputs i, double share = 1.0, int delayPeriods = -1)
         {
             int capacity = d.Kind == IndustryKind.Gig
-                ? (int)Math.Floor(d.CapacityPerWorkPoint * Math.Max(0, i.WorkShare) + 1e-9)
-                : (int)Math.Floor(d.CapacityPerUnit * Math.Max(0, b.Units) * Staffing(b, d, i.OwnerShare) + 1e-9);
+                ? (int)Math.Floor(d.CapacityPerWorkPoint * Math.Max(0, i.WorkShare) * share + 1e-9)
+                : (int)Math.Floor(d.CapacityPerUnit * Math.Max(0, b.Units) * Staffing(b, d, i.OwnerShare) * share + 1e-9);
 
-            int demand = EconomyFormulas.Demand(d.BaseDemand,
+            int monthDemand = EconomyFormulas.Demand(d.BaseDemand,
                 EconomyFormulas.PriceFactor(b.Price, d.RefPrice, d.Elasticity),
                 EconomyFormulas.MarketingFactor(b.Marketing, d.MarketingA, d.MarketingK),
                 i.ReputationFactor, i.SeasonFactor, i.EventFactor, i.DistrictFactor);
+            int demand = share == 1.0 ? monthDemand : (int)Math.Round(monthDemand * share, MidpointRounding.AwayFromZero);
 
             int units = EconomyFormulas.UnitsSold(demand, capacity);
             var revenue = Money.FromCents(b.Price.Cents * units);
             var cogs = Money.FromCents(d.UnitCost.Cents * units);
             var gross = revenue - cogs;
             var fixedCosts = d.Kind == IndustryKind.Business
-                ? Money.FromCents(d.FixedMonthly.Cents * Math.Max(0, b.Units)) + Payroll(b, d, i.PayrollOverhead)
+                ? (Money.FromCents(d.FixedMonthly.Cents * Math.Max(0, b.Units)) + Payroll(b, d, i.PayrollOverhead)).MulRound(share)
                 : Money.Zero;
-            var marketing = b.Marketing;
+            var marketing = b.Marketing.MulRound(share);
 
             b.Receivables.Add(revenue);
             var collected = Money.Zero;
-            if (b.Receivables.Count > Math.Max(0, d.ReceivableDelayMonths))
+            int delay = delayPeriods < 0 ? d.ReceivableDelayMonths : delayPeriods;
+            if (b.Receivables.Count > Math.Max(0, delay))
             {
                 collected = b.Receivables[0];
                 b.Receivables.RemoveAt(0);

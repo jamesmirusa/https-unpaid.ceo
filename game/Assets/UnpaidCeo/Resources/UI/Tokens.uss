@@ -1,27 +1,34 @@
 :root, .app, .dialogue { -unity-font-definition: url("Fonts/Inter-Regular-SDF.asset"); }
 /* Layout tokens and components. Sizes are for the 1080×1920 reference panel. */
+/* On a wide (desktop) screen the phone layout stays a phone-wide column in the middle; the city shows on both sides. */
 .app {
     flex-grow: 1;
+    width: 100%;
+    max-width: 1080px;
+    align-self: center;
     color: var(--text);
     font-size: 34px;
 }
 .app Label, .app Button { color: var(--text); }
 
 /* HUD */
-.hud { flex-direction: row; align-items: center; padding: 16px 24px; background-color: var(--panel); border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; }
+.hud { flex-direction: row; align-items: center; padding: 16px 24px; background-color: var(--chrome); border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; }
 .hud__block { flex-direction: column; margin-right: 28px; }
-.hud__caption { font-size: 26px; color: var(--text-dim); }
-.hud__value { font-size: 44px; -unity-font-style: bold; color: var(--money); }
-.hud__value--plain { color: var(--text); }
+.hud__caption { font-size: 26px; color: var(--chrome-dim); }
+.hud__value { font-size: 44px; -unity-font-style: bold; color: var(--money-on-chrome); }
+.hud__value--plain { color: var(--on-chrome); }
 .hud__spacer { flex-grow: 1; }
 .energy-bar { width: 170px; height: 22px; margin-top: 10px; background-color: var(--track); border-radius: 11px; overflow: hidden; }
-.energy-bar__fill { height: 100%; background-color: var(--energy); }
+.energy-bar__fill { height: 100%; background-color: var(--energy); transition-property: width; transition-duration: 0.35s; }
+.hud__caption-row { flex-direction: row; align-items: center; }
+.hud__energy-value { margin-left: 8px; -unity-font-style: bold; }
 .icon-button { padding: 8px 18px; margin-left: 10px; font-size: 26px; border-radius: 20px; border-width: 0; background-color: var(--panel-strong); }
 
 /* Screens */
 .content { flex-grow: 1; }
 .screen { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 24px; }
-.screen--panel { left: 16px; right: 16px; top: 16px; bottom: 16px; background-color: var(--panel); border-radius: 32px; }
+/* Opaque: a popup lies over the city's widgets, and a see-through panel let the guide's text show through the lists. */
+.screen--panel { left: 16px; right: 16px; top: 16px; bottom: 16px; background-color: var(--panel-strong); border-radius: 32px; }
 .screen__title { font-size: 54px; -unity-font-style: bold; margin-bottom: 16px; }
 .section-title { font-size: 36px; -unity-font-style: bold; margin-top: 24px; margin-bottom: 8px; }
 .hint { font-size: 30px; color: var(--text-dim); white-space: normal; }
@@ -40,10 +47,10 @@
 /* Primary action and navigation */
 .primary-button { height: 120px; margin: 0 24px 16px 24px; border-radius: 32px; border-width: 0; background-color: var(--accent); font-size: 44px; -unity-font-style: bold; }
 .app .primary-button { color: var(--on-accent); }
-.bottom-nav { flex-direction: row; height: 140px; padding: 0 8px; background-color: var(--panel); border-top-left-radius: 32px; border-top-right-radius: 32px; }
-.nav-button { flex-grow: 1; flex-basis: 0; margin: 0; padding: 0 4px; border-width: 0; background-color: rgba(0, 0, 0, 0); font-size: 28px; }
-.app .nav-button { color: var(--text-dim); }
-.app .nav-button--active { color: var(--accent); -unity-font-style: bold; }
+.bottom-nav { flex-direction: row; height: 124px; padding: 10px 12px 14px 12px; background-color: var(--chrome); border-top-left-radius: 32px; border-top-right-radius: 32px; }
+.nav-button { flex-grow: 1; flex-basis: 0; margin: 0 6px; padding: 0 4px; border-width: 0; border-bottom-width: 6px; border-bottom-color: rgba(0, 0, 0, 0); border-radius: 0; background-color: rgba(0, 0, 0, 0); font-size: 28px; }
+.app .nav-button { color: var(--chrome-dim); }
+.app .nav-button--active { color: var(--on-chrome); border-bottom-color: var(--accent); -unity-font-style: bold; }
 
 /* Decisions */
 .share-row { flex-direction: row; align-items: center; height: 72px; }
@@ -83,19 +90,25 @@
 .academy__feedback { -unity-font-style: bold; white-space: normal; margin-top: 8px; }
 
 /* Yarn dialogue (UitkDialoguePresenter) */
-.dialogue { position: absolute; left: 24px; right: 24px; bottom: 320px; padding: 28px; border-radius: 32px; background-color: var(--panel); }
+.dialogue-backdrop { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 0 24px; justify-content: flex-end; align-items: center; background-color: rgba(10, 12, 20, 0.5); }
+.dialogue { width: 100%; max-width: 1032px; margin: 0 0 220px 0; padding: 28px; border-radius: 32px; background-color: var(--panel); border-width: 4px; border-color: var(--accent); }
+.dialogue Label, .dialogue Button { color: var(--text); }
 .dialogue__speaker { font-size: 32px; -unity-font-style: bold; color: var(--accent); }
 .dialogue__text { white-space: normal; font-size: 36px; margin: 8px 0 16px 0; }
-.dialogue__option { padding: 16px 24px; margin: 6px 0; border-radius: 22px; border-width: 0; background-color: var(--panel-strong); white-space: normal; -unity-text-align: middle-left; }
-.dialogue__continue { align-self: flex-end; padding: 10px 28px; border-radius: 22px; border-width: 0; background-color: var(--accent); }
+.dialogue__option { padding: 20px 24px; margin: 8px 0; border-radius: 22px; border-width: 2px; border-color: var(--accent); background-color: var(--panel-strong); font-size: 34px; white-space: normal; -unity-text-align: middle-left; }
+.dialogue__continue { height: 110px; margin: 8px 0 0 0; border-radius: 28px; border-width: 0; background-color: var(--accent); font-size: 40px; -unity-font-style: bold; }
+.dialogue .dialogue__continue { color: var(--on-accent); }
 
 /* Hero creator */
-.hero-creator { position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 24px 24px 8px 24px; background-color: var(--panel); border-radius: 32px; }
+.hero-creator { position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 24px 24px 8px 24px; background-color: var(--panel-strong); border-radius: 32px; }
 .swatch { width: 80px; height: 80px; margin: 6px 16px 6px 0; border-radius: 40px; border-width: 5px; border-color: var(--track); }
 .swatch--selected { border-color: var(--accent); }
 
 /* Onboarding coach marks */
-.onboarding-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; justify-content: center; background-color: rgba(16, 21, 33, 0.92); }
+/* Full-screen layers reach past the column: transparent side borders carry the background to the screen's edges,
+   while children (also absolute ones) stay inside the column. */
+.onboarding-overlay { position: absolute; left: -4000px; right: -4000px; border-left-width: 4000px; border-right-width: 4000px; border-color: rgba(0, 0, 0, 0); top: 0; bottom: 0; justify-content: center; background-color: rgba(16, 21, 33, 0.3); }
+/* (light: the hero being created stands in the city behind this layer) */
 .coach { position: absolute; left: 32px; right: 32px; bottom: 300px; padding: 32px 8px 8px 8px; border-radius: 32px; background-color: var(--panel); border-width: 4px; border-color: var(--accent); }
 .coach__speaker { margin: 0 32px 8px 32px; font-size: 32px; -unity-font-style: bold; color: var(--accent); }
 .coach__text { margin: 0 32px 24px 32px; font-size: 40px; white-space: normal; color: var(--text); }
@@ -107,8 +120,11 @@
 .turns-bar__value { font-size: 30px; -unity-font-style: bold; margin-right: 24px; }
 .turns-bar__wait { flex-direction: row; align-items: center; }
 .primary-button:disabled { opacity: 0.45; }
-.missions { position: absolute; left: 24px; right: 24px; bottom: 16px; padding: 12px 24px; background-color: var(--panel); border-radius: 24px; }
+.missions { margin-top: 12px; padding: 8px 24px; background-color: var(--panel); border-radius: 24px; }
 .missions__title { font-size: 30px; -unity-font-style: bold; margin-bottom: 4px; }
+.missions__toggle { flex-direction: row; align-items: center; margin: 0; padding: 8px 0; border-width: 0; background-color: rgba(0, 0, 0, 0); }
+.missions__toggle .missions__title { flex-grow: 1; margin-bottom: 0; -unity-text-align: middle-left; }
+.missions__count { font-size: 30px; -unity-font-style: bold; }
 .mission .row__label { font-size: 28px; white-space: normal; }
 .mission .row__value { font-size: 28px; }
 .mission--done .row__label, .mission--done .row__value { color: var(--text-dim); }
@@ -117,8 +133,11 @@
 .missions__value { font-size: 26px; -unity-font-style: bold; margin-right: 20px; }
 
 /* Chapters 2-3 (stage 2A): chapter goal bar, industry cards, steppers, loan dialog, chapter card */
-.chapter-bar { flex-direction: row; align-items: center; margin: 0 24px 8px 24px; }
-.chapter-bar__caption { font-size: 24px; color: var(--text-dim); margin-right: 12px; }
+.chapter-bar { margin: 8px 24px 0 24px; padding: 10px 20px 12px 20px; background-color: var(--panel); border-radius: 24px; }
+.chapter-bar__goal { flex-direction: row; align-items: center; margin-bottom: 8px; }
+.chapter-bar__row { flex-direction: row; align-items: center; }
+.chapter-bar__caption { flex-shrink: 1; font-size: 26px; white-space: normal; }
+.chapter-bar__goal-value { margin-left: 10px; font-size: 28px; -unity-font-style: bold; color: var(--money); }
 .chapter-bar__track { flex-grow: 1; height: 14px; border-radius: 7px; background-color: var(--track); overflow: hidden; }
 .chapter-bar__fill { height: 100%; width: 0; background-color: var(--accent); border-radius: 7px; }
 .chapter-bar__advance { margin-left: 12px; height: 56px; padding: 0 20px; border-radius: 28px; border-width: 0; background-color: var(--accent); font-size: 26px; -unity-font-style: bold; }
@@ -138,11 +157,254 @@
 .stepper__button { width: 80px; height: 72px; margin: 0 8px; border-radius: 24px; font-size: 40px; -unity-font-style: bold; }
 .stepper__value { width: 80px; -unity-text-align: middle-center; font-size: 36px; -unity-font-style: bold; }
 .decisions__warning { color: var(--negative); white-space: normal; font-size: 26px; }
-.modal { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.55); justify-content: center; }
+.modal { position: absolute; left: -4000px; right: -4000px; border-left-width: 4000px; border-right-width: 4000px; border-color: rgba(0, 0, 0, 0); top: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.55); justify-content: center; }
 .modal__panel { margin: 0 32px; padding: 28px 32px; background-color: var(--panel); border-radius: 32px; }
 .modal__panel .primary-button { margin: 16px 0 8px 0; }
 .modal__panel .danger-button { margin: 0; }
-.chapter-card { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(10, 10, 20, 0.92); justify-content: center; align-items: center; }
+.chapter-card { position: absolute; left: -4000px; right: -4000px; border-left-width: 4000px; border-right-width: 4000px; border-color: rgba(0, 0, 0, 0); top: 0; bottom: 0; background-color: rgba(10, 10, 20, 0.92); justify-content: center; align-items: center; }
 .chapter-card__title { font-size: 72px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal; -unity-text-align: middle-center; }
 .chapter-card__subtitle { font-size: 34px; color: rgb(220, 220, 230); margin-top: 16px; white-space: normal; -unity-text-align: middle-center; }
 
+
+/* Ranking (stage 2B) */
+.league-name { font-size: 44px; -unity-font-style: bold; margin: 4px 0 12px 0; }
+.rank-list { margin-top: 8px; }
+.rank-row { flex-direction: row; align-items: center; padding: 10px 16px; margin-bottom: 6px; background-color: var(--panel); border-radius: 18px; }
+.rank-row--me { border-width: 3px; border-color: var(--accent); }
+.rank-row__rank { width: 90px; font-size: 28px; color: var(--text-dim); }
+.rank-row__name { flex-grow: 1; font-size: 28px; }
+.rank-row__score { font-size: 28px; -unity-font-style: bold; }
+.rank-row__me { font-size: 30px; margin-bottom: 12px; }
+.badge-list { flex-direction: row; flex-wrap: wrap; margin-top: 8px; }
+.badge { padding: 8px 18px; margin: 0 10px 10px 0; border-radius: 22px; background-color: var(--panel); font-size: 26px; }
+
+/* Account (stage 2B) */
+.account__form { margin-top: 8px; }
+.account__player { font-size: 32px; -unity-font-style: bold; }
+.account__message { margin-top: 8px; }
+.text-input { font-size: 30px; margin: 4px 0 10px 0; }
+
+/* Run banner (stage 2B) */
+.run-banner { position: absolute; left: 24px; right: 24px; top: 150px; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 10px 18px; background-color: var(--panel); border-radius: 24px; border-width: 3px; border-color: var(--accent); }
+.run-banner__title { font-size: 26px; -unity-font-style: bold; margin-right: 12px; }
+.run-banner__months { font-size: 26px; flex-grow: 1; }
+.run-banner__result { width: 100%; font-size: 26px; white-space: normal; margin: 6px 0; }
+
+/* Friends and duels (stage 2B) */
+.friends__name { flex-grow: 1; }
+.friend-row, .duel-row { flex-direction: row; flex-wrap: wrap; align-items: center; padding: 10px 16px; margin-bottom: 6px; background-color: var(--panel); border-radius: 18px; }
+.friend-row__name, .duel-row__name { flex-grow: 1; font-size: 28px; }
+.duel-row__industry { font-size: 24px; color: var(--text-dim); margin-right: 12px; }
+.duel-row__state { font-size: 24px; margin-right: 12px; }
+
+/* One main screen: the city with its widgets, popups over it, the month result */
+.city-stack { position: absolute; left: 24px; right: 24px; bottom: 16px; }
+.guide { margin-top: 12px; padding: 20px 24px; background-color: var(--panel); border-radius: 28px; border-left-width: 12px; border-left-color: var(--accent); }
+.guide__text { font-size: 34px; white-space: normal; margin-bottom: 14px; }
+.guide__action { height: 92px; margin: 0; border-radius: 26px; border-width: 0; background-color: var(--accent); font-size: 34px; -unity-font-style: bold; }
+.app .guide__action { color: var(--on-accent); }
+.popup-backdrop { position: absolute; left: -4000px; right: -4000px; top: 0; bottom: 0; background-color: rgba(10, 12, 20, 0.55); }
+.popup-close { position: absolute; right: 36px; top: 30px; height: 72px; margin: 0; padding: 0 30px; border-radius: 36px; border-width: 0; background-color: var(--accent); font-size: 30px; -unity-font-style: bold; }
+.app .popup-close { color: var(--on-accent); }
+.hero-tag { position: absolute; translate: -50% -100%; padding: 4px 20px; border-radius: 22px; background-color: var(--accent); font-size: 28px; -unity-font-style: bold; }
+.app .hero-tag { color: var(--on-accent); }
+.summary__head { flex-direction: row; align-items: center; margin-bottom: 8px; }
+.summary__head .section-title { margin: 0 12px 0 0; font-size: 44px; }
+.summary__tip { margin: 20px 0 4px 0; padding: 18px 22px; border-radius: 22px; background-color: var(--panel-strong); font-size: 32px; white-space: normal; }
+.link-button { align-self: center; margin: 0; padding: 14px 28px; border-width: 0; background-color: rgba(0, 0, 0, 0); font-size: 30px; }
+.app .link-button { color: var(--text-dim); }
+
+/* Text colours with meaning. The base rule (.app Label, .app Button) is stronger than a single class, so every
+   colour set by one class above is repeated here with .app in front; keep the two in step. */
+.app .hud__caption { color: var(--chrome-dim); }
+.app .hud__value { color: var(--money-on-chrome); }
+.app .hud__value--plain { color: var(--on-chrome); }
+.app .hint { color: var(--text-dim); }
+.app .disclaimer { color: var(--text-dim); }
+.app .value--negative { color: var(--negative); }
+.app .value--positive { color: var(--positive); }
+.app .action-row__cost { color: var(--text-dim); }
+.app .journal-entry__month-caption { color: var(--text-dim); }
+.app .journal-entry__month { color: var(--text-dim); }
+.app .coach__text { color: var(--text); }
+.app .turns-bar__caption { color: var(--text-dim); }
+.app .mission--done .row__label, .app .mission--done .row__value { color: var(--text-dim); }
+.app .missions__caption { color: var(--text-dim); }
+.app .chapter-bar__goal-value { color: var(--money); }
+.app .industry-card__step { color: var(--text-dim); }
+.app .decisions__warning { color: var(--negative); }
+.app .chapter-card__title { color: rgb(255, 255, 255); }
+.app .chapter-card__subtitle { color: rgb(220, 220, 230); }
+.app .rank-row__rank { color: var(--text-dim); }
+.app .duel-row__industry { color: var(--text-dim); }
+
+/* Pointer states. The default theme greys a hovered, focused or pressed button, which reads as "disabled" on a
+   coloured one; these selectors are heavier than the theme's on purpose. */
+.app Button.primary-button:hover, .app Button.primary-button:focus, .app Button.primary-button:active,
+.app Button.guide__action:hover, .app Button.guide__action:focus, .app Button.guide__action:active,
+.app Button.popup-close:hover, .app Button.popup-close:focus, .app Button.popup-close:active,
+.app Button.chapter-bar__advance:hover, .app Button.chapter-bar__advance:focus, .app Button.chapter-bar__advance:active,
+.dialogue Button.dialogue__continue:hover, .dialogue Button.dialogue__continue:focus, .dialogue Button.dialogue__continue:active { background-color: var(--accent); }
+.app Button.nav-button:hover, .app Button.nav-button:focus, .app Button.nav-button:active { background-color: rgba(255, 255, 255, 0.08); }
+.app Button.choice-button:hover, .app Button.choice-button:focus,
+.app Button.icon-button:hover, .app Button.icon-button:focus, .app Button.academy__item:hover, .app Button.academy__item:focus,
+.app Button.academy__option:hover, .app Button.academy__option:focus,
+.dialogue Button.dialogue__option:hover, .dialogue Button.dialogue__option:focus { background-color: var(--panel-strong); }
+.app Button.choice-button:active, .app Button.icon-button:active, .app Button.academy__item:active,
+.app Button.academy__option:active, .dialogue Button.dialogue__option:active { background-color: var(--track); }
+.app Button.missions__toggle:hover, .app Button.missions__toggle:focus, .app Button.missions__toggle:active,
+.app Button.link-button:hover, .app Button.link-button:focus, .app Button.link-button:active { background-color: rgba(0, 0, 0, 0); }
+.app Button.danger-button:hover, .app Button.danger-button:focus, .app Button.danger-button:active { background-color: var(--negative); }
+.app Button.primary-button:active, .app Button.guide__action:active, .app Button.popup-close:active, .dialogue Button.dialogue__continue:active { opacity: 0.75; }
+.app Button.primary-button:disabled { opacity: 0.45; }
+
+/* Name tags of the block's residents (the hero's own tag is the accent one). */
+.npc-tag { position: absolute; translate: -50% -100%; padding: 2px 16px; border-radius: 18px; background-color: var(--panel); font-size: 24px; }
+
+/* Places of the block: the list of cards, a place with its picture and host, and markers over the buildings */
+.places__hint { margin-bottom: 20px; }
+.place-card { flex-direction: row; align-items: center; height: 200px; margin: 0 0 16px 0; padding: 0; border-width: 0; border-radius: 28px; background-color: var(--panel); overflow: hidden; }
+.place-card__thumb { width: 300px; height: 200px; flex-shrink: 0; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.place-card__text { flex-grow: 1; flex-shrink: 1; padding: 0 24px; }
+.place-card__title { font-size: 40px; -unity-font-style: bold; -unity-text-align: middle-left; white-space: normal; }
+.place-card__host { font-size: 28px; -unity-text-align: middle-left; white-space: normal; }
+.place__back { align-self: flex-start; height: 64px; margin: 0 0 12px 0; padding: 0 24px; border-radius: 32px; border-width: 2px; border-color: var(--track); background-color: var(--panel); font-size: 28px; }
+.place__art { height: 620px; margin-bottom: 16px; border-radius: 28px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.place__host { font-size: 30px; margin: -8px 0 14px 0; white-space: normal; }
+.place__line { margin-bottom: 14px; padding: 20px 24px; border-radius: 24px; border-left-width: 10px; border-left-color: var(--accent); background-color: var(--panel); font-size: 34px; white-space: normal; }
+.place-action { flex-direction: column; align-items: stretch; margin: 8px 0; padding: 18px 24px; border-radius: 24px; border-width: 3px; border-color: var(--track); background-color: var(--panel); }
+.place-action:disabled { opacity: 0.45; }
+.place-action__label { font-size: 34px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
+.place-action__chips { flex-direction: row; flex-wrap: wrap; margin-top: 6px; }
+.chip { flex-direction: row; align-items: center; margin-right: 22px; }
+.chip__caption { font-size: 26px; margin-right: 6px; }
+.chip__value { font-size: 28px; -unity-font-style: bold; }
+.place-marker { position: absolute; translate: -50% -100%; flex-direction: column; align-items: center; width: 210px; margin: 0; padding: 8px 8px 6px 8px; border-radius: 22px; border-width: 3px; border-color: var(--accent); background-color: var(--card); font-size: 26px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-center; }
+.place-marker__pic { width: 190px; height: 112px; margin-bottom: 4px; border-radius: 14px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.place-marker__title { font-size: 26px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-center; }
+.app .place-card__host, .app .place__host, .app .chip__caption { color: var(--text-dim); }
+.app .chip__value.value--positive { color: var(--positive); }
+.app .chip__value.value--negative { color: var(--negative); }
+.app Button.place-card:hover, .app Button.place-card:focus, .app Button.place-card:active,
+.app Button.place-action:hover, .app Button.place-action:focus, .app Button.place-action:active,
+.app Button.place__back:hover, .app Button.place__back:focus, .app Button.place__back:active { background-color: var(--panel); }
+.app Button.place-marker:hover, .app Button.place-marker:focus, .app Button.place-marker:active { background-color: var(--panel-strong); }
+.app Button.place-card:active, .app Button.place-action:active, .app Button.place-marker:active { opacity: 0.8; }
+
+/* The city clips its name tags and markers to its own area: nothing of it is drawn over the HUD or the chapter bar. */
+#city { overflow: hidden; }
+
+
+/* Stage 4 · the checklist before "Next month": each line opens the screen where it is done. */
+.gate { margin-top: 12px; padding: 16px 24px 8px 24px; background-color: var(--panel); border-radius: 28px; }
+.gate__title { font-size: 28px; -unity-font-style: bold; margin-bottom: 6px; }
+.gate__item { flex-direction: row; align-items: center; height: 76px; margin: 0 0 8px 0; padding: 0 12px 0 6px; border-radius: 20px; border-width: 0; background-color: rgba(0, 0, 0, 0); }
+.gate__check { width: 44px; height: 44px; margin-right: 14px; border-radius: 22px; border-width: 3px; border-color: var(--text-dim); font-size: 28px; -unity-font-style: bold; -unity-text-align: middle-center; flex-shrink: 0; }
+.gate__item--done .gate__check { border-color: var(--accent); background-color: var(--accent); }
+.gate__text { flex-grow: 1; flex-shrink: 1; font-size: 30px; white-space: normal; -unity-text-align: middle-left; }
+.gate__count { font-size: 30px; -unity-font-style: bold; margin-left: 12px; }
+.app .gate__item--done .gate__text { color: var(--text-dim); }
+.app .gate__item--done .gate__check { color: var(--on-accent); }
+.app Button.gate__item:hover, .app Button.gate__item:focus { background-color: var(--panel-strong); }
+.app Button.gate__item:active { background-color: var(--track); }
+
+/* Stage 4 · a living scene: what the choice did, under the line. */
+.dialogue__consequences { flex-direction: row; flex-wrap: wrap; margin: 0 0 14px 0; padding: 10px 16px; border-radius: 18px; background-color: var(--panel-strong); }
+.dialogue .chip__caption { color: var(--text-dim); }
+.dialogue .chip__value.value--positive { color: var(--positive); }
+.dialogue .chip__value.value--negative { color: var(--negative); }
+
+/* Stage 4B · the week's result: what was paid and what falls due next week. */
+.summary__section { margin-top: 10px; padding: 12px 18px; border-radius: 18px; background-color: var(--panel-strong); }
+.summary__section-title { font-size: 26px; -unity-font-style: bold; margin-bottom: 4px; }
+.summary__item { flex-direction: row; justify-content: space-between; padding: 3px 0; }
+.summary__item-caption { font-size: 28px; }
+.summary__item-value { font-size: 28px; -unity-font-style: bold; }
+.app .summary__item-caption { color: var(--text-dim); }
+
+/* Everything by button: the strip of places over the city and the camera buttons. */
+.strip { position: absolute; left: 0; right: 0; top: 8px; height: 190px; padding: 0 8px; }
+.strip #unity-content-container { flex-direction: row; align-items: flex-start; }
+.strip__item { flex-direction: column; align-items: center; width: 150px; height: 174px; margin: 0 6px; padding: 6px; border-radius: 20px; border-width: 3px; border-color: rgba(0, 0, 0, 0); background-color: var(--panel); }
+.strip__item--focused { border-color: var(--accent); background-color: var(--card); }
+.strip__pic { width: 134px; height: 90px; border-radius: 12px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.strip__title { margin-top: 4px; font-size: 22px; -unity-font-style: bold; white-space: normal; -unity-text-align: upper-center; }
+.camera-buttons { position: absolute; right: 12px; top: 210px; flex-direction: column; }
+.camera-button { width: 84px; height: 84px; margin: 0 0 8px 0; padding: 0; border-radius: 42px; border-width: 3px; border-color: var(--track); background-color: var(--panel); font-size: 36px; -unity-font-style: bold; }
+#city-home { width: auto; min-width: 84px; padding: 0 18px; font-size: 24px; }
+.app Button.strip__item:hover, .app Button.strip__item:focus, .app Button.strip__item:active { background-color: var(--card); }
+.app Button.camera-button:hover, .app Button.camera-button:focus { background-color: var(--panel-strong); border-color: var(--accent); }
+.app Button.camera-button:active { background-color: var(--track); }
+
+/* Inside a place: the 3D room above, the conversation below; the street's widgets step aside. */
+.visiting #city-strip, .visiting .camera-buttons, .visiting .city-stack, .visiting #next-month, .visiting .bottom-nav,
+.visiting .chapter-bar, .visiting .guide { display: none; }
+.visiting .turns-bar { visibility: hidden; }
+.visit { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 20px 22px 16px 22px; border-radius: 30px; border-width: 4px; border-color: var(--accent); background-color: var(--card); }
+.visit__head { flex-direction: row; align-items: center; margin-bottom: 10px; }
+.visit__portrait { width: 132px; height: 88px; border-radius: 16px; margin-right: 16px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
+.visit__names { flex-grow: 1; flex-shrink: 1; }
+.visit__speaker { font-size: 36px; -unity-font-style: bold; }
+.visit__place { font-size: 26px; }
+.visit__line { font-size: 34px; white-space: normal; margin: 4px 0 12px 0; padding: 14px 18px; border-radius: 20px; border-left-width: 8px; border-left-color: var(--accent); background-color: var(--panel); }
+.visit__consequences { flex-direction: row; flex-wrap: wrap; margin: 0 0 10px 0; padding: 8px 14px; border-radius: 16px; background-color: var(--panel-strong); }
+.visit__choices { margin-bottom: 6px; }
+.visit__choice { flex-direction: column; align-items: stretch; margin: 6px 0; padding: 14px 20px; border-radius: 22px; border-width: 3px; border-color: var(--track); background-color: var(--panel); }
+.visit__choice--planned { border-color: var(--accent); background-color: var(--panel-strong); }
+.visit__choice:disabled { opacity: 0.45; }
+.visit__choice-label { font-size: 32px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
+.visit__choice-chips { flex-direction: row; flex-wrap: wrap; margin-top: 4px; }
+.visit__choice-status { font-size: 24px; margin-top: 4px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; color: var(--text-dim); }
+.visit__choice--recommended { border-color: var(--energy); }
+.visit__choice--recommended .visit__choice-status { color: var(--energy); }
+.visit__choice--planned .visit__choice-status { color: var(--accent); }
+/* A done choice is closed but not greyed: it reads as done, a blocked one reads as unavailable. */
+.visit__choice--planned:disabled { opacity: 1; }
+/* Stage 5A · the Week screen: one-tap cards (mode, where the work goes) and one-step lever buttons, closed until next week. */
+.week__cards { flex-direction: row; flex-wrap: wrap; justify-content: space-between; margin-bottom: 4px; }
+.week-card { width: 49%; flex-direction: column; align-items: stretch; margin: 6px 0; padding: 16px 18px; border-radius: 22px; border-width: 3px; border-color: var(--track); background-color: var(--panel); }
+.week-card--small { padding: 12px 18px; }
+.week-card--selected { border-color: var(--accent); background-color: var(--panel-strong); }
+.week-card:disabled { opacity: 0.45; }
+.week-card--selected:disabled { opacity: 1; }
+.week-card__title { font-size: 30px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
+.week-card__desc { font-size: 22px; white-space: normal; -unity-text-align: middle-left; margin-top: 2px; }
+.week-card__status-row { flex-direction: row; flex-wrap: wrap; align-items: center; }
+.week-card__status { font-size: 22px; margin: 6px 6px 0 0; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
+.app .week-card__desc { color: var(--text-dim); }
+.app .week-card__status { color: var(--text-dim); }
+.app .week-card--selected .week-card__status { color: var(--accent); }
+/* Pointer over an open card: the same hover as the room cards, not the default theme's grey (desktop web). */
+.app Button.week-card:hover:enabled { background-color: var(--panel-strong); border-color: var(--accent); }
+.lever-row { flex-direction: row; margin: 2px 0 10px 0; }
+.lever-button { flex-grow: 1; flex-basis: 0; height: 72px; margin: 0 4px; border-radius: 20px; border-width: 3px; border-color: var(--accent); background-color: var(--card); font-size: 24px; -unity-font-style: bold; white-space: normal; }
+.lever-button:disabled { opacity: 0.4; }
+.app Button.lever-button:hover, .app Button.lever-button:focus { background-color: var(--panel-strong); }
+.app Button.lever-button:active { background-color: var(--track); }
+/* The default theme paints a disabled button grey and dims its text (.unity-button:disabled); a card closed for the week
+   keeps its own colours: a taken one stays bright with its accent frame, the others only fade. */
+.app .week-card:disabled, .app .visit__choice:disabled { background-color: var(--panel); border-color: var(--track); }
+.app .week-card--selected:disabled, .app .visit__choice--planned:disabled { background-color: var(--panel-strong); border-color: var(--accent); color: var(--text); }
+.app .lever-button:disabled { background-color: var(--card); border-color: var(--accent); }
+.app Button.lever-button.lever-button--taken:disabled { opacity: 1; background-color: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+/* "Sure?": a step that cannot be undone waits for its second tap in the warning colour. These beat the hover/focus/active
+   paint (a button disabled during its own tap can keep :active). */
+.app Button.lever-button.lever-button--armed, .app Button.visit__choice.visit__choice--armed { border-color: var(--negative); }
+.app Button.lever-button.lever-button--armed { color: var(--negative); background-color: var(--card); }
+.app .visit__choice--armed .visit__choice-status { color: var(--negative); }
+.lever-status { font-size: 22px; margin: -4px 4px 10px 4px; white-space: normal; -unity-font-style: bold; }
+.app .lever-status { color: var(--text-dim); }
+.visit__budget { flex-direction: row; align-items: center; flex-wrap: wrap; margin: 0 0 6px 0; }
+.visit__budget-caption { font-size: 24px; margin-right: 6px; color: var(--text-dim); }
+.visit__budget-value { font-size: 26px; margin-right: 22px; -unity-font-style: bold; }
+.visit__row { flex-direction: row; margin-top: 6px; }
+.visit__talk, .visit__exit { flex-grow: 1; flex-basis: 0; height: 84px; margin: 0 6px 0 0; border-radius: 26px; font-size: 30px; -unity-font-style: bold; }
+.visit__talk { border-width: 3px; border-color: var(--accent); background-color: var(--card); }
+.visit__exit { margin: 0 0 0 6px; border-width: 0; background-color: var(--accent); }
+.app .visit__place { color: var(--text-dim); }
+.app .visit__exit { color: var(--on-accent); }
+.app Button.visit__choice:hover, .app Button.visit__choice:focus { background-color: var(--panel-strong); border-color: var(--accent); }
+.app Button.visit__choice:active { background-color: var(--track); }
+.app Button.visit__talk:hover, .app Button.visit__talk:focus, .app Button.visit__talk:active { background-color: var(--panel-strong); }
+.app Button.visit__exit:hover, .app Button.visit__exit:focus, .app Button.visit__exit:active { background-color: var(--accent); }
+.fade { position: absolute; left: -4000px; right: -4000px; top: 0; bottom: 0; background-color: rgb(8, 9, 16); }

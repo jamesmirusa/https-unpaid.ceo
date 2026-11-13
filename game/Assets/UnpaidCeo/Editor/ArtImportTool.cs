@@ -21,9 +21,19 @@ namespace UnpaidCeo.Editor
         {
             AssetDatabase.Refresh();
             var report = new StringBuilder("# Art import report\n\n");
-            foreach (var (folder, kind) in new[] { ("Buildings", AssetKind.Building), ("Props", AssetKind.Prop), ("Characters", AssetKind.Character) })
+            foreach (var (folder, kind) in new[] { ("Buildings", AssetKind.Building), ("Props", AssetKind.Prop), ("Characters", AssetKind.Character), ("Interiors", AssetKind.Interior) })
                 report.Append(ImportFolder($"{ImportedRoot}/{folder}", kind, "../tools/art/previews"));
             File.WriteAllText("../tools/art/import-report.md", report.ToString());
+        }
+
+        /// <summary>Only the rooms (Art/Imported/Interiors), then the walk-in interiors built from them; report in tools/art/stage4/interiors.</summary>
+        public static void ImportInteriors()
+        {
+            AssetDatabase.Refresh();
+            var md = "# Interiors\n\n" + ImportFolder($"{ImportedRoot}/Interiors", AssetKind.Interior, "../tools/art/stage4/interiors");
+            File.WriteAllText("../tools/art/stage4/interiors/import-report.md", md);
+            Debug.Log("[art] " + md);
+            InteriorBuilder.BuildAll();
         }
 
         /// <summary>Batchmode entry for the pilot: Art/Imported/Pilot as buildings, previews and report in tools/art/pilot.</summary>
@@ -35,7 +45,20 @@ namespace UnpaidCeo.Editor
             Debug.Log("[art] " + md);
         }
 
-        public static string ImportFolder(string folder, AssetKind kind, string previewDir)
+        /// <summary>Only GLBs that have no prefab yet (new characters, buildings, props, rooms); the rest stay untouched.</summary>
+        public static void ImportNew()
+        {
+            AssetDatabase.Refresh();
+            var report = new StringBuilder("# New art\n\n");
+            foreach (var (folder, kind) in new[] { ("Buildings", AssetKind.Building), ("Props", AssetKind.Prop), ("Characters", AssetKind.Character), ("Interiors", AssetKind.Interior) })
+                report.Append(ImportFolder($"{ImportedRoot}/{folder}", kind, "../tools/art/previews",
+                    path => !File.Exists($"Assets/UnpaidCeo/Art/Prefabs/{Path.GetFileNameWithoutExtension(path)}.prefab")));
+            DistrictBuilder.MarkCharactersAddressable();   // a new hero or NPC loads on demand like the others
+            AssetDatabase.SaveAssets();
+            Debug.Log("[art] " + report);
+        }
+
+        public static string ImportFolder(string folder, AssetKind kind, string previewDir, System.Func<string, bool> include = null)
         {
             if (!AssetDatabase.IsValidFolder(folder)) return "";
             var sb = new StringBuilder($"## {Path.GetFileName(folder)} ({kind})\n\n| asset | file | LOD0 tris | LOD levels | materials | textures | budget |\n|---|---|---|---|---|---|---|\n");
@@ -43,6 +66,7 @@ namespace UnpaidCeo.Editor
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 if (!path.EndsWith(".glb") || path.Contains($"/{GlbPrefabBuilder.ClipsFolder}/")) continue;
+                if (include != null && !include(path)) continue;
                 string name = Path.GetFileNameWithoutExtension(path);
                 long bytes = new FileInfo(path).Length;
                 string prefabPath;

@@ -80,24 +80,6 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
-        public IEnumerator Time_sliders_always_sum_100()
-        {
-            yield return Boot("en");
-            _ui.Open(UiRoot.Decisions);
-            yield return null;
-            var control = _ui.Root.Q<TimeAllocationControl>();
-            Assert.IsNotNull(control);
-            var rng = new System.Random(3);
-            for (int i = 0; i < 200; i++)
-            {
-                control.SetShare(rng.Next(4), rng.Next(0, 101));
-                Assert.AreEqual(100, control.Values.Sum());
-            }
-            var d = _ui.CurrentDecisions();
-            Assert.AreEqual(100, d.Work + d.Family + d.Rest + d.Study);
-        }
-
-        [UnityTest]
         public IEnumerator No_text_overflow_in_ru()
         {
             yield return Boot("ru");

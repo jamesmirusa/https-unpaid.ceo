@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ugs-config-schemas.unity3d.com/v1/remote-config.schema.json",
+  "entries": {
+    "online_enabled": true,
+    "challenge_enabled": true,
+    "duels_enabled": true,
+    "market_wars_enabled": true
+  },
+  "types": {
+    "online_enabled": "BOOL",
+    "challenge_enabled": "BOOL",
+    "duels_enabled": "BOOL",
+    "market_wars_enabled": "BOOL"
+  }
+}

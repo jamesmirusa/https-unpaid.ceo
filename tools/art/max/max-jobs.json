@@ -339,6 +339,62 @@
           "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_222313_72ebbd2d-37f7-4117-a693-f003c51e65e5.glb"
         }
       }
+    },
+    "npc_ms_lee_owl": {
+      "concept": "bf707931-da0d-411e-bc42-638088446b7b",
+      "mesh": "5e681352-8677-4e6b-8f1b-f430cdc9bb99",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_053832_5e681352-8677-4e6b-8f1b-f430cdc9bb99.glb",
+      "note": "Stage 4C host (bank): Meshy image_to_3d textured PBR a-pose 19.5k tri (30 cr) + 4 rig clips (8 cr each)",
+      "rig": {
+        "idle": {
+          "job": "8d7f37ef-0255-4b24-98c6-efa9f9814847",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055036_8d7f37ef-0255-4b24-98c6-efa9f9814847.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055036_8d7f37ef-0255-4b24-98c6-efa9f9814847.glb"
+        },
+        "walk": {
+          "job": "d92cf330-64b5-42ad-a4ec-4fa5690e3272",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055037_d92cf330-64b5-42ad-a4ec-4fa5690e3272.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055037_d92cf330-64b5-42ad-a4ec-4fa5690e3272.glb"
+        },
+        "cheer": {
+          "job": "9b42f60c-9a35-41d6-a04a-89e325d07b3c",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055038_9b42f60c-9a35-41d6-a04a-89e325d07b3c.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055038_9b42f60c-9a35-41d6-a04a-89e325d07b3c.glb"
+        },
+        "think": {
+          "job": "2a514792-a044-4ce7-ade2-de227a0dd289",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055039_2a514792-a044-4ce7-ade2-de227a0dd289.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055039_2a514792-a044-4ce7-ade2-de227a0dd289.glb"
+        }
+      }
+    },
+    "npc_sam_beaver": {
+      "concept": "067cf073-835a-43a5-a331-27645835739f",
+      "mesh": "2601c58d-74c9-43d5-9ce6-a4c250b16904",
+      "meshUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_053833_2601c58d-74c9-43d5-9ce6-a4c250b16904.glb",
+      "note": "Stage 4C host (office): Meshy image_to_3d textured PBR a-pose 19.5k tri (30 cr) + 4 rig clips (8 cr each)",
+      "rig": {
+        "idle": {
+          "job": "326655f3-e947-4828-b507-bb225f70a129",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055039_326655f3-e947-4828-b507-bb225f70a129.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055039_326655f3-e947-4828-b507-bb225f70a129.glb"
+        },
+        "walk": {
+          "job": "c0782e7f-c741-43aa-a6a8-392d61ad923e",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055040_c0782e7f-c741-43aa-a6a8-392d61ad923e.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055040_c0782e7f-c741-43aa-a6a8-392d61ad923e.glb"
+        },
+        "cheer": {
+          "job": "c07fd714-1bf2-4344-a0c6-7195426cec8f",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055041_c07fd714-1bf2-4344-a0c6-7195426cec8f.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055041_c07fd714-1bf2-4344-a0c6-7195426cec8f.glb"
+        },
+        "think": {
+          "job": "4670de6a-7b10-4e38-ad93-d4099f4f117d",
+          "url": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055042_4670de6a-7b10-4e38-ad93-d4099f4f117d.glb",
+          "downloaded": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261112_055042_4670de6a-7b10-4e38-ad93-d4099f4f117d.glb"
+        }
+      }
     }
   },
   "clips": {
@@ -358,6 +414,8 @@
     "hero_fox_blazer",
     "hero_cat_blazer",
     "hero_fox_hoodie",
-    "hero_cat_hoodie"
+    "hero_cat_hoodie",
+    "npc_ms_lee_owl",
+    "npc_sam_beaver"
   ]
 }
