@@ -143,6 +143,13 @@ namespace UnpaidCeo.Game.Ui
 
         void Say(string key) => UiText.Bind(_line, key);
 
+        /// <summary>The room's action by id, as if its card was tapped (the radial menu on the host uses it).</summary>
+        public void Choose(string actionId)
+        {
+            var a = CurrentPlace != null ? System.Array.Find(Places.Find(CurrentPlace).Actions, x => x.Id == actionId) : null;
+            if (a != null) Choose(a);
+        }
+
         void Choose(PlaceAction a)
         {
             switch (a.Kind)
@@ -172,7 +179,7 @@ namespace UnpaidCeo.Game.Ui
             }
         }
 
-        void Talk()
+        public void Talk()
         {
             if (CurrentPlace == null) return;
             _lineIndex = (_lineIndex + 1) % Places.LinesPerPlace;

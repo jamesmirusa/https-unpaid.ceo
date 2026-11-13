@@ -1951,6 +1951,98 @@ MonoBehaviour:
     m_Key: settings.sound.off
     m_Metadata:
       m_Items: []
+  - m_Id: 1661556998791168
+    m_Key: calendar.week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179776
+    m_Key: calendar.actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179777
+    m_Key: calendar.wk.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179778
+    m_Key: calendar.wk.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179779
+    m_Key: calendar.wk.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179780
+    m_Key: calendar.wk.4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179781
+    m_Key: calendar.now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179782
+    m_Key: calendar.free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179783
+    m_Key: calendar.name.bill.room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179784
+    m_Key: calendar.name.loan.pay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179785
+    m_Key: calendar.name.bill.essentials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179786
+    m_Key: calendar.name.bill.food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179787
+    m_Key: calendar.tip.free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179788
+    m_Key: calendar.tip.gap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179789
+    m_Key: calendar.tip.bill.room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179790
+    m_Key: calendar.tip.loan.pay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179791
+    m_Key: calendar.tip.bill.essentials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179792
+    m_Key: calendar.tip.bill.food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179793
+    m_Key: radial.enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179794
+    m_Key: radial.hint.enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179795
+    m_Key: radial.hint.talk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179796
+    m_Key: radial.hint.week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179797
+    m_Key: radial.hint.journal
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

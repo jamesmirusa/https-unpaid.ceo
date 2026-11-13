@@ -398,9 +398,7 @@ namespace UnpaidCeo.Core.Game
                 if (bills) report.DueNext.AddRange(costs.ForWeek(next));
                 if (next == GameState.WeeksPerMonth && s.Loans.Count > 0)
                 {
-                    var due = Money.Zero;
-                    foreach (var loan in s.Loans) due += loan.MonthsLeft <= 1 ? loan.Balance + loan.Balance.MulRound(loan.Apr / 12.0) : loan.Payment;
-                    report.DueNext.Add(new LineItem("loan.pay", due));
+                    report.DueNext.Add(new LineItem("loan.pay", MoneyCalendar.LoanDue(s)));
                 }
             }
 

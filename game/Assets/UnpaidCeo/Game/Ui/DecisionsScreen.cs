@@ -154,6 +154,9 @@ namespace UnpaidCeo.Game.Ui
         public bool Recommended(string freeAction) => ActionChoices.Recommended(_state, _engine.Content, freeAction, Planned);
 
         /// <summary>The week can still take it (a done choice stays done: there is no undo).</summary>
+        /// <summary>A free action's definition (price, effects, confirm), or null.</summary>
+        public UnpaidCeo.Core.Content.FreeActionDef FreeAction(string id) => _engine.Content.FreeActions.TryGetValue(id, out var fa) ? fa : null;
+
         public bool CanPlan(string freeAction) => _engine.Content.FreeActions.ContainsKey(freeAction) && State(freeAction) == ChoiceState.Open;
 
         /// <summary>

@@ -12,9 +12,9 @@
 .app Label, .app Button { color: var(--text); }
 
 /* HUD (stage 5B): a floating navy card — money and week pills, icon buttons, the hero's stats row. */
-.hud { flex-direction: column; margin: 14px 16px 0 16px; padding: 18px 20px 20px 20px; background-color: var(--chrome); border-radius: 44px; border-width: 2px; border-color: var(--chrome-edge); border-top-color: var(--chrome-highlight); }
+.hud { flex-direction: column; margin: 12px 16px 0 16px; padding: 14px 18px 16px 18px; background-color: var(--chrome); border-radius: 44px; border-width: 2px; border-color: var(--chrome-edge); border-top-color: var(--chrome-highlight); }
 .hud__top { flex-direction: row; align-items: center; }
-.hud__pill { flex-direction: row; align-items: center; height: 92px; padding: 0 28px 0 12px; margin-right: 14px; border-radius: 46px; background-color: var(--chrome-2); }
+.hud__pill { flex-direction: row; align-items: center; height: 84px; padding: 0 28px 0 12px; margin-right: 14px; border-radius: 46px; background-color: var(--chrome-2); }
 .hud__pill-icon { width: 70px; height: 70px; margin-right: 10px; }
 .hud__pill-text { flex-direction: column; justify-content: center; }
 .hud__block { flex-direction: column; margin-right: 28px; }
@@ -22,7 +22,7 @@
 .hud__value { font-size: 44px; -unity-font-style: bold; color: var(--money-on-chrome); margin-top: -4px; }
 .hud__value--plain { color: var(--on-chrome); }
 .hud__spacer { flex-grow: 1; }
-.hud__stats { flex-direction: row; flex-wrap: wrap; margin-top: 14px; }
+.hud__stats { flex-direction: row; flex-wrap: wrap; margin-top: 10px; }
 .hud__stat { width: 50%; padding-right: 22px; }
 .hud__stat-icon { width: 38px; height: 38px; margin-right: 8px; }
 .hud__stat-caption { flex-grow: 1; font-size: 24px; -unity-font-style: bold; }
@@ -31,9 +31,9 @@
 .hud__caption-row { flex-direction: row; align-items: center; }
 .hud__energy-value { margin-left: 8px; font-size: 24px; -unity-font-style: bold; }
 .app .hud__energy-value { color: var(--on-chrome); }
-.icon-button { width: 136px; height: 112px; margin: 0 0 0 12px; padding: 0 0 10px 0; border-radius: 30px; border-width: 0; border-bottom-width: 6px; border-bottom-color: var(--chrome-lip); background-color: var(--chrome-2); font-size: 18px; -unity-font-style: bold; -unity-text-align: lower-center; white-space: nowrap; }
+.icon-button { width: 132px; height: 100px; margin: 0 0 0 12px; padding: 0 0 10px 0; border-radius: 30px; border-width: 0; border-bottom-width: 6px; border-bottom-color: var(--chrome-lip); background-color: var(--chrome-2); font-size: 18px; -unity-font-style: bold; -unity-text-align: lower-center; white-space: nowrap; }
 .app .icon-button { color: var(--chrome-dim); }
-.icon-button .icon { -unity-background-image-tint-color: var(--on-chrome); width: 50px; height: 50px; top: 16px; }
+.icon-button .icon { -unity-background-image-tint-color: var(--on-chrome); width: 46px; height: 46px; top: 12px; }
 
 /* Screens */
 .content { flex-grow: 1; }
@@ -503,3 +503,73 @@
 .app .unity-scroller--vertical .unity-base-slider__drag-container { margin: 0; }
 .app .unity-scroller--horizontal { height: 0; }
 .visit { border-radius: 40px; border-bottom-width: 10px; border-bottom-color: var(--accent-lip); }
+
+/* ===== Stage 5B step 2 · radial menu, badges, calendar ===== */
+.radial { position: absolute; left: -4000px; right: -4000px; top: 0; bottom: 0; border-left-width: 4000px; border-right-width: 4000px; border-color: rgba(0, 0, 0, 0); }
+.radial__backdrop { position: absolute; left: -4000px; right: -4000px; top: 0; bottom: 0; background-color: rgba(10, 12, 20, 0.45); }
+.radial__ring { position: absolute; width: 0; height: 0; scale: 0.7 0.7; opacity: 0; transition-property: scale, opacity; transition-duration: 0.18s, 0.12s; transition-timing-function: ease-out-back, ease-out; }
+.radial__ring.popup--in { scale: 1 1; opacity: 1; }
+.radial__center { position: absolute; left: -110px; top: -46px; width: 220px; height: 92px; border-radius: 46px; background-color: var(--chrome); border-width: 3px; border-color: var(--accent); justify-content: center; }
+.radial__title { font-size: 28px; -unity-font-style: bold; -unity-text-align: middle-center; white-space: normal; }
+.app .radial__title { color: var(--on-chrome); }
+.radial__petal { position: absolute; width: 190px; height: 190px; margin: 0; padding: 18px 10px 0 10px; border-radius: 95px; border-width: 3px; border-color: var(--card-edge); border-bottom-width: 9px; border-bottom-color: var(--card-lip); background-color: var(--card-face); align-items: center; justify-content: flex-start; }
+.radial__icon { width: 84px; height: 84px; }
+.radial__petal .icon { -unity-background-image-tint-color: var(--text); width: 72px; height: 72px; margin: 6px 0 6px 0; }
+.radial__label { font-size: 21px; -unity-font-style: bold; white-space: normal; -unity-text-align: upper-center; }
+.radial__petal--pending { border-color: var(--accent); border-bottom-color: var(--accent-lip); }
+.radial__petal--recommended { border-color: var(--energy); border-bottom-color: var(--energy-lip); }
+.radial__petal--selected { scale: 1.08 1.08; }
+.radial__petal--done { border-color: var(--positive); border-bottom-color: var(--positive-lip); }
+.radial__petal--armed { border-color: var(--negative); border-bottom-color: var(--negative-lip); }
+.app .radial__petal:disabled { opacity: 0.55; background-color: var(--card-face); border-color: var(--card-edge); }
+.app .radial__petal--done:disabled { opacity: 1; border-color: var(--positive); }
+.app Button.radial__petal:hover, .app Button.radial__petal:focus { background-color: var(--card-face); }
+.app Button.radial__petal:active { background-color: var(--tile); }
+.radial__chip-box { position: absolute; left: -330px; top: 360px; width: 660px; padding: 16px 24px; border-radius: 32px; background-color: var(--chrome); border-width: 2px; border-color: var(--chrome-edge); border-top-color: var(--chrome-highlight); align-items: center; }
+.radial__chip { font-size: 28px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-center; }
+.app .radial__chip { color: var(--on-chrome); }
+.app .radial__chip--closed { color: #FF9A8F; }
+.radial__chip-effects { flex-direction: row; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+.radial__chip-effects .chip__caption { color: var(--chrome-dim); }
+.app .radial__chip-effects .chip__value.value--positive { color: var(--money-on-chrome); }
+.app .radial__chip-effects .chip__value.value--negative { color: #FF9A8F; }
+
+/* Badges over heads and signs ("$" work, "?" lesson): they breathe so they read from afar. */
+.emote { position: absolute; left: 50%; top: -92px; width: 84px; height: 84px; translate: -50% 0; -unity-background-scale-mode: scale-to-fit; transition-property: scale; transition-duration: 0.6s; transition-timing-function: ease-in-out; }
+.emote--big { scale: 1.14 1.14; }
+.place-marker .emote { top: -70px; left: auto; right: -30px; translate: 0 0; width: 76px; height: 76px; }
+.npc-tag { padding: 6px 20px; border-radius: 22px; border-width: 2px; border-color: var(--card-edge); border-bottom-width: 5px; border-bottom-color: var(--card-lip); font-size: 26px; -unity-font-style: bold; }
+.hero-tag { border-bottom-width: 5px; border-bottom-color: var(--accent-lip); }
+
+/* The month's weeks with their money dates (in the HUD). */
+.calendar { margin-top: 12px; }
+.calendar__head { flex-direction: row; align-items: center; margin-bottom: 8px; }
+.calendar__head-icon { width: 40px; height: 40px; margin-right: 8px; }
+.calendar__caption { font-size: 22px; -unity-font-style: bold; margin-right: 8px; }
+.app .calendar__caption { color: var(--chrome-dim); }
+.app .calendar__caption--strong { color: var(--on-chrome); }
+.calendar__tokens { flex-direction: column; margin-left: 14px; }
+.calendar__token { width: 22px; height: 22px; margin: 3px 0; border-radius: 11px; background-color: var(--accent); border-width: 3px; border-color: var(--accent); }
+.calendar__token--spent { background-color: rgba(0, 0, 0, 0); border-color: var(--chrome-dim); }
+.calendar__row { flex-direction: row; }
+.calendar__cell { flex-grow: 1; flex-basis: 0; margin: 0 4px; padding: 6px 12px 8px 12px; border-radius: 24px; border-width: 0; border-bottom-width: 5px; border-bottom-color: var(--chrome-lip); background-color: var(--chrome-2); align-items: flex-start; }
+.calendar__cell:first-child { margin-left: 0; }
+.calendar__cell:last-child { margin-right: 0; }
+.calendar__cell-head { font-size: 19px; -unity-font-style: bold; }
+.calendar__cell-name { font-size: 22px; -unity-font-style: bold; }
+.calendar__cell-amount { font-size: 22px; -unity-font-style: bold; }
+.app .calendar__cell-head, .app .calendar__cell-amount { color: var(--chrome-dim); }
+.app .calendar__cell-name { color: var(--on-chrome); }
+.app .calendar__cell--ok .calendar__cell-amount { color: var(--money-on-chrome); }
+.app .calendar__cell--gap .calendar__cell-amount { color: #FF9A8F; }
+.calendar__cell--gap { border-bottom-color: var(--negative); }
+.calendar__cell--past { opacity: 0.6; }
+.calendar__cell--now { background-color: var(--card-face); border-width: 3px; border-color: var(--accent); border-bottom-width: 6px; border-bottom-color: var(--accent-lip); }
+.app .calendar__cell--now .calendar__cell-name { color: var(--text); }
+.app .calendar__cell--now .calendar__cell-head { color: var(--text-dim); }
+.app .calendar__cell--now.calendar__cell--ok .calendar__cell-amount { color: var(--money); }
+.app .calendar__cell--now.calendar__cell--gap .calendar__cell-amount { color: var(--negative); }
+.app Button.calendar__cell:hover, .app Button.calendar__cell:focus { background-color: var(--chrome-2); }
+.app Button.calendar__cell.calendar__cell--now:hover, .app Button.calendar__cell.calendar__cell--now:focus { background-color: var(--card-face); }
+.npc-tag-box { position: absolute; translate: -50% -100%; align-items: center; }
+.npc-tag-box .npc-tag { position: relative; translate: 0 0; }

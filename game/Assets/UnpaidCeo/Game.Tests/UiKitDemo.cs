@@ -109,6 +109,30 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator Radial_badges_calendar([Values("ru", "en")] string lang)
+        {
+            UiSound.Sink = _ => { };
+            yield return Boot(lang, s => { Gigger(s); s.LifetimeEarnings = Money.FromDollars(100_000); s.Cash = Money.FromDollars(420); });
+            _ui.PlaceTag("npc_tony_bulldog", "city.tony", new Vector2(600, 760));
+            _ui.PlaceMarker("academy", new Vector2(250, 820));
+            _ui.PlaceHeroTag(new Vector2(860, 800));
+            yield return new WaitForSecondsRealtime(0.3f);
+            yield return Shot($"step2_{lang}_1_city_badges");
+            _ui.OpenRadial("resident:npc_tony_bulldog", _ui.Root.Q("tag-npc_tony_bulldog"));
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Shot($"step2_{lang}_2_radial_tony");
+            _ui.Radial.Close();
+            _ui.OpenRadial("hero", _ui.HeroTag);
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Shot($"step2_{lang}_3_radial_hero");
+            _ui.Radial.Close();
+            Tap((Button)_ui.Root.Q("calendar-cell-4"));
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Shot($"step2_{lang}_4_calendar_tip");
+            UiSound.Sink = null;
+        }
+
+        [UnityTest]
         public IEnumerator The_new_look([Values("ru", "en")] string lang)
         {
             UiSound.Sink = _ => { };

@@ -282,14 +282,16 @@ namespace UnpaidCeo.Game.Tests
             string entered = null;
             _ui.PlaceEnterRequested += id => entered = id;
             _ui.Enter3D = true;
-            _ui.PlaceMarker("bank", new Vector2(500, 900));
+            _ui.PlaceMarker("bank", new Vector2(500, 1100));
             yield return null;
             Tap(_ui.Root.Q<Button>("marker-bank"));
+            Tap(_ui.Root.Q<Button>("radial-enter"));   // stage 5B: the sign's radial menu, "go in" first
             Assert.AreEqual("bank", entered, "the sign asks the city to walk the hero in");
             Assert.AreEqual(UiRoot.City, _ui.CurrentTab, "no flat popup: the visit happens in 3D");
 
             _ui.Enter3D = false;
             Tap(_ui.Root.Q<Button>("marker-bank"));
+            Tap(_ui.Root.Q<Button>("radial-enter"));
             Assert.AreEqual(UiRoot.PlacesTab, _ui.CurrentTab, "without 3D the place opens as before");
         }
 

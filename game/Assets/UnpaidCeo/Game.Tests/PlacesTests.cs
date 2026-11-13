@@ -152,7 +152,7 @@ namespace UnpaidCeo.Game.Tests
         public IEnumerator A_marker_on_the_map_opens_its_place()
         {
             yield return Boot();
-            _ui.PlaceMarker("bodega", new Vector2(500, 900));
+            _ui.PlaceMarker("bodega", new Vector2(500, 1100));
             yield return null;
             var marker = _ui.Screen(UiRoot.City).Q<Button>("marker-bodega");
             Assert.IsNotNull(marker);
@@ -160,6 +160,8 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsTrue(Shown(marker) && UiText.IsLocalized(title) && title.text == "Tony's Bodega");
 
             Tap(marker);
+            yield return null;
+            Tap(_ui.Root.Q<Button>("radial-enter"));   // stage 5B: a sign opens its radial menu, "go in" first
             yield return null;
             Assert.AreEqual(UiRoot.PlacesTab, _ui.CurrentTab);
             Assert.AreEqual("bodega", _ui.PlacesPanel.CurrentPlace);

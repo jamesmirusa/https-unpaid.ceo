@@ -470,3 +470,26 @@ toast.new_lesson	A new lesson is open	Открылся новый урок
 settings.sound	Sounds and vibration	Звуки и вибрация
 settings.sound.on	On	Включены
 settings.sound.off	Off	Выключены
+calendar.week	Week	Неделя
+calendar.actions	Actions	Действия
+calendar.wk.1	Wk 1	Нед 1
+calendar.wk.2	Wk 2	Нед 2
+calendar.wk.3	Wk 3	Нед 3
+calendar.wk.4	Wk 4	Нед 4
+calendar.now	Now	Сейчас
+calendar.free	Free	Свободно
+calendar.name.bill.room	Rent	Аренда
+calendar.name.loan.pay	Loan	Кредит
+calendar.name.bill.essentials	Bills	Быт
+calendar.name.bill.food	Food	Еда
+calendar.tip.free	No bills this week: a good week to put money aside.	На этой неделе платить нечего — хорошая неделя, чтобы отложить деньги.
+calendar.tip.gap	Cash gap: the money due is more than you have now. A business can earn and still run out of cash on the day a bill comes.	Кассовый разрыв: платёж больше, чем у тебя сейчас на счету. Бизнес может зарабатывать и всё равно остаться без денег в день платежа.
+calendar.tip.bill.room	Rent leaves on the last week of the month. Keep it aside from the first week on.	Аренда уходит в последнюю неделю месяца. Откладывай на неё с первой недели.
+calendar.tip.loan.pay	The loan payment comes with the rent. Two big payments on one week are where cash gaps begin.	Платёж по кредиту приходит вместе с арендой. Два крупных платежа в одну неделю — отсюда начинаются кассовые разрывы.
+calendar.tip.bill.essentials	Bills and phone are paid on the second week.	Быт и связь оплачиваются на второй неделе.
+calendar.tip.bill.food	Food and transit go every week: the smallest bills, but they never stop.	Еда и транспорт — каждую неделю: мелкие расходы, но они не прекращаются.
+radial.enter	Go in	Войти
+radial.hint.enter	Walk in and see what is on offer	Зайти и посмотреть, что здесь есть
+radial.hint.talk	Have a word — they may have news	Поговорить — может, есть новости
+radial.hint.week	Open this week's plan	Открыть план недели
+radial.hint.journal	What happened so far	Что уже было

@@ -445,7 +445,10 @@ namespace UnpaidCeo.Game.Ui
                 if (panelPosition == null) return;
                 // A shop sign over the building: the place's picture with its name under it; a tap walks in.
                 // (A Button draws its own text under its children, so the name is a Label of its own.)
-                marker = new Button(() => OpenPlace(id)) { name = "marker-" + id };
+                marker = new Button() { name = "marker-" + id };
+                var m = marker;
+                marker.clicked += () => OpenRadial("place:" + id, m);
+                AddEmote(marker, "place:" + id);
                 marker.AddToClassList("place-marker");
                 var pic = new VisualElement { name = "marker-pic-" + id };
                 pic.AddToClassList("place-marker__pic");
@@ -476,7 +479,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Half of a long marker's width ("Laundromat Office").</summary>
         const float MarkerHalfWidth = 110f;
 
-        readonly Dictionary<string, Label> _tags = new Dictionary<string, Label>();
+        readonly Dictionary<string, VisualElement> _tags = new Dictionary<string, VisualElement>();
 
         /// <summary>A name tag above someone in the city (the mentor, Tony); null hides it.</summary>
         public void PlaceTag(string id, string key, Vector2? panelPosition)
@@ -486,8 +489,14 @@ namespace UnpaidCeo.Game.Ui
             if (!_tags.TryGetValue(id, out var tag))
             {
                 if (panelPosition == null) return;
-                tag = UiText.Label(key, "npc-tag");
-                tag.name = "tag-" + id;
+                // the name and the badge over it hang together; the box is placed, the label keeps its own size
+                tag = new VisualElement { name = "tag-box-" + id };
+                tag.AddToClassList("npc-tag-box");
+                var label = UiText.Label(key, "npc-tag");
+                label.name = "tag-" + id;
+                label.RegisterCallback<ClickEvent>(_ => OpenRadial("resident:" + id, label));
+                tag.Add(label);
+                AddEmote(tag, "resident:" + id);
                 var city = _screens[City];
                 city.Insert(city.IndexOf(_heroTag), tag);   // under the hero's tag and the widgets
                 _tags[id] = tag;
@@ -583,6 +592,9 @@ namespace UnpaidCeo.Game.Ui
             _cashPill.Insert(0, Icons.Game("money", "hud__pill-icon"));
             hud.Q("hud-week-pill").Insert(0, Icons.Game("money_date", "hud__pill-icon"));
             hud.Q("hud-stat-energy").Q(className: "hud__caption-row").Insert(0, Icons.Game("energy", "hud__stat-icon"));
+            _calendar = new CalendarStrip(this);
+            hud.Add(_calendar.Root);
+            hud.Q("hud-week-pill").Add(_calendar.Tokens);
             UiText.Bind(hud.Q<Label>("hud-cash-caption"), "hud.cash");
             UiText.Bind(hud.Q<Label>("hud-month-caption"), "hud.week");
             UiText.Bind(hud.Q<Label>("hud-energy-caption"), "hud.energy");
@@ -660,6 +672,7 @@ namespace UnpaidCeo.Game.Ui
             _decisions.PlanChanged += KeepWeekPlan;
             _places = new PlacesScreen(_screens[PlacesTab], this, engine, state, _decisions);
             _visit = new VisitPanel(this, engine, state, _decisions);
+            _visit.Root.Q("visit-portrait").RegisterCallback<ClickEvent>(e => { if (_visit.CurrentPlace != null) OpenRadial("room:" + _visit.CurrentPlace, (VisualElement)e.currentTarget); });
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
             _industry.Chosen += id => { _decisions.Refresh(); RefreshHud(); AnalyticsEvents.IndustryChosen(Online.Analytics, id); IndustryChosen?.Invoke(id); };
             _academy = new AcademyScreen(_screens[Academy], engine, state);
@@ -673,6 +686,7 @@ namespace UnpaidCeo.Game.Ui
             _opened = new HashSet<string>(OpenBusinesses());
             _wasBankrupt = state.Facts.Has("bankrupt");
             _heroTag = UiText.Label("city.you", "hero-tag");
+            _heroTag.RegisterCallback<ClickEvent>(_ => OpenRadial("hero", _heroTag));
             _heroTag.name = "hero-tag";
             _heroTag.style.display = DisplayStyle.None;
             _screens[City].Add(_heroTag);
@@ -762,6 +776,9 @@ namespace UnpaidCeo.Game.Ui
             Root.Add(_summary.Root);
             Root.Add(_loan.Root);
             Root.Add(_transition.Root);
+            _radial = new RadialMenu(this);
+            Root.Add(_radial.Root);
+            Root.schedule.Execute(PulseEmotes).Every(650);
             _fade = new VisualElement { name = "fade" };
             _fade.AddToClassList("fade");
             _fade.style.opacity = 0f;
@@ -883,7 +900,61 @@ namespace UnpaidCeo.Game.Ui
             }
             if (_chooseBusiness != null) _chooseBusiness.style.display = NeedsBusiness ? DisplayStyle.Flex : DisplayStyle.None;
             RefreshBadges();
+            _calendar?.Refresh(_engine, _state);
+            RefreshEmotes();
             RefreshGuide();
+        }
+
+        // ---------- Stage 5B step 2: the radial menu and the badges over heads ----------
+
+        RadialMenu _radial;
+        CalendarStrip _calendar;
+        readonly Dictionary<string, VisualElement> _emotes = new Dictionary<string, VisualElement>();
+        bool _pulse;
+
+        public RadialMenu Radial => _radial;
+        public int Chapter => _state != null ? _state.Chapter : 1;
+        /// <summary>A lesson opened this week and has not been looked at.</summary>
+        public bool NewLesson => _newLesson;
+
+        /// <summary>Opens the radial menu of <paramref name="target"/> around the element that was tapped.</summary>
+        public void OpenRadial(string target, VisualElement at)
+        {
+            if (_radial == null || RunMode) return;
+            var items = RadialMenus.For(target, this);
+            if (items.Count == 0) return;
+            var center = Root.WorldToLocal(at.worldBound.center);
+            if (float.IsNaN(center.x)) center = new Vector2(540, 960);
+            _radial.Show(RadialMenus.TitleKey(target), items, center);
+        }
+
+        /// <summary>Drags go back to the city unless a popup or a room still holds them.</summary>
+        public void UnblockCityInput() => UnpaidCeo.Game.City.CameraRig.InputBlocked = PopupOpen || _visiting;
+
+        void AddEmote(VisualElement host, string target)
+        {
+            var e = new VisualElement { name = "emote", pickingMode = PickingMode.Ignore };
+            e.AddToClassList("emote");
+            e.userData = target;
+            host.Add(e);
+            _emotes[target] = e;
+            RefreshEmote(e);
+        }
+
+        void RefreshEmote(VisualElement e)
+        {
+            var icon = RadialMenus.Emote((string)e.userData, this);
+            e.style.display = icon != null ? DisplayStyle.Flex : DisplayStyle.None;
+            if (icon != null) e.style.backgroundImage = new StyleBackground(Icons.Load(Icons.GameFolder + icon));
+        }
+
+        void RefreshEmotes() { foreach (var e in _emotes.Values) RefreshEmote(e); }
+
+        /// <summary>Badges breathe so they read from afar (scale 1 ↔ 1.12).</summary>
+        void PulseEmotes()
+        {
+            _pulse = !_pulse;
+            foreach (var e in _emotes.Values) e.EnableInClassList("emote--big", _pulse);
         }
 
         /// <summary>The dock's counters: actions left this week on the Week tab, a dot on Lessons when one is new.</summary>

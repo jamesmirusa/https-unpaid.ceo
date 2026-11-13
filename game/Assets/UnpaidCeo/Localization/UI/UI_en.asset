@@ -1954,6 +1954,98 @@ MonoBehaviour:
     m_Localized: Off
     m_Metadata:
       m_Items: []
+  - m_Id: 1661556998791168
+    m_Localized: Week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179776
+    m_Localized: Actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179777
+    m_Localized: Wk 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179778
+    m_Localized: Wk 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179779
+    m_Localized: Wk 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179780
+    m_Localized: Wk 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179781
+    m_Localized: Now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179782
+    m_Localized: Free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179783
+    m_Localized: Rent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179784
+    m_Localized: Loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179785
+    m_Localized: Bills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179786
+    m_Localized: Food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179787
+    m_Localized: 'No bills this week: a good week to put money aside.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179788
+    m_Localized: 'Cash gap: the money due is more than you have now. A business can earn and still run out of cash on the day a bill comes.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179789
+    m_Localized: Rent leaves on the last week of the month. Keep it aside from the first week on.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179790
+    m_Localized: The loan payment comes with the rent. Two big payments on one week are where cash gaps begin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179791
+    m_Localized: Bills and phone are paid on the second week.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179792
+    m_Localized: 'Food and transit go every week: the smallest bills, but they never stop.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179793
+    m_Localized: Go in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179794
+    m_Localized: Walk in and see what is on offer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179795
+    m_Localized: "Have a word \u2014 they may have news"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179796
+    m_Localized: Open this week's plan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179797
+    m_Localized: What happened so far
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
