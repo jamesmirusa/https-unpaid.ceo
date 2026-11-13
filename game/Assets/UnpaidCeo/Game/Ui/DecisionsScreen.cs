@@ -154,6 +154,17 @@ namespace UnpaidCeo.Game.Ui
         public bool Recommended(string freeAction) => ActionChoices.Recommended(_state, _engine.Content, freeAction, Planned);
 
         /// <summary>The week can still take it (a done choice stays done: there is no undo).</summary>
+        /// <summary>What this week's tapped deeds cost (paid when the week ends).</summary>
+        public UnpaidCeo.Core.Primitives.Money PlannedCost
+        {
+            get
+            {
+                var sum = UnpaidCeo.Core.Primitives.Money.Zero;
+                foreach (var id in Planned) if (_engine.Content.FreeActions.TryGetValue(id, out var fa)) sum += fa.Cost;
+                return sum;
+            }
+        }
+
         /// <summary>A free action's definition (price, effects, confirm), or null.</summary>
         public UnpaidCeo.Core.Content.FreeActionDef FreeAction(string id) => _engine.Content.FreeActions.TryGetValue(id, out var fa) ? fa : null;
 

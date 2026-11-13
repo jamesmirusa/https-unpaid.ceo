@@ -37,7 +37,8 @@ namespace UnpaidCeo.Core.Game
             return due;
         }
 
-        public static List<CalendarWeek> Month(GameState s, Balance b)
+        /// <param name="spentNow">Money this week's plan already takes at the week's end (the price of deeds tapped this week).</param>
+        public static List<CalendarWeek> Month(GameState s, Balance b, Money spentNow = default)
         {
             int now = s.WeekOfMonth, n = GameState.WeeksPerMonth;
             int first = (s.Week <= 0 ? 1 : s.Week) - (now - 1);
@@ -58,6 +59,7 @@ namespace UnpaidCeo.Core.Game
                 if (!cw.Past)
                 {
                     left -= total;
+                    if (cw.Now) left -= spentNow;
                     cw.Covered = left.Cents >= 0;
                 }
                 weeks.Add(cw);

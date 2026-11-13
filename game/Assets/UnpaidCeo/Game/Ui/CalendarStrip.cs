@@ -55,7 +55,9 @@ namespace UnpaidCeo.Game.Ui
         public void Refresh(GameEngine engine, GameState state)
         {
             if (engine == null || state == null) return;
-            _weeks = MoneyCalendar.Month(state, engine.Content.Balance);
+            var plan0 = _ui.DecisionsPanel;
+            _weeks = MoneyCalendar.Month(state, engine.Content.Balance, plan0 != null ? plan0.PlannedCost : default);
+            Root.style.display = _ui.RunMode ? DisplayStyle.None : DisplayStyle.Flex;   // challenge months pay all at once
             var plan = _ui.DecisionsPanel;
             int total = plan != null ? plan.PointsTotal : 2, left = plan != null ? plan.PointsLeft : total;
             _tokens.Clear();

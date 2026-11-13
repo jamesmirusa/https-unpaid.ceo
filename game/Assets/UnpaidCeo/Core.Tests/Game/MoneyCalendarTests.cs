@@ -87,6 +87,18 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
+        public void Money_already_planned_this_week_counts_against_the_cover()
+        {
+            var e = Engine();
+            var s = Earning(e);
+            var m0 = MoneyCalendar.Month(s, e.Content.Balance);
+            s.Cash = m0[0].Total + Money.FromDollars(100);
+            Assert.IsTrue(MoneyCalendar.Month(s, e.Content.Balance)[0].Covered);
+            var m = MoneyCalendar.Month(s, e.Content.Balance, spentNow: Money.FromDollars(250));
+            Assert.IsFalse(m[0].Covered, "a $250 course planned this week leaves the bills short");
+        }
+
+        [Test]
         public void Before_the_bills_start_a_week_is_free()
         {
             var e = Engine();
@@ -102,11 +114,12 @@ namespace UnpaidCeo.Core.Tests.Game
             var e = Engine();
             var s = Earning(e, week: 3);
             s.Loans.Add(new LoanState { Id = "l", Principal = Money.FromCents(100_000), Balance = Money.FromCents(100_000), Apr = 0.12, MonthsLeft = 12, Payment = Money.FromCents(10_000) });
-            var r = e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0));
+            e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0));
             var cal = MoneyCalendar.Month(s, e.Content.Balance);
             var now = cal.Single(w => w.Now);
             Assert.AreEqual(4, now.WeekOfMonth);
-            Assert.AreEqual(r.DueNext.Sum(i => i.Amount.Cents), now.Total.Cents);
+            var paid = e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0)).Paid;   // what week 4 really takes
+            Assert.AreEqual(paid.Sum(i => i.Amount.Cents), now.Total.Cents);
         }
     }
 }

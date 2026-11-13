@@ -48,10 +48,10 @@ namespace UnpaidCeo.Game.Ui
             if (place == null) return items;
             bool room = kind == "room";
             if (kind == "resident" || room)
-                items.Add(new RadialItem { Id = "talk", LabelKey = "visit.talk", ServiceIcon = "chat-circle-dots", Pending = true, HintKey = "radial.hint.talk",
+                items.Add(new RadialItem { Id = "talk", LabelKey = "visit.talk", ServiceIcon = "chat-circle-dots", First = true, HintKey = "radial.hint.talk",
                     Run = room ? (System.Action)(() => ui.Visit.Talk()) : () => ui.OpenPlace(place.Id) });
             else
-                items.Add(new RadialItem { Id = "enter", LabelKey = "radial.enter", ServiceIcon = "door-open", Pending = true, HintKey = "radial.hint.enter", Run = () => ui.OpenPlace(place.Id) });
+                items.Add(new RadialItem { Id = "enter", LabelKey = "radial.enter", ServiceIcon = "door-open", First = true, HintKey = "radial.hint.enter", Run = () => ui.OpenPlace(place.Id) });
             foreach (var a in place.Actions.Where(a => ui.Chapter >= a.MinChapter))
             {
                 var act = a;
@@ -59,6 +59,10 @@ namespace UnpaidCeo.Game.Ui
                 {
                     case PlaceActionKind.Plan:
                         items.Add(Deed(a.FreeAction, plan, room ? (System.Action)(() => ui.Visit.Choose(act.Id)) : () => plan.Plan(act.FreeAction)));
+                        break;
+                    case PlaceActionKind.Loan:
+                        items.Add(new RadialItem { Id = a.Id, LabelKey = "place.action." + a.Id, GameIcon = "loan", HintKey = "place.action." + a.Id,
+                            Run = room ? (System.Action)(() => ui.Visit.Choose(act.Id)) : () => ui.Loan.Open(Core.Primitives.Money.Zero) });
                         break;
                     case PlaceActionKind.Open:
                         items.Add(new RadialItem { Id = a.Id, LabelKey = "place.action." + a.Id, ServiceIcon = TabIcon(a.Tab), HintKey = "place.action." + a.Id,

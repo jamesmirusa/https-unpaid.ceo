@@ -133,7 +133,8 @@ namespace UnpaidCeo.Game.Tests
             var night = Petal("night_shift");
             Assert.IsFalse(night.enabledSelf);
             PointerDown(night);
-            Assert.AreEqual(ChoiceCard.StatusKey(_ui.DecisionsPanel.State("night_shift")) != null, Chip.text.Length > 0);
+            Assert.AreEqual(ChoiceState.NoEnergy, _ui.DecisionsPanel.State("night_shift"));
+            Assert.IsNotEmpty(Chip.text);
             Assert.IsTrue(Chip.ClassListContains("radial__chip--closed"), "the chip shows the reason");
             Assert.IsFalse(_ui.DecisionsPanel.IsPlanned("night_shift"));
             CollectionAssert.Contains(_sounds, UiSound.Closed);
@@ -208,6 +209,52 @@ namespace UnpaidCeo.Game.Tests
             yield return null;
             Assert.IsTrue(_ui.DecisionsPanel.IsPlanned("overtime"));
             Assert.IsFalse(_ui.Visit.Root.Q<Button>("visit-action-overtime").enabledSelf, "the room's card shows it is done");
+        }
+
+        [UnityTest]
+        public IEnumerator The_banks_loan_is_in_its_menu_like_on_its_card()
+        {
+            yield return Boot(s => s.Chapter = 2);
+            _ui.PlaceMarker("bank", new Vector2(500, 1100));
+            yield return null;
+            Tap(_ui.Root.Q<Button>("marker-bank"));
+            Assert.IsNotNull(Petal("loan"));
+        }
+
+        [UnityTest]
+        public IEnumerator The_lesson_badge_goes_when_the_lessons_are_opened()
+        {
+            yield return Boot();
+            _ui.PlaceMarker("academy", new Vector2(500, 1100));
+            yield return null;
+            _ui.ShowReport(new MonthReport { IsWeek = true, Week = 1, Lessons = { "lesson_profit" } });
+            var badge = _ui.Root.Q("marker-academy").Q("emote");
+            Assert.AreEqual(DisplayStyle.Flex, badge.resolvedStyle.display);
+            _ui.Open(UiRoot.Academy);
+            yield return null;
+            Assert.AreEqual(DisplayStyle.None, badge.resolvedStyle.display);
+        }
+
+        [UnityTest]
+        public IEnumerator Arming_does_not_carry_over_to_a_later_tap()
+        {
+            yield return Boot();
+            _ui.PlaceMarker("pawnshop", new Vector2(500, 1100));
+            yield return null;
+            Tap(_ui.Root.Q<Button>("marker-pawnshop"));
+            Tap(Petal("loan_shark_loan"));
+            PointerDown(Petal("enter"));
+            Tap(Petal("loan_shark_loan"));
+            Assert.IsFalse(_ui.DecisionsPanel.IsPlanned("loan_shark_loan"), "choosing another petal disarms it");
+        }
+
+        [UnityTest]
+        public IEnumerator Opening_a_screen_closes_the_menu()
+        {
+            yield return Boot();
+            yield return OpenTony();
+            _ui.Open(UiRoot.Decisions);
+            Assert.AreEqual(DisplayStyle.None, Menu.style.display.value);
         }
 
         [UnityTest]

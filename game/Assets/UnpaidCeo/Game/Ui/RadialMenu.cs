@@ -21,8 +21,10 @@ namespace UnpaidCeo.Game.Ui
         public bool Recommended;
         /// <summary>A step that cannot be undone (a loan shark): the first tap asks.</summary>
         public bool Confirm;
-        /// <summary>Something waits here (talk, a scene): it goes first.</summary>
+        /// <summary>Something waits here (a scene, "!"): it goes first and is marked.</summary>
         public bool Pending;
+        /// <summary>The way in (talk, go in): first after anything waiting, not marked.</summary>
+        public bool First;
         public Money Cost;
         public IReadOnlyList<Effect> Effects;
         /// <summary>A line for the chip when the item has no price (walk in, open the week).</summary>
@@ -133,7 +135,8 @@ namespace UnpaidCeo.Game.Ui
         {
             var list = new List<RadialItem>();
             foreach (var i in items) if (i.Pending) list.Add(i);
-            foreach (var i in items) if (!i.Pending && i.Recommended && i.Open) list.Add(i);
+            foreach (var i in items) if (!i.Pending && i.First) list.Add(i);
+            foreach (var i in items) if (!i.Pending && !i.First && i.Recommended && i.Open) list.Add(i);
             foreach (var i in items) if (!list.Contains(i)) list.Add(i);
             if (list.Count > MaxItems) list.RemoveRange(MaxItems, list.Count - MaxItems);
             return list;
@@ -160,6 +163,7 @@ namespace UnpaidCeo.Game.Ui
             var found = _petals.Find(p => p.petal == petal);
             if (found.item == null) return;
             var item = found.item;
+            if (_armed != null && _armed != petal) { _armed.RemoveFromClassList("radial__petal--armed"); _armed = null; }
             foreach (var p in _petals) p.petal.EnableInClassList("radial__petal--selected", p.petal == petal);
             _chipEffects.Clear();
             string key = ChoiceCard.StatusKey(item.State, item.WeeksUntilOpen);

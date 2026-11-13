@@ -212,7 +212,7 @@ namespace UnpaidCeo.Game.Ui
         string _focusedPlace;
         public AcademyScreen AcademyPanel => _academy;
         public bool MonthSummaryOpen => _summary != null && _summary.IsOpen;
-        public void ShowMonthSummary(MonthReport report) => _summary.Show(report, Language);
+        public void ShowMonthSummary(MonthReport report) { _radial?.Close(); _summary.Show(report, Language); }
 
         /// <summary>"What to do now": one line and one button on the main screen.</summary>
         public VisualElement Guide => _guide;
@@ -389,6 +389,7 @@ namespace UnpaidCeo.Game.Ui
 
         public void SetVisiting(bool on)
         {
+            _radial?.Close();
             _visiting = on;
             Root.EnableInClassList("visiting", on);
             if (on)
@@ -823,6 +824,7 @@ namespace UnpaidCeo.Game.Ui
         public void Open(string tab)
         {
             if (!_screens.ContainsKey(tab)) throw new ArgumentException("unknown tab " + tab, nameof(tab));
+            _radial?.Close();
             bool popup = tab != City;
             bool changed = tab != CurrentTab;
             foreach (var s in _screens)
@@ -920,7 +922,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Opens the radial menu of <paramref name="target"/> around the element that was tapped.</summary>
         public void OpenRadial(string target, VisualElement at)
         {
-            if (_radial == null || RunMode) return;
+            if (_radial == null || RunMode || _sceneOpen || !_guideEnabled) return;   // not during a scene or the mentor's first steps
             var items = RadialMenus.For(target, this);
             if (items.Count == 0) return;
             var center = Root.WorldToLocal(at.worldBound.center);
@@ -950,11 +952,12 @@ namespace UnpaidCeo.Game.Ui
 
         void RefreshEmotes() { foreach (var e in _emotes.Values) RefreshEmote(e); }
 
-        /// <summary>Badges breathe so they read from afar (scale 1 ↔ 1.12).</summary>
+        /// <summary>Badges breathe so they read from afar (scale 1 ↔ 1.14).</summary>
         void PulseEmotes()
         {
             _pulse = !_pulse;
-            foreach (var e in _emotes.Values) e.EnableInClassList("emote--big", _pulse);
+            if (_visiting) return;
+            foreach (var e in _emotes.Values) if (e.style.display != DisplayStyle.None) e.EnableInClassList("emote--big", _pulse);
         }
 
         /// <summary>The dock's counters: actions left this week on the Week tab, a dot on Lessons when one is new.</summary>
@@ -969,6 +972,7 @@ namespace UnpaidCeo.Game.Ui
             lessons.text = "";
             lessons.EnableInClassList("nav-badge--dot", true);
             lessons.style.display = _newLesson ? DisplayStyle.Flex : DisplayStyle.None;
+            RefreshEmotes();
         }
 
         public MonthDecisions CurrentDecisions() => _decisions.Build();
