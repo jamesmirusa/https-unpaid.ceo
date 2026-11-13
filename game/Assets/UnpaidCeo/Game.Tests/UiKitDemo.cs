@@ -41,11 +41,11 @@ namespace UnpaidCeo.Game.Tests
             });
         }
 
-        IEnumerator Boot(string lang, System.Action<GameState> setup)
+        IEnumerator Boot(string lang, System.Action<GameState> setup, int width = 1080, int height = 1920)
         {
             yield return LocalizationSettings.InitializationOperation;
             Directory.CreateDirectory(Dir);
-            _target = new RenderTexture(1080, 1920, 24);
+            _target = new RenderTexture(width, height, 24);
             _engine = new GameEngine(Content());
             _state = _engine.NewGame(5, new HeroAppearance());
             setup(_state);
@@ -196,6 +196,20 @@ namespace UnpaidCeo.Game.Tests
             _ui.HeroState.OpenNeeds();
             yield return new WaitForSecondsRealtime(0.4f);
             yield return Shot($"step4_{lang}_2_needs_panel");
+            UiSound.Sink = null;
+        }
+
+        [UnityTest]
+        public IEnumerator Phone_screens([Values("ru")] string lang)
+        {
+            UiSound.Sink = _ => { };
+            yield return Boot(lang, s => { Gigger(s); s.Life.Energy = 46; s.Facts.Set("shark_debt", 1); s.Facts.Set("met_mentor", 1); s.LifetimeEarnings = Money.FromDollars(10_000); }, 1179, 2556);
+            _ui.PlaceTag("npc_tony_bulldog", "city.tony", new Vector2(560, 1000));
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Shot($"phone_{lang}_1_city");
+            _ui.Open(UiRoot.Decisions);
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Shot($"phone_{lang}_2_week");
             UiSound.Sink = null;
         }
 
