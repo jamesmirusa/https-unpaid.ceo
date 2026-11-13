@@ -454,8 +454,8 @@ choice.done.cooldown.2	✓ Done — again in 2 weeks	✓ Сделано — сн
 choice.done.cooldown.3	✓ Done — again in 3 weeks	✓ Сделано — снова через 3 недели
 choice.done.cooldown.4	✓ Done — again in 4 weeks	✓ Сделано — снова через 4 недели
 choice.confirm	Tap again to confirm — this cannot be undone	Нажми ещё раз — это нельзя отменить
-lever.close_unit.confirm	Close it for good? Tap again	Закрыть насовсем? Нажми ещё раз
-lever.fire.confirm	Let them go? Tap again	Уволить? Нажми ещё раз
+lever.close_unit.confirm	Sure? Tap again to close	Точно закрыть? Ещё раз
+lever.fire.confirm	Sure? Tap again to let go	Точно уволить? Ещё раз
 week.locked	You can change this next week	Сменить можно на следующей неделе
 lever.locked	This week's step is taken — the next one next week	Шаг этой недели сделан — следующий на следующей неделе
 lever.price_limit	Price at its limit: from half to twice the market price	Цена на пределе: от половины до двух рыночных

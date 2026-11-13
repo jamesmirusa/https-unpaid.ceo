@@ -386,10 +386,11 @@
 .app .week-card:disabled, .app .visit__choice:disabled { background-color: var(--panel); border-color: var(--track); }
 .app .week-card--selected:disabled, .app .visit__choice--planned:disabled { background-color: var(--panel-strong); border-color: var(--accent); color: var(--text); }
 .app .lever-button:disabled { background-color: var(--card); border-color: var(--accent); }
-.app .lever-button--taken:disabled { opacity: 1; background-color: var(--accent); border-color: var(--accent); color: var(--on-accent); }
-/* "Sure?": a step that cannot be undone waits for its second tap in the warning colour. */
-.app .lever-button--armed, .app .visit__choice--armed { border-color: var(--negative); }
-.app .lever-button--armed { color: var(--negative); }
+.app Button.lever-button.lever-button--taken:disabled { opacity: 1; background-color: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+/* "Sure?": a step that cannot be undone waits for its second tap in the warning colour. These beat the hover/focus/active
+   paint (a button disabled during its own tap can keep :active). */
+.app Button.lever-button.lever-button--armed, .app Button.visit__choice.visit__choice--armed { border-color: var(--negative); }
+.app Button.lever-button.lever-button--armed { color: var(--negative); background-color: var(--card); }
 .app .visit__choice--armed .visit__choice-status { color: var(--negative); }
 .lever-status { font-size: 22px; margin: -4px 4px 10px 4px; white-space: normal; -unity-font-style: bold; }
 .app .lever-status { color: var(--text-dim); }

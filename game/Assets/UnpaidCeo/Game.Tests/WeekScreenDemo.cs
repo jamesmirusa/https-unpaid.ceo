@@ -119,6 +119,7 @@ namespace UnpaidCeo.Game.Tests
             Tap(Screen.Q<Button>("action-reserve_transfer"));
             Tap(Screen.Q<Button>("action-overtime"));
             Tap(Screen.Q<Button>("action-rest"));
+            Tap(Screen.Q<Button>("action-loan_shark_loan"));   // asks before a debt to a loan shark
             yield return Shot($"{lang}_2_decided_top");
             yield return ScrollTo("actions-title");
             yield return Shot($"{lang}_3_decided_deeds");
@@ -147,6 +148,7 @@ namespace UnpaidCeo.Game.Tests
             Tap(Screen.Q<Button>("mode-hustle"));
             Tap(Screen.Q<Button>("price-plus-coffee_cart"));
             Tap(Screen.Q<Button>("staff-plus-coffee_cart"));
+            Tap(Screen.Q<Button>("units-minus-coffee_cart"));   // the first tap only asks "sure?"
             yield return Shot($"{lang}_6_owner_top");
             yield return ScrollTo("business-title");
             yield return Shot($"{lang}_7_owner_levers");

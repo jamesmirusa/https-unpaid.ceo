@@ -1891,11 +1891,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1568181721227264
-    m_Localized: Close it for good? Tap again
+    m_Localized: Sure? Tap again to close
     m_Metadata:
       m_Items: []
   - m_Id: 1568181721227265
-    m_Localized: Let them go? Tap again
+    m_Localized: Sure? Tap again to let go
     m_Metadata:
       m_Items: []
   - m_Id: 1568181721227266
