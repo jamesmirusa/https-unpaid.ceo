@@ -377,7 +377,8 @@
 .app .week-card__desc { color: var(--text-dim); }
 .app .week-card__status { color: var(--text-dim); }
 .app .week-card--selected .week-card__status { color: var(--accent); }
-.app Button.week-card:hover, .app Button.week-card:focus { border-color: var(--accent); }
+/* Pointer over an open card: the same hover as the room cards, not the default theme's grey (desktop web). */
+.app Button.week-card:hover:enabled { background-color: var(--panel-strong); border-color: var(--accent); }
 .lever-row { flex-direction: row; margin: 2px 0 10px 0; }
 .lever-button { flex-grow: 1; flex-basis: 0; height: 72px; margin: 0 4px; border-radius: 20px; border-width: 3px; border-color: var(--accent); background-color: var(--card); font-size: 24px; -unity-font-style: bold; white-space: normal; }
 .lever-button:disabled { opacity: 0.4; }
