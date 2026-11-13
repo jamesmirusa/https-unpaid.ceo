@@ -90,3 +90,19 @@ Tony: Sunday. Family dinner at my place. You're coming, no excuses. #line:ch1_to
     <<choose "work">>
     The tips are good. The empty seat at Tony's table is noticed. #line:ch1_tony_dinner_05
 ===
+
+title: ch1_tony_markup
+---
+Tony is restocking chips and glaring at the new price tags. #line:ch1_tony_markup_01
+Tony: Supplier raised me again. Forty cents a bag. I sell 'em for a buck twenty-five. #line:ch1_tony_markup_02
+-> Rough week. Want a hand with the boxes? #line:ch1_tony_markup_03
+    <<choose "help">>
+    Tony: Ha. You're alright, kid. Grab that end. #line:ch1_tony_markup_04
+-> Charge two bucks. Call it artisanal. #line:ch1_tony_markup_05
+    <<choose "joke">>
+    Tony: Artisanal. In the Bronx. You kill me. #line:ch1_tony_markup_06
+-> What's your markup after the new price? #line:ch1_tony_markup_07
+    <<choose "markup">>
+    Tony: Eighty-five cents on a buck twenty-five... That's better than I thought. Show me this markup thing. #line:ch1_tony_markup_08
+    You draw cost, price and margin on the back of a receipt. Tony keeps the receipt. #line:ch1_tony_markup_09
+===

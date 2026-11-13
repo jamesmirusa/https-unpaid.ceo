@@ -11,6 +11,7 @@ namespace UnpaidCeo.Game.Ui
     public sealed class ConsentDialog
     {
         readonly UiRoot _ui;
+        VisualElement _panel;
 
         public VisualElement Root { get; }
 
@@ -19,7 +20,7 @@ namespace UnpaidCeo.Game.Ui
             _ui = ui;
             Root = new VisualElement { name = "consent" };
             Root.AddToClassList("modal");
-            var panel = new VisualElement();
+            var panel = _panel = new VisualElement();
             panel.AddToClassList("modal__panel");
             panel.Add(UiText.Label("consent.title", "section-title"));
             panel.Add(UiText.Label("consent.text", "hint"));
@@ -35,7 +36,7 @@ namespace UnpaidCeo.Game.Ui
 
         public void Ask()
         {
-            if (!AnalyticsConsent.Asked) Root.style.display = DisplayStyle.Flex;
+            if (!AnalyticsConsent.Asked) { Root.style.display = DisplayStyle.Flex; Kit.PopIn.Play(_panel); }
         }
 
         public void Choose(bool on)

@@ -16,4 +16,22 @@
     --negative: #FF5C7A;
     --track: #2B2545;
     --energy: #F9F871;
+    --chrome-2: #1E1938;
+    --chrome-track: #2B2545;
+    --chrome-edge: rgba(255, 255, 255, 0.06);
+    --chrome-highlight: rgba(255, 62, 165, 0.35);
+    --chrome-lip: #07060F;
+    --accent-lip: #9C1563;
+    --accent-highlight: rgba(255, 255, 255, 0.35);
+    --accent-soft: rgba(255, 62, 165, 0.20);
+    --ground: #110E1F;
+    --card-face: #1F1A36;
+    --card-edge: #2B2545;
+    --card-highlight: #3A3260;
+    --card-lip: #07060F;
+    --energy-lip: #A9A83C;
+    --negative-lip: #9E2238;
+    --positive-lip: #158D90;
+    --badge: #FF5C7A;
+    --tile: #2B2545;
 }

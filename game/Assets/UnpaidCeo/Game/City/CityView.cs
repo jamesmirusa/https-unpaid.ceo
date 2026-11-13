@@ -20,6 +20,12 @@ namespace UnpaidCeo.Game.City
         public CityCatalog Catalog => catalog;
         public Transform HomeAnchor => homeAnchor;
 
+        /// <summary>
+        /// Stage 5B · the buildings' materials carry `_WindowGlow: 1` in their .mat files (windows light up in the
+        /// evening); props, cars and people keep 0. Set in the assets, never at run time, so play never edits them.
+        /// </summary>
+        public const string WindowGlowProperty = "_WindowGlow";
+
         public void Configure(CityCatalog c, List<LotView> l, Transform home)
         {
             catalog = c;

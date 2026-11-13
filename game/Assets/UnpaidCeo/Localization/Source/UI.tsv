@@ -466,3 +466,110 @@ lever.units_max	The most locations this game allows	Больше точек в �
 lever.no_money	Not enough cash for a new location	Не хватает денег на новую точку
 lever.staff_none	No staff — nobody to let go	Сотрудников нет — увольнять некого
 lever.staff_max	Your locations need no more people	Больше людей точкам не нужно
+toast.new_lesson	A new lesson is open	Открылся новый урок
+settings.sound	Sounds and vibration	Звуки и вибрация
+settings.sound.on	On	Включены
+settings.sound.off	Off	Выключены
+calendar.week	Week	Неделя
+calendar.actions	Actions	Действия
+calendar.wk.1	Wk 1	Нед 1
+calendar.wk.2	Wk 2	Нед 2
+calendar.wk.3	Wk 3	Нед 3
+calendar.wk.4	Wk 4	Нед 4
+calendar.now	Now	Сейчас
+calendar.free	Free	Свободно
+calendar.name.bill.room	Rent	Аренда
+calendar.name.loan.pay	Loan	Кредит
+calendar.name.bill.essentials	Bills	Быт
+calendar.name.bill.food	Food	Еда
+calendar.tip.free	No bills this week: a good week to put money aside.	На этой неделе платить нечего — хорошая неделя, чтобы отложить деньги.
+calendar.tip.gap	Cash gap: the money due is more than you have now. A business can earn and still run out of cash on the day a bill comes.	Кассовый разрыв: платёж больше, чем у тебя сейчас на счету. Бизнес может зарабатывать и всё равно остаться без денег в день платежа.
+calendar.tip.bill.room	Rent leaves on the last week of the month. Keep it aside from the first week on.	Аренда уходит в последнюю неделю месяца. Откладывай на неё с первой недели.
+calendar.tip.loan.pay	The loan payment comes with the rent. Two big payments on one week are where cash gaps begin.	Платёж по кредиту приходит вместе с арендой. Два крупных платежа в одну неделю — отсюда начинаются кассовые разрывы.
+calendar.tip.bill.essentials	Bills and phone are paid on the second week.	Быт и связь оплачиваются на второй неделе.
+calendar.tip.bill.food	Food and transit go every week: the smallest bills, but they never stop.	Еда и транспорт — каждую неделю: мелкие расходы, но они не прекращаются.
+radial.enter	Go in	Войти
+radial.hint.enter	Walk in and see what is on offer	Зайти и посмотреть, что здесь есть
+radial.hint.talk	Have a word — they may have news	Поговорить — может, есть новости
+radial.hint.week	Open this week's plan	Открыть план недели
+radial.hint.journal	What happened so far	Что уже было
+action.weekend_shift	Weekend shift	Смена в выходные
+journal.action.weekend_shift	You worked a weekend shift at Tony's: eight hours behind the counter.	Ты отработал смену в выходные у Тони: восемь часов за прилавком.
+place.action.weekend_shift	Work Tony's weekend shift (8 h)	Отработать у Тони смену в выходные (8 ч)
+place.react.weekend_shift	Saturday's yours. I trust you with the register now.	Суббота твоя. Кассу я тебе теперь доверяю.
+action.sunday_dinner	Sunday dinner at Mom's	Воскресный ужин у мамы
+journal.action.sunday_dinner	Sunday dinner at Mom's: soup, stories and a bag of food to take home.	Воскресный ужин у мамы: суп, разговоры и пакет еды с собой.
+place.action.sunday_dinner	Go to Mom's for Sunday dinner	Поехать к маме на воскресный ужин
+place.react.sunday_dinner	Mom packs you leftovers for the week. You don't argue.	Мама собирает тебе еду на неделю. Ты не споришь.
+bonus.tony.3	Tony gives you weekend shifts: 8 hours, $136	Тони даёт смены в выходные: 8 часов, $136
+bonus.mom.3	Mom invites you to Sunday dinners: energy and close ones up	Мама зовёт на воскресные ужины: больше сил и тепла
+journal.bonus.tony.3	Tony trusts you now: he offered you weekend shifts.	Тони теперь тебе доверяет: он предложил смены в выходные.
+journal.bonus.mom.3	Mom said: "Sundays you eat here. No arguments."	Мама сказала: «По воскресеньям ешь у меня. Без разговоров».
+radial.call_mom	Call Mom	Позвонить маме
+radial.hint.call_mom	She'll want to hear how you are	Она захочет знать, как ты
+tone.friendly	Friendly	Дружелюбно
+tone.business	Business	По делу
+tone.joke	Joke	Шутка
+tone.firm	Firm	Жёстко
+levelup.level	— level	— уровень
+live.tony.cold.1	Tony doesn't look up from the register. "Buying something?"	Тони не отрывается от кассы. «Берёшь что-нибудь?»
+live.tony.cold.2	"Cash only today. For you, anyway."	«Сегодня только наличные. Для тебя — уж точно».
+live.tony.cold.3	"I got customers. Real ones."	«У меня покупатели. Настоящие».
+live.tony.neutral.1	"Kid. Rent's coming for both of us. Keep moving."	«Слышь, малой. Аренда придёт за нами обоими. Не стой на месте».
+live.tony.neutral.2	"Coffee's a dollar. Advice is free and worth it."	«Кофе — доллар. Совет бесплатно, и он того стоит».
+live.tony.neutral.3	"Supplier's late again. Story of my life."	«Поставщик опять опаздывает. Вся моя жизнь».
+live.tony.warm.1	"There he is. Grab a coffee, on me."	«А вот и ты. Бери кофе, я угощаю».
+live.tony.warm.2	"You keep a reserve? Good. Small shops die of one bad week."	«Резерв держишь? Молодец. Маленькие лавки умирают от одной плохой недели».
+live.tony.warm.3	"Customers asked about you. Said you're polite. Don't let it go to your head."	«Покупатели про тебя спрашивали. Говорят, вежливый. Не зазнавайся».
+live.tony.close.1	"You're family now. Family eats first and pays never."	«Ты теперь свой. Свои едят первыми и не платят».
+live.tony.close.2	"When you open your own place, I want the first coffee."	«Когда откроешь своё дело, первый кофе — мой».
+live.tony.close.3	"Thirty years behind this counter. Watching you, I'd do it again."	«Тридцать лет за этим прилавком. Глядя на тебя, я бы всё повторил».
+live.mom.cold.1	Mom answers on the fifth ring. "Oh. It's you."	Мама берёт трубку на пятом гудке. «А, это ты».
+live.mom.cold.2	"Your aunt calls more than you do."	«Тётя звонит мне чаще, чем ты».
+live.mom.cold.3	"I'm fine. Everyone's fine. Are you eating?"	«Всё нормально. У всех всё нормально. Ты ешь вообще?»
+live.mom.neutral.1	"Are you sleeping? You sound tired."	«Ты спишь? Голос усталый».
+live.mom.neutral.2	"Don't spend it all on that city. Put some aside."	«Не трать всё в этом городе. Откладывай понемногу».
+live.mom.neutral.3	"Call me Sunday. Your grandmother asks."	«Позвони в воскресенье. Бабушка спрашивает».
+live.mom.warm.1	"I told the neighbors about your work. They were impressed."	«Рассказала соседям про твою работу. Они под впечатлением».
+live.mom.warm.2	"I made too much soup again. Come and take some."	«Опять наварила слишком много супа. Приезжай, забери».
+live.mom.warm.3	"You sound like your father when he started. In a good way."	«Ты говоришь, как отец, когда он начинал. В хорошем смысле».
+live.mom.close.1	"Whatever happens with the business, you always have a home here."	«Что бы ни случилось с делом, у тебя всегда есть дом».
+live.mom.close.2	"I'm proud of you. Now go to bed."	«Я тобой горжусь. А теперь иди спать».
+live.mom.close.3	"Bring your receipts on Sunday. I'll check your sums, like old times."	«Привози в воскресенье чеки. Проверю твои подсчёты, как раньше».
+needs.title	How you are	Как ты
+need.energy	Energy	Энергия
+need.relationships	Close ones	Близкие
+need.knowledge	Knowledge	Знания
+need.reputation	Reputation	Репутация
+need.energy.up	Up: rest, sleep, a calm week, Sunday dinner.	Растёт: отдых, сон, спокойная неделя, воскресный ужин.
+need.energy.down	Below 30 is burnout: one action a week instead of two, and more mistakes at work.	Ниже 30 — выгорание: одно действие в неделю вместо двух и больше ошибок в работе.
+need.relationships.up	Up: time with family, calling Mom, keeping promises.	Растёт: время с семьёй, звонки маме, сдержанные обещания.
+need.relationships.down	When it falls, people stop helping — and a hard week feels harder.	Когда падает, люди перестают помогать, а тяжёлая неделя становится тяжелее.
+need.knowledge.up	Up: lessons, study weeks, courses, good questions.	Растёт: уроки, недели учёбы, курсы, умные вопросы.
+need.knowledge.down	Knowledge opens better gigs and smarter answers in conversations.	Знания открывают подработки получше и умные ответы в разговорах.
+need.reputation.up	Up: honest deals, networking, helping people.	Растёт: честные сделки, нетворкинг, помощь людям.
+need.reputation.down	When it falls, customers and banks trust you less.	Когда падает, покупатели и банки доверяют меньше.
+mood.burnout	Burnout	Выгорание
+mood.burnout.line	Running on empty: tired people make costly mistakes. One good rest week pays for itself.	На пределе: уставшие ошибаются, а ошибки стоят денег. Неделя отдыха окупается.
+mood.shark_debt	Debt to the loan shark	Долг ростовщику
+mood.shark_debt.line	A loan shark's interest grows every month. Pay him first: it is the most expensive money there is.	Проценты ростовщика растут каждый месяц. Ему — в первую очередь: это самые дорогие деньги.
+mood.in_debt	In the red	В минусе
+mood.in_debt.line	Below zero, every bill piles up. Small income now beats a big plan later.	В минусе каждый счёт копится. Маленький доход сейчас лучше большого плана потом.
+mood.lonely	Missing your people	Скучаешь по своим
+mood.lonely.line	Work without people burns out faster. One evening with family helps more than you think.	Работа без людей выжигает быстрее. Один вечер с семьёй помогает больше, чем кажется.
+mood.paycheck	Paycheck came in	Зарплата пришла
+mood.paycheck.line	Money came in this week. Pay yourself first: put a part aside before spending.	На этой неделе пришли деньги. Сначала заплати себе: отложи часть, потом трать.
+mood.rested	Well rested	Выспался
+mood.rested.line	Rested people make fewer mistakes and see chances others miss.	Отдохнувшие ошибаются реже и замечают шансы, которые другие упускают.
+mood.cushion	A cushion	Есть подушка
+mood.cushion.line	A reserve turns a bad week into a lesson instead of a disaster.	Резерв превращает плохую неделю в урок, а не в катастрофу.
+wants.title	Wants this week	Хочу на этой неделе
+wants.done	Done! One step closer.	Сделано! На шаг ближе.
+want.talk.tony	Talk to Tony at the bodega	Поговорить с Тони в бодеге
+want.talk.mom	Call Mom	Позвонить маме
+want.reserve	Put $100 into the reserve	Отложить $100 в резерв
+want.lesson	Finish the lesson's quiz	Пройти вопросы урока
+want.rest	Get some rest	Выспаться
+want.earn	Earn extra at Tony's	Подработать у Тони
+want.study	Study toward the next gig, knowledge needed:	Учиться для следующей подработки, нужно знаний:
+settings.theme.evening	Evening	Вечер

@@ -7,7 +7,7 @@ using UnpaidCeo.Game.Services.Online;
 
 namespace UnpaidCeo.Game.Ui
 {
-    /// <summary>Language, graphics mode, day/neon look and starting over.</summary>
+    /// <summary>Language, graphics mode, day/neon look, sounds (and the phone's light taps), analytics and starting over.</summary>
     public sealed class SettingsScreen
     {
         static readonly (string code, string nativeName)[] LanguageNames = { ("en", "English"), ("ru", "Русский") };
@@ -15,7 +15,7 @@ namespace UnpaidCeo.Game.Ui
         readonly UiRoot _ui;
         readonly Dictionary<string, Button> _languages = new Dictionary<string, Button>();
         readonly Dictionary<GraphicsMode, Button> _modes = new Dictionary<GraphicsMode, Button>();
-        readonly Button _day, _neon, _analyticsOn, _analyticsOff;
+        readonly Button _day, _evening, _neon, _analyticsOn, _analyticsOff, _soundOn, _soundOff;
         readonly Label _confirm;
         bool _armed;
 
@@ -56,9 +56,16 @@ namespace UnpaidCeo.Game.Ui
             }
 
             var theme = root.Q("settings-theme");
-            _day = UiText.Bind(new Button(() => { _ui.SetTheme(false); Refresh(); }), "settings.theme.day");
-            _neon = UiText.Bind(new Button(() => { _ui.SetTheme(true); Refresh(); }), "settings.theme.neon");
-            foreach (var b in new[] { _day, _neon }) { b.AddToClassList("choice-button"); theme.Add(b); }
+            _day = UiText.Bind(new Button(() => { _ui.SetEvening(false); _ui.SetTheme(false); Refresh(); }) { name = "settings-theme-day" }, "settings.theme.day");
+            _evening = UiText.Bind(new Button(() => { _ui.SetTheme(false); _ui.SetEvening(true); Refresh(); }) { name = "settings-theme-evening" }, "settings.theme.evening");
+            _neon = UiText.Bind(new Button(() => { _ui.SetEvening(false); _ui.SetTheme(true); Refresh(); }) { name = "settings-theme-neon" }, "settings.theme.neon");
+            foreach (var b in new[] { _day, _evening, _neon }) { b.AddToClassList("choice-button"); theme.Add(b); }
+
+            UiText.Bind(root.Q<Label>("settings-sound-caption"), "settings.sound");
+            var sound = root.Q("settings-sound");
+            _soundOn = UiText.Bind(new Button(() => { Kit.UiSound.Muted = false; Refresh(); }) { name = "settings-sound-on" }, "settings.sound.on");
+            _soundOff = UiText.Bind(new Button(() => { Kit.UiSound.Muted = true; Refresh(); }) { name = "settings-sound-off" }, "settings.sound.off");
+            foreach (var b in new[] { _soundOn, _soundOff }) { b.AddToClassList("choice-button"); sound.Add(b); }
 
             UiText.Bind(root.Q<Label>("settings-analytics-caption"), "settings.analytics");
             var analytics = root.Q("settings-analytics");
@@ -81,8 +88,11 @@ namespace UnpaidCeo.Game.Ui
         {
             foreach (var l in _languages) l.Value.EnableInClassList("choice-button--selected", l.Key == _ui.Language);
             foreach (var m in _modes) m.Value.EnableInClassList("choice-button--selected", m.Key == GraphicsModeService.Current);
-            _day.EnableInClassList("choice-button--selected", !_ui.IsNeon);
+            _day.EnableInClassList("choice-button--selected", !_ui.IsNeon && !_ui.IsEvening);
+            _evening.EnableInClassList("choice-button--selected", !_ui.IsNeon && _ui.IsEvening);
             _neon.EnableInClassList("choice-button--selected", _ui.IsNeon);
+            _soundOn.EnableInClassList("choice-button--selected", !Kit.UiSound.Muted);
+            _soundOff.EnableInClassList("choice-button--selected", Kit.UiSound.Muted);
             _confirm.style.display = _armed ? DisplayStyle.Flex : DisplayStyle.None;
             bool granted = AnalyticsConsent.Granted;
             _analyticsOn.EnableInClassList("choice-button--selected", granted);

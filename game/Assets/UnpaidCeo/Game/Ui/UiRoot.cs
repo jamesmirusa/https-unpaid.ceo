@@ -9,7 +9,9 @@ using UnityEngine.UIElements;
 using UnpaidCeo.Core.Format;
 using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Platform;
+using UnpaidCeo.Core.Primitives;
 using UnpaidCeo.Game.Services.Online;
+using UnpaidCeo.Game.Ui.Kit;
 
 namespace UnpaidCeo.Game.Ui
 {
@@ -33,6 +35,7 @@ namespace UnpaidCeo.Game.Ui
     {
         public const string Table = "UI";
         public const string ValueClass = "value";
+        public const string PopupInClass = "popup--in";
         public const string LanguagePrefsKey = "unpaidceo.language";
         public static readonly string[] Languages = { "en", "ru" };
 
@@ -57,6 +60,14 @@ namespace UnpaidCeo.Game.Ui
         VisualElement _chapterBar, _chapterFill;
         Button _advance;
         Label _cash, _month;
+        VisualElement _cashPill;
+        NumberRoll _cashRoll;
+        readonly Dictionary<string, Label> _navBadges = new Dictionary<string, Label>();
+
+        static string NavIcon(string tab) => tab switch
+        {
+            PlacesTab => "map-trifold", Decisions => "calendar-dots", Company => "chart-bar", Academy => "graduation-cap", _ => "trophy",
+        };
         VisualElement _energyFill;
         Label _energyValue;
         Button _next;
@@ -88,11 +99,11 @@ namespace UnpaidCeo.Game.Ui
         public MetaProgress Meta
         {
             get => _meta;
-            set { _meta = value; if (value != null) { _gate.Load(value); _decisions?.Restore(value.WeekPlan); } }
+            set { _meta = value; if (value != null) { _gate.Load(value); _hero?.Silence(); _decisions?.Restore(value.WeekPlan); RefreshHud(); } }
         }
         /// <summary>The screens show a challenge or duel run: no daily turns, no chapter bar. Set before Initialize.</summary>
         bool _runMode;
-        public bool RunMode { get => _runMode; set { _runMode = value; RefreshGate(); } }
+        public bool RunMode { get => _runMode; set { _runMode = value; RefreshGate(); RefreshEmotes(); } }
         ConsentDialog _consent;
         /// <summary>The one-time analytics question.</summary>
         public ConsentDialog Consent => _consent;
@@ -136,6 +147,9 @@ namespace UnpaidCeo.Game.Ui
         public void SetSceneOpen(bool open)
         {
             _sceneOpen = open;
+            _radial?.Close();
+            if (!open) Root?.schedule.Execute(FlushLevelUps).StartingIn(16);
+            Root.EnableInClassList("scene-open", open);   // a scene in a room: the room's panel steps aside for the dialogue
             _missions.style.display = !open && _missions.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
         bool _sceneOpen;
@@ -201,7 +215,7 @@ namespace UnpaidCeo.Game.Ui
         string _focusedPlace;
         public AcademyScreen AcademyPanel => _academy;
         public bool MonthSummaryOpen => _summary != null && _summary.IsOpen;
-        public void ShowMonthSummary(MonthReport report) => _summary.Show(report, Language);
+        public void ShowMonthSummary(MonthReport report) { _radial?.Close(); _summary.Show(report, Language); }
 
         /// <summary>"What to do now": one line and one button on the main screen.</summary>
         public VisualElement Guide => _guide;
@@ -213,7 +227,7 @@ namespace UnpaidCeo.Game.Ui
         public bool GuideEnabled
         {
             get => _guideEnabled;
-            set { _guideEnabled = value; RefreshGuide(); RefreshGate(); }
+            set { _guideEnabled = value; RefreshGuide(); RefreshGate(); RefreshEmotes(); }
         }
 
         /// <summary>A month is being played: "Next month" shows it cannot be pressed.</summary>
@@ -378,6 +392,7 @@ namespace UnpaidCeo.Game.Ui
 
         public void SetVisiting(bool on)
         {
+            _radial?.Close();
             _visiting = on;
             Root.EnableInClassList("visiting", on);
             if (on)
@@ -434,7 +449,10 @@ namespace UnpaidCeo.Game.Ui
                 if (panelPosition == null) return;
                 // A shop sign over the building: the place's picture with its name under it; a tap walks in.
                 // (A Button draws its own text under its children, so the name is a Label of its own.)
-                marker = new Button(() => OpenPlace(id)) { name = "marker-" + id };
+                marker = new Button() { name = "marker-" + id };
+                var m = marker;
+                marker.clicked += () => { if (!OpenRadial("place:" + id, m)) OpenPlace(id); };   // no radial (onboarding): walk in as before
+                AddEmote(marker, "place:" + id);
                 marker.AddToClassList("place-marker");
                 var pic = new VisualElement { name = "marker-pic-" + id };
                 pic.AddToClassList("place-marker__pic");
@@ -465,7 +483,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Half of a long marker's width ("Laundromat Office").</summary>
         const float MarkerHalfWidth = 110f;
 
-        readonly Dictionary<string, Label> _tags = new Dictionary<string, Label>();
+        readonly Dictionary<string, VisualElement> _tags = new Dictionary<string, VisualElement>();
 
         /// <summary>A name tag above someone in the city (the mentor, Tony); null hides it.</summary>
         public void PlaceTag(string id, string key, Vector2? panelPosition)
@@ -475,8 +493,14 @@ namespace UnpaidCeo.Game.Ui
             if (!_tags.TryGetValue(id, out var tag))
             {
                 if (panelPosition == null) return;
-                tag = UiText.Label(key, "npc-tag");
-                tag.name = "tag-" + id;
+                // the name and the badge over it hang together; the box is placed, the label keeps its own size
+                tag = new VisualElement { name = "tag-box-" + id };
+                tag.AddToClassList("npc-tag-box");
+                var label = UiText.Label(key, "npc-tag");
+                label.name = "tag-" + id;
+                label.RegisterCallback<ClickEvent>(_ => OpenRadial("resident:" + id, label));
+                tag.Add(label);
+                AddEmote(tag, "resident:" + id);
                 var city = _screens[City];
                 city.Insert(city.IndexOf(_heroTag), tag);   // under the hero's tag and the widgets
                 _tags[id] = tag;
@@ -544,6 +568,7 @@ namespace UnpaidCeo.Game.Ui
         {
             _engine = engine;
             _state = state;
+            IsEvening = PlayerPrefs.GetInt(EveningPrefsKey, 0) == 1;
 
             var panel = ScriptableObject.CreateInstance<PanelSettings>();
             panel.name = "UnpaidCeo Panel";
@@ -564,20 +589,32 @@ namespace UnpaidCeo.Game.Ui
             Root.AddToClassList("theme-day");
             Root.style.flexGrow = 1;
             _document.rootVisualElement.Add(Root);
+            Feel.Attach(Root);
 
             var hud = Clone("Hud");
             Root.Add(hud);
+            _cashPill = hud.Q("hud-cash-pill");
+            _cashPill.Insert(0, Icons.Game("money", "hud__pill-icon"));
+            hud.Q("hud-week-pill").Insert(0, Icons.Game("money_date", "hud__pill-icon"));
+            hud.Q("hud-stat-energy").Q(className: "hud__caption-row").Insert(0, Icons.Game("energy", "hud__stat-icon"));
+            _hero = new HeroStateView(this, hud);
+            _calendar = new CalendarStrip(this);
+            hud.Add(_calendar.Root);
+            hud.Q("hud-week-pill").Add(_calendar.Tokens);
             UiText.Bind(hud.Q<Label>("hud-cash-caption"), "hud.cash");
             UiText.Bind(hud.Q<Label>("hud-month-caption"), "hud.week");
             UiText.Bind(hud.Q<Label>("hud-energy-caption"), "hud.energy");
             _cash = hud.Q<Label>("hud-cash");
+            _cashRoll = new NumberRoll(_cash, c => MoneyFormat.Compact(Money.FromCents(c), Language));
             _month = hud.Q<Label>("hud-month");
             _energyFill = hud.Q("hud-energy-fill");
             _energyValue = hud.Q<Label>("hud-energy-value");
             var journalButton = UiText.Bind(hud.Q<Button>("hud-journal"), "hud.journal");
             journalButton.clicked += () => Open(Journal);
+            Icons.Decorate(journalButton, Icons.Service("book-open-text"), "icon--top");
             var settingsButton = UiText.Bind(hud.Q<Button>("hud-settings"), "hud.settings");
             settingsButton.clicked += () => Open(Settings);
+            Icons.Decorate(settingsButton, Icons.Service("gear-six"), "icon--top");
 
             _chapterBar = new VisualElement { name = "chapter-bar" };
             _chapterBar.AddToClassList("chapter-bar");
@@ -628,6 +665,7 @@ namespace UnpaidCeo.Game.Ui
             AddScreen(content, PlacesTab, Clone("Places"));
             _popupClose = UiText.Bind(new Button(() => Open(City)) { name = "popup-close" }, "popup.close");
             _popupClose.AddToClassList("popup-close");
+            Icons.Decorate(_popupClose, Icons.Service("x"), "icon--lead");
             content.Add(_popupClose);
 
             // The hint band is gone: the checklist ("drop by a place in the city") says it, and the signs need the room.
@@ -640,6 +678,7 @@ namespace UnpaidCeo.Game.Ui
             _decisions.PlanChanged += KeepWeekPlan;
             _places = new PlacesScreen(_screens[PlacesTab], this, engine, state, _decisions);
             _visit = new VisitPanel(this, engine, state, _decisions);
+            _visit.Root.Q("visit-portrait").RegisterCallback<ClickEvent>(e => { if (_visit.CurrentPlace != null) OpenRadial("room:" + _visit.CurrentPlace, (VisualElement)e.currentTarget); });
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
             _industry.Chosen += id => { _decisions.Refresh(); RefreshHud(); AnalyticsEvents.IndustryChosen(Online.Analytics, id); IndustryChosen?.Invoke(id); };
             _academy = new AcademyScreen(_screens[Academy], engine, state);
@@ -653,6 +692,7 @@ namespace UnpaidCeo.Game.Ui
             _opened = new HashSet<string>(OpenBusinesses());
             _wasBankrupt = state.Facts.Has("bankrupt");
             _heroTag = UiText.Label("city.you", "hero-tag");
+            _heroTag.RegisterCallback<ClickEvent>(_ => OpenRadial("hero", _heroTag));
             _heroTag.name = "hero-tag";
             _heroTag.style.display = DisplayStyle.None;
             _screens[City].Add(_heroTag);
@@ -685,6 +725,8 @@ namespace UnpaidCeo.Game.Ui
             _guideText.AddToClassList("guide__text");
             _guideAction = new Button(() => _guideRun?.Invoke()) { name = "guide-action" };
             _guideAction.AddToClassList("guide__action");
+            stack.Insert(0, _hero.Wants);
+            stack.Insert(0, _hero.Moods);   // badges sit on top of the city's cards, never over them
             _guide.Add(_guideText);
             _guide.Add(_guideAction);
             stack.Add(_guide);
@@ -697,6 +739,7 @@ namespace UnpaidCeo.Game.Ui
             Root.Add(_consent.Root);
             _summary = new MonthSummaryDialog();
             _summary.DetailsRequested += () => Open(Company);
+            _summary.Closed += FlushLevelUps;
 
             _turnsBar = new VisualElement { name = "turns-bar" };
             _turnsBar.AddToClassList("turns-bar");
@@ -717,6 +760,7 @@ namespace UnpaidCeo.Game.Ui
 
             _next = UiText.Bind(new Button(() => NextMonthRequested?.Invoke()) { name = "next-month" }, "hud.next_week");
             _next.AddToClassList("primary-button");
+            Icons.Decorate(_next, Icons.Service("fast-forward"), "icon--trail");
             Root.Add(_next);
 
             var nav = Clone("BottomNav");
@@ -726,13 +770,27 @@ namespace UnpaidCeo.Game.Ui
                 var t = tab;
                 var b = UiText.Bind(nav.Q<Button>("nav-" + tab), "dock." + tab);
                 b.clicked += () => { if (t == PlacesTab) OpenPlaces(); else Open(t); };
+                Icons.Decorate(b, Icons.Service(NavIcon(tab)), "icon--top");
+                var badge = new Label { name = "nav-badge-" + tab, pickingMode = PickingMode.Ignore };
+                badge.AddToClassList("nav-badge");
+                badge.AddToClassList(ValueClass);
+                badge.style.display = DisplayStyle.None;
+                b.Add(badge);
+                _navBadges[tab] = badge;
                 _nav[tab] = b;
             }
+            Shadow.Behind(nav);   // the dock floats over the city (the HUD's shadow would fall under the goal bar drawn after it)
 
             Root.Add(_visit.Root);
             Root.Add(_summary.Root);
             Root.Add(_loan.Root);
             Root.Add(_transition.Root);
+            _radial = new RadialMenu(this);
+            Root.Add(_radial.Root);
+            _levelUp = new LevelUpMoment();
+            Root.Add(_levelUp.Root);
+            Root.Add(_hero.NeedsPanel);
+            Root.schedule.Execute(PulseEmotes).Every(650);
             _fade = new VisualElement { name = "fade" };
             _fade.AddToClassList("fade");
             _fade.style.opacity = 0f;
@@ -777,13 +835,26 @@ namespace UnpaidCeo.Game.Ui
         public void Open(string tab)
         {
             if (!_screens.ContainsKey(tab)) throw new ArgumentException("unknown tab " + tab, nameof(tab));
+            _radial?.Close();
             bool popup = tab != City;
-            foreach (var s in _screens) s.Value.style.display = s.Key == tab || s.Key == City ? DisplayStyle.Flex : DisplayStyle.None;
+            bool changed = tab != CurrentTab;
+            foreach (var s in _screens)
+            {
+                s.Value.style.display = s.Key == tab || s.Key == City ? DisplayStyle.Flex : DisplayStyle.None;
+                if (s.Key != tab) s.Value.RemoveFromClassList(PopupInClass);
+            }
+            if (popup && changed)
+            {
+                var screen = _screens[tab];
+                screen.RemoveFromClassList(PopupInClass);
+                screen.schedule.Execute(() => { if (CurrentTab == tab) screen.AddToClassList(PopupInClass); }).StartingIn(16);
+                UiSound.Play(UiSound.Pop);
+            }
             _popupBackdrop.style.display = _popupClose.style.display = popup ? DisplayStyle.Flex : DisplayStyle.None;
             UnpaidCeo.Game.City.CameraRig.InputBlocked = popup || _visiting;   // drags belong to the popup (or the room), not to the city under it
             foreach (var b in _nav) b.Value.EnableInClassList("nav-button--active", b.Key == tab);
             CurrentTab = tab;
-            if (tab == Academy) { _newLesson = false; _academy.Refresh(); }
+            if (tab == Academy) { _newLesson = false; _academy.Refresh(); RefreshBadges(); }
             if (tab == Journal) _journal.Refresh();
             if (tab == Settings) { _settings.Refresh(); _account.Refresh(); }
             if (tab == Ranking) _ranking.RefreshSoon();
@@ -796,8 +867,12 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Call after each EndMonth.</summary>
         public void ShowReport(MonthReport report)
         {
+            _lastReport = report;
             if (!RunMode) RecordMonth(report);
-            if (report.Lessons.Count > 0) _newLesson = true;
+            // the week's result opens right after this: the moment waits for it to be read (FlushLevelUps on close)
+            foreach (var up in report.LevelUps) _levelUps.Add((up.Npc, up.Level, up.Key));
+            Root.schedule.Execute(FlushLevelUps).StartingIn(50);
+            if (report.Lessons.Count > 0) { _newLesson = true; Toasts.Show(Root, "toast.new_lesson", "lesson"); }
             _company.Show(report);
             _decisions.Refresh();
             _decisions.ShowRejections(report);
@@ -811,7 +886,13 @@ namespace UnpaidCeo.Game.Ui
         public void RefreshHud()
         {
             if (_state == null) return;
-            _cash.text = MoneyFormat.Compact(_state.Cash, Language);
+            long delta = _cashRoll.Set(_state.Cash.Cents);
+            if (delta != 0)
+            {
+                FloatingDelta.Show(_cashPill, EffectChips.SignedMoney(Money.FromCents(delta), Language), delta > 0);
+                if (delta > 0) UiSound.Play(UiSound.Coin);
+            }
+            else _cashRoll.Reformat();
             _cash.EnableInClassList("value--negative", _state.Cash.Cents < 0);
             _month.text = _state.Week.ToString();
             // The energy the week's plan leaves, New2NYC-style: a choice made in a room takes its energy at once.
@@ -835,7 +916,143 @@ namespace UnpaidCeo.Game.Ui
                 _goalValue.text = MoneyFormat.Compact(shown == 1 ? balance.Chapter1CashGoal : shown == 2 ? balance.Chapter2CapitalGoal : balance.Chapter3CapitalGoal, Language);
             }
             if (_chooseBusiness != null) _chooseBusiness.style.display = NeedsBusiness ? DisplayStyle.Flex : DisplayStyle.None;
+            RefreshBadges();
+            _calendar?.Refresh(_engine, _state);
+            _hero?.Refresh(_state, _engine, _lastReport, _decisions != null ? _decisions.Planned : new string[0], energyAfter);
+            RefreshEmotes();
             RefreshGuide();
+        }
+
+        // ---------- Stage 5B step 2: the radial menu and the badges over heads ----------
+
+        RadialMenu _radial;
+        HeroStateView _hero;
+        MonthReport _lastReport;
+        public HeroStateView HeroState => _hero;
+        CalendarStrip _calendar;
+        readonly Dictionary<string, VisualElement> _emotes = new Dictionary<string, VisualElement>();
+        bool _pulse;
+
+        public RadialMenu Radial => _radial;
+        public GameState State => _state;
+        public GameEngine Engine => _engine;
+
+        // ---------- Stage 5B step 3: talking to hosts ----------
+
+        LevelUpMoment _levelUp;
+        /// <summary>A host's waiting scene became pending (Core's TalkTo): the game plays it.</summary>
+        public event Action<UnpaidCeo.Core.Narrative.StoryletDef> SceneRequested;
+        /// <summary>Hosts with everyday lines by trust tier (live.&lt;host&gt;.&lt;tier&gt;.1..3).</summary>
+        public static readonly string[] LiveHosts = { "tony", "mom" };
+        public const int LiveLinesPerTier = 3;
+
+        /// <summary>
+        /// "Talk" at <paramref name="host"/>: Core's waiting scene if there is one (one a week), else an everyday line by
+        /// trust (in the room, or as a note in the city). False when the host has neither (the room keeps its own lines).
+        /// </summary>
+        public bool Talk(string host)
+        {
+            if (_engine == null || _state == null || host == null || RunMode) return false;   // challenge runs log no talks
+            var scene = _engine.TalkTo(_state, host);
+            if (scene != null)
+            {
+                SceneRequested?.Invoke(scene);
+                RefreshHud();
+                return true;
+            }
+            if (Array.IndexOf(LiveHosts, host) < 0) return false;
+            var key = LiveLine(host, _state);
+            if (_visit != null && _visit.IsOpen) _visit.Say(key);
+            else Toasts.Show(Root, key, host == "mom" ? "close_ones" : "trust", 3500);
+            return true;
+        }
+
+        int _liveTurn;
+        /// <summary>An everyday line: the tier of the host's trust, a different line each time.</summary>
+        string LiveLine(string host, GameState s)
+        {
+            var tier = UnpaidCeo.Core.Narrative.Relationships.Tier(s.Npcs.Get(host));
+            int n = (_liveTurn++ + s.Week) % LiveLinesPerTier + 1;
+            return $"live.{host}.{tier}.{n}";
+        }
+
+        /// <summary>A relationship level reached: the short moment with its bonus.</summary>
+        public void ShowLevelUp(string npc, int level, string bonusKey)
+        {
+            _levelUps.Add((npc, level, bonusKey));
+            FlushLevelUps();
+        }
+
+        readonly List<(string npc, int level, string key)> _levelUps = new List<(string, int, string)>();
+
+        /// <summary>A level-up waits while a scene or the week's result is on screen: it is never drawn behind them.</summary>
+        void FlushLevelUps()
+        {
+            if (_levelUp == null || _sceneOpen || (_summary != null && _summary.IsOpen)) return;
+            foreach (var (npc, level, key) in _levelUps) _levelUp.Show(npc, level, key);
+            _levelUps.Clear();
+        }
+        public int Chapter => _state != null ? _state.Chapter : 1;
+        /// <summary>A lesson opened this week and has not been looked at.</summary>
+        public bool NewLesson => _newLesson;
+
+        /// <summary>Opens the radial menu of <paramref name="target"/> around the element that was tapped.</summary>
+        public bool OpenRadial(string target, VisualElement at)
+        {
+            if (_radial == null || RunMode || _sceneOpen || !_guideEnabled) return false;   // not during a scene or the mentor's first steps
+            var items = RadialMenus.For(target, this);
+            if (items.Count == 0) return false;
+            var center = Root.WorldToLocal(at.worldBound.center);
+            if (float.IsNaN(center.x)) center = new Vector2(540, 960);
+            _radial.Show(RadialMenus.TitleKey(target), items, center);
+            return true;
+        }
+
+        /// <summary>Drags go back to the city unless a popup or a room still holds them.</summary>
+        public void UnblockCityInput() => UnpaidCeo.Game.City.CameraRig.InputBlocked = PopupOpen || _visiting;
+
+        void AddEmote(VisualElement host, string target)
+        {
+            var e = new VisualElement { name = "emote", pickingMode = PickingMode.Ignore };
+            e.AddToClassList("emote");
+            e.userData = target;
+            host.Add(e);
+            _emotes[target] = e;
+            RefreshEmote(e);
+        }
+
+        void RefreshEmote(VisualElement e)
+        {
+            var icon = RadialMenus.Emote((string)e.userData, this);
+            e.style.display = icon != null ? DisplayStyle.Flex : DisplayStyle.None;
+            foreach (var c in e.GetClasses().Where(c => c.StartsWith("emote--emote_")).ToList()) e.RemoveFromClassList(c);
+            if (icon != null) e.AddToClassList("emote--" + icon);
+            if (icon != null) e.style.backgroundImage = new StyleBackground(Icons.Load(Icons.GameFolder + icon));
+        }
+
+        void RefreshEmotes() { foreach (var e in _emotes.Values) RefreshEmote(e); }
+
+        /// <summary>Badges breathe so they read from afar (scale 1 ↔ 1.14).</summary>
+        void PulseEmotes()
+        {
+            _pulse = !_pulse;
+            if (_visiting) return;
+            foreach (var e in _emotes.Values) if (e.style.display != DisplayStyle.None) e.EnableInClassList("emote--big", _pulse);
+        }
+
+        /// <summary>The dock's counters: actions left this week on the Week tab, a dot on Lessons when one is new.</summary>
+        void RefreshBadges()
+        {
+            if (_navBadges.Count == 0) return;
+            int left = _decisions != null && !RunMode ? _decisions.PointsLeft : 0;
+            var week = _navBadges[Decisions];
+            week.text = left.ToString();
+            week.style.display = left > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            var lessons = _navBadges[Academy];
+            lessons.text = "";
+            lessons.EnableInClassList("nav-badge--dot", true);
+            lessons.style.display = _newLesson ? DisplayStyle.Flex : DisplayStyle.None;
+            RefreshEmotes();
         }
 
         public MonthDecisions CurrentDecisions() => _decisions.Build();
@@ -935,6 +1152,21 @@ namespace UnpaidCeo.Game.Ui
             _settings?.Refresh();
             yield return null;
         }
+
+        public const string EveningPrefsKey = "unpaidceo.look.evening";
+        /// <summary>Stage 5B · the city's evening look (warm sun, lit windows) with the day interface; saved on this device.</summary>
+        public bool IsEvening { get; private set; }
+
+        public void SetEvening(bool on)
+        {
+            IsEvening = on;
+            PlayerPrefs.SetInt(EveningPrefsKey, on ? 1 : 0);
+            PlayerPrefs.Save();
+            ThemeChanged?.Invoke(IsNeon);
+        }
+
+        /// <summary>The light the city should show for the current look.</summary>
+        public UnpaidCeo.Game.City.TimeOfDay LightTime => IsNeon ? UnpaidCeo.Game.City.TimeOfDay.Night : IsEvening ? UnpaidCeo.Game.City.TimeOfDay.Evening : UnpaidCeo.Game.City.TimeOfDay.Day;
 
         public void SetTheme(bool neon)
         {

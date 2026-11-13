@@ -119,7 +119,8 @@ namespace UnpaidCeo.Core.Game
             s.ScenesRolledWeek = s.Week;
 
             var rng = Pcg32.FromState(s.Rng);
-            var picks = StoryletSelector.Pick(_c.Storylets, Context(s), s.StoryletLastMonth,
+            // Stage 5B: a host's scenes wait at the host (TalkTo); only city and business events come by themselves.
+            var picks = StoryletSelector.Pick(_c.Storylets.Where(x => x.Host == null).ToList(), Context(s), s.StoryletLastMonth,
                 s.StoryletsSeen.Keys.ToList(), rng, _c.Balance.EventsPerWeekWeights);
             s.Rng = rng.State;
             foreach (var p in picks)
@@ -132,6 +133,23 @@ namespace UnpaidCeo.Core.Game
             return picks;
         }
 
+        /// <summary>
+        /// Stage 5B · "Talk": the scene waiting at <paramref name="host"/> (no dice) becomes pending, and the host gives no
+        /// other story scene this week. Null when nothing waits (the UI says an everyday line; nothing is logged).
+        /// </summary>
+        public StoryletDef TalkTo(GameState s, string host)
+        {
+            if (string.IsNullOrEmpty(host) || !HostScenes.CanTalk(s, host)) return null;
+            var st = HostScenes.Waiting(s, _c, host);
+            if (st == null) return null;
+            s.HostTalkWeek[host] = s.Week;
+            s.StoryletLastMonth[st.Id] = s.Month;
+            if (st.Once) s.StoryletsSeen[st.Id] = s.Month;
+            s.PendingStorylets.Add(st.Id);
+            Log(s, DecisionLogEntry.TalkTo, new JObject { ["host"] = host });
+            return st;
+        }
+
         public void ChooseStoryletOption(GameState s, string storyletId, string choiceId)
         {
             if (!s.PendingStorylets.Contains(storyletId))
@@ -139,8 +157,11 @@ namespace UnpaidCeo.Core.Game
             var st = FindStorylet(storyletId);
             if (!st.Choices.TryGetValue(choiceId, out var effects))
                 throw new ArgumentException($"storylet '{storyletId}' has no choice '{choiceId}'", nameof(choiceId));
+            if (HostScenes.Locked(st, choiceId, s))
+                throw new ArgumentException($"choice '{choiceId}' of '{storyletId}' needs more knowledge", nameof(choiceId));
 
             EffectApplier.ApplyAll(effects, s);
+            ApplyLevelBonuses(s, null);
             s.PendingStorylets.Remove(storyletId);
             AddJournal(s, "decision", $"journal.{storyletId}.{choiceId}", ("storylet", storyletId), ("choice", choiceId));
             Log(s, DecisionLogEntry.StoryletChoice, new JObject { ["storylet"] = storyletId, ["choice"] = choiceId });
@@ -320,6 +341,7 @@ namespace UnpaidCeo.Core.Game
                 s.ActionsThisTurn.Add(id);
                 if (fa.CooldownWeeks > 0) s.ActionLastWeek[id] = s.Week;
                 s.Cash -= fa.Cost;
+                foreach (var ce in fa.Effects.OfType<CashEffect>()) if (ce.Amount.Cents > 0) report.ActionIncome += ce.Amount;
                 EffectApplier.ApplyAll(fa.Effects, s);
                 AddJournal(s, "decision", fa.JournalKey ?? $"journal.{id}", ("action", id));
             }
@@ -398,9 +420,7 @@ namespace UnpaidCeo.Core.Game
                 if (bills) report.DueNext.AddRange(costs.ForWeek(next));
                 if (next == GameState.WeeksPerMonth && s.Loans.Count > 0)
                 {
-                    var due = Money.Zero;
-                    foreach (var loan in s.Loans) due += loan.MonthsLeft <= 1 ? loan.Balance + loan.Balance.MulRound(loan.Apr / 12.0) : loan.Payment;
-                    report.DueNext.Add(new LineItem("loan.pay", due));
+                    report.DueNext.Add(new LineItem("loan.pay", MoneyCalendar.LoanDue(s)));
                 }
             }
 
@@ -415,6 +435,17 @@ namespace UnpaidCeo.Core.Game
                 report.Lessons.Add(id);
             }
             s.PendingLessons.Clear();
+            // Stage 5B: a host's scene talked into but not played (busy, closed, a refused answer) waits again — a line
+            // never loses a step; city events left unplayed simply pass, as before.
+            foreach (var id in s.PendingStorylets)
+            {
+                var st = _c.Storylets.FirstOrDefault(x => x.Id == id);
+                if (st?.Host == null) continue;
+                s.StoryletsSeen.Remove(id);
+                s.StoryletLastMonth.Remove(id);
+                s.HostTalkWeek.Remove(st.Host);
+                report.Storylets.Remove(id);
+            }
             s.PendingStorylets.Clear();
             if (monthEnd)
             {
@@ -424,6 +455,7 @@ namespace UnpaidCeo.Core.Game
             s.LastDecisions = d;
             Log(s, weekly ? DecisionLogEntry.EndWeek : DecisionLogEntry.EndMonth, JObject.FromObject(d));
             s.Rng = rng.State;
+            ApplyLevelBonuses(s, report);
             s.Week += weekly ? 1 : GameState.WeeksPerMonth;
             s.Month = GameState.MonthOf(s.Week);
             return report;
@@ -496,6 +528,8 @@ namespace UnpaidCeo.Core.Game
                     var wd = JsonConvert.DeserializeObject<MonthDecisions>(entry.Payload) ?? throw new FormatException("empty endWeek");
                     last = e.EndWeek(s, wd);
                     return true;
+                case DecisionLogEntry.TalkTo:
+                    return e.TalkTo(s, (string)JObject.Parse(entry.Payload)["host"]) != null;
                 case DecisionLogEntry.StoryletChoice:
                     var p = JObject.Parse(entry.Payload);
                     e.ChooseStoryletOption(s, (string)p["storylet"], (string)p["choice"]);
@@ -649,7 +683,9 @@ namespace UnpaidCeo.Core.Game
             AddJournal(s, "consequence", "journal." + fact);
         }
 
-        NarrativeContext Context(GameState s) => new NarrativeContext
+        NarrativeContext Context(GameState s) => ContextOf(s);
+
+        public static NarrativeContext ContextOf(GameState s) => new NarrativeContext
         {
             Month = s.Month,
             Chapter = s.Chapter,
@@ -662,6 +698,22 @@ namespace UnpaidCeo.Core.Game
 
         StoryletDef FindStorylet(string id) =>
             _c.Storylets.FirstOrDefault(x => x.Id == id) ?? throw new ArgumentException($"unknown storylet '{id}'", nameof(id));
+
+        /// <summary>
+        /// Stage 5B · grants every relationship bonus whose level is reached and whose fact is not yet set (idempotent):
+        /// the fact (it can open a deed or a scene), a journal line, and the level-up for the report.
+        /// </summary>
+        void ApplyLevelBonuses(GameState s, MonthReport report)
+        {
+            foreach (var bonus in _c.Balance.LevelBonuses)
+            {
+                if (string.IsNullOrEmpty(bonus.Fact) || s.Facts.Has(bonus.Fact)) continue;
+                if (Relationships.Level(s.Npcs.Get(bonus.Npc)) < bonus.Level) continue;
+                s.Facts.Set(bonus.Fact, s.Month);
+                AddJournal(s, "consequence", "journal." + bonus.Key, ("npc", bonus.Npc));
+                report?.LevelUps.Add(new LevelUp { Npc = bonus.Npc, Level = bonus.Level, Key = bonus.Key });
+            }
+        }
 
         static void AddJournal(GameState s, string kind, string key, params (string k, string v)[] args)
         {

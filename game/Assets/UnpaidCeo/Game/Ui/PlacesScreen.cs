@@ -139,7 +139,7 @@ namespace UnpaidCeo.Game.Ui
                 if (a.Kind == PlaceActionKind.Plan && _engine.Content.FreeActions.TryGetValue(a.FreeAction, out var free))
                 {
                     // The same card as in the rooms and on the Week screen: done says done, closed says why.
-                    var card = new ChoiceCard("place-action-" + a.Id, "place-status-" + a.Id, "place.action." + a.Id, () => Do(a));
+                    var card = new ChoiceCard("place-action-" + a.Id, "place-status-" + a.Id, "place.action." + a.Id, () => Do(a)).WithIcon(Kit.GameIconFor.Action(a.FreeAction));
                     card.SetChips(free.Cost, free.Effects, _ui.Language);
                     card.Confirm = free.Confirm;
                     button = card;

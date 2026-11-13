@@ -1938,6 +1938,434 @@ MonoBehaviour:
     m_Localized: Your locations need no more people
     m_Metadata:
       m_Items: []
+  - m_Id: 1653771414265856
+    m_Localized: A new lesson is open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161202855936
+    m_Localized: Sounds and vibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161215438848
+    m_Localized: On
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161215438849
+    m_Localized: Off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661556998791168
+    m_Localized: Week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179776
+    m_Localized: Actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179777
+    m_Localized: Wk 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179778
+    m_Localized: Wk 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179779
+    m_Localized: Wk 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179780
+    m_Localized: Wk 4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179781
+    m_Localized: Now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179782
+    m_Localized: Free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179783
+    m_Localized: Rent
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179784
+    m_Localized: Loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179785
+    m_Localized: Bills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179786
+    m_Localized: Food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179787
+    m_Localized: 'No bills this week: a good week to put money aside.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179788
+    m_Localized: 'Cash gap: the money due is more than you have now. A business can earn and still run out of cash on the day a bill comes.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179789
+    m_Localized: Rent leaves on the last week of the month. Keep it aside from the first week on.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179790
+    m_Localized: The loan payment comes with the rent. Two big payments on one week are where cash gaps begin.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179791
+    m_Localized: Bills and phone are paid on the second week.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179792
+    m_Localized: 'Food and transit go every week: the smallest bills, but they never stop.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179793
+    m_Localized: Go in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179794
+    m_Localized: Walk in and see what is on offer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179795
+    m_Localized: "Have a word \u2014 they may have news"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179796
+    m_Localized: Open this week's plan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179797
+    m_Localized: What happened so far
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043557036032
+    m_Localized: Weekend shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618944
+    m_Localized: 'You worked a weekend shift at Tony''s: eight hours behind the counter.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618945
+    m_Localized: Work Tony's weekend shift (8 h)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618946
+    m_Localized: Saturday's yours. I trust you with the register now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618947
+    m_Localized: Sunday dinner at Mom's
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618948
+    m_Localized: 'Sunday dinner at Mom''s: soup, stories and a bag of food to take home.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618949
+    m_Localized: Go to Mom's for Sunday dinner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618950
+    m_Localized: Mom packs you leftovers for the week. You don't argue.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618951
+    m_Localized: 'Tony gives you weekend shifts: 8 hours, $136'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618952
+    m_Localized: 'Mom invites you to Sunday dinners: energy and close ones up'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618953
+    m_Localized: 'Tony trusts you now: he offered you weekend shifts.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618954
+    m_Localized: 'Mom said: "Sundays you eat here. No arguments."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018611081216
+    m_Localized: Call Mom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018619469824
+    m_Localized: She'll want to hear how you are
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018619469825
+    m_Localized: Friendly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664128
+    m_Localized: Business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664129
+    m_Localized: Joke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664130
+    m_Localized: Firm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664131
+    m_Localized: "\u2014 level"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664132
+    m_Localized: Tony doesn't look up from the register. "Buying something?"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664133
+    m_Localized: '"Cash only today. For you, anyway."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664134
+    m_Localized: '"I got customers. Real ones."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664135
+    m_Localized: '"Kid. Rent''s coming for both of us. Keep moving."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664136
+    m_Localized: '"Coffee''s a dollar. Advice is free and worth it."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664137
+    m_Localized: '"Supplier''s late again. Story of my life."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664138
+    m_Localized: '"There he is. Grab a coffee, on me."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664139
+    m_Localized: '"You keep a reserve? Good. Small shops die of one bad week."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664140
+    m_Localized: '"Customers asked about you. Said you''re polite. Don''t let it go to your head."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664141
+    m_Localized: '"You''re family now. Family eats first and pays never."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664142
+    m_Localized: '"When you open your own place, I want the first coffee."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664143
+    m_Localized: '"Thirty years behind this counter. Watching you, I''d do it again."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664144
+    m_Localized: Mom answers on the fifth ring. "Oh. It's you."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664145
+    m_Localized: '"Your aunt calls more than you do."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664146
+    m_Localized: '"I''m fine. Everyone''s fine. Are you eating?"'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664147
+    m_Localized: '"Are you sleeping? You sound tired."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664148
+    m_Localized: '"Don''t spend it all on that city. Put some aside."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664149
+    m_Localized: '"Call me Sunday. Your grandmother asks."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664150
+    m_Localized: '"I told the neighbors about your work. They were impressed."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664151
+    m_Localized: '"I made too much soup again. Come and take some."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664152
+    m_Localized: '"You sound like your father when he started. In a good way."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664153
+    m_Localized: '"Whatever happens with the business, you always have a home here."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664154
+    m_Localized: '"I''m proud of you. Now go to bed."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664155
+    m_Localized: '"Bring your receipts on Sunday. I''ll check your sums, like old times."'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536529035264
+    m_Localized: How you are
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618176
+    m_Localized: Energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618177
+    m_Localized: Close ones
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618178
+    m_Localized: Knowledge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618179
+    m_Localized: Reputation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618180
+    m_Localized: 'Up: rest, sleep, a calm week, Sunday dinner.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618181
+    m_Localized: 'Below 30 is burnout: one action a week instead of two, and more mistakes at work.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618182
+    m_Localized: 'Up: time with family, calling Mom, keeping promises.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618183
+    m_Localized: "When it falls, people stop helping \u2014 and a hard week feels harder."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618184
+    m_Localized: 'Up: lessons, study weeks, courses, good questions.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618185
+    m_Localized: Knowledge opens better gigs and smarter answers in conversations.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618186
+    m_Localized: 'Up: honest deals, networking, helping people.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618187
+    m_Localized: When it falls, customers and banks trust you less.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618188
+    m_Localized: Burnout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618189
+    m_Localized: 'Running on empty: tired people make costly mistakes. One good rest week pays for itself.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618190
+    m_Localized: Debt to the loan shark
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618191
+    m_Localized: 'A loan shark''s interest grows every month. Pay him first: it is the most expensive money there is.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618192
+    m_Localized: In the red
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618193
+    m_Localized: Below zero, every bill piles up. Small income now beats a big plan later.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618194
+    m_Localized: Missing your people
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618195
+    m_Localized: Work without people burns out faster. One evening with family helps more than you think.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618196
+    m_Localized: Paycheck came in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618197
+    m_Localized: 'Money came in this week. Pay yourself first: put a part aside before spending.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618198
+    m_Localized: Well rested
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618199
+    m_Localized: Rested people make fewer mistakes and see chances others miss.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618200
+    m_Localized: A cushion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618201
+    m_Localized: A reserve turns a bad week into a lesson instead of a disaster.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618202
+    m_Localized: Wants this week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618203
+    m_Localized: Done! One step closer.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618204
+    m_Localized: Talk to Tony at the bodega
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618205
+    m_Localized: Call Mom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618206
+    m_Localized: Put $100 into the reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618207
+    m_Localized: Finish the lesson's quiz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618208
+    m_Localized: Get some rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618209
+    m_Localized: Earn extra at Tony's
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618210
+    m_Localized: 'Study toward the next gig, knowledge needed:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1676952950792192
+    m_Localized: Evening
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

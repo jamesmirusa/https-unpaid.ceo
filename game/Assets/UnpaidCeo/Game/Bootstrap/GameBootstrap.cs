@@ -92,7 +92,7 @@ namespace UnpaidCeo.Game.Bootstrap
             if (loaded)
             {
                 if (_state != null) _city?.Sync(_state);
-                if (_light != null && Ui != null) _light.Set(Ui.IsNeon ? TimeOfDay.Night : TimeOfDay.Day);
+                if (_light != null && Ui != null) _light.Set(Ui.LightTime);
                 PlaceHeroAtHome();
                 if (_audio != null) StartCoroutine(_audio.LoadDayTheme(DistrictMusic(chapter)));
             }
@@ -284,7 +284,7 @@ namespace UnpaidCeo.Game.Bootstrap
         /// <summary>The career screens' events (also after a run, when the career screens are rebuilt).</summary>
         void WireCareerUi()
         {
-            Ui!.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
+            Ui!.ThemeChanged += neon => { if (_light != null && Ui != null) _light.Set(Ui.LightTime); };
             Ui.ResetRequested += () => { CloudSync.MarkReset(); SaveService.Delete(); SceneManager.LoadScene(0); };
             Ui.AccountChanged += OnAccountChanged;
             Ui.QuizAnswered += OnQuizAnswered;
@@ -309,6 +309,7 @@ namespace UnpaidCeo.Game.Bootstrap
             Ui.PlaceEnterRequested += id => { if (!_busy && !_swapping && !_entering) StartCoroutine(EnterPlace(id)); };
             Ui.Visit.ActionChosen += _ => { _stage?.HostReacts(CharacterAnimator.State.Cheer); _stage?.HeroReacts(CharacterAnimator.State.Think); };
             Ui.Visit.Talked += () => _stage?.HostReacts(CharacterAnimator.State.Think);
+            Ui.SceneRequested += PlayHostScene;
             Ui.Visit.Exited += () => StartCoroutine(LeavePlace());
         }
 
@@ -457,7 +458,7 @@ namespace UnpaidCeo.Game.Bootstrap
             if (neon) Ui.SetTheme(true);
             if (run != null)
             {
-                Ui.ThemeChanged += on => { if (_light != null) _light.Set(on ? TimeOfDay.Night : TimeOfDay.Day); };
+                Ui.ThemeChanged += on => { if (_light != null && Ui != null) _light.Set(Ui.LightTime); };
                 Ui.AccountChanged += OnAccountChanged;   // Settings is reachable in a run too
                 Ui.NextMonthRequested += () => { if (!_busy) StartCoroutine(NextRunMonth()); };
                 Ui.LoanTaken += () => _runs?.Save();
@@ -636,7 +637,46 @@ namespace UnpaidCeo.Game.Bootstrap
             _yarn.ChoiceApplied += (storylet, choice) =>
             {
                 var def = _engine?.Content.Storylets.FirstOrDefault(x => x.Id == storylet);
-                if (def != null && def.Choices.TryGetValue(choice, out var effects) && Ui != null) presenter.ShowConsequences(effects, Ui.Language);
+                if (def != null && def.Choices.TryGetValue(choice, out var effects) && Ui != null)
+                {
+                    presenter.ShowConsequences(effects, Ui.Language);
+                    // stage 5B: "Tony +2 ♥" and, when a level is reached, the short level-up moment with its bonus
+                    foreach (var n in effects.OfType<UnpaidCeo.Core.Narrative.NpcEffect>())
+                    {
+                        presenter.ShowTrust(n.Npc, n.Delta);
+                        int after = _state!.Npcs.Get(n.Npc);
+                        int la = UnpaidCeo.Core.Narrative.Relationships.Level(after), lb = UnpaidCeo.Core.Narrative.Relationships.Level(after - n.Delta);
+                        if (la > lb)
+                        {
+                            var bonus = UnpaidCeo.Core.Narrative.LevelBonuses.Reached(_engine!.Content.Balance, n.Npc, lb, la);
+                            // the bonus line only when this choice granted it (trust can fall and climb back)
+                            bool fresh = bonus != null && _state.Facts.Items.TryGetValue(bonus.Fact, out var m) && m == _state.Month
+                                         && _state.Journal.Count > 0 && _state.Journal[_state.Journal.Count - 1].TextKey == "journal." + bonus.Key;
+                            Ui.ShowLevelUp(n.Npc, la, fresh ? bonus!.Key : null);
+                        }
+                    }
+                    if (def.Host != null) _stage?.HostReacts(effects.OfType<UnpaidCeo.Core.Narrative.NpcEffect>().Sum(x => x.Delta) >= 0 ? CharacterAnimator.State.Cheer : CharacterAnimator.State.Think);
+                }
+            };
+            presenter.Language = () => Ui != null ? Ui.Language : "en";
+            presenter.Host = () =>
+            {
+                var st = _yarn.CurrentStorylet != null ? _engine?.Content.Storylets.FirstOrDefault(x => x.Id == _yarn.CurrentStorylet) : null;
+                return st?.Host != null && _state != null ? (st.Host, _state.Npcs.Get(st.Host)) : ((string, int)?)null;
+            };
+            presenter.Describe = lineId =>
+            {
+                var st = _yarn.CurrentStorylet != null ? _engine?.Content.Storylets.FirstOrDefault(x => x.Id == _yarn.CurrentStorylet) : null;
+                if (st == null || _state == null) return null;
+                var choice = st.ChoiceLines.FirstOrDefault(kv => kv.Value == lineId).Key;
+                if (choice == null) return null;
+                return new UnpaidCeo.Game.Ui.DialogueOptionsView.Option
+                {
+                    Tone = st.Tones.TryGetValue(choice, out var tone) ? tone : null,
+                    Locked = UnpaidCeo.Core.Narrative.HostScenes.Locked(st, choice, _state),
+                    RequiredKnowledge = st.Requires.TryGetValue(choice, out var need) ? need : 0,
+                    Effects = st.Choices.TryGetValue(choice, out var fx) ? fx : null,
+                };
             };
             go.SetActive(true);
         }
@@ -732,6 +772,38 @@ namespace UnpaidCeo.Game.Bootstrap
             PlayScenes();
             while (_busy) yield return null;
             if (ui != null) ui.AskConsent();
+        }
+
+        /// <summary>Stage 5B · "Talk" made a host's scene pending: it plays now, in the room with the camera close on the host.</summary>
+        async void PlayHostScene(UnpaidCeo.Core.Narrative.StoryletDef scene)
+        {
+            // busy (the week is running): the scene stays pending; if the week ends first, Core puts it back to wait at the host
+            if (_yarn == null || _engine == null || _state == null || _busy) return;
+            _busy = true;
+            try
+            {
+                _yarn.Bind(_engine, _state);
+                Ui?.SetSceneOpen(true);
+                if (_stage != null && _stage.Showing) StartCoroutine(_stage.CloseUp(true));
+                await _yarn.PlayAsync(scene);
+                if (this == null || !isActiveAndEnabled) return;
+                Ui?.SetSceneOpen(false);
+                Ui?.RefreshHud();
+                Ui?.Visit.RefreshHearts();
+                Ui?.DecisionsPanel.Refresh();   // a bonus may have opened a deed
+                SaveService.Save(_state);
+                PushCloud();
+            }
+            catch (Exception e) { Debug.LogException(e); }
+            finally
+            {
+                _busy = false;
+                if (this != null)
+                {
+                    Ui?.SetSceneOpen(false);
+                    if (_stage != null && _stage.Showing) StartCoroutine(_stage.CloseUp(false));
+                }
+            }
         }
 
         async void PlayScenes()

@@ -15,6 +15,16 @@ namespace UnpaidCeo.Core.Narrative
         public int CooldownMonths { get; set; }
         /// <summary>Always played when eligible, whatever the month's dice (chapter bosses).</summary>
         public bool Priority { get; set; }
+        /// <summary>Stage 5B · the host the scene waits at (tony, mom…); null = a city event that comes by itself.</summary>
+        public string Host { get; set; }
+        /// <summary>Order in the host's line (lower first).</summary>
+        public int Step { get; set; }
+        /// <summary>A reaction to a past decision: it goes before the host's next step.</summary>
+        public bool Reaction { get; set; }
+        /// <summary>Choice id → tone of the answer: friendly | business | joke | firm (icon in a fixed place).</summary>
+        public Dictionary<string, string> Tones { get; set; } = new Dictionary<string, string>();
+        /// <summary>Choice id → knowledge the answer needs (shown locked with its requirement until then).</summary>
+        public Dictionary<string, int> Requires { get; set; } = new Dictionary<string, int>();
         public Dictionary<string, List<Effect>> Choices { get; set; } = new Dictionary<string, List<Effect>>();
         /// <summary>Choice id → Yarn line id of the option, so the journal can quote the chosen line in any language.</summary>
         public Dictionary<string, string> ChoiceLines { get; set; } = new Dictionary<string, string>();

@@ -20,6 +20,7 @@ namespace UnpaidCeo.Game.Ui
         readonly Label _amountValue, _aprValue, _paymentValue;
         readonly List<Button> _terms = new List<Button>();
         int _months;
+        VisualElement _panel;
 
         public VisualElement Root { get; }
         public bool IsOpen => Root.style.display == DisplayStyle.Flex;
@@ -38,7 +39,7 @@ namespace UnpaidCeo.Game.Ui
             _state = state;
             Root = new VisualElement { name = "loan-dialog" };
             Root.AddToClassList("modal");
-            var panel = new VisualElement();
+            var panel = _panel = new VisualElement();
             panel.AddToClassList("modal__panel");
             Root.Add(panel);
 
@@ -102,6 +103,7 @@ namespace UnpaidCeo.Game.Ui
             var terms = _engine.Content.Balance.Loans.TermsMonths;
             SelectTerm(terms.Length > 0 ? terms[terms.Length - 1] : 12);
             Root.style.display = DisplayStyle.Flex;
+            Kit.PopIn.Play(_panel);
             Root.BringToFront();
         }
 

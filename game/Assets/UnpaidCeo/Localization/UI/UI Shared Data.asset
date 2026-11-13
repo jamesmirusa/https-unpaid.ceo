@@ -1935,6 +1935,434 @@ MonoBehaviour:
     m_Key: lever.staff_max
     m_Metadata:
       m_Items: []
+  - m_Id: 1653771414265856
+    m_Key: toast.new_lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161202855936
+    m_Key: settings.sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161215438848
+    m_Key: settings.sound.on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161215438849
+    m_Key: settings.sound.off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661556998791168
+    m_Key: calendar.week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179776
+    m_Key: calendar.actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179777
+    m_Key: calendar.wk.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179778
+    m_Key: calendar.wk.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179779
+    m_Key: calendar.wk.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179780
+    m_Key: calendar.wk.4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179781
+    m_Key: calendar.now
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179782
+    m_Key: calendar.free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179783
+    m_Key: calendar.name.bill.room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179784
+    m_Key: calendar.name.loan.pay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179785
+    m_Key: calendar.name.bill.essentials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179786
+    m_Key: calendar.name.bill.food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179787
+    m_Key: calendar.tip.free
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179788
+    m_Key: calendar.tip.gap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179789
+    m_Key: calendar.tip.bill.room
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179790
+    m_Key: calendar.tip.loan.pay
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179791
+    m_Key: calendar.tip.bill.essentials
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179792
+    m_Key: calendar.tip.bill.food
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179793
+    m_Key: radial.enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179794
+    m_Key: radial.hint.enter
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179795
+    m_Key: radial.hint.talk
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179796
+    m_Key: radial.hint.week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1661557007179797
+    m_Key: radial.hint.journal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043557036032
+    m_Key: action.weekend_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618944
+    m_Key: journal.action.weekend_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618945
+    m_Key: place.action.weekend_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618946
+    m_Key: place.react.weekend_shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618947
+    m_Key: action.sunday_dinner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618948
+    m_Key: journal.action.sunday_dinner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618949
+    m_Key: place.action.sunday_dinner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618950
+    m_Key: place.react.sunday_dinner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618951
+    m_Key: bonus.tony.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618952
+    m_Key: bonus.mom.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618953
+    m_Key: journal.bonus.tony.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618954
+    m_Key: journal.bonus.mom.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018611081216
+    m_Key: radial.call_mom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018619469824
+    m_Key: radial.hint.call_mom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018619469825
+    m_Key: tone.friendly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664128
+    m_Key: tone.business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664129
+    m_Key: tone.joke
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664130
+    m_Key: tone.firm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664131
+    m_Key: levelup.level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664132
+    m_Key: live.tony.cold.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664133
+    m_Key: live.tony.cold.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664134
+    m_Key: live.tony.cold.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664135
+    m_Key: live.tony.neutral.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664136
+    m_Key: live.tony.neutral.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664137
+    m_Key: live.tony.neutral.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664138
+    m_Key: live.tony.warm.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664139
+    m_Key: live.tony.warm.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664140
+    m_Key: live.tony.warm.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664141
+    m_Key: live.tony.close.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664142
+    m_Key: live.tony.close.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664143
+    m_Key: live.tony.close.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664144
+    m_Key: live.mom.cold.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664145
+    m_Key: live.mom.cold.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664146
+    m_Key: live.mom.cold.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664147
+    m_Key: live.mom.neutral.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664148
+    m_Key: live.mom.neutral.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664149
+    m_Key: live.mom.neutral.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664150
+    m_Key: live.mom.warm.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664151
+    m_Key: live.mom.warm.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664152
+    m_Key: live.mom.warm.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664153
+    m_Key: live.mom.close.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664154
+    m_Key: live.mom.close.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1669018623664155
+    m_Key: live.mom.close.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536529035264
+    m_Key: needs.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618176
+    m_Key: need.energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618177
+    m_Key: need.relationships
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618178
+    m_Key: need.knowledge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618179
+    m_Key: need.reputation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618180
+    m_Key: need.energy.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618181
+    m_Key: need.energy.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618182
+    m_Key: need.relationships.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618183
+    m_Key: need.relationships.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618184
+    m_Key: need.knowledge.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618185
+    m_Key: need.knowledge.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618186
+    m_Key: need.reputation.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618187
+    m_Key: need.reputation.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618188
+    m_Key: mood.burnout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618189
+    m_Key: mood.burnout.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618190
+    m_Key: mood.shark_debt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618191
+    m_Key: mood.shark_debt.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618192
+    m_Key: mood.in_debt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618193
+    m_Key: mood.in_debt.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618194
+    m_Key: mood.lonely
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618195
+    m_Key: mood.lonely.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618196
+    m_Key: mood.paycheck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618197
+    m_Key: mood.paycheck.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618198
+    m_Key: mood.rested
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618199
+    m_Key: mood.rested.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618200
+    m_Key: mood.cushion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618201
+    m_Key: mood.cushion.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618202
+    m_Key: wants.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618203
+    m_Key: wants.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618204
+    m_Key: want.talk.tony
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618205
+    m_Key: want.talk.mom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618206
+    m_Key: want.reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618207
+    m_Key: want.lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618208
+    m_Key: want.rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618209
+    m_Key: want.earn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618210
+    m_Key: want.study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1676952950792192
+    m_Key: settings.theme.evening
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

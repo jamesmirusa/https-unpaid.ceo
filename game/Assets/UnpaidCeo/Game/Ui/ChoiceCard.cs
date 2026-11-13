@@ -58,6 +58,13 @@ namespace UnpaidCeo.Game.Ui
             Add(_status);
         }
 
+        /// <summary>A game icon on a tile at the card's left (stage 5B).</summary>
+        public ChoiceCard WithIcon(string gameIcon)
+        {
+            Kit.Icons.Decorate(this, Kit.Icons.Game(gameIcon), "icon--tile");
+            return this;
+        }
+
         /// <summary>What the choice costs and gives: money first, then each effect.</summary>
         public void SetChips(Money cost, IEnumerable<Effect> effects, string lang)
         {
@@ -72,6 +79,8 @@ namespace UnpaidCeo.Game.Ui
         {
             Armed = false;
             RemoveFromClassList(ArmedClass);
+            // a deed a relationship has not opened yet is not offered at all (stage 5B level bonuses)
+            style.display = state == ChoiceState.Locked ? DisplayStyle.None : DisplayStyle.Flex;
             bool done = state == ChoiceState.Planned || state == ChoiceState.DoneThisTurn;
             SetEnabled(state == ChoiceState.Open);
             EnableInClassList(DoneClass, done);

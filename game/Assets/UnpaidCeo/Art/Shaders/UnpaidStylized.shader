@@ -14,6 +14,7 @@ Shader "UnpaidCeo/Stylized"
         _BumpScale ("Normal Strength", Float) = 1
         _EmissionMap ("Emission Map", 2D) = "white" {}
         [HDR] _EmissionColor ("Neon Emission", Color) = (0, 0, 0, 1)
+        _WindowGlow ("Window Glow (buildings)", Range(0, 1)) = 0
     }
 
     SubShader
@@ -34,6 +35,7 @@ Shader "UnpaidCeo/Stylized"
             half4 _EmissionColor;
             float4 _BumpMap_ST;
             half _BumpScale;
+            half _WindowGlow;
         CBUFFER_END
 
         TEXTURE2D(_BaseMap);     SAMPLER(sampler_BaseMap);
@@ -138,6 +140,22 @@ Shader "UnpaidCeo/Stylized"
 
                 half3 emission = SAMPLE_TEXTURE2D(_EmissionMap, sampler_EmissionMap, i.uv).rgb * _EmissionColor.rgb;
                 color += emission * lerp(0.15h, 1.5h, saturate(_UnpaidNight));
+
+                // Stage 5B · warm windows as the evening comes: on a facade (a vertical face) the pale grey glass texels
+                // glow; a hash of the window's cell leaves about 40 % of them dark, so the block looks lived in.
+                if (_WindowGlow > 0.001h)
+                {
+                    half lum = dot(albedo.rgb, half3(0.299h, 0.587h, 0.114h));
+                    half sat = max(albedo.r, max(albedo.g, albedo.b)) - min(albedo.r, min(albedo.g, albedo.b));
+                    // the project renders in gamma space: dark window glass sits around 0.2–0.35, brick is saturated
+                    // window glass in the generated facades is a pale, colourless grey; brick is saturated, trim is lighter
+                    half glass = saturate((lum - 0.2h) * 8.0h) * saturate((0.66h - lum) * 8.0h) * saturate((0.13h - sat) * 14.0h);
+                    half facade = saturate((0.35h - abs(n.y)) * 4.0h);
+                    float3 cell = floor(i.positionWS * float3(0.62, 0.42, 0.62));
+                    half lit = step(0.4h, frac(sin(dot(cell, float3(12.9898, 78.233, 37.719))) * 43758.5453));
+                    half evening = smoothstep(0.25h, 0.7h, saturate(_UnpaidNight));
+                    color = lerp(color, half3(1.0h, 0.74h, 0.4h) * 1.6h, saturate(glass * facade * lit * evening * _WindowGlow * 0.9h));
+                }
 
                 color = MixFog(color, i.fog);
                 return half4(color, 1);

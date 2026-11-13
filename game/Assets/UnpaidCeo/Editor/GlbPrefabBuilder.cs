@@ -161,7 +161,10 @@ namespace UnpaidCeo.Editor
                 foreach (var r in prepared.GetComponentsInChildren<Renderer>(true))
                     foreach (var m in r.sharedMaterials)
                         if (m != null && !AssetDatabase.Contains(m))
+                        {
+                            if (name.StartsWith("building_") && m.HasProperty("_WindowGlow")) m.SetFloat("_WindowGlow", 1f);   // stage 5B: lit windows in the evening
                             AssetDatabase.CreateAsset(m, $"{root}/Materials/{name}_{n++}.mat");
+                        }
                 var path = $"{root}/Prefabs/{name}.prefab";
                 PrefabUtility.SaveAsPrefabAsset(prepared, path);
                 AssetDatabase.SaveAssets();
