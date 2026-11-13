@@ -1,24 +1,32 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:VisualElement name="hud" class="hud">
-        <ui:VisualElement class="hud__block">
-            <ui:Label name="hud-cash-caption" class="hud__caption" />
-            <ui:Label name="hud-cash" class="hud__value value" />
-        </ui:VisualElement>
-        <ui:VisualElement class="hud__block">
-            <ui:Label name="hud-month-caption" class="hud__caption" />
-            <ui:Label name="hud-month" class="hud__value hud__value--plain value" />
-        </ui:VisualElement>
-        <ui:VisualElement class="hud__block">
-            <ui:VisualElement class="hud__caption-row">
-                <ui:Label name="hud-energy-caption" class="hud__caption" />
-                <ui:Label name="hud-energy-value" class="hud__caption hud__energy-value value" />
+        <ui:VisualElement class="hud__top">
+            <ui:VisualElement name="hud-cash-pill" class="hud__pill hud__pill--cash">
+                <ui:VisualElement class="hud__pill-text">
+                    <ui:Label name="hud-cash-caption" class="hud__caption" />
+                    <ui:Label name="hud-cash" class="hud__value value" />
+                </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="hud-energy" class="energy-bar">
-                <ui:VisualElement name="hud-energy-fill" class="energy-bar__fill" />
+            <ui:VisualElement name="hud-week-pill" class="hud__pill">
+                <ui:VisualElement class="hud__pill-text">
+                    <ui:Label name="hud-month-caption" class="hud__caption" />
+                    <ui:Label name="hud-month" class="hud__value hud__value--plain value" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="hud__spacer" />
+            <ui:Button name="hud-journal" class="icon-button" />
+            <ui:Button name="hud-settings" class="icon-button" />
+        </ui:VisualElement>
+        <ui:VisualElement name="hud-stats" class="hud__stats">
+            <ui:VisualElement name="hud-stat-energy" class="hud__stat">
+                <ui:VisualElement class="hud__caption-row">
+                    <ui:Label name="hud-energy-caption" class="hud__caption hud__stat-caption" />
+                    <ui:Label name="hud-energy-value" class="hud__caption hud__energy-value value" />
+                </ui:VisualElement>
+                <ui:VisualElement name="hud-energy" class="energy-bar">
+                    <ui:VisualElement name="hud-energy-fill" class="energy-bar__fill" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement class="hud__spacer" />
-        <ui:Button name="hud-journal" class="icon-button" />
-        <ui:Button name="hud-settings" class="icon-button" />
     </ui:VisualElement>
 </ui:UXML>

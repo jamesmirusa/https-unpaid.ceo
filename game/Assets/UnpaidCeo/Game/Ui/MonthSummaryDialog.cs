@@ -14,6 +14,8 @@ namespace UnpaidCeo.Game.Ui
     {
         readonly Label _title, _month, _revenue, _profit, _personal, _other, _cash, _change, _tip;
 
+        readonly VisualElement _panel;
+        readonly VisualElement _icon;
         public VisualElement Root { get; }
         public bool IsOpen => Root.style.display == DisplayStyle.Flex;
         /// <summary>The player asked for the full report.</summary>
@@ -24,10 +26,12 @@ namespace UnpaidCeo.Game.Ui
         {
             Root = new VisualElement { name = "month-summary" };
             Root.AddToClassList("modal");
-            var panel = new VisualElement();
+            var panel = _panel = new VisualElement();
             panel.AddToClassList("modal__panel");
             var head = new VisualElement();
             head.AddToClassList("summary__head");
+            _icon = Kit.Icons.Game("profit", "summary__icon");
+            head.Add(_icon);
             _title = UiText.Label("summary.title", "section-title");
             _month = UiText.ValueLabel("", "section-title");
             _month.name = "summary-month";
@@ -129,6 +133,12 @@ namespace UnpaidCeo.Game.Ui
             UiText.Bind(_tip, TipKey(report));
             Root.style.display = DisplayStyle.Flex;
             Root.BringToFront();
+            Root.parent?.Q("toast")?.BringToFront();   // a toast ("new lesson") stays readable over the result
+            // a profitable week is a small moment: a coin chime and a heavier tick; otherwise the plain pop
+            bool good = report.CashEnd > report.CashStart;
+            _icon.style.backgroundImage = new StyleBackground(Kit.Icons.Load(Kit.Icons.GameFolder + (good ? "profit" : "money_date")));
+            Kit.PopIn.Play(_panel, good ? Kit.UiSound.Success : Kit.UiSound.Pop);
+            if (good) Kit.Haptics.Play(Kit.Haptics.Kind.Success);
         }
 
         static void Set(Label label, Money amount, string language, bool signed)

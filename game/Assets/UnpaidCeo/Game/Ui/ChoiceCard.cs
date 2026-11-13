@@ -58,6 +58,13 @@ namespace UnpaidCeo.Game.Ui
             Add(_status);
         }
 
+        /// <summary>A game icon on a tile at the card's left (stage 5B).</summary>
+        public ChoiceCard WithIcon(string gameIcon)
+        {
+            Kit.Icons.Decorate(this, Kit.Icons.Game(gameIcon), "icon--tile");
+            return this;
+        }
+
         /// <summary>What the choice costs and gives: money first, then each effect.</summary>
         public void SetChips(Money cost, IEnumerable<Effect> effects, string lang)
         {

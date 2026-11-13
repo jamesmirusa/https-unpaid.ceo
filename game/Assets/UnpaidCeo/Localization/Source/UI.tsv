@@ -466,3 +466,7 @@ lever.units_max	The most locations this game allows	Больше точек в �
 lever.no_money	Not enough cash for a new location	Не хватает денег на новую точку
 lever.staff_none	No staff — nobody to let go	Сотрудников нет — увольнять некого
 lever.staff_max	Your locations need no more people	Больше людей точкам не нужно
+toast.new_lesson	A new lesson is open	Открылся новый урок
+settings.sound	Sounds and vibration	Звуки и вибрация
+settings.sound.on	On	Включены
+settings.sound.off	Off	Выключены

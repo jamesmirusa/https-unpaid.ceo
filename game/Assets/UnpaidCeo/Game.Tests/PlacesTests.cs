@@ -152,7 +152,7 @@ namespace UnpaidCeo.Game.Tests
         public IEnumerator A_marker_on_the_map_opens_its_place()
         {
             yield return Boot();
-            _ui.PlaceMarker("bodega", new Vector2(500, 700));
+            _ui.PlaceMarker("bodega", new Vector2(500, 900));
             yield return null;
             var marker = _ui.Screen(UiRoot.City).Q<Button>("marker-bodega");
             Assert.IsNotNull(marker);

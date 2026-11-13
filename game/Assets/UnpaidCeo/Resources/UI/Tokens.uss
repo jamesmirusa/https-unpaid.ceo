@@ -11,24 +11,36 @@
 }
 .app Label, .app Button { color: var(--text); }
 
-/* HUD */
-.hud { flex-direction: row; align-items: center; padding: 16px 24px; background-color: var(--chrome); border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; }
+/* HUD (stage 5B): a floating navy card — money and week pills, icon buttons, the hero's stats row. */
+.hud { flex-direction: column; margin: 14px 16px 0 16px; padding: 18px 20px 20px 20px; background-color: var(--chrome); border-radius: 44px; border-width: 2px; border-color: var(--chrome-edge); border-top-color: var(--chrome-highlight); }
+.hud__top { flex-direction: row; align-items: center; }
+.hud__pill { flex-direction: row; align-items: center; height: 92px; padding: 0 28px 0 12px; margin-right: 14px; border-radius: 46px; background-color: var(--chrome-2); }
+.hud__pill-icon { width: 70px; height: 70px; margin-right: 10px; }
+.hud__pill-text { flex-direction: column; justify-content: center; }
 .hud__block { flex-direction: column; margin-right: 28px; }
-.hud__caption { font-size: 26px; color: var(--chrome-dim); }
-.hud__value { font-size: 44px; -unity-font-style: bold; color: var(--money-on-chrome); }
+.hud__caption { font-size: 22px; color: var(--chrome-dim); }
+.hud__value { font-size: 44px; -unity-font-style: bold; color: var(--money-on-chrome); margin-top: -4px; }
 .hud__value--plain { color: var(--on-chrome); }
 .hud__spacer { flex-grow: 1; }
-.energy-bar { width: 170px; height: 22px; margin-top: 10px; background-color: var(--track); border-radius: 11px; overflow: hidden; }
-.energy-bar__fill { height: 100%; background-color: var(--energy); transition-property: width; transition-duration: 0.35s; }
+.hud__stats { flex-direction: row; flex-wrap: wrap; margin-top: 14px; }
+.hud__stat { width: 50%; padding-right: 22px; }
+.hud__stat-icon { width: 38px; height: 38px; margin-right: 8px; }
+.hud__stat-caption { flex-grow: 1; font-size: 24px; -unity-font-style: bold; }
+.energy-bar { height: 16px; margin-top: 8px; background-color: var(--chrome-track); border-radius: 8px; overflow: hidden; }
+.energy-bar__fill { height: 100%; background-color: var(--energy); border-radius: 8px; transition-property: width; transition-duration: 0.3s; transition-timing-function: ease-out; }
 .hud__caption-row { flex-direction: row; align-items: center; }
-.hud__energy-value { margin-left: 8px; -unity-font-style: bold; }
-.icon-button { padding: 8px 18px; margin-left: 10px; font-size: 26px; border-radius: 20px; border-width: 0; background-color: var(--panel-strong); }
+.hud__energy-value { margin-left: 8px; font-size: 24px; -unity-font-style: bold; }
+.app .hud__energy-value { color: var(--on-chrome); }
+.icon-button { width: 136px; height: 112px; margin: 0 0 0 12px; padding: 0 0 10px 0; border-radius: 30px; border-width: 0; border-bottom-width: 6px; border-bottom-color: var(--chrome-lip); background-color: var(--chrome-2); font-size: 18px; -unity-font-style: bold; -unity-text-align: lower-center; white-space: nowrap; }
+.app .icon-button { color: var(--chrome-dim); }
+.icon-button .icon { -unity-background-image-tint-color: var(--on-chrome); width: 50px; height: 50px; top: 16px; }
 
 /* Screens */
 .content { flex-grow: 1; }
 .screen { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 24px; }
 /* Opaque: a popup lies over the city's widgets, and a see-through panel let the guide's text show through the lists. */
-.screen--panel { left: 16px; right: 16px; top: 16px; bottom: 16px; background-color: var(--panel-strong); border-radius: 32px; }
+.screen--panel { left: 16px; right: 16px; top: 16px; bottom: 16px; background-color: var(--ground); border-radius: 44px; border-width: 2px; border-color: var(--card-edge); border-top-color: var(--card-highlight); scale: 0.94 0.94; opacity: 0; transition-property: scale, opacity; transition-duration: 0.25s, 0.16s; transition-timing-function: ease-out-back, ease-out; }
+.screen--panel.popup--in { scale: 1 1; opacity: 1; }
 .screen__title { font-size: 54px; -unity-font-style: bold; margin-bottom: 16px; }
 .section-title { font-size: 36px; -unity-font-style: bold; margin-top: 24px; margin-bottom: 8px; }
 .hint { font-size: 30px; color: var(--text-dim); white-space: normal; }
@@ -45,12 +57,17 @@
 .pnl-chart { height: 340px; margin: 12px 0 20px 0; }
 
 /* Primary action and navigation */
-.primary-button { height: 120px; margin: 0 24px 16px 24px; border-radius: 32px; border-width: 0; background-color: var(--accent); font-size: 44px; -unity-font-style: bold; }
+.primary-button { height: 128px; margin: 0 24px 16px 24px; border-radius: 40px; border-width: 0; border-top-width: 3px; border-top-color: var(--accent-highlight); border-bottom-width: 10px; border-bottom-color: var(--accent-lip); background-color: var(--accent); font-size: 44px; -unity-font-style: bold; }
 .app .primary-button { color: var(--on-accent); }
-.bottom-nav { flex-direction: row; height: 124px; padding: 10px 12px 14px 12px; background-color: var(--chrome); border-top-left-radius: 32px; border-top-right-radius: 32px; }
-.nav-button { flex-grow: 1; flex-basis: 0; margin: 0 6px; padding: 0 4px; border-width: 0; border-bottom-width: 6px; border-bottom-color: rgba(0, 0, 0, 0); border-radius: 0; background-color: rgba(0, 0, 0, 0); font-size: 28px; }
+.bottom-nav { flex-direction: row; height: 160px; margin: 0 16px 16px 16px; padding: 10px; background-color: var(--chrome); border-radius: 52px; border-width: 2px; border-color: var(--chrome-edge); border-top-color: var(--chrome-highlight); }
+.nav-button { flex-grow: 1; flex-basis: 0; margin: 0 4px; padding: 0 2px 16px 2px; border-width: 0; border-radius: 40px; background-color: rgba(0, 0, 0, 0); font-size: 24px; -unity-text-align: lower-center; transition-property: translate, background-color; transition-duration: 0.18s; transition-timing-function: ease-out-back; }
+.nav-button .icon { top: 20px; width: 58px; height: 58px; -unity-background-image-tint-color: var(--chrome-dim); }
 .app .nav-button { color: var(--chrome-dim); }
-.app .nav-button--active { color: var(--on-chrome); border-bottom-color: var(--accent); -unity-font-style: bold; }
+.app .nav-button--active { color: var(--on-chrome); -unity-font-style: bold; translate: 0 -10px; }
+.nav-button--active .icon { -unity-background-image-tint-color: var(--accent); }
+.nav-badge { position: absolute; top: 8px; right: 14%; min-width: 44px; height: 44px; padding: 0 10px; border-radius: 22px; border-width: 4px; border-color: var(--chrome); background-color: var(--badge); font-size: 22px; -unity-font-style: bold; -unity-text-align: middle-center; }
+.nav-badge--dot { min-width: 28px; width: 28px; height: 28px; padding: 0; top: 16px; right: 26%; background-color: var(--accent); }
+.app .nav-badge { color: #FFFFFF; }
 
 /* Decisions */
 .share-row { flex-direction: row; align-items: center; height: 72px; }
@@ -245,17 +262,17 @@
 .app Button.popup-close:hover, .app Button.popup-close:focus, .app Button.popup-close:active,
 .app Button.chapter-bar__advance:hover, .app Button.chapter-bar__advance:focus, .app Button.chapter-bar__advance:active,
 .dialogue Button.dialogue__continue:hover, .dialogue Button.dialogue__continue:focus, .dialogue Button.dialogue__continue:active { background-color: var(--accent); }
-.app Button.nav-button:hover, .app Button.nav-button:focus, .app Button.nav-button:active { background-color: rgba(255, 255, 255, 0.08); }
-.app Button.choice-button:hover, .app Button.choice-button:focus,
-.app Button.icon-button:hover, .app Button.icon-button:focus, .app Button.academy__item:hover, .app Button.academy__item:focus,
+.app Button.nav-button:hover, .app Button.nav-button:focus, .app Button.nav-button:active { background-color: rgba(255, 255, 255, 0.06); }
+.app Button.nav-button.nav-button--active, .app Button.nav-button.nav-button--active:hover, .app Button.nav-button.nav-button--active:focus { background-color: var(--accent-soft); }
+.app Button.choice-button:hover, .app Button.choice-button:focus, .app Button.academy__item:hover, .app Button.academy__item:focus,
 .app Button.academy__option:hover, .app Button.academy__option:focus,
 .dialogue Button.dialogue__option:hover, .dialogue Button.dialogue__option:focus { background-color: var(--panel-strong); }
-.app Button.choice-button:active, .app Button.icon-button:active, .app Button.academy__item:active,
+.app Button.choice-button:active, .app Button.academy__item:active,
 .app Button.academy__option:active, .dialogue Button.dialogue__option:active { background-color: var(--track); }
 .app Button.missions__toggle:hover, .app Button.missions__toggle:focus, .app Button.missions__toggle:active,
 .app Button.link-button:hover, .app Button.link-button:focus, .app Button.link-button:active { background-color: rgba(0, 0, 0, 0); }
 .app Button.danger-button:hover, .app Button.danger-button:focus, .app Button.danger-button:active { background-color: var(--negative); }
-.app Button.primary-button:active, .app Button.guide__action:active, .app Button.popup-close:active, .dialogue Button.dialogue__continue:active { opacity: 0.75; }
+.app Button.icon-button:hover, .app Button.icon-button:focus, .app Button.icon-button:active { background-color: var(--chrome-2); }
 .app Button.primary-button:disabled { opacity: 0.45; }
 
 /* Name tags of the block's residents (the hero's own tag is the accent one). */
@@ -408,3 +425,79 @@
 .app Button.visit__talk:hover, .app Button.visit__talk:focus, .app Button.visit__talk:active { background-color: var(--panel-strong); }
 .app Button.visit__exit:hover, .app Button.visit__exit:focus, .app Button.visit__exit:active { background-color: var(--accent); }
 .fade { position: absolute; left: -4000px; right: -4000px; top: 0; bottom: 0; background-color: rgb(8, 9, 16); }
+
+/* ===== Stage 5B · UI kit and game feel ===== */
+/* Icons: service icons are white and tinted here; game icons keep their colours. Neither takes taps. */
+.icon { width: 44px; height: 44px; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit; -unity-background-image-tint-color: var(--text); }
+.game-icon { width: 64px; height: 64px; flex-shrink: 0; -unity-background-scale-mode: scale-to-fit; }
+.icon--top { position: absolute; top: 14px; left: 50%; translate: -50% 0; }
+.icon--lead { position: absolute; left: 26px; top: 50%; translate: 0 -50%; }
+.has-icon--lead { padding-left: 92px; }
+.icon--trail { position: absolute; right: 40px; top: 50%; translate: 0 -50%; width: 52px; height: 52px; }
+.primary-button .icon { -unity-background-image-tint-color: var(--on-accent); }
+/* A coloured tile with a game icon on the left of a card (deeds, modes). */
+.icon--tile { position: absolute; left: 18px; top: 18px; width: 104px; height: 104px; padding: 14px; border-radius: 30px; background-color: var(--tile); border-bottom-width: 5px; border-bottom-color: var(--card-lip); }
+.has-icon--tile { padding-left: 140px; min-height: 140px; }
+
+/* Volume: cards stand on a darker lip, panels float on a soft shadow (9-slice sprite, Kit/Shadow.cs). */
+.drop-shadow { background-image: url("Kit/shadow.png"); -unity-slice-left: 72; -unity-slice-right: 72; -unity-slice-top: 72; -unity-slice-bottom: 72; -unity-background-image-tint-color: rgba(10, 16, 32, 0.55); }
+.week-card, .visit__choice, .place-action { border-bottom-width: 9px; border-bottom-color: var(--card-lip); background-color: var(--card-face); }
+.screen--panel .week-card, .screen--panel .visit__choice { background-color: var(--card-face); }
+.week-card--selected, .visit__choice--planned { border-bottom-color: var(--accent-lip); }
+.visit__choice--recommended { border-bottom-color: var(--energy-lip); }
+.guide, .gate, .missions, .chapter-bar { border-width: 2px; border-color: var(--card-edge); border-top-color: var(--card-highlight); border-bottom-width: 7px; border-bottom-color: var(--card-lip); }
+.guide { border-left-width: 2px; border-left-color: var(--card-edge); }
+.guide__action, .visit__exit, .chapter-bar__advance { border-top-width: 2px; border-top-color: var(--accent-highlight); border-bottom-width: 7px; border-bottom-color: var(--accent-lip); }
+.popup-close { border-bottom-width: 6px; border-bottom-color: var(--accent-lip); }
+.danger-button { border-bottom-width: 7px; border-bottom-color: var(--negative-lip); }
+.lever-button { border-bottom-width: 7px; }
+.choice-button { border-bottom-width: 6px; border-bottom-color: var(--card-lip); }
+.choice-button--selected { border-bottom-color: var(--accent-lip); }
+
+/* Every button answers the touch: it sinks (scale, lip pressed in) and springs back on release (ease-out-back). */
+.app Button { transition-property: scale, translate, border-bottom-width; transition-duration: 0.12s; transition-timing-function: ease-out-back; }
+.app Button.feel--pressed { scale: 0.96 0.96; }
+.app Button.primary-button.feel--pressed, .app Button.guide__action.feel--pressed, .app Button.visit__exit.feel--pressed,
+.app Button.chapter-bar__advance.feel--pressed, .app Button.popup-close.feel--pressed { border-bottom-width: 2px; translate: 0 6px; }
+.app Button.week-card.feel--pressed, .app Button.visit__choice.feel--pressed, .app Button.place-action.feel--pressed,
+.app Button.lever-button.feel--pressed, .app Button.choice-button.feel--pressed, .app Button.icon-button.feel--pressed { border-bottom-width: 3px; translate: 0 5px; }
+.app Button.nav-button.feel--pressed { scale: 0.92 0.92; }
+
+/* The floating change next to a number ("+$51" green, "−10" red): rises, holds, fades. */
+.delta { position: absolute; right: -18px; top: 4px; padding: 2px 14px 4px 14px; border-radius: 20px; font-size: 26px; -unity-font-style: bold; transition-property: translate, opacity; transition-duration: 0.9s, 0.45s; transition-delay: 0s, 0.45s; transition-timing-function: ease-out, ease-in; }
+.delta--positive { background-color: var(--positive); }
+.delta--negative { background-color: var(--negative); }
+.delta--fly { translate: 0 -26px; opacity: 0; }
+.app .delta { color: #FFFFFF; }
+
+/* Toasts: a short note that slides in at the top for 2 s. */
+.toast { position: absolute; top: 36px; left: 72px; right: 72px; min-height: 104px; padding: 22px 32px; border-radius: 40px; background-color: var(--chrome); border-width: 2px; border-color: var(--chrome-edge); border-top-color: var(--chrome-highlight); font-size: 32px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; translate: 0 -60px; opacity: 0; transition-property: translate, opacity; transition-duration: 0.28s, 0.2s; transition-timing-function: ease-out-back, ease-out; }
+.toast .game-icon { width: 62px; height: 62px; }
+.toast--in { translate: 0 0; opacity: 1; }
+.app .toast { color: var(--on-chrome); }
+
+/* Modals (the week result) open with the same bounce as popups. */
+.modal__panel { border-width: 2px; border-color: var(--card-edge); border-top-color: var(--card-highlight); border-bottom-width: 9px; border-bottom-color: var(--card-lip); border-radius: 44px; scale: 0.9 0.9; opacity: 0; transition-property: scale, opacity; transition-duration: 0.28s, 0.16s; transition-timing-function: ease-out-back, ease-out; }
+.modal__panel.popup--in { scale: 1 1; opacity: 1; }
+.toast.has-icon--lead { padding-left: 112px; }
+.modal__panel { background-color: var(--card-face); }
+.summary__icon { width: 92px; height: 92px; margin-right: 16px; }
+
+/* Week screen: a mode card leads with its game icon; a focus card with a small tinted one. */
+.week-card--mode { padding-top: 14px; }
+.week-card__icon { width: 84px; height: 84px; margin-bottom: 4px; }
+.week-card__title--with-icon { padding-left: 58px; }
+.week-card__title--with-icon .icon { left: 0; width: 44px; height: 44px; -unity-background-image-tint-color: var(--text); }
+.popup-close.has-icon--lead { width: 250px; padding: 0 30px 0 70px; -unity-text-align: middle-center; }
+.popup-close .icon { left: 24px; width: 38px; height: 38px; -unity-background-image-tint-color: var(--on-accent); }
+.visit__talk .icon { left: 30px; -unity-background-image-tint-color: var(--text); }
+.visit__exit .icon { left: 30px; -unity-background-image-tint-color: var(--on-accent); }
+
+/* Scroll bars: thin rounded thumbs instead of the default grey bar with arrows. */
+.app .unity-scroller--vertical { width: 14px; margin: 18px 4px 18px 0; }
+.app .unity-scroller--vertical .unity-scroller__low-button, .app .unity-scroller--vertical .unity-scroller__high-button { display: none; }
+.app .unity-scroller--vertical .unity-base-slider__tracker { background-color: rgba(0, 0, 0, 0); border-width: 0; }
+.app .unity-scroller--vertical .unity-base-slider__dragger { left: 3px; width: 8px; border-radius: 4px; border-width: 0; background-color: var(--card-lip); }
+.app .unity-scroller--vertical .unity-base-slider__drag-container { margin: 0; }
+.app .unity-scroller--horizontal { height: 0; }
+.visit { border-radius: 40px; border-bottom-width: 10px; border-bottom-color: var(--accent-lip); }

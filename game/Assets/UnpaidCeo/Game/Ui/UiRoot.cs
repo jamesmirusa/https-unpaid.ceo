@@ -9,7 +9,9 @@ using UnityEngine.UIElements;
 using UnpaidCeo.Core.Format;
 using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Platform;
+using UnpaidCeo.Core.Primitives;
 using UnpaidCeo.Game.Services.Online;
+using UnpaidCeo.Game.Ui.Kit;
 
 namespace UnpaidCeo.Game.Ui
 {
@@ -33,6 +35,7 @@ namespace UnpaidCeo.Game.Ui
     {
         public const string Table = "UI";
         public const string ValueClass = "value";
+        public const string PopupInClass = "popup--in";
         public const string LanguagePrefsKey = "unpaidceo.language";
         public static readonly string[] Languages = { "en", "ru" };
 
@@ -57,6 +60,14 @@ namespace UnpaidCeo.Game.Ui
         VisualElement _chapterBar, _chapterFill;
         Button _advance;
         Label _cash, _month;
+        VisualElement _cashPill;
+        NumberRoll _cashRoll;
+        readonly Dictionary<string, Label> _navBadges = new Dictionary<string, Label>();
+
+        static string NavIcon(string tab) => tab switch
+        {
+            PlacesTab => "map-trifold", Decisions => "calendar-dots", Company => "chart-bar", Academy => "graduation-cap", _ => "trophy",
+        };
         VisualElement _energyFill;
         Label _energyValue;
         Button _next;
@@ -564,20 +575,28 @@ namespace UnpaidCeo.Game.Ui
             Root.AddToClassList("theme-day");
             Root.style.flexGrow = 1;
             _document.rootVisualElement.Add(Root);
+            Feel.Attach(Root);
 
             var hud = Clone("Hud");
             Root.Add(hud);
+            _cashPill = hud.Q("hud-cash-pill");
+            _cashPill.Insert(0, Icons.Game("money", "hud__pill-icon"));
+            hud.Q("hud-week-pill").Insert(0, Icons.Game("money_date", "hud__pill-icon"));
+            hud.Q("hud-stat-energy").Q(className: "hud__caption-row").Insert(0, Icons.Game("energy", "hud__stat-icon"));
             UiText.Bind(hud.Q<Label>("hud-cash-caption"), "hud.cash");
             UiText.Bind(hud.Q<Label>("hud-month-caption"), "hud.week");
             UiText.Bind(hud.Q<Label>("hud-energy-caption"), "hud.energy");
             _cash = hud.Q<Label>("hud-cash");
+            _cashRoll = new NumberRoll(_cash, c => MoneyFormat.Compact(Money.FromCents(c), Language));
             _month = hud.Q<Label>("hud-month");
             _energyFill = hud.Q("hud-energy-fill");
             _energyValue = hud.Q<Label>("hud-energy-value");
             var journalButton = UiText.Bind(hud.Q<Button>("hud-journal"), "hud.journal");
             journalButton.clicked += () => Open(Journal);
+            Icons.Decorate(journalButton, Icons.Service("book-open-text"), "icon--top");
             var settingsButton = UiText.Bind(hud.Q<Button>("hud-settings"), "hud.settings");
             settingsButton.clicked += () => Open(Settings);
+            Icons.Decorate(settingsButton, Icons.Service("gear-six"), "icon--top");
 
             _chapterBar = new VisualElement { name = "chapter-bar" };
             _chapterBar.AddToClassList("chapter-bar");
@@ -628,6 +647,7 @@ namespace UnpaidCeo.Game.Ui
             AddScreen(content, PlacesTab, Clone("Places"));
             _popupClose = UiText.Bind(new Button(() => Open(City)) { name = "popup-close" }, "popup.close");
             _popupClose.AddToClassList("popup-close");
+            Icons.Decorate(_popupClose, Icons.Service("x"), "icon--lead");
             content.Add(_popupClose);
 
             // The hint band is gone: the checklist ("drop by a place in the city") says it, and the signs need the room.
@@ -717,6 +737,7 @@ namespace UnpaidCeo.Game.Ui
 
             _next = UiText.Bind(new Button(() => NextMonthRequested?.Invoke()) { name = "next-month" }, "hud.next_week");
             _next.AddToClassList("primary-button");
+            Icons.Decorate(_next, Icons.Service("fast-forward"), "icon--trail");
             Root.Add(_next);
 
             var nav = Clone("BottomNav");
@@ -726,8 +747,16 @@ namespace UnpaidCeo.Game.Ui
                 var t = tab;
                 var b = UiText.Bind(nav.Q<Button>("nav-" + tab), "dock." + tab);
                 b.clicked += () => { if (t == PlacesTab) OpenPlaces(); else Open(t); };
+                Icons.Decorate(b, Icons.Service(NavIcon(tab)), "icon--top");
+                var badge = new Label { name = "nav-badge-" + tab, pickingMode = PickingMode.Ignore };
+                badge.AddToClassList("nav-badge");
+                badge.AddToClassList(ValueClass);
+                badge.style.display = DisplayStyle.None;
+                b.Add(badge);
+                _navBadges[tab] = badge;
                 _nav[tab] = b;
             }
+            Shadow.Behind(nav);   // the dock floats over the city (the HUD's shadow would fall under the goal bar drawn after it)
 
             Root.Add(_visit.Root);
             Root.Add(_summary.Root);
@@ -778,12 +807,24 @@ namespace UnpaidCeo.Game.Ui
         {
             if (!_screens.ContainsKey(tab)) throw new ArgumentException("unknown tab " + tab, nameof(tab));
             bool popup = tab != City;
-            foreach (var s in _screens) s.Value.style.display = s.Key == tab || s.Key == City ? DisplayStyle.Flex : DisplayStyle.None;
+            bool changed = tab != CurrentTab;
+            foreach (var s in _screens)
+            {
+                s.Value.style.display = s.Key == tab || s.Key == City ? DisplayStyle.Flex : DisplayStyle.None;
+                if (s.Key != tab) s.Value.RemoveFromClassList(PopupInClass);
+            }
+            if (popup && changed)
+            {
+                var screen = _screens[tab];
+                screen.RemoveFromClassList(PopupInClass);
+                screen.schedule.Execute(() => { if (CurrentTab == tab) screen.AddToClassList(PopupInClass); }).StartingIn(16);
+                UiSound.Play(UiSound.Pop);
+            }
             _popupBackdrop.style.display = _popupClose.style.display = popup ? DisplayStyle.Flex : DisplayStyle.None;
             UnpaidCeo.Game.City.CameraRig.InputBlocked = popup || _visiting;   // drags belong to the popup (or the room), not to the city under it
             foreach (var b in _nav) b.Value.EnableInClassList("nav-button--active", b.Key == tab);
             CurrentTab = tab;
-            if (tab == Academy) { _newLesson = false; _academy.Refresh(); }
+            if (tab == Academy) { _newLesson = false; _academy.Refresh(); RefreshBadges(); }
             if (tab == Journal) _journal.Refresh();
             if (tab == Settings) { _settings.Refresh(); _account.Refresh(); }
             if (tab == Ranking) _ranking.RefreshSoon();
@@ -797,7 +838,7 @@ namespace UnpaidCeo.Game.Ui
         public void ShowReport(MonthReport report)
         {
             if (!RunMode) RecordMonth(report);
-            if (report.Lessons.Count > 0) _newLesson = true;
+            if (report.Lessons.Count > 0) { _newLesson = true; Toasts.Show(Root, "toast.new_lesson", "lesson"); }
             _company.Show(report);
             _decisions.Refresh();
             _decisions.ShowRejections(report);
@@ -811,7 +852,13 @@ namespace UnpaidCeo.Game.Ui
         public void RefreshHud()
         {
             if (_state == null) return;
-            _cash.text = MoneyFormat.Compact(_state.Cash, Language);
+            long delta = _cashRoll.Set(_state.Cash.Cents);
+            if (delta != 0)
+            {
+                FloatingDelta.Show(_cashPill, EffectChips.SignedMoney(Money.FromCents(delta), Language), delta > 0);
+                if (delta > 0) UiSound.Play(UiSound.Coin);
+            }
+            else _cashRoll.Reformat();
             _cash.EnableInClassList("value--negative", _state.Cash.Cents < 0);
             _month.text = _state.Week.ToString();
             // The energy the week's plan leaves, New2NYC-style: a choice made in a room takes its energy at once.
@@ -835,7 +882,22 @@ namespace UnpaidCeo.Game.Ui
                 _goalValue.text = MoneyFormat.Compact(shown == 1 ? balance.Chapter1CashGoal : shown == 2 ? balance.Chapter2CapitalGoal : balance.Chapter3CapitalGoal, Language);
             }
             if (_chooseBusiness != null) _chooseBusiness.style.display = NeedsBusiness ? DisplayStyle.Flex : DisplayStyle.None;
+            RefreshBadges();
             RefreshGuide();
+        }
+
+        /// <summary>The dock's counters: actions left this week on the Week tab, a dot on Lessons when one is new.</summary>
+        void RefreshBadges()
+        {
+            if (_navBadges.Count == 0) return;
+            int left = _decisions != null && !RunMode ? _decisions.PointsLeft : 0;
+            var week = _navBadges[Decisions];
+            week.text = left.ToString();
+            week.style.display = left > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            var lessons = _navBadges[Academy];
+            lessons.text = "";
+            lessons.EnableInClassList("nav-badge--dot", true);
+            lessons.style.display = _newLesson ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         public MonthDecisions CurrentDecisions() => _decisions.Build();

@@ -1938,6 +1938,22 @@ MonoBehaviour:
     m_Localized: Your locations need no more people
     m_Metadata:
       m_Items: []
+  - m_Id: 1653771414265856
+    m_Localized: A new lesson is open
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161202855936
+    m_Localized: Sounds and vibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161215438848
+    m_Localized: On
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161215438849
+    m_Localized: Off
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

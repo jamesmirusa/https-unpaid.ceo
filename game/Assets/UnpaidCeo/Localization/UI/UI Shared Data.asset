@@ -1935,6 +1935,22 @@ MonoBehaviour:
     m_Key: lever.staff_max
     m_Metadata:
       m_Items: []
+  - m_Id: 1653771414265856
+    m_Key: toast.new_lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161202855936
+    m_Key: settings.sound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161215438848
+    m_Key: settings.sound.on
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1656161215438849
+    m_Key: settings.sound.off
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

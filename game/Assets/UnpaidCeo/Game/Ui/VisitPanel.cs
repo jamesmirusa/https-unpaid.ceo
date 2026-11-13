@@ -85,8 +85,10 @@ namespace UnpaidCeo.Game.Ui
             row.AddToClassList("visit__row");
             var talk = UiText.Bind(new Button(Talk) { name = "visit-talk" }, "visit.talk");
             talk.AddToClassList("visit__talk");
+            Kit.Icons.Decorate(talk, Kit.Icons.Service("chat-circle-dots"), "icon--lead");
             var exit = UiText.Bind(new Button(Close) { name = "visit-exit" }, "visit.exit");
             exit.AddToClassList("visit__exit");
+            Kit.Icons.Decorate(exit, Kit.Icons.Service("door-open"), "icon--lead");
             row.Add(talk);
             row.Add(exit);
             Root.Add(row);
@@ -118,7 +120,7 @@ namespace UnpaidCeo.Game.Ui
                 Button b;
                 if (a.Kind == PlaceActionKind.Plan && _engine.Content.FreeActions.TryGetValue(a.FreeAction, out var free))
                 {
-                    var card = new ChoiceCard("visit-action-" + a.Id, "visit-status-" + a.Id, "place.action." + a.Id, () => Choose(a));
+                    var card = new ChoiceCard("visit-action-" + a.Id, "visit-status-" + a.Id, "place.action." + a.Id, () => Choose(a)).WithIcon(Kit.GameIconFor.Action(a.FreeAction));
                     card.SetChips(free.Cost, free.Effects, _ui.Language);
                     card.Confirm = free.Confirm;
                     _cards[a.Id] = card;

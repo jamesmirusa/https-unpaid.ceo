@@ -77,6 +77,8 @@ namespace UnpaidCeo.Game.Ui
                 var id = mode;
                 var b = new Button(() => ChooseMode(id)) { name = "mode-" + id };
                 b.AddToClassList("week-card");
+                b.AddToClassList("week-card--mode");
+                b.Add(Kit.Icons.Game(Kit.GameIconFor.Mode(id), "week-card__icon"));
                 b.Add(UiText.Label("mode." + id, "week-card__title"));
                 b.Add(UiText.Label("mode." + id + ".desc", "week-card__desc"));
                 var chips = new VisualElement();
@@ -94,7 +96,7 @@ namespace UnpaidCeo.Game.Ui
             foreach (var fa in engine.Content.FreeActions.Values)
             {
                 var id = fa.Id;
-                var card = new ChoiceCard("action-" + id, "action-status-" + id, "action." + id, () => Plan(id));
+                var card = new ChoiceCard("action-" + id, "action-status-" + id, "action." + id, () => Plan(id)).WithIcon(Kit.GameIconFor.Action(id));
                 card.Confirm = fa.Confirm;
                 _cards[id] = card;
                 _actions.Add(card);
@@ -358,16 +360,19 @@ namespace UnpaidCeo.Game.Ui
             _focus.Clear();
             _focusStatus.Clear();
             _focusNeed.Clear();
-            foreach (var g in gigs) AddFocusCard(g.Id, "gig." + g.IndustryId);
-            AddFocusCard(WeekPlanning.EvenFocus, "focus.even");
+            foreach (var g in gigs) AddFocusCard(g.Id, "gig." + g.IndustryId, Kit.GameIconFor.Focus(g.IndustryId));
+            AddFocusCard(WeekPlanning.EvenFocus, "focus.even", Kit.GameIconFor.Focus(WeekPlanning.EvenFocus));
         }
 
-        void AddFocusCard(string id, string titleKey)
+        void AddFocusCard(string id, string titleKey, string icon)
         {
             var b = new Button(() => ChooseFocus(id)) { name = "focus-" + id };
             b.AddToClassList("week-card");
             b.AddToClassList("week-card--small");
-            b.Add(UiText.Label(titleKey, "week-card__title"));
+            var title = UiText.Label(titleKey, "week-card__title");
+            title.AddToClassList("week-card__title--with-icon");
+            Kit.Icons.Decorate(title, Kit.Icons.Service(icon, "week-card__focus-icon"), "icon--lead");
+            b.Add(title);
             var row = new VisualElement();
             row.AddToClassList("week-card__status-row");
             var status = UiText.Label("week.last", "week-card__status");
