@@ -219,6 +219,10 @@ namespace UnpaidCeo.Game.Tests
             UiSound.Sink = _ => { };
             yield return Boot(lang, Gigger);
             yield return Shot($"kit_{lang}_1_city");
+            _ui.Hud.SetExpanded(true, remember: false, autoFold: false);   // §8: the panel opened by a tap
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Shot($"kit_{lang}_1b_city_open");
+            _ui.Hud.SetExpanded(false, remember: false);
 
             _ui.Open(UiRoot.Decisions);
             yield return new WaitForSecondsRealtime(0.4f);

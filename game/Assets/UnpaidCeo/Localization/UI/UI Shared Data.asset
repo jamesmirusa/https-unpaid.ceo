@@ -2363,6 +2363,26 @@ MonoBehaviour:
     m_Key: settings.theme.evening
     m_Metadata:
       m_Items: []
+  - m_Id: 1800877433151488
+    m_Key: need.energy.low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1800877445734400
+    m_Key: need.relationships.low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1800877445734401
+    m_Key: need.knowledge.low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1800877445734402
+    m_Key: need.reputation.low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1800877445734403
+    m_Key: toast.money_week
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

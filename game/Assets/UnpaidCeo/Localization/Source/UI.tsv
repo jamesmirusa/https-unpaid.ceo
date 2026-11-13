@@ -573,3 +573,8 @@ want.rest	Get some rest	Выспаться
 want.earn	Earn extra at Tony's	Подработать у Тони
 want.study	Study toward the next gig, knowledge needed:	Учиться для следующей подработки, нужно знаний:
 settings.theme.evening	Evening	Вечер
+need.energy.low	Energy is low — rest before you burn out	Энергия на исходе — отдохните, пока не выгорели
+need.relationships.low	Your close ones feel forgotten	Близкие чувствуют себя забытыми
+need.knowledge.low	Knowledge is low — a lesson would help	Знаний мало — поможет урок
+need.reputation.low	Your reputation is slipping	Репутация падает
+toast.money_week	A money date this week — check the calendar	На этой неделе платёж — загляните в календарь

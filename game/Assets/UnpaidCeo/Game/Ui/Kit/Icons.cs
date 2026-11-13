@@ -19,7 +19,7 @@ namespace UnpaidCeo.Game.Ui.Kit
             "caret-left", "caret-right", "lock-simple", "check", "arrow-right", "fast-forward", "lightning", "coins",
             "heart", "users-three", "star", "door-open", "chat-circle-dots", "hand-coins", "warning", "info", "clock",
             "sparkle", "minus", "plus", "house-line", "briefcase", "scales", "book-open", "truck", "arrows-clockwise",
-            "robot", "storefront", "user", "piggy-bank", "bell",
+            "robot", "storefront", "user", "piggy-bank", "bell", "list", "caret-down",
         };
 
         /// <summary>Every game icon (the owner's set: tools/art/stage5b/icons/README.md).</summary>

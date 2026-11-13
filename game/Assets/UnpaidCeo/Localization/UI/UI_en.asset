@@ -2366,6 +2366,26 @@ MonoBehaviour:
     m_Localized: Evening
     m_Metadata:
       m_Items: []
+  - m_Id: 1800877433151488
+    m_Localized: "Energy is low \u2014 rest before you burn out"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1800877445734400
+    m_Localized: Your close ones feel forgotten
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1800877445734401
+    m_Localized: "Knowledge is low \u2014 a lesson would help"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1800877445734402
+    m_Localized: Your reputation is slipping
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1800877445734403
+    m_Localized: "A money date this week \u2014 check the calendar"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

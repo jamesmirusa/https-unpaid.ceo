@@ -136,7 +136,11 @@ namespace UnpaidCeo.Game.Ui
                 stat.EnableInClassList("hud__stat--low", n.Low);
                 // only real changes float (the week's result, a scene); the plan's energy preview reads "70 → 60" already
                 if (_shown.TryGetValue(n.Id, out var before) && before != n.Value)
-                    FloatingDelta.Show(stat, EffectChips.Signed(n.Value - before), n.Value > before);
+                {
+                    // folded (§8): the change floats over the need's ring in the bar; open: over its bar
+                    VisualElement host = _ui.Hud != null && !_ui.Hud.IsExpanded ? (VisualElement)_ui.Hud.Ring(n.Id) ?? stat : stat;
+                    FloatingDelta.Show(host, EffectChips.Signed(n.Value - before), n.Value > before);
+                }
                 _shown[n.Id] = n.Value;
             }
             RefreshMoods(s, engine, last);

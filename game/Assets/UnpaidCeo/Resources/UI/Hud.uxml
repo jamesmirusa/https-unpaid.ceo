@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:VisualElement name="hud" class="hud">
-        <ui:VisualElement class="hud__top">
+        <ui:VisualElement name="hud-bar" class="hud__bar">
             <ui:VisualElement name="hud-cash-pill" class="hud__pill hud__pill--cash">
                 <ui:VisualElement class="hud__pill-text">
                     <ui:Label name="hud-cash-caption" class="hud__caption" />
@@ -13,45 +13,54 @@
                     <ui:Label name="hud-month" class="hud__value hud__value--plain value" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="hud-rings" class="hud__rings" />
             <ui:VisualElement class="hud__spacer" />
-            <ui:Button name="hud-journal" class="icon-button" />
-            <ui:Button name="hud-settings" class="icon-button" />
+            <ui:Button name="hud-menu" class="hud__menu" />
         </ui:VisualElement>
+        <ui:VisualElement name="hud-goal" class="hud__goal">
+            <ui:VisualElement name="hud-goal-fill" class="hud__goal-fill" />
+        </ui:VisualElement>
+        <ui:VisualElement name="hud-expanded" class="hud__expanded">
+            <ui:VisualElement class="hud__expanded-row">
+                <ui:Button name="hud-journal" class="icon-button" />
+                <ui:Button name="hud-settings" class="icon-button" />
+            </ui:VisualElement>
         <ui:VisualElement name="hud-stats" class="hud__stats">
-            <ui:VisualElement name="hud-stat-energy" class="hud__stat">
-                <ui:VisualElement class="hud__caption-row">
-                    <ui:Label name="hud-energy-caption" class="hud__caption hud__stat-caption" />
-                    <ui:Label name="hud-energy-value" class="hud__caption hud__energy-value value" />
+                <ui:VisualElement name="hud-stat-energy" class="hud__stat">
+                    <ui:VisualElement class="hud__caption-row">
+                        <ui:Label name="hud-energy-caption" class="hud__caption hud__stat-caption" />
+                        <ui:Label name="hud-energy-value" class="hud__caption hud__energy-value value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="hud-energy" class="energy-bar">
+                        <ui:VisualElement name="hud-energy-fill" class="energy-bar__fill" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="hud-energy" class="energy-bar">
-                    <ui:VisualElement name="hud-energy-fill" class="energy-bar__fill" />
+                <ui:VisualElement name="hud-stat-relationships" class="hud__stat hud__stat--relationships">
+                    <ui:VisualElement class="hud__caption-row">
+                        <ui:Label name="hud-relationships-caption" class="hud__caption hud__stat-caption" />
+                        <ui:Label name="hud-relationships-value" class="hud__caption hud__energy-value value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="energy-bar">
+                        <ui:VisualElement name="hud-relationships-fill" class="energy-bar__fill need-fill--relationships" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="hud-stat-relationships" class="hud__stat hud__stat--relationships">
-                <ui:VisualElement class="hud__caption-row">
-                    <ui:Label name="hud-relationships-caption" class="hud__caption hud__stat-caption" />
-                    <ui:Label name="hud-relationships-value" class="hud__caption hud__energy-value value" />
+                <ui:VisualElement name="hud-stat-knowledge" class="hud__stat hud__stat--knowledge">
+                    <ui:VisualElement class="hud__caption-row">
+                        <ui:Label name="hud-knowledge-caption" class="hud__caption hud__stat-caption" />
+                        <ui:Label name="hud-knowledge-value" class="hud__caption hud__energy-value value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="energy-bar">
+                        <ui:VisualElement name="hud-knowledge-fill" class="energy-bar__fill need-fill--knowledge" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement class="energy-bar">
-                    <ui:VisualElement name="hud-relationships-fill" class="energy-bar__fill need-fill--relationships" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="hud-stat-knowledge" class="hud__stat hud__stat--knowledge">
-                <ui:VisualElement class="hud__caption-row">
-                    <ui:Label name="hud-knowledge-caption" class="hud__caption hud__stat-caption" />
-                    <ui:Label name="hud-knowledge-value" class="hud__caption hud__energy-value value" />
-                </ui:VisualElement>
-                <ui:VisualElement class="energy-bar">
-                    <ui:VisualElement name="hud-knowledge-fill" class="energy-bar__fill need-fill--knowledge" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="hud-stat-reputation" class="hud__stat hud__stat--reputation">
-                <ui:VisualElement class="hud__caption-row">
-                    <ui:Label name="hud-reputation-caption" class="hud__caption hud__stat-caption" />
-                    <ui:Label name="hud-reputation-value" class="hud__caption hud__energy-value value" />
-                </ui:VisualElement>
-                <ui:VisualElement class="energy-bar">
-                    <ui:VisualElement name="hud-reputation-fill" class="energy-bar__fill need-fill--reputation" />
+                <ui:VisualElement name="hud-stat-reputation" class="hud__stat hud__stat--reputation">
+                    <ui:VisualElement class="hud__caption-row">
+                        <ui:Label name="hud-reputation-caption" class="hud__caption hud__stat-caption" />
+                        <ui:Label name="hud-reputation-value" class="hud__caption hud__energy-value value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="energy-bar">
+                        <ui:VisualElement name="hud-reputation-fill" class="energy-bar__fill need-fill--reputation" />
+                    </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:VisualElement>

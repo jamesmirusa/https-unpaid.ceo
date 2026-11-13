@@ -202,12 +202,29 @@ namespace UnpaidCeo.Game.Bootstrap
                 if (!seen.Contains(old)) { Ui!.PlaceTag(old, _tagged[old], null); _tagged.Remove(old); }
         }
 
+        Vector3 _seenCam, _seenHero;
+        Quaternion _seenCamTurn;
+
+        /// <summary>§8 walk mode: a moving camera or a walking hero clears the cards until things settle.</summary>
+        void NoticeMotion(Camera cam)
+        {
+            var t = cam.transform;
+            var hero = _hero != null && _hero.Model != null ? _hero.Model.transform.position : _seenHero;
+            bool moved = (t.position - _seenCam).sqrMagnitude > 1e-4f || Quaternion.Angle(t.rotation, _seenCamTurn) > 0.05f
+                         || (hero - _seenHero).sqrMagnitude > 1e-4f;
+            _seenCam = t.position;
+            _seenCamTurn = t.rotation;
+            _seenHero = hero;
+            if (moved && Current == Phase.Playing) Ui!.NotifyCityMotion();
+        }
+
         /// <summary>"You" above the hero, where the camera shows it.</summary>
         void LateUpdate()
         {
             if (Ui == null || Ui.Root == null) return;
             var cam = _rig != null ? _rig.GetComponent<Camera>() : null;
             if (cam == null || Ui.Root.panel == null) { Ui.PlaceHeroTag(null); return; }
+            NoticeMotion(cam);
             PlaceResidentTags(cam);
             PlaceMarkers(cam);
             if (_hero == null || _hero.Model == null) { Ui.PlaceHeroTag(null); return; }
