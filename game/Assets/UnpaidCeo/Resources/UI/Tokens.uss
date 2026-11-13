@@ -1,0 +1,148 @@
+:root, .app, .dialogue { -unity-font-definition: url("Fonts/Inter-Regular-SDF.asset"); }
+/* Layout tokens and components. Sizes are for the 1080×1920 reference panel. */
+.app {
+    flex-grow: 1;
+    color: var(--text);
+    font-size: 34px;
+}
+.app Label, .app Button { color: var(--text); }
+
+/* HUD */
+.hud { flex-direction: row; align-items: center; padding: 16px 24px; background-color: var(--panel); border-bottom-left-radius: 32px; border-bottom-right-radius: 32px; }
+.hud__block { flex-direction: column; margin-right: 28px; }
+.hud__caption { font-size: 26px; color: var(--text-dim); }
+.hud__value { font-size: 44px; -unity-font-style: bold; color: var(--money); }
+.hud__value--plain { color: var(--text); }
+.hud__spacer { flex-grow: 1; }
+.energy-bar { width: 170px; height: 22px; margin-top: 10px; background-color: var(--track); border-radius: 11px; overflow: hidden; }
+.energy-bar__fill { height: 100%; background-color: var(--energy); }
+.icon-button { padding: 8px 18px; margin-left: 10px; font-size: 26px; border-radius: 20px; border-width: 0; background-color: var(--panel-strong); }
+
+/* Screens */
+.content { flex-grow: 1; }
+.screen { position: absolute; left: 0; right: 0; top: 0; bottom: 0; padding: 24px; }
+.screen--panel { left: 16px; right: 16px; top: 16px; bottom: 16px; background-color: var(--panel); border-radius: 32px; }
+.screen__title { font-size: 54px; -unity-font-style: bold; margin-bottom: 16px; }
+.section-title { font-size: 36px; -unity-font-style: bold; margin-top: 24px; margin-bottom: 8px; }
+.hint { font-size: 30px; color: var(--text-dim); white-space: normal; }
+.city__hint { align-self: center; padding: 10px 24px; background-color: var(--panel); border-radius: 24px; font-size: 30px; }
+.disclaimer { font-size: 26px; color: var(--text-dim); white-space: normal; margin-top: 20px; }
+
+/* Rows */
+.row { flex-direction: row; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom-width: 1px; border-bottom-color: var(--track); }
+.row__label { flex-shrink: 1; }
+.row__value { -unity-text-align: middle-right; -unity-font-style: bold; }
+.row--total .row__label, .row--total .row__value { font-size: 38px; -unity-font-style: bold; }
+.value--negative { color: var(--negative); }
+.value--positive { color: var(--positive); }
+.pnl-chart { height: 340px; margin: 12px 0 20px 0; }
+
+/* Primary action and navigation */
+.primary-button { height: 120px; margin: 0 24px 16px 24px; border-radius: 32px; border-width: 0; background-color: var(--accent); font-size: 44px; -unity-font-style: bold; }
+.app .primary-button { color: var(--on-accent); }
+.bottom-nav { flex-direction: row; height: 140px; padding: 0 8px; background-color: var(--panel); border-top-left-radius: 32px; border-top-right-radius: 32px; }
+.nav-button { flex-grow: 1; flex-basis: 0; margin: 0; padding: 0 4px; border-width: 0; background-color: rgba(0, 0, 0, 0); font-size: 28px; }
+.app .nav-button { color: var(--text-dim); }
+.app .nav-button--active { color: var(--accent); -unity-font-style: bold; }
+
+/* Decisions */
+.share-row { flex-direction: row; align-items: center; height: 72px; }
+.share-row__label { width: 260px; }
+.share-row__slider { flex-grow: 1; margin: 0 16px; }
+.share-row__value { width: 110px; -unity-text-align: middle-right; -unity-font-style: bold; }
+.action-row { flex-direction: row; align-items: center; height: 72px; }
+.action-row__label { flex-grow: 1; }
+.action-row__cost { width: 90px; -unity-text-align: middle-right; color: var(--text-dim); }
+
+/* Journal */
+.journal-entry { flex-direction: row; padding: 10px 0; border-bottom-width: 1px; border-bottom-color: var(--track); }
+.journal-entry__month-caption { font-size: 24px; color: var(--text-dim); }
+.journal-entry__month { width: 70px; font-size: 24px; color: var(--text-dim); -unity-text-align: upper-right; margin-right: 16px; }
+.journal-entry__text { flex-shrink: 1; flex-grow: 1; white-space: normal; }
+
+/* Settings */
+.choice-row { flex-direction: row; flex-wrap: wrap; margin-bottom: 8px; }
+.choice-button { padding: 14px 28px; margin: 6px 12px 6px 0; border-radius: 24px; border-width: 2px; border-color: var(--track); background-color: var(--panel-strong); font-size: 32px; }
+.choice-button--selected { border-color: var(--accent); -unity-font-style: bold; }
+.danger-button { margin-top: 32px; padding: 16px 28px; border-radius: 24px; border-width: 0; background-color: var(--negative); font-size: 32px; align-self: flex-start; }
+.app .danger-button { color: #FFFFFF; }
+
+/* Academy */
+.academy__list { max-height: 420px; }
+.academy__item { padding: 14px 20px; margin: 4px 0; border-radius: 20px; border-width: 0; background-color: var(--panel-strong); -unity-text-align: middle-left; }
+.academy__item--selected { -unity-font-style: bold; border-left-width: 8px; border-left-color: var(--accent); }
+.academy__item--locked { opacity: 0.45; }
+.academy__lesson-title { font-size: 44px; -unity-font-style: bold; margin-top: 16px; white-space: normal; }
+.academy__lesson-body { white-space: normal; margin: 12px 0; }
+.academy__quiz-title { font-size: 36px; -unity-font-style: bold; margin-top: 16px; }
+.academy__question { margin: 12px 0; }
+.academy__question-text { white-space: normal; margin-bottom: 6px; }
+.academy__option { padding: 12px 20px; margin: 4px 0; border-radius: 18px; border-width: 2px; border-color: var(--track); background-color: var(--panel-strong); white-space: normal; -unity-text-align: middle-left; }
+.academy__option--correct { border-color: var(--positive); }
+.academy__option--wrong { border-color: var(--negative); }
+.academy__feedback { -unity-font-style: bold; white-space: normal; margin-top: 8px; }
+
+/* Yarn dialogue (UitkDialoguePresenter) */
+.dialogue { position: absolute; left: 24px; right: 24px; bottom: 320px; padding: 28px; border-radius: 32px; background-color: var(--panel); }
+.dialogue__speaker { font-size: 32px; -unity-font-style: bold; color: var(--accent); }
+.dialogue__text { white-space: normal; font-size: 36px; margin: 8px 0 16px 0; }
+.dialogue__option { padding: 16px 24px; margin: 6px 0; border-radius: 22px; border-width: 0; background-color: var(--panel-strong); white-space: normal; -unity-text-align: middle-left; }
+.dialogue__continue { align-self: flex-end; padding: 10px 28px; border-radius: 22px; border-width: 0; background-color: var(--accent); }
+
+/* Hero creator */
+.hero-creator { position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 24px 24px 8px 24px; background-color: var(--panel); border-radius: 32px; }
+.swatch { width: 80px; height: 80px; margin: 6px 16px 6px 0; border-radius: 40px; border-width: 5px; border-color: var(--track); }
+.swatch--selected { border-color: var(--accent); }
+
+/* Onboarding coach marks */
+.onboarding-overlay { position: absolute; left: 0; right: 0; top: 0; bottom: 0; justify-content: center; background-color: rgba(16, 21, 33, 0.92); }
+.coach { position: absolute; left: 32px; right: 32px; bottom: 300px; padding: 32px 8px 8px 8px; border-radius: 32px; background-color: var(--panel); border-width: 4px; border-color: var(--accent); }
+.coach__speaker { margin: 0 32px 8px 32px; font-size: 32px; -unity-font-style: bold; color: var(--accent); }
+.coach__text { margin: 0 32px 24px 32px; font-size: 40px; white-space: normal; color: var(--text); }
+.app .coach-target { border-width: 8px; border-color: #FFD24A; scale: 1.04 1.04; }
+
+/* Daily turns and missions (stage 2A) */
+.turns-bar { flex-direction: row; justify-content: center; align-items: center; margin: 0 24px 8px 24px; }
+.turns-bar__caption { font-size: 28px; color: var(--text-dim); margin-right: 8px; }
+.turns-bar__value { font-size: 30px; -unity-font-style: bold; margin-right: 24px; }
+.turns-bar__wait { flex-direction: row; align-items: center; }
+.primary-button:disabled { opacity: 0.45; }
+.missions { position: absolute; left: 24px; right: 24px; bottom: 16px; padding: 12px 24px; background-color: var(--panel); border-radius: 24px; }
+.missions__title { font-size: 30px; -unity-font-style: bold; margin-bottom: 4px; }
+.mission .row__label { font-size: 28px; white-space: normal; }
+.mission .row__value { font-size: 28px; }
+.mission--done .row__label, .mission--done .row__value { color: var(--text-dim); }
+.missions__footer { flex-direction: row; align-items: center; margin-top: 8px; }
+.missions__caption { font-size: 26px; color: var(--text-dim); margin-right: 6px; }
+.missions__value { font-size: 26px; -unity-font-style: bold; margin-right: 20px; }
+
+/* Chapters 2-3 (stage 2A): chapter goal bar, industry cards, steppers, loan dialog, chapter card */
+.chapter-bar { flex-direction: row; align-items: center; margin: 0 24px 8px 24px; }
+.chapter-bar__caption { font-size: 24px; color: var(--text-dim); margin-right: 12px; }
+.chapter-bar__track { flex-grow: 1; height: 14px; border-radius: 7px; background-color: var(--track); overflow: hidden; }
+.chapter-bar__fill { height: 100%; width: 0; background-color: var(--accent); border-radius: 7px; }
+.chapter-bar__advance { margin-left: 12px; height: 56px; padding: 0 20px; border-radius: 28px; border-width: 0; background-color: var(--accent); font-size: 26px; -unity-font-style: bold; }
+.app .chapter-bar__advance { color: var(--on-accent); }
+.industry-card { padding: 20px 24px; margin-bottom: 20px; background-color: var(--panel); border-radius: 28px; }
+.industry-card--chosen { border-width: 4px; border-color: var(--accent); }
+.industry-card__name { font-size: 38px; -unity-font-style: bold; white-space: normal; }
+.industry-card__scale { flex-direction: row; flex-wrap: wrap; margin: 4px 0 8px 0; }
+.industry-card__step { font-size: 24px; color: var(--text-dim); margin-right: 16px; white-space: normal; }
+.industry-card__lesson { flex-shrink: 1; -unity-text-align: middle-right; white-space: normal; }
+.industry-card__choose { margin: 12px 0 0 0; height: 96px; }
+.industry-offer { padding: 20px 24px; margin-bottom: 20px; background-color: var(--panel); border-radius: 28px; }
+.industry-offer__text { white-space: normal; margin-bottom: 8px; }
+.industry-offer__capex { -unity-text-align: middle-center; }
+.business-box { padding: 12px 0; border-bottom-width: 1px; border-bottom-color: var(--track); }
+.business-box__name { font-size: 34px; -unity-font-style: bold; white-space: normal; }
+.stepper__button { width: 80px; height: 72px; margin: 0 8px; border-radius: 24px; font-size: 40px; -unity-font-style: bold; }
+.stepper__value { width: 80px; -unity-text-align: middle-center; font-size: 36px; -unity-font-style: bold; }
+.decisions__warning { color: var(--negative); white-space: normal; font-size: 26px; }
+.modal { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.55); justify-content: center; }
+.modal__panel { margin: 0 32px; padding: 28px 32px; background-color: var(--panel); border-radius: 32px; }
+.modal__panel .primary-button { margin: 16px 0 8px 0; }
+.modal__panel .danger-button { margin: 0; }
+.chapter-card { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(10, 10, 20, 0.92); justify-content: center; align-items: center; }
+.chapter-card__title { font-size: 72px; -unity-font-style: bold; color: rgb(255, 255, 255); white-space: normal; -unity-text-align: middle-center; }
+.chapter-card__subtitle { font-size: 34px; color: rgb(220, 220, 230); margin-top: 16px; white-space: normal; -unity-text-align: middle-center; }
+

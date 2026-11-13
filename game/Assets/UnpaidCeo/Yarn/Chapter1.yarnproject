@@ -1,0 +1,23 @@
+{
+  "projectFileVersion": 4,
+  "sourceFiles": [
+    "**/*.yarn"
+  ],
+  "excludeFiles": [
+    "**/*~/*",
+    "Voice/**"
+  ],
+  "localisation": {
+    "en": {
+      "strings": null,
+      "assets": "Voice/en"
+    },
+    "ru": {
+      "strings": "Story-ru.csv",
+      "assets": "Voice/ru"
+    }
+  },
+  "baseLanguage": "en",
+  "definitions": null,
+  "compilerOptions": {}
+}

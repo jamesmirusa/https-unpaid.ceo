@@ -1,0 +1,185 @@
+key	en	ru
+nav.city	City	Город
+nav.company	Company	Компания
+nav.decisions	Decisions	Решения
+nav.academy	Academy	Академия
+nav.ranking	Ranking	Рейтинг
+hud.cash	Cash	Деньги
+hud.reserve	Reserve	Резерв
+hud.month	Month	Месяц
+hud.energy	Energy	Энергия
+hud.next_month	Next month	Следующий месяц
+hud.turns_left	Months today	Месяцев сегодня
+hud.next_in	New months in	Новые месяцы через
+hud.journal	Journal	Журнал
+hud.settings	Settings	Настройки
+company.title	Company	Компания
+company.empty	Finish your first month to see the report.	Заверши первый месяц, чтобы увидеть отчёт.
+company.revenue	Revenue	Выручка
+company.cogs	Cost of goods	Себестоимость
+company.gross	Gross profit	Валовая прибыль
+company.fixed	Fixed costs	Постоянные расходы
+company.marketing	Marketing	Маркетинг
+company.mistake	Tired-out mistake	Ошибка от усталости
+company.tax	Tax reserve	Резерв на налоги
+company.net	Net profit	Чистая прибыль
+company.personal	Living costs	Расходы на жизнь
+company.cash_end	Cash at month end	Деньги на конец месяца
+company.disclaimer	Money in this game is simulated. This is not financial advice.	Деньги в игре симулированные. Это не финансовый совет.
+decisions.title	Decisions	Решения
+decisions.time	CEO time	Время CEO
+decisions.work	Work	Работа
+decisions.family	Family	Семья
+decisions.rest	Rest	Отдых
+decisions.study	Study	Учёба
+decisions.split	Work split	Распределение работы
+decisions.actions	Free actions	Свободные действия
+decisions.ap	Action points	Очки действий
+gig.gig_delivery	Delivery	Доставка
+gig.gig_resale	Resale	Перепродажа
+gig.gig_ai_freelance	AI freelance	ИИ-фриланс
+action.overtime	Overtime	Сверхурочно
+action.rest	Rest	Отдых
+action.study	Study	Учёба
+action.networking	Networking	Нетворкинг
+action.family_time	Family time	Время с семьёй
+action.hobby	Hobby	Хобби
+action.gray_scheme	Gray scheme	Серая схема
+action.loan_shark_loan	Loan from Mr. Fins	Заём у мистера Финса
+action.reserve_transfer	Move to reserve	Перевести в резерв
+journal.title	Your company's story	История твоей компании
+journal.empty	Your story starts this month.	Твоя история начинается в этом месяце.
+journal.month	Month	Месяц
+journal.decision	You made a choice.	Ты сделал выбор.
+journal.first_income	First money earned.	Первые заработанные деньги.
+journal.first_bills	First bills paid.	Первые оплаченные счета.
+journal.first_loss	First losing month.	Первый убыточный месяц.
+journal.in_debt	Your balance went negative.	Баланс ушёл в минус.
+journal.bankrupt	Two months deep in debt: bankrupt.	Два месяца в глубоком минусе: банкротство.
+journal.chapter1_done	Chapter 1 goal reached.	Цель первой главы достигнута.
+journal.burnout_mistake	A tired mistake cost you money.	Ошибка от усталости стоила денег.
+journal.tutorial_gig	Your first gig.	Твоя первая подработка.
+journal.action.overtime	You worked overtime.	Ты работал сверхурочно.
+journal.action.rest	You took time to rest.	Ты отдыхал.
+journal.action.study	You studied.	Ты учился.
+journal.action.networking	You went networking.	Ты занимался нетворкингом.
+journal.action.family_time	You spent time with family.	Ты провёл время с семьёй.
+journal.action.hobby	You made time for a hobby.	Ты нашёл время для хобби.
+journal.action.gray_scheme	You ran a gray scheme.	Ты провернул серую схему.
+journal.action.loan_shark_loan	You borrowed from Mr. Fins.	Ты занял у мистера Финса.
+journal.action.reserve_transfer	You moved money to the reserve.	Ты перевёл деньги в резерв.
+settings.title	Settings	Настройки
+settings.language	Language	Язык
+settings.graphics	Graphics	Графика
+settings.graphics.eco	Eco	Эко
+settings.graphics.optimal	Optimal	Оптимальный
+settings.graphics.max	Max	Макс
+settings.theme	Look	Оформление
+settings.theme.day	Day	День
+settings.theme.neon	Neon	Неон
+settings.reset	Start over	Начать заново
+settings.reset.confirm	Tap again to erase your progress.	Нажми ещё раз, чтобы стереть прогресс.
+ranking.title	Ranking	Рейтинг
+ranking.soon	Weekly challenges and the leaderboard are coming soon.	Недельные челленджи и рейтинг скоро появятся.
+city.hint	Your block in the Bronx	Твой квартал в Бронксе
+hero.title	Create your hero	Создай героя
+hero.species	Species	Вид
+hero.outfit	Outfit	Образ
+hero.color	Color	Цвет
+hero.done	Done	Готово
+hero.species.raccoon	Raccoon	Енот
+hero.species.fox	Fox	Лис
+hero.species.cat	Cat	Кот
+hero.outfit.hoodie	Hoodie	Худи
+hero.outfit.blazer	Blazer	Пиджак
+onboarding.gig	Take the gig · +$40	Взять заказ · +40 $
+onboarding.continue	Got it	Понял
+missions.title	Daily missions	Задания дня
+missions.streak	Streak, days	Серия, дней
+missions.points	CEO points	Очки CEO
+mission.months_1	Play 1 month	Сыграй 1 месяц
+mission.months_3	Play 3 months	Сыграй 3 месяца
+mission.months_6	Play all 6 months of the day	Сыграй все 6 месяцев дня
+mission.scenes_1	Make a choice in a scene	Сделай выбор в сцене
+mission.scenes_3	Make choices in 3 scenes	Сделай выбор в 3 сценах
+mission.quiz_1	Answer a quiz question in the Academy	Ответь на вопрос в Академии
+mission.quiz_3	Answer 3 quiz questions	Ответь на 3 вопроса викторины
+mission.quiz_5	Answer 5 quiz questions	Ответь на 5 вопросов викторины
+mission.actions_2	Take 2 free actions	Соверши 2 свободных действия
+mission.actions_5	Take 5 free actions	Соверши 5 свободных действий
+industry.title	Choose your business	Выбери бизнес
+industry.hint	One business for Brooklyn. Look at the numbers before you fall in love.	Один бизнес для Бруклина. Сначала цифры, потом любовь.
+industry.disclaimer	Money in the game is simulated; this is not financial advice.	Деньги в игре симулированные, это не финансовый совет.
+industry.capex	Startup cost	Запуск
+industry.margin	Gross margin	Маржа
+industry.break_even	Break-even, sales	Безубыточность
+industry.lesson	Lesson	Урок
+industry.choose	Choose	Выбрать
+industry.chosen	Your business	Твой бизнес
+industry.offer	You can afford the first location. Open it next month?	Первая точка тебе по карману. Открыть её в следующем месяце?
+industry.open_first	Open the first location	Открыть первую точку
+industry.coffee_cart.name	Coffee cart	Кофейная тележка
+industry.coffee_cart.scale.0	Cart	Тележка
+industry.coffee_cart.scale.1	Café	Кофейня
+industry.coffee_cart.scale.2	Coffee chain	Сеть кофеен
+industry.resale_store.name	Resale store	Магазин ресейла
+industry.resale_store.scale.0	Pop-up	Поп-ап
+industry.resale_store.scale.1	Store	Магазин
+industry.resale_store.scale.2	Chain	Сеть
+industry.food_truck.name	Food truck	Фудтрак
+industry.food_truck.scale.0	Truck	Фудтрак
+industry.food_truck.scale.1	Fleet	Автопарк
+industry.food_truck.scale.2	Restaurant	Ресторан
+industry.ai_agency.name	AI agency	ИИ-агентство
+industry.ai_agency.scale.0	Freelancer	Фрилансер
+industry.ai_agency.scale.1	Studio	Студия
+industry.ai_agency.scale.2	Agency	Агентство
+industry.cleaning.name	Cleaning service	Клининг
+industry.cleaning.scale.0	Solo	Один
+industry.cleaning.scale.1	Crew	Бригада
+industry.cleaning.scale.2	Cleaning company	Клининговая компания
+industry.logistics_box_truck.name	Box truck delivery	Грузоперевозки
+industry.logistics_box_truck.scale.0	One truck	Один грузовик
+industry.logistics_box_truck.scale.1	Fleet	Автопарк
+industry.logistics_box_truck.scale.2	Logistics company	Логистическая компания
+loan.title	Bank loan	Кредит в банке
+loan.hint	The bank lends more to owners with a good reputation.	Банк даёт больше тем, у кого хорошая репутация.
+loan.amount	Amount	Сумма
+loan.term	Term, months	Срок, месяцев
+loan.apr	Interest rate (APR)	Ставка (APR)
+loan.payment	Monthly payment	Платёж в месяц
+loan.take	Take the loan	Взять кредит
+loan.cancel	Not now	Не сейчас
+chapter.2.title	Chapter 2	Глава 2
+chapter.2.subtitle	Brooklyn. Your first real business.	Бруклин. Твой первый настоящий бизнес.
+chapter.3.title	Chapter 3	Глава 3
+chapter.3.subtitle	Queens. Time to build a team.	Квинс. Пора строить команду.
+hud.chapter_goal	Chapter goal	Цель главы
+hud.advance	Next chapter	Новая глава
+decisions.business	Your business	Твой бизнес
+decisions.price	Price	Цена
+decisions.marketing	Marketing a month	Маркетинг в месяц
+decisions.units	Locations	Точки
+decisions.unit_cost	Cost of a location	Цена точки
+decisions.staff	Staff	Сотрудники
+decisions.units_rejected	Not enough cash for a new location. Save up or take a loan.	Не хватило денег на новую точку. Накопи или возьми кредит.
+company.interest	Loan interest	Проценты
+company.capex	New locations	Новые точки
+company.asset_sales	Locations sold	Продажа точек
+company.loan_principal	Loan repayment	Погашение кредита
+company.unit_title	Unit economics	Юнит-экономика
+company.margin	Gross margin	Маржа
+company.break_even	Break-even, sales	Безубыточность
+company.cac	Customer cost (CAC)	Цена клиента
+company.ltv	Customer value (LTV)	Ценность клиента
+company.ltv_cac	LTV to CAC	LTV к CAC
+company.loans_title	Loans	Кредиты
+company.loan_row	Balance · months · payment	Остаток · мес. · платёж
+company.take_loan	Take a loan	Взять кредит
+journal.take_loan	You took a bank loan.	Ты взял кредит в банке.
+journal.choose_industry	You chose your business.	Ты выбрал свой бизнес.
+journal.chapter2_start	You moved to Brooklyn.	Ты переехал в Бруклин.
+journal.chapter3_start	You moved to Queens.	Ты переехал в Квинс.
+journal.chapter2_done	Chapter 2 goal reached.	Цель второй главы достигнута.
+journal.chapter3_done	Chapter 3 goal reached.	Цель третьей главы достигнута.
+decisions.owner_time	Your work time now runs your business. At 60% work you count as one full-time staff member; gigs no longer pay.	Твоё рабочее время теперь уходит на бизнес. При 60% работы ты — полноценный сотрудник, а подработки больше не платят.

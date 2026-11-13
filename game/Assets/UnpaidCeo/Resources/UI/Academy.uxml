@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:ScrollView name="academy" class="screen screen--panel academy">
+        <ui:Label name="academy-title" class="screen__title" />
+        <ui:ScrollView name="lesson-list" class="academy__list" />
+        <ui:VisualElement name="lesson-detail" class="academy__detail">
+            <ui:Label name="lesson-title" class="academy__lesson-title" />
+            <ui:Label name="lesson-body" class="academy__lesson-body" style="white-space: normal;" />
+            <ui:Label name="quiz-title" class="academy__quiz-title" />
+            <ui:VisualElement name="quiz" class="academy__quiz" />
+            <ui:Label name="quiz-feedback" class="academy__feedback" style="white-space: normal;" />
+        </ui:VisualElement>
+        <ui:Label name="academy-disclaimer" class="disclaimer" style="white-space: normal;" />
+    </ui:ScrollView>
+</ui:UXML>

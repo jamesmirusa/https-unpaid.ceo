@@ -1,0 +1,243 @@
+{
+  "note": "Bronx restyle (owner approved full restyle ≈ 415 credits on 2026-11-08). Style reference: GPT Image 2.6 pilot bodega concept (Higgsfield media a84f1199-2bc1-46ee-8429-8dc616494f35). concept = GPT Image 2.6 (high, 2k) job; model3d = image-to-3D job from that concept.",
+  "assets": [
+    {
+      "index": 0,
+      "id": "building_bodega",
+      "role": "replace",
+      "model": "tripo_p2_image_to_3d",
+      "concept": "65678306-bd8a-492a-add8-635a0b6ae131",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211508_65678306-bd8a-492a-add8-635a0b6ae131.png",
+      "model3d": "2651ca3c-e2ff-423e-97ab-7138fb6d31dd",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211954_2651ca3c-e2ff-423e-97ab-7138fb6d31dd.glb"
+    },
+    {
+      "index": 1,
+      "id": "keyart_bodega_night",
+      "role": "key art (no 3D)",
+      "model": null,
+      "concept": "348d4670-7f46-4d3d-8ddb-bef54777bac6",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211507_348d4670-7f46-4d3d-8ddb-bef54777bac6.png"
+    },
+    {
+      "index": 2,
+      "id": "building_coffee_shop",
+      "role": "new",
+      "model": "tripo_p2_image_to_3d",
+      "concept": "6bad87bd-237f-4ca3-b87e-52433f4671e9",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211509_6bad87bd-237f-4ca3-b87e-52433f4671e9.png",
+      "model3d": "1b808260-298c-4e6d-b560-6e66944a431d",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211956_1b808260-298c-4e6d-b560-6e66944a431d.glb"
+    },
+    {
+      "index": 3,
+      "id": "building_barbershop",
+      "role": "new",
+      "model": "tripo_p2_image_to_3d",
+      "concept": "76c32592-f044-4364-be69-eff6e36d44c2",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211508_76c32592-f044-4364-be69-eff6e36d44c2.png",
+      "model3d": "821c0351-7228-423e-b4bb-f799bc895f4c",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211957_821c0351-7228-423e-b4bb-f799bc895f4c.glb"
+    },
+    {
+      "index": 4,
+      "id": "building_bakery",
+      "role": "new",
+      "model": "tripo_p2_image_to_3d",
+      "concept": "c742080d-4192-4bf0-85c5-bfcf8b3cec56",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211509_c742080d-4192-4bf0-85c5-bfcf8b3cec56.png",
+      "model3d": "4ae46a82-206d-42d3-b44d-746b98bf8aee",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211959_4ae46a82-206d-42d3-b44d-746b98bf8aee.glb"
+    },
+    {
+      "index": 5,
+      "id": "building_car_wash",
+      "role": "new",
+      "model": "tripo_p2_image_to_3d",
+      "concept": "e805c9b8-791e-4101-91ef-f5daebf39aee",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211508_e805c9b8-791e-4101-91ef-f5daebf39aee.png",
+      "model3d": "6d321f12-9d3f-471e-9f5f-6541a49038c8",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212000_6d321f12-9d3f-471e-9f5f-6541a49038c8.glb"
+    },
+    {
+      "index": 6,
+      "id": "building_walkup",
+      "role": "replace",
+      "model": "tripo_p2_image_to_3d",
+      "concept": "3194b527-afff-463b-a8a7-507bfaa2b705",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211507_3194b527-afff-463b-a8a7-507bfaa2b705.png",
+      "model3d": "d92317b2-0224-41be-b680-ea8dc770a7f5",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212002_d92317b2-0224-41be-b680-ea8dc770a7f5.glb"
+    },
+    {
+      "index": 7,
+      "id": "building_laundromat",
+      "role": "replace",
+      "model": "tripo_p2_image_to_3d",
+      "concept": "14f08922-e447-4c24-bf7a-a9fc0a2cc1a5",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211507_14f08922-e447-4c24-bf7a-a9fc0a2cc1a5.png",
+      "model3d": "4a61dbd6-00aa-41c0-998a-a3541ec24763",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212005_4a61dbd6-00aa-41c0-998a-a3541ec24763.glb"
+    },
+    {
+      "index": 8,
+      "id": "building_pawn_shop",
+      "role": "replace",
+      "model": "tripo_p2_image_to_3d",
+      "concept": "b0d64a8f-23f8-4120-97e5-edddc5275b35",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211510_b0d64a8f-23f8-4120-97e5-edddc5275b35.png",
+      "model3d": "22d0920e-488b-4883-bda5-c85c1bb4a535",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212006_22d0920e-488b-4883-bda5-c85c1bb4a535.glb"
+    },
+    {
+      "index": 9,
+      "id": "building_el_subway",
+      "role": "replace",
+      "model": "tripo_h3_1_image_to_3d",
+      "concept": "ff8c468f-a837-423d-bd19-8bfa335e3154",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211508_ff8c468f-a837-423d-bd19-8bfa335e3154.png",
+      "model3d": "da0af690-897a-4425-8d59-b79edee09d1c",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212008_da0af690-897a-4425-8d59-b79edee09d1c.glb"
+    },
+    {
+      "index": 10,
+      "id": "building_pizza",
+      "role": "replace",
+      "model": "tripo_h3_1_image_to_3d",
+      "concept": "2395fcd6-7620-47e8-8da2-c7b1533af3e6",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211507_2395fcd6-7620-47e8-8da2-c7b1533af3e6.png",
+      "model3d": "9c0a52c2-6a17-4c7c-bbdd-719a56e54858",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212010_9c0a52c2-6a17-4c7c-bbdd-719a56e54858.glb"
+    },
+    {
+      "index": 11,
+      "id": "building_check_cashing",
+      "role": "replace",
+      "model": "tripo_h3_1_image_to_3d",
+      "concept": "e48db40f-d1bc-4827-8c0a-9eca68093643",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211506_e48db40f-d1bc-4827-8c0a-9eca68093643.png",
+      "model3d": "e0ab0783-1a08-4af0-a1bd-b26e641006b7",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212011_e0ab0783-1a08-4af0-a1bd-b26e641006b7.glb"
+    },
+    {
+      "index": 12,
+      "id": "building_garden_lot",
+      "role": "replace",
+      "model": "tripo_h3_1_image_to_3d",
+      "concept": "2e9103cb-c684-4b56-98e6-7e9a0356746f",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211512_2e9103cb-c684-4b56-98e6-7e9a0356746f.png",
+      "model3d": "7656b53e-01f8-4341-b6e5-2e21c558bc07",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212013_7656b53e-01f8-4341-b6e5-2e21c558bc07.glb"
+    },
+    {
+      "index": 13,
+      "id": "building_court",
+      "role": "replace",
+      "model": "tripo_h3_1_image_to_3d",
+      "concept": "d317f545-7f94-4f73-b9bd-3963e2344e71",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211512_d317f545-7f94-4f73-b9bd-3963e2344e71.png",
+      "model3d": "96c46851-2408-4b23-9d1d-65f0c59b625d",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212016_96c46851-2408-4b23-9d1d-65f0c59b625d.glb"
+    },
+    {
+      "index": 14,
+      "id": "building_bus_shelter",
+      "role": "replace",
+      "model": "tripo_h3_1_image_to_3d",
+      "concept": "ae93aa12-ca12-4a64-8a1e-b7f586a37f96",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211512_ae93aa12-ca12-4a64-8a1e-b7f586a37f96.png",
+      "model3d": "eb960466-0cb0-4b0e-85f2-7f87ae1f9ca0",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212017_eb960466-0cb0-4b0e-85f2-7f87ae1f9ca0.glb"
+    },
+    {
+      "index": 15,
+      "id": "building_garage",
+      "role": "replace",
+      "model": "tripo_h3_1_image_to_3d",
+      "concept": "2c565b56-aef4-4325-a352-4e23f51e81f2",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211511_2c565b56-aef4-4325-a352-4e23f51e81f2.png",
+      "model3d": "0ad3ee3d-44d4-49ce-8537-101bc589985e",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212019_0ad3ee3d-44d4-49ce-8537-101bc589985e.glb"
+    },
+    {
+      "index": 16,
+      "id": "building_church",
+      "role": "replace",
+      "model": "tripo_h3_1_image_to_3d",
+      "concept": "9017e01c-24cb-40ab-a912-268c1234cfea",
+      "conceptUrl": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_211511_9017e01c-24cb-40ab-a912-268c1234cfea.png",
+      "model3d": "5564c13f-c2ad-4324-8365-4271381bfcff",
+      "params": {
+        "face_limit": 8000,
+        "pbr": false
+      },
+      "result": "https://d8j0ntlcm91z4.cloudfront.net/user_3IsVzgItwpb7DCMfNLF2H5PswJZ/hf_20261108_212020_5564c13f-c2ad-4324-8365-4271381bfcff.glb"
+    }
+  ],
+  "spend": {
+    "concepts": "17 x 2.75 = 46.75",
+    "tripo_p2": "8 x 34 = 272",
+    "tripo_h3_1": "8 x 9 = 72",
+    "total": 390.75
+  }
+}

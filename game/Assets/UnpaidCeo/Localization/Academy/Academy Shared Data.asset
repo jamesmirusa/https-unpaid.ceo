@@ -1,0 +1,836 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: Academy Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: Academy
+  m_TableCollectionNameGuidString: 7f396f1f5ce534da68445c68f9fa4252
+  m_Entries:
+  - m_Id: 456122368
+    m_Key: academy.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705280
+    m_Key: academy.disclaimer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705281
+    m_Key: academy.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705282
+    m_Key: academy.quiz.correct
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705283
+    m_Key: academy.quiz.wrong
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705284
+    m_Key: academy.quiz.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705285
+    m_Key: lesson.revenue_vs_profit.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705286
+    m_Key: lesson.revenue_vs_profit.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705287
+    m_Key: lesson.revenue_vs_profit.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705288
+    m_Key: lesson.revenue_vs_profit.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705289
+    m_Key: lesson.revenue_vs_profit.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705290
+    m_Key: lesson.revenue_vs_profit.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705291
+    m_Key: lesson.revenue_vs_profit.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705292
+    m_Key: lesson.revenue_vs_profit.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705293
+    m_Key: lesson.revenue_vs_profit.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705294
+    m_Key: lesson.revenue_vs_profit.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705295
+    m_Key: lesson.revenue_vs_profit.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705296
+    m_Key: lesson.revenue_vs_profit.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705297
+    m_Key: lesson.revenue_vs_profit.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705298
+    m_Key: lesson.revenue_vs_profit.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705299
+    m_Key: lesson.reserve.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705300
+    m_Key: lesson.reserve.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705301
+    m_Key: lesson.reserve.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705302
+    m_Key: lesson.reserve.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705303
+    m_Key: lesson.reserve.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705304
+    m_Key: lesson.reserve.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705305
+    m_Key: lesson.reserve.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705306
+    m_Key: lesson.reserve.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705307
+    m_Key: lesson.reserve.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705308
+    m_Key: lesson.reserve.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705309
+    m_Key: lesson.reserve.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705310
+    m_Key: lesson.reserve.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705311
+    m_Key: lesson.reserve.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705312
+    m_Key: lesson.reserve.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705313
+    m_Key: lesson.first_loss.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705314
+    m_Key: lesson.first_loss.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705315
+    m_Key: lesson.first_loss.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705316
+    m_Key: lesson.first_loss.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705317
+    m_Key: lesson.first_loss.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705318
+    m_Key: lesson.first_loss.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705319
+    m_Key: lesson.first_loss.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705320
+    m_Key: lesson.first_loss.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705321
+    m_Key: lesson.first_loss.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705322
+    m_Key: lesson.first_loss.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705323
+    m_Key: lesson.first_loss.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705324
+    m_Key: lesson.first_loss.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705325
+    m_Key: lesson.first_loss.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705326
+    m_Key: lesson.first_loss.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705327
+    m_Key: lesson.cash_gap.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705328
+    m_Key: lesson.cash_gap.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705329
+    m_Key: lesson.cash_gap.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705330
+    m_Key: lesson.cash_gap.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705331
+    m_Key: lesson.cash_gap.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705332
+    m_Key: lesson.cash_gap.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705333
+    m_Key: lesson.cash_gap.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705334
+    m_Key: lesson.cash_gap.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705335
+    m_Key: lesson.cash_gap.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705336
+    m_Key: lesson.cash_gap.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705337
+    m_Key: lesson.cash_gap.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705338
+    m_Key: lesson.cash_gap.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705339
+    m_Key: lesson.cash_gap.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705340
+    m_Key: lesson.cash_gap.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705341
+    m_Key: lesson.break_even.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705342
+    m_Key: lesson.break_even.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705343
+    m_Key: lesson.break_even.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705344
+    m_Key: lesson.break_even.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705345
+    m_Key: lesson.break_even.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705346
+    m_Key: lesson.break_even.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705347
+    m_Key: lesson.break_even.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705348
+    m_Key: lesson.break_even.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705349
+    m_Key: lesson.break_even.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705350
+    m_Key: lesson.break_even.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705351
+    m_Key: lesson.break_even.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705352
+    m_Key: lesson.break_even.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705353
+    m_Key: lesson.break_even.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468705354
+    m_Key: lesson.break_even.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748367134720
+    m_Key: lesson.unit_economics.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717632
+    m_Key: lesson.unit_economics.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717633
+    m_Key: lesson.unit_economics.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717634
+    m_Key: lesson.unit_economics.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717635
+    m_Key: lesson.unit_economics.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717636
+    m_Key: lesson.unit_economics.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717637
+    m_Key: lesson.unit_economics.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717638
+    m_Key: lesson.unit_economics.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717639
+    m_Key: lesson.unit_economics.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717640
+    m_Key: lesson.unit_economics.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717641
+    m_Key: lesson.unit_economics.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717642
+    m_Key: lesson.unit_economics.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717643
+    m_Key: lesson.unit_economics.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717644
+    m_Key: lesson.unit_economics.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717645
+    m_Key: lesson.pricing.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717646
+    m_Key: lesson.pricing.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717647
+    m_Key: lesson.pricing.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717648
+    m_Key: lesson.pricing.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717649
+    m_Key: lesson.pricing.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717650
+    m_Key: lesson.pricing.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717651
+    m_Key: lesson.pricing.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717652
+    m_Key: lesson.pricing.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717653
+    m_Key: lesson.pricing.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717654
+    m_Key: lesson.pricing.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717655
+    m_Key: lesson.pricing.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717656
+    m_Key: lesson.pricing.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717657
+    m_Key: lesson.pricing.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717658
+    m_Key: lesson.pricing.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717659
+    m_Key: lesson.estimated_taxes.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717660
+    m_Key: lesson.estimated_taxes.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717661
+    m_Key: lesson.estimated_taxes.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717662
+    m_Key: lesson.estimated_taxes.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717663
+    m_Key: lesson.estimated_taxes.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717664
+    m_Key: lesson.estimated_taxes.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717665
+    m_Key: lesson.estimated_taxes.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717666
+    m_Key: lesson.estimated_taxes.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717667
+    m_Key: lesson.estimated_taxes.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717668
+    m_Key: lesson.estimated_taxes.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717669
+    m_Key: lesson.estimated_taxes.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717670
+    m_Key: lesson.estimated_taxes.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717671
+    m_Key: lesson.estimated_taxes.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717672
+    m_Key: lesson.estimated_taxes.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717673
+    m_Key: lesson.llc.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717674
+    m_Key: lesson.llc.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717675
+    m_Key: lesson.llc.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717676
+    m_Key: lesson.llc.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717677
+    m_Key: lesson.llc.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717678
+    m_Key: lesson.llc.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717679
+    m_Key: lesson.llc.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717680
+    m_Key: lesson.llc.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717681
+    m_Key: lesson.llc.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717682
+    m_Key: lesson.llc.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717683
+    m_Key: lesson.llc.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717684
+    m_Key: lesson.llc.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717685
+    m_Key: lesson.llc.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717686
+    m_Key: lesson.llc.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717687
+    m_Key: lesson.hiring.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717688
+    m_Key: lesson.hiring.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717689
+    m_Key: lesson.hiring.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717690
+    m_Key: lesson.hiring.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717691
+    m_Key: lesson.hiring.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717692
+    m_Key: lesson.hiring.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717693
+    m_Key: lesson.hiring.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717694
+    m_Key: lesson.hiring.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717695
+    m_Key: lesson.hiring.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717696
+    m_Key: lesson.hiring.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717697
+    m_Key: lesson.hiring.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717698
+    m_Key: lesson.hiring.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717699
+    m_Key: lesson.hiring.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717700
+    m_Key: lesson.hiring.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717701
+    m_Key: lesson.payroll.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717702
+    m_Key: lesson.payroll.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717703
+    m_Key: lesson.payroll.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717704
+    m_Key: lesson.payroll.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717705
+    m_Key: lesson.payroll.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717706
+    m_Key: lesson.payroll.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717707
+    m_Key: lesson.payroll.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717708
+    m_Key: lesson.payroll.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717709
+    m_Key: lesson.payroll.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717710
+    m_Key: lesson.payroll.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717711
+    m_Key: lesson.payroll.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717712
+    m_Key: lesson.payroll.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717713
+    m_Key: lesson.payroll.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717714
+    m_Key: lesson.payroll.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717715
+    m_Key: lesson.cash_gap_b2b.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717716
+    m_Key: lesson.cash_gap_b2b.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717717
+    m_Key: lesson.cash_gap_b2b.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717718
+    m_Key: lesson.cash_gap_b2b.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717719
+    m_Key: lesson.cash_gap_b2b.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717720
+    m_Key: lesson.cash_gap_b2b.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717721
+    m_Key: lesson.cash_gap_b2b.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717722
+    m_Key: lesson.cash_gap_b2b.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717723
+    m_Key: lesson.cash_gap_b2b.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717724
+    m_Key: lesson.cash_gap_b2b.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717725
+    m_Key: lesson.cash_gap_b2b.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717726
+    m_Key: lesson.cash_gap_b2b.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717727
+    m_Key: lesson.cash_gap_b2b.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717728
+    m_Key: lesson.cash_gap_b2b.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717729
+    m_Key: lesson.cac_ltv.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717730
+    m_Key: lesson.cac_ltv.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717731
+    m_Key: lesson.cac_ltv.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717732
+    m_Key: lesson.cac_ltv.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717733
+    m_Key: lesson.cac_ltv.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717734
+    m_Key: lesson.cac_ltv.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717735
+    m_Key: lesson.cac_ltv.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717736
+    m_Key: lesson.cac_ltv.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717737
+    m_Key: lesson.cac_ltv.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717738
+    m_Key: lesson.cac_ltv.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717739
+    m_Key: lesson.cac_ltv.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717740
+    m_Key: lesson.cac_ltv.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717741
+    m_Key: lesson.cac_ltv.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717742
+    m_Key: lesson.cac_ltv.q2.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717743
+    m_Key: lesson.loans.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717744
+    m_Key: lesson.loans.body
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717745
+    m_Key: lesson.loans.q0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717746
+    m_Key: lesson.loans.q0.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717747
+    m_Key: lesson.loans.q0.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717748
+    m_Key: lesson.loans.q0.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717749
+    m_Key: lesson.loans.q1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717750
+    m_Key: lesson.loans.q1.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717751
+    m_Key: lesson.loans.q1.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717752
+    m_Key: lesson.loans.q1.a2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717753
+    m_Key: lesson.loans.q2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717754
+    m_Key: lesson.loans.q2.a0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717755
+    m_Key: lesson.loans.q2.a1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 90748379717756
+    m_Key: lesson.loans.q2.a2
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 757097516839469080
+  references:
+    version: 2
+    RefIds:
+    - rid: 757097516839469080
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1794160995953

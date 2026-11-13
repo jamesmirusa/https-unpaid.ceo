@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:ScrollView name="journal" class="screen screen--panel">
+        <ui:Label name="journal-title" class="screen__title" style="white-space: normal;" />
+        <ui:Label name="journal-empty" class="hint" />
+        <ui:VisualElement name="journal-list" />
+    </ui:ScrollView>
+</ui:UXML>

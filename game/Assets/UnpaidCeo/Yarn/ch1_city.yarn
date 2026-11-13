@@ -1,0 +1,149 @@
+// Chapter 1, the Bronx itself: landlord Mr. Whiskerton (fat_cat), city moments, gig events.
+// Every option runs <<choose "id">>; its effects live in Content/storylets_ch1.json.
+// Russian text lives in Story-ru.csv; keep #line ids stable.
+
+title: ch1_fatcat_fee
+---
+A letter from your landlord, Mr. Whiskerton. A very large cat in a very large coat. #line:ch1_fatcat_fee_01
+Mr. Whiskerton: A new building maintenance fee. One hundred dollars. Effective immediately. #line:ch1_fatcat_fee_02
+-> Pay it. Not worth the fight. #line:ch1_fatcat_fee_03
+    <<choose "pay">>
+    Mr. Whiskerton: Splendid tenant. #line:ch1_fatcat_fee_04
+-> Negotiate it down. #line:ch1_fatcat_fee_05
+    <<choose "negotiate">>
+    Mr. Whiskerton: Fifty, and you stop talking. Agreed. #line:ch1_fatcat_fee_06
+-> Organize the tenants against it. #line:ch1_fatcat_fee_07
+    <<choose "organize">>
+    The fee disappears. So does any warmth in Mr. Whiskerton's voice. #line:ch1_fatcat_fee_08
+===
+
+title: ch1_fatcat_party
+---
+A rooftop party in the South Bronx. Somehow you're on the list. #line:ch1_fatcat_party_01
+Mr. Whiskerton: My tenant, the entrepreneur. Go on then. Pitch me in thirty seconds. #line:ch1_fatcat_party_02
+-> Pitch boldly. Big numbers, big vision. #line:ch1_fatcat_party_03
+    <<choose "bold">>
+    Mr. Whiskerton: Hm. Hungry. I like hungry. Call my office. #line:ch1_fatcat_party_04
+-> Keep it humble and honest. #line:ch1_fatcat_party_05
+    <<choose "humble">>
+    Mr. Whiskerton: Refreshing. Boring, but refreshing. #line:ch1_fatcat_party_06
+===
+
+title: ch1_fatcat_offer
+---
+Mr. Whiskerton: Two thousand dollars, today. In exchange, half of whatever company you build. Forever. #line:ch1_fatcat_offer_01
+Unpaid CEO: Psst. Half of forever is a lot of forever. #line:ch1_fatcat_offer_02
+-> Take the two thousand. #line:ch1_fatcat_offer_03
+    <<choose "accept">>
+    Mr. Whiskerton: Partner! My lawyers will send the paperwork. All forty pages. #line:ch1_fatcat_offer_04
+-> Counter. Five hundred for ten percent. #line:ch1_fatcat_offer_05
+    <<choose "counter">>
+    Mr. Whiskerton: A negotiator. Fine. Ten percent. #line:ch1_fatcat_offer_06
+-> Refuse. My company isn't for sale yet. #line:ch1_fatcat_offer_07
+    <<choose "refuse">>
+    Mr. Whiskerton: Yet. I'll remember that word. #line:ch1_fatcat_offer_08
+===
+
+title: ch1_city_subway
+---
+The 6 train stalls between stations. Twenty minutes, no explanation. #line:ch1_city_subway_01
+The woman next to you is reading a book about startups. #line:ch1_city_subway_02
+-> Start a conversation. #line:ch1_city_subway_03
+    <<choose "chat">>
+    She's a recruiter. She gives you her card and a tip about a gig app that pays better. #line:ch1_city_subway_04
+-> Close your eyes and rest. #line:ch1_city_subway_05
+    <<choose "nap">>
+    Best twenty minutes of sleep this month. #line:ch1_city_subway_06
+===
+
+title: ch1_city_heatwave
+---
+Heat wave. The pavement is soft and every app is surging. #line:ch1_city_heatwave_01
+-> Take every order. Surge money is real money. #line:ch1_city_heatwave_02
+    <<choose "grind">>
+    You earn eighty bucks and drink a gallon of water. #line:ch1_city_heatwave_03
+-> Stay inside with the fan. #line:ch1_city_heatwave_04
+    <<choose "rest">>
+    The fan rattles. Your energy comes back. #line:ch1_city_heatwave_05
+===
+
+title: ch1_city_wallet
+---
+On the bench outside the laundromat, a wallet. Two hundred dollars cash and an ID. #line:ch1_city_wallet_01
+-> Return it to the address on the ID. #line:ch1_city_wallet_02
+    <<choose "return">>
+    The owner stares at you like you're a unicorn. #line:ch1_city_wallet_03
+-> Keep the cash and drop the wallet in a mailbox. #line:ch1_city_wallet_04
+    <<choose "keep">>
+    Two hundred richer. You walk a little faster than usual. #line:ch1_city_wallet_05
+===
+
+title: ch1_city_wallet_reward
+---
+The wallet's owner turns out to run a restaurant on Arthur Avenue. #line:ch1_city_wallet_reward_01
+She hands you a card. Catering deliveries every weekend, if you want them. #line:ch1_city_wallet_reward_02
+-> Take the weekend gig. #line:ch1_city_wallet_reward_03
+    <<choose "accept">>
+    Good food, good tips, and a new name in your phone. #line:ch1_city_wallet_reward_04
+-> Thank her, but my schedule is full. #line:ch1_city_wallet_reward_05
+    <<choose "decline">>
+    She tucks the card into your pocket anyway. #line:ch1_city_wallet_reward_06
+===
+
+title: ch1_gray_audit
+---
+A city inspector knocks. Somebody reported you for selling without a permit. #line:ch1_gray_audit_01
+Inspector: Four hundred dollar fine, or we take a closer look at everything. #line:ch1_gray_audit_02
+-> Pay the fine and get a permit. #line:ch1_gray_audit_03
+    <<choose "pay">>
+    Expensive lesson. At least now you're legit. #line:ch1_gray_audit_04
+-> Talk your way out of it. #line:ch1_gray_audit_05
+    <<choose "bluff">>
+    He leaves. With your name in his notebook. #line:ch1_gray_audit_06
+===
+
+title: ch1_delivery_tip
+---
+Pouring rain. You deliver soup to a grandmother on the fifth floor, no elevator. #line:ch1_delivery_tip_01
+She presses a folded twenty into your paw. #line:ch1_delivery_tip_02
+-> Thank her and go. #line:ch1_delivery_tip_03
+    <<choose "thanks">>
+    Twenty dollars and the warmest smile in the Bronx. #line:ch1_delivery_tip_04
+-> Ask her to leave a review. #line:ch1_delivery_tip_05
+    <<choose "review">>
+    Five stars and a comment about your manners. Your rating ticks up. #line:ch1_delivery_tip_06
+===
+
+title: ch1_resale_find
+---
+A stoop sale on the Grand Concourse. Under a pile of DVDs, a pair of rare sneakers. Fifty bucks. #line:ch1_resale_find_01
+-> Buy them. #line:ch1_resale_find_02
+    <<choose "buy">>
+    You know a guy who knows a guy who collects these. #line:ch1_resale_find_03
+-> Walk on. #line:ch1_resale_find_04
+    <<choose "skip">>
+    Somebody else's lucky day. #line:ch1_resale_find_05
+===
+
+title: ch1_resale_flip
+---
+The collector shows up, inspects the sneakers for ten long minutes, and nods. #line:ch1_resale_flip_01
+Collector: Two-twenty. Final offer. #line:ch1_resale_flip_02
+-> Sell. #line:ch1_resale_flip_03
+    <<choose "sell">>
+    Fifty in, two-twenty out. That's margin. #line:ch1_resale_flip_04
+-> Hold out for three hundred. #line:ch1_resale_flip_05
+    <<choose "hold">>
+    Collector: Then enjoy your sneakers. #line:ch1_resale_flip_06
+===
+
+title: ch1_ai_rush
+---
+An email at eleven at night. A client needs fifty product descriptions written by morning. #line:ch1_ai_rush_01
+-> Accept. Coffee and keyboard. #line:ch1_ai_rush_02
+    <<choose "accept">>
+    Done by six. The client pays a rush bonus and promises more work. #line:ch1_ai_rush_03
+-> Decline politely and sleep. #line:ch1_ai_rush_04
+    <<choose "decline">>
+    Your inbox is silent. Your pillow is grateful. #line:ch1_ai_rush_05
+===

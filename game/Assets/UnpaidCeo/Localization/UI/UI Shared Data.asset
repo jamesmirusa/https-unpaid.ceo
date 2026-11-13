@@ -1,0 +1,764 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: UI Shared Data
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.SharedTableData
+  m_TableCollectionName: UI
+  m_TableCollectionNameGuidString: 661c3a022ed3f4bdc9f82e73c65bb011
+  m_Entries:
+  - m_Id: 514842624
+    m_Key: nav.city
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425536
+    m_Key: nav.company
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425537
+    m_Key: nav.decisions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425538
+    m_Key: nav.academy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425539
+    m_Key: nav.ranking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425540
+    m_Key: hud.cash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425541
+    m_Key: hud.reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425542
+    m_Key: hud.month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425543
+    m_Key: hud.energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425544
+    m_Key: hud.next_month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425545
+    m_Key: hud.journal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425546
+    m_Key: hud.settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425547
+    m_Key: company.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425548
+    m_Key: company.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425549
+    m_Key: company.revenue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425550
+    m_Key: company.cogs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425551
+    m_Key: company.gross
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425552
+    m_Key: company.fixed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425553
+    m_Key: company.marketing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425554
+    m_Key: company.tax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425555
+    m_Key: company.net
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425556
+    m_Key: company.personal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425557
+    m_Key: company.cash_end
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425558
+    m_Key: company.disclaimer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425559
+    m_Key: decisions.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425560
+    m_Key: decisions.time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425561
+    m_Key: decisions.work
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425562
+    m_Key: decisions.family
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425563
+    m_Key: decisions.rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425564
+    m_Key: decisions.study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425565
+    m_Key: decisions.split
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425566
+    m_Key: decisions.actions
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425567
+    m_Key: decisions.ap
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425568
+    m_Key: gig.gig_delivery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425569
+    m_Key: gig.gig_resale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425570
+    m_Key: gig.gig_ai_freelance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425571
+    m_Key: action.overtime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425572
+    m_Key: action.rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425573
+    m_Key: action.study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425574
+    m_Key: action.networking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425575
+    m_Key: action.family_time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425576
+    m_Key: action.hobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425577
+    m_Key: action.gray_scheme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425578
+    m_Key: action.loan_shark_loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425579
+    m_Key: action.reserve_transfer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425580
+    m_Key: journal.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425581
+    m_Key: journal.empty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425582
+    m_Key: journal.month
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425583
+    m_Key: journal.decision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425584
+    m_Key: journal.first_income
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425585
+    m_Key: journal.first_bills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425586
+    m_Key: journal.first_loss
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425587
+    m_Key: journal.in_debt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425588
+    m_Key: journal.bankrupt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425589
+    m_Key: journal.chapter1_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425590
+    m_Key: journal.burnout_mistake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425591
+    m_Key: journal.tutorial_gig
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425592
+    m_Key: journal.action.overtime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425593
+    m_Key: journal.action.rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425594
+    m_Key: journal.action.study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425595
+    m_Key: journal.action.networking
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425596
+    m_Key: journal.action.family_time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425597
+    m_Key: journal.action.hobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425598
+    m_Key: journal.action.gray_scheme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425599
+    m_Key: journal.action.loan_shark_loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425600
+    m_Key: journal.action.reserve_transfer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425601
+    m_Key: settings.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425602
+    m_Key: settings.language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425603
+    m_Key: settings.graphics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425604
+    m_Key: settings.graphics.eco
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425605
+    m_Key: settings.graphics.optimal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425606
+    m_Key: settings.graphics.max
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425607
+    m_Key: settings.theme
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425608
+    m_Key: settings.theme.day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425609
+    m_Key: settings.theme.neon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425610
+    m_Key: settings.reset
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425611
+    m_Key: settings.reset.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425612
+    m_Key: ranking.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425613
+    m_Key: ranking.soon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 527425614
+    m_Key: city.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989772341248
+    m_Key: hero.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924160
+    m_Key: hero.species
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924161
+    m_Key: hero.outfit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924162
+    m_Key: hero.color
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924163
+    m_Key: hero.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924164
+    m_Key: hero.species.raccoon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924165
+    m_Key: hero.species.fox
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924166
+    m_Key: hero.species.cat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924167
+    m_Key: hero.outfit.hoodie
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8989784924168
+    m_Key: hero.outfit.blazer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23114053312512
+    m_Key: onboarding.gig
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23114061701120
+    m_Key: onboarding.continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37261197434880
+    m_Key: company.mistake
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149070856192
+    m_Key: hud.turns_left
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244800
+    m_Key: hud.next_in
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244801
+    m_Key: missions.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244802
+    m_Key: missions.streak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244803
+    m_Key: missions.points
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244804
+    m_Key: mission.months_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244805
+    m_Key: mission.months_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244806
+    m_Key: mission.months_6
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244807
+    m_Key: mission.scenes_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244808
+    m_Key: mission.scenes_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244809
+    m_Key: mission.quiz_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244810
+    m_Key: mission.quiz_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244811
+    m_Key: mission.quiz_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244812
+    m_Key: mission.actions_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 82149079244813
+    m_Key: mission.actions_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860063879168
+    m_Key: industry.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462080
+    m_Key: industry.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462081
+    m_Key: industry.disclaimer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462082
+    m_Key: industry.capex
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462083
+    m_Key: industry.margin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462084
+    m_Key: industry.break_even
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462085
+    m_Key: industry.lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462086
+    m_Key: industry.choose
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462087
+    m_Key: industry.chosen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462088
+    m_Key: industry.offer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462089
+    m_Key: industry.open_first
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462090
+    m_Key: industry.coffee_cart.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462091
+    m_Key: industry.coffee_cart.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462092
+    m_Key: industry.coffee_cart.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462093
+    m_Key: industry.coffee_cart.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462094
+    m_Key: industry.resale_store.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462095
+    m_Key: industry.resale_store.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462096
+    m_Key: industry.resale_store.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462097
+    m_Key: industry.resale_store.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462098
+    m_Key: industry.food_truck.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462099
+    m_Key: industry.food_truck.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462100
+    m_Key: industry.food_truck.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462101
+    m_Key: industry.food_truck.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462102
+    m_Key: industry.ai_agency.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462103
+    m_Key: industry.ai_agency.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462104
+    m_Key: industry.ai_agency.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462105
+    m_Key: industry.ai_agency.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462106
+    m_Key: industry.cleaning.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462107
+    m_Key: industry.cleaning.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462108
+    m_Key: industry.cleaning.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462109
+    m_Key: industry.cleaning.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462110
+    m_Key: industry.logistics_box_truck.name
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462111
+    m_Key: industry.logistics_box_truck.scale.0
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462112
+    m_Key: industry.logistics_box_truck.scale.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462113
+    m_Key: industry.logistics_box_truck.scale.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462114
+    m_Key: loan.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462115
+    m_Key: loan.hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462116
+    m_Key: loan.amount
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462117
+    m_Key: loan.term
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462118
+    m_Key: loan.apr
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462119
+    m_Key: loan.payment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462120
+    m_Key: loan.take
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462121
+    m_Key: loan.cancel
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462122
+    m_Key: chapter.2.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462123
+    m_Key: chapter.2.subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462124
+    m_Key: chapter.3.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462125
+    m_Key: chapter.3.subtitle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462126
+    m_Key: hud.chapter_goal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462127
+    m_Key: hud.advance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462128
+    m_Key: decisions.business
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462129
+    m_Key: decisions.units
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462130
+    m_Key: decisions.unit_cost
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462131
+    m_Key: decisions.staff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462132
+    m_Key: decisions.units_rejected
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462133
+    m_Key: company.interest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462134
+    m_Key: company.capex
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462135
+    m_Key: company.asset_sales
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462136
+    m_Key: company.loan_principal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462137
+    m_Key: company.unit_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462138
+    m_Key: company.margin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462139
+    m_Key: company.break_even
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462140
+    m_Key: company.cac
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462141
+    m_Key: company.ltv
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462142
+    m_Key: company.ltv_cac
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462143
+    m_Key: company.loans_title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462144
+    m_Key: company.loan_row
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462145
+    m_Key: company.take_loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462146
+    m_Key: journal.take_loan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462147
+    m_Key: journal.choose_industry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462148
+    m_Key: journal.chapter2_start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462149
+    m_Key: journal.chapter3_start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462150
+    m_Key: journal.chapter2_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 89860076462151
+    m_Key: journal.chapter3_done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 94522578034688
+    m_Key: decisions.owner_time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122661639282688
+    m_Key: decisions.price
+    m_Metadata:
+      m_Items: []
+  - m_Id: 122661651865600
+    m_Key: decisions.marketing
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 757097517183139840
+  references:
+    version: 2
+    RefIds:
+    - rid: 757097517183139840
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1794162306503

@@ -1,0 +1,203 @@
+key	en	ru
+academy.title	CEO Academy	CEO Academy
+academy.disclaimer	Money in this game is simulated. This is not financial advice.	Деньги в игре симулированные. Это не финансовый совет.
+academy.locked	Keep playing to unlock this lesson.	Играй дальше, чтобы открыть этот урок.
+academy.quiz.correct	Correct!	Верно!
+academy.quiz.wrong	Not quite. Read the lesson again.	Не совсем. Перечитай урок.
+academy.quiz.title	Quiz	Квиз
+lesson.revenue_vs_profit.title	Revenue vs. profit	Выручка и прибыль
+lesson.revenue_vs_profit.body	Revenue is every dollar that comes in. Profit is what stays after you pay for everything it took to earn it: supplies, app fees, the bike, your phone, taxes. A courier can bring in $3,000 a month and keep far less once all of that is paid. Big companies live by the same math: in 2012 Amazon sold $61 billion of goods and still posted a small loss, because it poured almost everything back into growth. Rule of thumb: brag about revenue, plan with profit.	Выручка — это каждый доллар, который пришёл. Прибыль — то, что осталось после оплаты всего, что понадобилось, чтобы его заработать: товары, комиссии приложений, велосипед, связь, налоги. Курьер может приносить 3 000 $ в месяц, а оставлять гораздо меньше. Большие компании живут по той же математике: в 2012 году Amazon продал товаров на 61 млрд $ и всё равно показал небольшой убыток, потому что почти всё вкладывал в рост. Правило: хвастайся выручкой, планируй по прибыли.
+lesson.revenue_vs_profit.q0	You earned $2,000 from gigs and spent $600 on costs. What is your profit before tax?	Ты заработал на подработках 2 000 $ и потратил 600 $ на расходы. Какая у тебя прибыль до налогов?
+lesson.revenue_vs_profit.q0.a0	$2,000	2 000 $
+lesson.revenue_vs_profit.q0.a1	$1,400	1 400 $
+lesson.revenue_vs_profit.q0.a2	$2,600	2 600 $
+lesson.revenue_vs_profit.q1	Which number pays your rent?	Какая цифра оплачивает аренду?
+lesson.revenue_vs_profit.q1.a0	Profit	Прибыль
+lesson.revenue_vs_profit.q1.a1	Revenue	Выручка
+lesson.revenue_vs_profit.q1.a2	The number of orders	Количество заказов
+lesson.revenue_vs_profit.q2	Revenue keeps growing, but the company is losing money. What is most likely true?	Выручка растёт, а компания теряет деньги. Что вероятнее всего?
+lesson.revenue_vs_profit.q2.a0	All is fine: revenue is all that matters	Всё в порядке: важна только выручка
+lesson.revenue_vs_profit.q2.a1	It doesn't pay taxes	Она не платит налоги
+lesson.revenue_vs_profit.q2.a2	Its costs grow as fast as its sales, or faster	Её расходы растут так же быстро, как продажи, или быстрее
+lesson.reserve.title	Your reserve	Резерв
+lesson.reserve.body	The first bills just hit. Rent, food and the subway fare come every month, whether you earned anything or not. A reserve is money you set aside only for the months when income doesn't show up. Many advisors suggest building three to six months of expenses. Start smaller: even one month of bills is freedom, because it lets you say no to bad deals, like a loan shark's. In this game the reserve sits apart from your cash, and you need one month of bills in it to finish chapter one.	Пришли первые счета. Аренда, еда и метро приходят каждый месяц — заработал ты что-то или нет. Резерв — это деньги, которые ты откладываешь только на месяцы, когда дохода нет. Многие советуют копить на три–шесть месяцев расходов. Начни с меньшего: даже один месяц счетов — это свобода, потому что можно сказать «нет» плохим сделкам, например ростовщику. В игре резерв лежит отдельно от денег на счёте, и чтобы закончить первую главу, в нём должен быть месяц счетов.
+lesson.reserve.q0	Why keep the reserve apart from your spending money?	Зачем держать резерв отдельно от денег на расходы?
+lesson.reserve.q0.a0	So it earns more interest	Чтобы на него капали проценты
+lesson.reserve.q0.a1	So you don't spend it on everyday things	Чтобы не потратить его на повседневное
+lesson.reserve.q0.a2	Because the bank requires it	Этого требует банк
+lesson.reserve.q1	Your bills are $1,700 a month. What is a solid first reserve goal?	Твои счета — 1 700 $ в месяц. Какая хорошая первая цель для резерва?
+lesson.reserve.q1.a0	$170	170 $
+lesson.reserve.q1.a1	$17,000 before you can start anything	17 000 $, иначе нельзя начинать
+lesson.reserve.q1.a2	$1,700	1 700 $
+lesson.reserve.q2	When is it right to spend the reserve?	Когда правильно тратить резерв?
+lesson.reserve.q2.a0	When income drops and bills are due	Когда доход упал, а счета нужно платить
+lesson.reserve.q2.a1	To catch a sale on a new phone	Чтобы успеть на скидку на новый телефон
+lesson.reserve.q2.a2	Never, under any circumstances	Никогда, ни при каких условиях
+lesson.first_loss.title	Reading a loss	Как читать убыток
+lesson.first_loss.body	A loss means the month cost more than it earned. It is not a verdict, it is data. Open the P&L and ask three questions. Did sales drop, or did costs rise? Which cost grew fastest? Was it a one-time hit, like a repair, or will it repeat every month? Even giants post losses: Uber lost money for years before it reported its first full-year operating profit in 2023. The difference between a loss and a disaster is knowing where it came from.	Убыток значит, что месяц стоил дороже, чем принёс. Это не приговор, это данные. Открой отчёт о прибылях и убытках и задай три вопроса. Упали продажи или выросли расходы? Какой расход рос быстрее всех? Это разовый удар, как ремонт, или он будет повторяться каждый месяц? Убытки бывают и у гигантов: Uber годами терял деньги, прежде чем в 2023 году впервые показал операционную прибыль за полный год. Разница между убытком и катастрофой — понимаешь ли ты, откуда он взялся.
+lesson.first_loss.q0	Your month ended with a loss. What should you do first?	Месяц закончился убытком. Что сделать первым делом?
+lesson.first_loss.q0.a0	Find which costs grew faster than sales	Найти расходы, которые росли быстрее продаж
+lesson.first_loss.q0.a1	Quit the business	Бросить бизнес
+lesson.first_loss.q0.a2	Raise every price right away	Сразу поднять все цены
+lesson.first_loss.q1	A $200 bike repair caused this month's loss. What kind of cost is it?	Убыток месяца из-за ремонта велосипеда за 200 $. Что это за расход?
+lesson.first_loss.q1.a0	A recurring cost	Регулярный
+lesson.first_loss.q1.a1	A one-time cost	Разовый
+lesson.first_loss.q1.a2	A tax	Налог
+lesson.first_loss.q2	Which statement is true?	Какое утверждение верно?
+lesson.first_loss.q2.a0	Profitable companies never have losing months	У прибыльных компаний не бывает убыточных месяцев
+lesson.first_loss.q2.a1	A loss means revenue was zero	Убыток значит, что выручки не было
+lesson.first_loss.q2.a2	A loss is data: it shows what to fix	Убыток — это данные: он показывает, что исправить
+lesson.cash_gap.title	Cash gap	Кассовый разрыв
+lesson.cash_gap.body	A cash gap happens when money has to go out before money comes in. Rent is due on the first, but a client pays in thirty days. On paper you are profitable; in your account you are negative. That is how profitable small businesses still go under: they run out of cash. Three tools close the gap: a reserve, getting paid sooner, and paying suppliers later on agreed terms. Expensive debt, like a loan shark's, is the worst tool: it closes the gap today and opens a bigger one tomorrow.	Кассовый разрыв — это когда деньги нужно отдать раньше, чем они придут. Аренда — первого числа, а клиент платит через тридцать дней. На бумаге ты в прибыли, а на счёте — минус. Так разоряются даже прибыльные малые бизнесы: у них просто кончаются деньги. Закрыть разрыв помогают три инструмента: резерв, более быстрая оплата от клиентов и отсрочка платежей поставщикам по договорённости. Дорогой долг, как у ростовщика, — худший инструмент: он закрывает разрыв сегодня и открывает больший завтра.
+lesson.cash_gap.q0	You're profitable on paper, but your balance is negative. What is this called?	На бумаге ты в прибыли, а баланс отрицательный. Как это называется?
+lesson.cash_gap.q0.a0	Bankruptcy	Банкротство
+lesson.cash_gap.q0.a1	A cash gap	Кассовый разрыв
+lesson.cash_gap.q0.a2	Inflation	Инфляция
+lesson.cash_gap.q1	Which move closes a cash gap without new debt?	Что закрывает кассовый разрыв без нового долга?
+lesson.cash_gap.q1.a0	Asking customers to pay sooner	Попросить клиентов платить быстрее
+lesson.cash_gap.q1.a1	A loan from Mr. Fins	Заём у мистера Финса
+lesson.cash_gap.q1.a2	Buying more stock	Закупить больше товара
+lesson.cash_gap.q2	Why is a loan shark the worst way to close a gap?	Почему ростовщик — худший способ закрыть разрыв?
+lesson.cash_gap.q2.a0	It's slow	Это долго
+lesson.cash_gap.q2.a1	He only lends small amounts	Он даёт только маленькие суммы
+lesson.cash_gap.q2.a2	The interest makes the next gap bigger	Проценты делают следующий разрыв больше
+lesson.break_even.title	Break-even point	Точка безубыточности
+lesson.break_even.body	Break-even is the number of sales at which you stop losing money. The formula: fixed costs divided by what each sale leaves after its own cost. Say a food truck pays $3,000 a month for parking, insurance and its loan. A meal sells for $12 and costs $4 to make, so it leaves $8. $3,000 divided by $8 is 375 meals a month. Meal number 376 is the first that earns a profit. In Brooklyn you'll have rent and staff, so know your break-even before you sign anything.	Точка безубыточности — это число продаж, после которого ты перестаёшь терять деньги. Формула: постоянные расходы делить на то, что оставляет каждая продажа после своей себестоимости. Допустим, фудтрак платит 3 000 $ в месяц за стоянку, страховку и кредит. Обед стоит 12 $, а его себестоимость — 4 $, значит, он оставляет 8 $. 3 000 делить на 8 — это 375 обедов в месяц. Обед номер 376 — первый, который приносит прибыль. В Бруклине будут аренда и сотрудники, так что знай свою точку безубыточности до того, как что-то подписывать.
+lesson.break_even.q0	Fixed costs are $2,000 a month. Each sale leaves $10 after its own cost. What is the break-even?	Постоянные расходы — 2 000 $ в месяц. Каждая продажа оставляет 10 $ после себестоимости. Где точка безубыточности?
+lesson.break_even.q0.a0	20 sales	20 продаж
+lesson.break_even.q0.a1	200 sales	200 продаж
+lesson.break_even.q0.a2	2,000 sales	2 000 продаж
+lesson.break_even.q1	What happens after you pass break-even?	Что происходит после точки безубыточности?
+lesson.break_even.q1.a0	Each extra sale adds profit	Каждая следующая продажа добавляет прибыль
+lesson.break_even.q1.a1	Costs disappear	Расходы исчезают
+lesson.break_even.q1.a2	Taxes stop	Налоги больше не нужны
+lesson.break_even.q2	Your supplier raises the cost of each item. Your break-even point…	Поставщик поднял себестоимость каждой единицы. Твоя точка безубыточности…
+lesson.break_even.q2.a0	goes down	снижается
+lesson.break_even.q2.a1	stays the same	не меняется
+lesson.break_even.q2.a2	goes up	растёт
+lesson.unit_economics.title	Unit economics	Юнит-экономика
+lesson.unit_economics.body	Before you buy the first cart, truck or van, look at a single sale. A coffee cart sells a cup for $4, and milk, beans and the cup cost $1.20. That leaves $2.80, a 70% gross margin. Fixed costs arrive every month whether anyone buys or not: $1,200 for the permit, parking and insurance needs 429 cups just to be covered. That is your break-even point. Unit economics asks three questions. What does one sale leave you? How many sales cover the month? What does a customer cost to win, and what do they bring over time? If one sale loses money, selling more only loses it faster. The Company screen shows these numbers for your business every month.	Прежде чем покупать первую тележку, фургон или грузовик, посмотри на одну продажу. Кофейная тележка продаёт чашку за 4 $, а молоко, зёрна и стаканчик стоят 1,20 $. Остаётся 2,80 $ — это валовая маржа 70%. Постоянные расходы приходят каждый месяц, даже если никто ничего не купил: 1 200 $ за разрешение, стоянку и страховку покроют только 429 чашек. Это твоя точка безубыточности. Юнит-экономика задаёт три вопроса. Сколько оставляет одна продажа? Сколько продаж покрывают месяц? Сколько стоит привлечь клиента и сколько он принесёт за всё время? Если одна продажа убыточна, рост продаж только ускоряет убытки. Экран «Компания» каждый месяц показывает эти цифры для твоего бизнеса.
+lesson.unit_economics.q0	A cup sells for $4 and costs $1.20 to make. What is the gross margin?	Чашка стоит 4 $, а её себестоимость — 1,20 $. Какая валовая маржа?
+lesson.unit_economics.q0.a0	30%	30%
+lesson.unit_economics.q0.a1	70%	70%
+lesson.unit_economics.q0.a2	$4	4 $
+lesson.unit_economics.q1	Fixed costs are $1,200 a month and each sale leaves $2.80. How many sales do you need to break even?	Постоянные расходы — 1 200 $ в месяц, каждая продажа оставляет 2,80 $. Сколько продаж нужно для безубыточности?
+lesson.unit_economics.q1.a0	429	429
+lesson.unit_economics.q1.a1	300	300
+lesson.unit_economics.q1.a2	1,200	1 200
+lesson.unit_economics.q2	Each sale loses 50 cents. What happens if you sell twice as much?	Каждая продажа приносит 50 центов убытка. Что будет, если продавать вдвое больше?
+lesson.unit_economics.q2.a0	You break even sooner	Быстрее выйдешь в ноль
+lesson.unit_economics.q2.a1	Profit doubles	Прибыль удвоится
+lesson.unit_economics.q2.a2	You lose money twice as fast	Будешь терять деньги вдвое быстрее
+lesson.pricing.title	Setting the price	Как назначать цену
+lesson.pricing.body	Price is the fastest lever you have, and the easiest to get wrong. Raise it and each sale leaves more, but some customers walk away. Cut it and more people buy, but each sale leaves less. A resale store sells jackets that cost it $15. At $40 it earns $25 a jacket; at $30 only $15, so it must sell about two-thirds more jackets just to earn the same. How strongly demand reacts to price is called elasticity. Coffee by a subway exit barely notices a 25-cent rise; a jacket next to a cheaper shop does. Change prices in small steps, watch a full month of sales, and remember that a discount is easy to start and hard to take back.	Цена — самый быстрый рычаг, и ошибиться с ним проще всего. Поднимешь — каждая продажа оставит больше, но часть клиентов уйдёт. Снизишь — купят больше людей, но каждая продажа оставит меньше. Магазин ресейла покупает куртки по 15 $. По 40 $ он зарабатывает 25 $ на куртке, по 30 $ — только 15 $, и чтобы заработать столько же, нужно продать примерно на две трети больше. Насколько спрос реагирует на цену, называется эластичностью. Кофе у выхода из метро почти не заметит подорожания на 25 центов, а куртку рядом с более дешёвым магазином — заметят. Меняй цену небольшими шагами, смотри продажи за целый месяц и помни: скидку легко ввести и трудно отменить.
+lesson.pricing.q0	A jacket costs you $15. At $40 you earn $25 each, at $30 only $15. How many more jackets must you sell at $30 to earn the same?	Куртка обходится тебе в 15 $. По 40 $ ты зарабатываешь 25 $ с куртки, по 30 $ — 15 $. На сколько больше курток нужно продать по 30 $, чтобы заработать столько же?
+lesson.pricing.q0.a0	About two-thirds more	Примерно на две трети больше
+lesson.pricing.q0.a1	10% more	На 10% больше
+lesson.pricing.q0.a2	The same number	Столько же
+lesson.pricing.q1	What does elasticity measure?	Что измеряет эластичность?
+lesson.pricing.q1.a0	How fast prices rise every year	Как быстро цены растут каждый год
+lesson.pricing.q1.a1	How much demand changes when the price changes	Насколько меняется спрос при изменении цены
+lesson.pricing.q1.a2	How stretchy your products are	Насколько тянутся твои товары
+lesson.pricing.q2	What is the safest way to test a new price?	Как безопаснее всего проверить новую цену?
+lesson.pricing.q2.a0	Halve it for a week	Снизить вдвое на неделю
+lesson.pricing.q2.a1	Copy the most expensive competitor	Скопировать самого дорогого конкурента
+lesson.pricing.q2.a2	Change it a little and watch a month of sales	Немного изменить и смотреть продажи месяц
+lesson.estimated_taxes.title	Profit means taxes	Прибыль — значит налоги
+lesson.estimated_taxes.body	Your unit just covered its costs. Congratulations: now there is profit, and profit is taxed. An employee has tax taken out of every paycheck; an owner has to send it in. In the US, owners usually pay estimated taxes four times a year: by April 15, June 15, September 15 and January 15. Self-employed people also owe self-employment tax, 15.3% for Social Security and Medicare on most of their profit, on top of income tax. Missed payments bring penalties and a painful bill in April. The habit that saves founders is simple: move a share of every month's profit into a separate tax account and don't touch it. The game sets aside a tax reserve for you each month; in real life nobody does it for you.	Твоя точка только что покрыла свои расходы. Поздравляю: теперь есть прибыль, а прибыль облагается налогом. У наёмного работника налог удерживают из каждой зарплаты, а владелец платит его сам. В США владельцы обычно вносят налог авансом четыре раза в год: до 15 апреля, 15 июня, 15 сентября и 15 января. Самозанятые платят ещё и налог на самозанятость — 15,3% на соцстрахование и медицину с большей части прибыли — сверх подоходного налога. За пропущенные платежи начисляют штрафы, а в апреле приходит болезненный счёт. Привычка, которая спасает основателей, проста: каждый месяц откладывай часть прибыли на отдельный налоговый счёт и не трогай его. В игре налоговый резерв откладывается за тебя, в жизни этого никто не сделает.
+lesson.estimated_taxes.q0	How often do US business owners usually pay estimated taxes?	Как часто владельцы бизнеса в США обычно платят налог авансом?
+lesson.estimated_taxes.q0.a0	Once, in April	Один раз, в апреле
+lesson.estimated_taxes.q0.a1	Four times a year	Четыре раза в год
+lesson.estimated_taxes.q0.a2	Only when they sell the business	Только при продаже бизнеса
+lesson.estimated_taxes.q1	What is the self-employment tax for Social Security and Medicare?	Каков налог на самозанятость на соцстрахование и медицину?
+lesson.estimated_taxes.q1.a0	15.3%	15,3%
+lesson.estimated_taxes.q1.a1	1.5%	1,5%
+lesson.estimated_taxes.q1.a2	50%	50%
+lesson.estimated_taxes.q2	Which habit keeps a tax bill from becoming a crisis?	Какая привычка не даёт налоговому счёту стать кризисом?
+lesson.estimated_taxes.q2.a0	Spend the profit now and pay later	Тратить прибыль сейчас, платить потом
+lesson.estimated_taxes.q2.a1	Ask customers to pay the tax	Просить клиентов заплатить налог
+lesson.estimated_taxes.q2.a2	Move part of each month's profit to a separate tax account	Откладывать часть прибыли каждого месяца на отдельный налоговый счёт
+lesson.llc.title	Why an LLC	Зачем нужна LLC
+lesson.llc.body	Moving to Brooklyn means running a real business, and a real business needs a legal structure. As a sole proprietor, you and the business are the same person: if it owes money or gets sued, your own savings are on the line. A limited liability company, an LLC, puts a wall between the two. In New York, forming one costs $200 to file Articles of Organization with the Department of State. Then comes a New York quirk: within 120 days you must publish a notice in two newspapers chosen by the county clerk for six weeks in a row and file a $50 Certificate of Publication. In New York City the newspapers alone can cost over $1,000. Skip it, and the LLC loses its right to do business until you fix it.	Переезд в Бруклин — это уже настоящий бизнес, а настоящему бизнесу нужна юридическая форма. Когда ты индивидуальный предприниматель, ты и бизнес — одно лицо: если бизнес должен денег или на него подали в суд, под ударом твои личные сбережения. Компания с ограниченной ответственностью, LLC, ставит стену между ними. В Нью-Йорке её регистрация стоит 200 $ за подачу Articles of Organization в Департамент штата. Дальше — нью-йоркская особенность: в течение 120 дней нужно публиковать объявление в двух газетах, которые выберет секретарь округа, шесть недель подряд, и подать Certificate of Publication за 50 $. В Нью-Йорке одни только газеты могут стоить больше 1 000 $. Пропустишь — LLC теряет право вести бизнес, пока ты это не исправишь.
+lesson.llc.q0	What is the main point of an LLC?	В чём главный смысл LLC?
+lesson.llc.q0.a0	Lower prices for customers	Более низкие цены для клиентов
+lesson.llc.q0.a1	It separates your personal money from the business's debts	Она отделяет твои личные деньги от долгов бизнеса
+lesson.llc.q0.a2	You never pay taxes	Ты никогда не платишь налоги
+lesson.llc.q1	What does New York charge to file Articles of Organization for an LLC?	Сколько стоит в Нью-Йорке подача Articles of Organization для LLC?
+lesson.llc.q1.a0	$200	200 $
+lesson.llc.q1.a1	$20	20 $
+lesson.llc.q1.a2	$2,000	2 000 $
+lesson.llc.q2	What happens if a New York LLC skips the publication requirement?	Что будет, если нью-йоркская LLC не выполнит требование о публикации?
+lesson.llc.q2.a0	Nothing at all	Ничего
+lesson.llc.q2.a1	It becomes a corporation	Она станет корпорацией
+lesson.llc.q2.a2	Its right to do business is suspended until it publishes	Её право вести бизнес приостановят, пока она не опубликует объявление
+lesson.hiring.title	Your first hire	Первый сотрудник
+lesson.hiring.body	Your first employee changes your job: now you lead, not only work. Hire for the gap that costs you the most, like the shifts you can't cover or the calls you can't take. In New York City the minimum wage in 2026 is $17 an hour, and hours over 40 a week are paid at time and a half. Before the first day you need an EIN, an I-9 form to check the right to work, tax forms, and workers' compensation and disability insurance, and you report the new hire to New York State within 20 days. A good first hire pays for themselves by freeing your time for selling and planning; a wrong one costs months. Before you post the job, write down what success looks like after 30 days.	Первый сотрудник меняет твою работу: теперь ты руководишь, а не только работаешь. Нанимай туда, где пробел обходится дороже всего: смены, которые ты не закрываешь, звонки, на которые не успеваешь ответить. В Нью-Йорке минимальная оплата в 2026 году — 17 $ в час, а часы сверх 40 в неделю оплачиваются в полуторном размере. До первого рабочего дня нужны EIN, форма I-9 для проверки права на работу, налоговые формы, страховки от несчастных случаев на работе и по нетрудоспособности, а о новом сотруднике нужно сообщить штату Нью-Йорк в течение 20 дней. Хороший первый сотрудник окупается, освобождая твоё время для продаж и планов, неудачный стоит месяцев. Прежде чем публиковать вакансию, запиши, как выглядит успех через 30 дней.
+lesson.hiring.q0	What is the minimum wage in New York City in 2026?	Какая минимальная оплата в Нью-Йорке в 2026 году?
+lesson.hiring.q0.a0	$7.25	7,25 $
+lesson.hiring.q0.a1	$17.00	17,00 $
+lesson.hiring.q0.a2	$25.50	25,50 $
+lesson.hiring.q1	An employee works 45 hours one week at $18 an hour. How are the 5 extra hours paid?	Сотрудник отработал за неделю 45 часов по 18 $ в час. Как оплачиваются 5 лишних часов?
+lesson.hiring.q1.a0	At $27 an hour, time and a half	По 27 $ в час, в полуторном размере
+lesson.hiring.q1.a1	At $18, like the rest	По 18 $, как остальные
+lesson.hiring.q1.a2	They are not paid	Никак не оплачиваются
+lesson.hiring.q2	What should you write down before posting a job?	Что стоит записать перед публикацией вакансии?
+lesson.hiring.q2.a0	Your competitors' salaries	Зарплаты у конкурентов
+lesson.hiring.q2.a1	A list of holidays	Список праздников
+lesson.hiring.q2.a2	What success looks like after 30 days	Как выглядит успех через 30 дней
+lesson.payroll.title	The real cost of payroll	Сколько на самом деле стоит зарплата
+lesson.payroll.body	An employee paid $3,000 a month costs you more than $3,000. On top of the salary, the employer pays 7.65% for Social Security and Medicare, plus federal and state unemployment insurance, workers' compensation and disability insurance. Many small businesses budget 10 to 30% above wages for all of it. Payroll also keeps a schedule your customers don't: salaries leave on a fixed day even when clients pay late. That is why payroll is the cost that most often turns a profitable month into an empty account. In the game, every hire adds the salary plus 10% overhead to your fixed costs. Before hiring, check that gross profit covers the full cost, not just the salary.	Сотрудник с зарплатой 3 000 $ в месяц обходится дороже 3 000 $. Сверх зарплаты работодатель платит 7,65% на соцстрахование и медицину, а ещё федеральное и штатное страхование от безработицы, страховки от несчастных случаев и по нетрудоспособности. Многие малые бизнесы закладывают на всё это 10–30% сверх зарплат. И у зарплаты свой график, которого нет у клиентов: она уходит в фиксированный день, даже если клиенты платят с опозданием. Поэтому именно зарплаты чаще всего превращают прибыльный месяц в пустой счёт. В игре каждый сотрудник добавляет к постоянным расходам зарплату и ещё 10% сверху. Перед наймом проверь, что валовая прибыль покрывает полную стоимость сотрудника, а не только зарплату.
+lesson.payroll.q0	Besides the salary, what share does an employer pay for Social Security and Medicare?	Какую долю сверх зарплаты работодатель платит на соцстрахование и медицину?
+lesson.payroll.q0.a0	7.65%	7,65%
+lesson.payroll.q0.a1	0.5%	0,5%
+lesson.payroll.q0.a2	50%	50%
+lesson.payroll.q1	Why does payroll so often cause cash problems?	Почему зарплаты так часто создают проблемы с деньгами?
+lesson.payroll.q1.a0	Banks block salary payments	Банки блокируют выплату зарплат
+lesson.payroll.q1.a1	Salaries leave on a fixed day even when clients pay late	Зарплата уходит в фиксированный день, даже если клиенты платят с опозданием
+lesson.payroll.q1.a2	Employees can only be paid in cash	Сотрудникам можно платить только наличными
+lesson.payroll.q2	A worker earns $3,000 a month. Which monthly budget is realistic?	Сотрудник получает 3 000 $ в месяц. Какой месячный бюджет реалистичен?
+lesson.payroll.q2.a0	Exactly $3,000	Ровно 3 000 $
+lesson.payroll.q2.a1	$2,500, because of taxes	2 500 $, из-за налогов
+lesson.payroll.q2.a2	About $3,300 to $3,900 with employer costs	Около 3 300–3 900 $ с расходами работодателя
+lesson.cash_gap_b2b.title	When clients pay later	Когда клиенты платят позже
+lesson.cash_gap_b2b.body	Business clients rarely pay on the spot. A warehouse that hires your box truck may pay "net 30" or "net 60": thirty or sixty days after the invoice. Meanwhile fuel, insurance and your driver's pay go out every week. So a fast-growing B2B business can be profitable on paper and broke in the bank: the more jobs you win, the more cash sits in unpaid invoices, called accounts receivable. Tools that close the gap: send the invoice the day the job is done, ask for a deposit, offer a small discount for paying within 10 days, keep a reserve of one or two months of costs, or open a business line of credit. Never fund the gap with a loan shark.	Бизнес-клиенты редко платят сразу. Склад, который нанимает твой грузовик, может платить «net 30» или «net 60» — через тридцать или шестьдесят дней после счёта. А топливо, страховка и зарплата водителя уходят каждую неделю. Поэтому быстро растущий B2B-бизнес может быть прибыльным на бумаге и пустым в банке: чем больше заказов ты берёшь, тем больше денег застревает в неоплаченных счетах — дебиторской задолженности. Что закрывает разрыв: выставляй счёт в день выполнения работы, проси предоплату, давай небольшую скидку за оплату в течение 10 дней, держи резерв на один-два месяца расходов или открой бизнес-кредитную линию. Никогда не закрывай разрыв займом у ростовщика.
+lesson.cash_gap_b2b.q0	A client pays "net 30". What does that mean?	Клиент платит «net 30». Что это значит?
+lesson.cash_gap_b2b.q0.a0	They pay 30% now	Платит 30% сразу
+lesson.cash_gap_b2b.q0.a1	They pay within 30 days after the invoice	Платит в течение 30 дней после счёта
+lesson.cash_gap_b2b.q0.a2	They pay $30 per job	Платит 30 $ за заказ
+lesson.cash_gap_b2b.q1	You win more B2B jobs, but your bank balance keeps shrinking. What is the most likely reason?	Ты берёшь всё больше B2B-заказов, а денег на счёте всё меньше. Какая причина вероятнее всего?
+lesson.cash_gap_b2b.q1.a0	Cash is stuck in unpaid invoices while costs go out now	Деньги застряли в неоплаченных счетах, а расходы идут сейчас
+lesson.cash_gap_b2b.q1.a1	Your prices are too high	У тебя слишком высокие цены
+lesson.cash_gap_b2b.q1.a2	Clients pay too early	Клиенты платят слишком рано
+lesson.cash_gap_b2b.q2	Which tool closes a cash gap without new expensive debt?	Что закрывает кассовый разрыв без нового дорогого долга?
+lesson.cash_gap_b2b.q2.a0	A loan shark	Ростовщик
+lesson.cash_gap_b2b.q2.a1	Hiring more staff	Нанять ещё сотрудников
+lesson.cash_gap_b2b.q2.a2	Invoicing the day the job is done and asking for a deposit	Счёт в день выполнения работы и предоплата
+lesson.cac_ltv.title	What a customer costs and brings	Сколько стоит и сколько приносит клиент
+lesson.cac_ltv.body	Marketing spends money to win customers, so measure what a customer costs and what one brings. Customer acquisition cost, CAC, is marketing spend divided by new customers: $500 of flyers that bring 100 new regulars is $5 each. Lifetime value, LTV, is what a customer leaves you over all their visits: a coffee that leaves $2.80, bought 20 times, is worth $56. A common rule of thumb is to keep LTV at least three times CAC. Below that, growth eats your cash; far above it, you may be spending too little to grow. Track both every month, as the Company screen does for you, and cut the channels that bring customers who never come back.	Маркетинг тратит деньги на привлечение клиентов, поэтому считай, сколько стоит клиент и сколько он приносит. Стоимость привлечения, CAC, — это расходы на маркетинг, делённые на число новых клиентов: листовки за 500 $, которые привели 100 новых постоянных гостей, — это 5 $ за каждого. Пожизненная ценность, LTV, — сколько клиент оставит за все визиты: кофе, который оставляет 2,80 $, купленный 20 раз, — это 56 $. Распространённое правило: LTV должна быть хотя бы в три раза больше CAC. Ниже — рост съедает твои деньги, намного выше — возможно, ты слишком мало вкладываешь в рост. Следи за обоими показателями каждый месяц — экран «Компания» делает это за тебя — и отключай каналы, которые приводят клиентов, не возвращающихся снова.
+lesson.cac_ltv.q0	$500 of ads brought 100 new customers. What is the CAC?	Реклама за 500 $ привела 100 новых клиентов. Каков CAC?
+lesson.cac_ltv.q0.a0	$5	5 $
+lesson.cac_ltv.q0.a1	$500	500 $
+lesson.cac_ltv.q0.a2	$50,000	50 000 $
+lesson.cac_ltv.q1	A coffee leaves $2.80 and a regular buys 20 of them. What is the LTV?	Кофе оставляет 2,80 $, постоянный гость покупает 20 чашек. Какая LTV?
+lesson.cac_ltv.q1.a0	$4	4 $
+lesson.cac_ltv.q1.a1	$28	28 $
+lesson.cac_ltv.q1.a2	$56	56 $
+lesson.cac_ltv.q2	Which LTV-to-CAC ratio is a common healthy target?	Какое соотношение LTV к CAC считается здоровым ориентиром?
+lesson.cac_ltv.q2.a0	Below 1 to 1	Меньше 1 к 1
+lesson.cac_ltv.q2.a1	At least 3 to 1	Не меньше 3 к 1
+lesson.cac_ltv.q2.a2	Exactly 1 to 1	Ровно 1 к 1
+lesson.loans.title	Borrowing money	Как брать кредит
+lesson.loans.body	A loan buys time with money: you get cash now and pay back more later. The price is the interest rate, shown as an APR. At 12% a year, $10,000 costs about $100 of interest a month at first, and less as you repay it. Banks look at your credit, cash flow and reputation; a weaker record means a higher rate. In the US, the Small Business Administration backs loans made by banks and other lenders: SBA microloans go up to $50,000 and 7(a) loans up to $5 million, with interest capped by its rules. Borrow for things that earn, like a second cart or a truck, not to cover losses you don't understand. The payment is due whether sales come or not, so check it against your worst month, not your best.	Кредит — это покупка времени за деньги: деньги сейчас, а вернуть больше потом. Цена — процентная ставка, годовая, APR. Под 12% годовых 10 000 $ стоят поначалу около 100 $ процентов в месяц и меньше по мере погашения. Банки смотрят на кредитную историю, денежный поток и репутацию: чем она слабее, тем выше ставка. В США Администрация малого бизнеса (SBA) гарантирует кредиты банков и других кредиторов: микрокредиты SBA — до 50 000 $, кредиты 7(a) — до 5 миллионов $, а ставки ограничены её правилами. Бери в долг на то, что зарабатывает, — вторую тележку или грузовик, — а не чтобы закрыть убытки, причины которых не понимаешь. Платёж нужно вносить, будут продажи или нет, поэтому проверяй его на своём худшем месяце, а не на лучшем.
+lesson.loans.q0	What is the most an SBA microloan can be?	Какой максимальный размер микрокредита SBA?
+lesson.loans.q0.a0	$5,000	5 000 $
+lesson.loans.q0.a1	$50,000	50 000 $
+lesson.loans.q0.a2	$5 million	5 миллионов $
+lesson.loans.q1	What is the best use of a business loan?	На что лучше всего брать бизнес-кредит?
+lesson.loans.q1.a0	Covering losses you can't explain	Закрыть убытки, которые не можешь объяснить
+lesson.loans.q1.a1	A vacation after a good month	Отпуск после удачного месяца
+lesson.loans.q1.a2	Equipment that will earn more than the payments	Оборудование, которое заработает больше платежей
+lesson.loans.q2	Which month should you test a loan payment against?	На каком месяце стоит проверять, потянешь ли платёж по кредиту?
+lesson.loans.q2.a0	Your worst month	На худшем
+lesson.loans.q2.a1	Your best month	На лучшем
+lesson.loans.q2.a2	An average of your best months	На среднем из лучших

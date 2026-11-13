@@ -1,0 +1,26 @@
+{
+    "name": "UnpaidCeo.Game",
+    "rootNamespace": "UnpaidCeo.Game",
+    "references": [
+        "UnpaidCeo.Core",
+        "YarnSpinner.Unity",
+        "Unity.Localization",
+        "Unity.ResourceManager",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.Addressables",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll",
+        "YarnSpinner.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

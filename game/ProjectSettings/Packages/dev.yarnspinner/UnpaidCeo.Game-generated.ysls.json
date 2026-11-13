@@ -1,0 +1,1 @@
+{"version":2,"commands":[{"yarnName":"choose","definitionName":"Choose","fileName":"game/Assets/UnpaidCeo/Game/Narrative/YarnBridge.cs","language":"csharp","async":false,"containsErrors":false,"location":{"start":{"line":97,"character":8},"end":{"line":109,"character":9}},"parameters":[{"name":"choiceId","isParamsArray":false,"type":"string"}]}],"functions":[]}

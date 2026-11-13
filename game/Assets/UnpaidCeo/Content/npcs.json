@@ -1,0 +1,12 @@
+{ "npcs": [
+  { "id": "mentor",      "species": "raccoon", "role": "mentor",   "name": { "en": "Unpaid CEO",     "ru": "Unpaid CEO" } },
+  { "id": "tony",        "species": "bulldog", "role": "neighbor", "name": { "en": "Tony",           "ru": "Тони" } },
+  { "id": "loan_shark",  "species": "shark",   "role": "lender",   "name": { "en": "Mr. Fins",       "ru": "Мистер Финс" } },
+  { "id": "best_friend", "species": "otter",   "role": "friend",   "name": { "en": "Jay",            "ru": "Джей" } },
+  { "id": "mom",         "species": "hero",    "role": "family",   "name": { "en": "Mom",            "ru": "Мама" } },
+  { "id": "fat_cat",     "species": "cat",     "role": "landlord", "name": { "en": "Mr. Whiskerton", "ru": "Мистер Вискертон" } },
+  { "id": "banker_lee",     "species": "owl",    "role": "banker",     "name": { "en": "Ms. Lee", "ru": "Мисс Ли" } },
+  { "id": "supplier_rosa",  "species": "hen",    "role": "supplier",   "name": { "en": "Rosa",    "ru": "Роза" } },
+  { "id": "journalist_mia", "species": "fox",    "role": "journalist", "name": { "en": "Mia",     "ru": "Миа" } },
+  { "id": "cofounder_sam",  "species": "beaver", "role": "cofounder",  "name": { "en": "Sam",     "ru": "Сэм" } }
+] }

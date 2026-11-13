@@ -1,0 +1,142 @@
+# Stage 1 vertical slice — decisions taken during execution
+
+Every `Ruling:` from the execution ledger (plan: docs/superpowers/plans/2026-11-08-unpaid-ceo-stage1-vertical-slice.md), in the order made, each with its cost if wrong; then the final review's deferred minors.
+
+## Rulings
+
+- Setup: Ruling: ledger kept on the Mac repo and maintained by hand — the skill's task-start/task-done scripts live in the cloud container and cannot drive a repo on the Mac — cost if wrong: manual bookkeeping errors; mitigated by one ledger line per task with the test command and result.
+- Setup: Ruling: use installed Unity 6000.6.2f1 (Unity 6, newer supported release) instead of 6000.3.x LTS — avoids a multi-GB install and owner wait; same Unity 6 API surface — cost if wrong: hit a 6.6-specific regression; switch editor version later (project upgrades forward cleanly).
+- - T4→T7: FreeActionDef.Effects uses Effect type from T7 — Ruling: FreeActionDef lands in T4 with Effects as raw JObject list; parsed to Effect in T7 — cost if wrong: one refactor.
+- Task 1: Ruling: added com.unity.ugui 2.0.0 — Yarn Spinner 3 runtime needs uGUI/EventSystems, absent from a bare -createProject project — cost if wrong: none (core Unity package).
+- Task 2: Ruling: Money serializes as a bare integer (cents) via JsonConverter; CanonicalJson sorts keys recursively (covers dictionaries) — sets must be stored as sorted collections in GameState (Task 8) for hash stability — cost if wrong: replay hash mismatch caught by Task 8 test.
+- Task 3: Ruling: Demand floors with +1e-9 epsilon and added a test for it — plain floor drops a unit on products like 0.1×3×1000 — cost if wrong: off-by-one unit at exact boundaries.
+- Task 4: Ruling: ContentDb grows per task — Storylets/Npcs/Lessons collections are added in Tasks 7/11/12 when their types exist (plan listed them in T4) — cost if wrong: none, additive.
+- Task 4: Ruling: gigs are priced per unit of work (delivery = per hour at NYC min pay $22.13 + $3.87 tips assumption); essentials, resale and AI freelance values are game assumptions recorded in balance.sources — cost if wrong: retune in playtest (data only).
+- Task 5: Ruling: gigs carry no fixed costs; business fixed costs and marketing are paid in the month incurred, only revenue is delayed by ReceivableDelayMonths — cost if wrong: cash-gap lesson slightly milder than real payables timing.
+- Task 6: Ruling: plan test 'Rest40_Work70 → +1' is impossible (allocation must sum to 100) — split into Rest40 (+6) and Work70 (−5) cases with valid allocations — cost if wrong: none.
+- Task 6: Ruling: LifeSimulator.Apply mutates stats and returns the delta actually applied after clamping (journal shows real change) — cost if wrong: none.
+- Task 7: Ruling: FactStore/NpcRelations use Dictionary (CanonicalJson sorts keys); storylets-seen will be stored as a dictionary id→month in GameState instead of a HashSet so save/load and hashing stay order-independent — cost if wrong: none.
+- Task 7: Ruling: FreeActionDef.Effects is now List<Effect> via JsonConverter (T4 raw-JObject ruling superseded); T4 test updated to assert a typed StatEffect — cost if wrong: none.
+- Task 7: Ruling: unknown condition/effect keys and unknown stats throw FormatException at load (content error surfaces immediately); added test — cost if wrong: a typo in content blocks loading instead of silently misbehaving (intended).
+- Task 8: Ruling: unresolved scenes expire at EndMonth; the burnout roll always consumes one RNG draw; positive cash effects (gifts) do not count as lifetime earnings; burnout mistake = 10% of revenue deducted from operating profit and cash (revenue line unchanged); locked gigs (StudyXp < RequiredStudy) get zero work share — cost if wrong: balance/UX tweaks, no data migration.
+- Task 8: Ruling: MonthDecisions uses plain int fields (Work/Family/Rest/Study) so it round-trips through the decision log and saves; TimeAllocation is derived via TryGetAllocation — cost if wrong: none.
+- Task 8: Ruling: added tests beyond the brief — tutorial gig pays once, unknown storylet choice rejected without changes, reserve moves only available cash, invalid allocation rejected — they pin behaviour the spec implies.
+- Task 9: Ruling: added Wrong_typed_field test (save with a string Month → CorruptReset, no throw) beyond the brief; a save whose LastDecisions/Log/etc. is missing loads as Migrated — cost if wrong: none.
+- Task 11: Ruling: Yarn built-in localisation (Chapter1-ru.csv string table) instead of Unity Localization string tables — text-diffable, testable in EditMode, no editor-only table assets; UI strings still use Unity Localization in Task 16 — cost if wrong: import the CSV into a String Table Collection (Yarn supports both).
+- Task 11: Ruling: added StudyXpEffect ("studyXp") — the brief's "study" free action had no effect that feeds StudyXp/RequiredStudy — cost if wrong: one effect type to remove.
+- Task 11: Ruling: added NpcDef + ContentFiles.Npcs + duplicate-id validation — npcs.json had no loader — cost if wrong: none.
+- Task 11: Ruling: added Editor.Tests/YarnProjectTests (compiles without errors, no implicit line ids, ru table present) beyond the brief — Yarn compile errors are otherwise silent until play — cost if wrong: none.
+- Task 11: Ruling: 44 storylets; every scene carries {"chapter":1}; bankrupt comeback uses cooldown 6 instead of once so a second bankruptcy also gets a way back; every comeback choice clears "bankrupt" — cost if wrong: retune data.
+- Task 11: Ruling: content was authored with a one-shot generator (not committed); the .yarn/.json/.csv files are the source of truth; RU updates go through Yarn's "update localisations" flow — cost if wrong: none.
+- Task 11: Ruling: UitkDialoguePresenter builds its panel in code with USS class hooks (dialogue, dialogue__speaker, …); visual styling deferred to Task 16 — cost if wrong: restyle only.
+- Task 12: Ruling: engine now sets facts first_income (first month with revenue) and first_bills (first month personal costs are charged) as triggers for revenue_vs_profit and reserve; break_even triggers on chapter1_done — the brief named the moments, not the facts — cost if wrong: retarget trigger facts in lessons.json.
+- Task 12: Ruling: SkillReward = 5 XP per question to one founder skill, only for the first answer to a question; later answers are checked but change nothing and are not logged; answers are logged as "quizAnswer" and replayed — cost if wrong: retune xp in data.
+- Task 12: Ruling: lesson flush now records LessonsSeen and de-duplicates (a storylet LessonEffect for an already-seen lesson no longer re-shows it) — previously LessonsSeen was never written — cost if wrong: none.
+- Task 12: Ruling: Lesson_keys_exist_in_en_and_ru lives in Editor.Tests (needs UnityEditor.Localization); added Chapter1_has_the_five_lessons, Lesson_validation_reports_bad_quiz_and_unknown_skill, Quiz_answers_replay_to_the_same_state and a save-migration test beyond the brief — cost if wrong: none.
+- Task 12: Ruling: Unity Localization bootstrapped now (Localization Settings, en/ru locales, Addressables data, "Academy" table) instead of in Task 16; locale selection rules stay Task 16's — cost if wrong: none.
+- Task 13: Ruling: hand-written URP HLSL shader UnpaidCeo/Stylized instead of a .shadergraph — a Shader Graph file cannot be authored reliably as text; compile checked by Stylized_shader_compiles — cost if wrong: port to Shader Graph later.
+- Task 13: Ruling: LOD via Unity 6.6 Mesh LOD (MeshLodUtility.GenerateMeshLods, 3 levels inside the mesh) instead of LODGroup with simplified copies; validator requires mesh.lodCount ≥ 3 for buildings/props — cost if wrong: switch to LODGroup.
+- Task 13: Ruling: GlbPrefabBuilder is an explicit builder (Art/Imported/*.glb → Art/Prefabs) rather than an AssetPostprocessor — glTFast's ScriptedImporter does not trigger OnPostprocessModel — cost if wrong: none.
+- Task 13: Ruling: prop budget 200–3000 triangles (brief named buildings and characters only) — cost if wrong: retune one constant.
+- Task 17: Ruling: the project had no URP asset assigned (built-in pipeline); Task 17 now sets URP_Optimal as the default pipeline and binds URP_Eco/Optimal/Max to the only three quality levels; per-platform defaults: Optimal on WebGL/Android/iOS, Max on Standalone — cost if wrong: none.
+- Task 17: Ruling: DrawCalls_within_budget_per_mode gates a deterministic DrawCallEstimator (forward + depth + shadow casters × cascades + 3) on a stand-in 12-building block — in batchmode the "Draw Calls Count" recorder stays 0 even when frames render (verified: recorder valid, pixels rendered, profiler on); real counts move to Task 20's device check, and Task 14 re-runs the test on the real Bronx scene — cost if wrong: the estimate can under-count batching-heavy scenes; device check catches it.
+- Task 17: Ruling: DeviceBenchmark prefers FrameTimingManager max(cpu main thread, gpu) over the frame delta, because vsync-capped deltas (16.7 ms) would never select Max — cost if wrong: falls back to the delta where timings are unavailable (WebGL).
+- Task 17: Ruling: added Editor.Tests/GraphicsSettingsTests (three levels, URP asset per level, spec-table values) and FrameSampler tests beyond the brief — cost if wrong: none.
+- Task 16: Ruling: UXML/USS/TSS live in Resources/UI (Academy.uxml moved there) and PanelSettings is created at runtime (1080×1920 reference, Expand) — runtime loading without editor references works in WebGL and PlayMode tests — cost if wrong: switch to Addressables later.
+- Task 16: Ruling: Journal and Settings are screens opened from HUD buttons (bottom nav stays City · Company · Decisions · Academy · Ranking per spec); UiRoot.Tabs lists all 7 so the tests cover them — cost if wrong: none.
+- Task 16: Ruling: string tables now come from Localization/Source/<Table>.tsv via Editor/StringTableImporter (menu + batchmode) with String_tables_match_their_sources guarding drift; the Academy table was re-imported from its TSV — cost if wrong: none.
+- Task 16: Ruling: storylets gained choiceLines (choice → Yarn option line id) so the journal quotes the chosen line in the current language via YarnBridge.LineText; Yarn files and CSV unchanged — cost if wrong: none.
+- Task 16: Ruling: AcademyScreen moved from table lookups to LocalizedString bindings so No_hardcoded_strings holds on every tab — cost if wrong: none.
+- Task 16: Ruling: No_text_overflow_in_ru checks only text with no hidden ancestor and white-space: nowrap (wrapping labels cannot overflow horizontally); the first run's failure was a test defect (it measured labels inside hidden screens) — cost if wrong: none.
+- Task 16: Ruling: added TimeAllocation.Rebalance (any number of shares, largest remainder) and LanguagePicker to Core with EditMode tests — cost if wrong: none.
+- Task 13: Ruling: concepts from Nano Banana Pro (the request reported model nano_banana_2) over GPT Image 2.6 — closer to the toy-diorama style and no baked-in props, which image-to-3D would turn into geometry — cost if wrong: re-run concepts with GPT Image 2.6 (~3 cr each).
+- Task 13: Ruling: added Editor/ArtImportTool (prefab build + validator + preview + markdown report) as the import step (brief Step 4) — cost if wrong: none.
+- Task 13: Ruling: full batch per owner ("Полная ≈ 906 кр."); Git LFS installed via Homebrew per owner, enabled for this repo only (git lfs install --local); *.glb/*.fbx/*.psd/audio tracked — cost if wrong: none.
+- Task 13: Ruling: prop_phone dropped from 3D (re-generated concept sat on a pedestal; the phone is a UI element) and building_court rebuilt from a solid-barrier concept after the fenced version failed — net +5.5 credits over the estimate — cost if wrong: one 9-credit prop later.
+- Task 13: Ruling: GlbPrefabBuilder caps textures (buildings/characters 1024, props 512), saves them as compressed PNG assets and keeps only base colour + emission (PBR maps dropped) for the 20 MB web budget — cost if wrong: Max mode on PC looks softer; raise caps per platform later.
+- Task 13: Ruling: characters carry one Meshy clip (idle) each; walk/celebrate/think clips are not generated yet (each needs a paid Meshy rigging call) — Task 14/15 use idle + procedural motion until the owner approves clips — cost if wrong: characters look less alive in stage 1.
+- Task 13: Ruling: Mom has no mesh (she appears only in dialogue and on the phone); added Every_hero_species_has_both_outfits and props budget test beyond the brief — cost if wrong: one character later.
+- Task 14: Ruling: scenes are generated by Editor/DistrictBuilder (menu + batchmode) from the art prefabs instead of hand-placed — deterministic, re-runnable after re-imports; previews in tools/art/bronx-{day,night,closeup}.jpg — cost if wrong: none.
+- Task 14: Ruling: switched Player activeInputHandler 0 → 1 (Input System) — the project had only the legacy Input Manager active, so CameraRig's Input System reads would be dead — cost if wrong: a package using the legacy Input API would throw; none in use.
+- Task 14: Ruling: chapter 1 businesses are gigs without lots, so lots stay empty pads until a business with a LotId opens; CityCatalog maps future industries to buildings (default bodega); money floats above home while only gigs exist — cost if wrong: none.
+- Task 14: Ruling: floating revenue uses legacy TextMesh with the built-in font (no TMP dependency); tilt-shift is URP Gaussian DOF in the day/night volumes, which Eco disables with post-processing — cost if wrong: swap to world-space UI Toolkit later.
+- Task 14: Ruling: day exposure tuned (sun 1.0, darker trilight, bloom threshold 1.3) after the first render washed out; added Night_turns_on_the_neon and Bronx_draw_calls_within_budget_per_mode (re-running Task 17's gate on the real block: ~52/118/269) beyond the brief — cost if wrong: retune values.
+- Task 15: Ruling: hero and NPC prefabs are Addressable (group "characters", address = prefab name) and HeroView instantiates them on demand — keeps ~11 × 1024² textures and 18k-triangle meshes out of the initial 20 MB web download — cost if wrong: first hero shows after a short load.
+- Task 15: Ruling: colour = one of 4 tints applied via MaterialPropertyBlock on _BaseColor (generated textures fix the fur/clothes colours) — cost if wrong: swap tints for retextures later.
+- Task 15: Ruling: added Choices_change_the_result beyond the brief — cost if wrong: none.
+- Task 18: Ruling: one take per ElevenLabs generation (generations_count=1) instead of the connector's default two — keeps spend inside the owner-approved ~32.3k credits — cost if wrong: regenerate individual lines that sound off (~1 credit/char).
+- Task 18: Ruling: player options ("->") are not voiced; dialogue, narration and the 5 lesson bodies are (182 lines + 5 lessons per language) — the hero is player-made with no fixed voice; saved ~5.6k credits vs the estimate — cost if wrong: one more batch per language (~5.6k credits).
+- Task 18: Ruling: native Russian library voices per character instead of the English voice speaking Russian — natural RU delivery — cost if wrong: character timbre differs between EN and RU.
+- Task 18: Ruling: eleven_v4, ~10 lines per generation joined by "[long pause]", split locally (tools/voice/split_batch.py: N-1 longest silences with >=0.12 s margin, DP fallback) — 46 calls instead of 374, 0 ambiguous splits, chars/s 7-21 for all 374 clips — cost if wrong: a mis-cut clip (tests check presence, not content).
+- Task 18: Ruling: music as two 45-second seamless loops (last 2 s folded into the first with an equal-power crossfade) instead of 90 s — 90 s would have exceeded the approved budget — cost if wrong: loop more noticeable; a longer take is ~675 credits per 45 s.
+- Task 18: Ruling: UI SFX synthesised in-house with ffmpeg (CC0, original; LICENSES.md) instead of downloaded CC0 packs — no network or licence dependency — cost if wrong: plainer UI sounds.
+- Task 18: Ruling: voice, lesson and music clips are Addressables (groups voice_en/voice_ru/voice_lessons/music, one bundle per clip) and the Yarn project uses addressable assets — keeps them out of the web build's first download — cost if wrong: first line of a scene waits on a small download.
+- Task 18: Ruling: AudioDirector bootstrap wiring (load music following DayNeonController, presenter.Audio, Academy lesson playback) moves to Task 19's OnboardingFlow, the first game entry point — cost if wrong: Task 18 audio is inaudible until Task 19 lands.
+- Task 19: Ruling: onboarding runs as coach marks over the real UI (OnboardingFlow), not through the Yarn DialogueRunner — it must point at "Next month" and needs no choices; its 3 mentor lines still live in Yarn (ch1_onboarding.yarn + RU CSV) and are voiced (645 ElevenLabs credits, total 31,401 of ~32,300) — cost if wrong: onboarding text styling differs from the dialogue panel.
+- Task 19: Ruling: the hero is chosen on top of an already-initialised UI (NewGame with a default hero, then state.Hero = choice before any decision) — UiRoot needs a GameState to exist; replay passes the hero separately so the log is unaffected — cost if wrong: none observed; revisit if the hero ever affects month-0 numbers.
+- Task 19: Ruling: BootSmokeTests written alongside the wiring rather than strictly before it (its first run failed on a real defect: SaveService.Load returns null without a save) — cost if wrong: weaker evidence for the resume path, which has no test.
+- Task 19: Ruling: Academy lesson "Listen" button deferred (clips are addressable as lesson_<lang>_<id>) — keeps Task 19 to onboarding + entry point — cost if wrong: lesson voice unused until a follow-up.
+- Task 20: Ruling: the size budget counts Build/* only (11.55 MiB of 20 MiB), as Step 2 says; streamed Addressables (61.6 MiB: Bronx 12.5 MB, one hero ~2 MB, voice per line) are reported separately — cost if wrong: the first visit downloads ~26 MB, not ~12.
+- Task 20: Ruling: characters group packed one bundle per character (hero download 18.4 MB -> ~2 MB) — the hero creator loads only the chosen model — cost if wrong: more requests when many NPCs load at once.
+- Task 20: Ruling: first-visit download is ~26 MB (Build 11.6 + Bronx 12.5 + hero 2); "<=10 s on 4G" holds only on fast 4G — left for the owner's device test; next lever is LZMA or splitting the district bundle — cost if wrong: slow first load on weak networks.
+- Task 20: Ruling: bundled Inter (SIL OFL) as the UI font via FontBuilder — the default runtime font has no Cyrillic in the web player and every Russian label rendered blank — cost if wrong: +0.4 MB in Build.
+- Task 20: Ruling: UiText pushes text through LocalizedString.StringChanged instead of UI Toolkit data binding, and UiSmokeTests' "table-driven text" check now uses UiText.IsLocalized — panel-independent and robust in the player — cost if wrong: UI Builder no longer previews bound keys.
+- Task 20: Ruling: managed stripping Medium + link.xml preserving UnpaidCeo.Core/Game and Yarn assemblies — content and saves deserialize by reflection — cost if wrong: a slightly larger wasm.
+- Task 20: Ruling: Steps 4-5 (owner's phones, owner playtest) are owner actions; I verified the build in the desktop app's browser on the Mac (local and live): boot, Russian UI, onboarding in 4 taps, month 1 report, month 2 scene with voice loading on demand, no console errors.
+- Final: Ruling: autopilot is not wired into the game (no LastSeenUnix; Autopilot.cs would also replay risky free actions) — deferred to stage 2 with the offline-progress UI; stage-1 preview simply has no offline months — cost if wrong: a plan Task 8 item is missing from the playable build.
+- Final: Ruling: an action that opens a fact waits until that fact clears, so gray_scheme becomes one-time unless its audit clears the fact — matches "consequences can't be dodged" — cost if wrong: one fewer repeatable shady option.
+- Final: Ruling: GameBootstrap guards EndMonth only; an exception later in NextMonth (timelapse/UI) still leaves the button locked until reload — cost if wrong: rare lock-up.
+- Final: Ruling: reviewer's uncertain "reset during dialogue re-saves old state" left as is — depends on Yarn teardown order and the HUD being clickable under the dialogue panel — cost if wrong: Reset may not stick if pressed mid-dialogue.
+
+## Deferred minors (final review)
+
+- save without Rng loads with an RNG stuck at 0 (treat even Inc as corrupt).
+- quiz answers are saved only at month end, so a reload allows a retry.
+- NewGame adds all three gigs, so `industry` conditions are always true (ch1_ai_rush offered before the AI gig unlocks).
+- -1..-49 cents render as "-$0".
+- onboarding voice handles never released; parallel loads can reorder lines.
+- split_batch.py timestamp regex misses negative/exponent values and choose_cuts mixes absolute and lead-relative times (fallback path only).
+- check-build-size.sh uses BSD stat (macOS only).
+- storylet weight <= 0 counts as 1.
+- new month's dialogue opens over the month report; hero model not in the default camera framing; Academy "Listen" button; ICU data warning; the "Tired-out mistake" row shows 0 in months without a mistake.
+
+## Task completion
+
+- Task 1: complete (commits 18d8335..370636d, tests: tools/unity.sh test-editmode → Passed 2/2)
+- Task 2: complete (commits 370636d..cbf67c8, tests: tools/unity.sh test-editmode → Passed 9/9)
+- Task 3: complete (commits cbf67c8..4d42ec8, tests: tools/unity.sh test-editmode → Passed 14/14)
+- Task 4: complete (commits 4d42ec8..73b5bc6, tests: tools/unity.sh test-editmode → Passed 18/18)
+- Task 5: complete (commits 73b5bc6..87ed8a4, tests: tools/unity.sh test-editmode → Passed 21/21)
+- Task 6: complete (commits 87ed8a4..d90ca1e, tests: tools/unity.sh test-editmode → Passed 27/27)
+- Task 7: complete (commits d90ca1e..ee4fa01, tests: tools/unity.sh test-editmode → Passed 38/38)
+- Task 8: complete (commits ee4fa01..55bf5f5, tests: tools/unity.sh test-editmode → Passed 56/56)
+- Task 9: complete (commits 55bf5f5..5f21143, tests: tools/unity.sh test-editmode → Passed 61/61)
+- Task 10: complete (commits 5f21143..b8ff3d8, tests: tools/unity.sh test-editmode → 81/81 pass)
+- Task 11: complete (commits b8ff3d8..2ec9ac8, tests: tools/unity.sh test-editmode → 91/91 pass)
+- Task 12: complete (commits 2ec9ac8..93e6eee, tests: tools/unity.sh test-editmode → 99/99 pass)
+- Task 17: complete (commits b228644..d82c90c, tests: tools/unity.sh test-editmode → 119/119 pass; tools/unity.sh test-playmode → 2/2 pass)
+- Task 16: complete (commits d82c90c..8d74eaa, tests: tools/unity.sh test-editmode → 131/131 pass; tools/unity.sh test-playmode → 8/8 pass; RU screenshots in game/TestResults/ui_ru_*.png)
+- Task 13: complete (commits b228644..bdfa6af, tests: tools/unity.sh test-editmode → 138/138 pass incl. ImportedArtTests). Art spend: pilot 84.5 + batch 911.5 = 996 credits (approved ≈ 100 + ≈ 906).
+- Task 14: complete (commits bdfa6af..a2fb5f8, tests: tools/unity.sh test-playmode → 13/13 pass; tools/unity.sh test-editmode → result="Passed" total="138" passed="138" failed="0" skipped="0" )
+- Task 15: complete (commits a2fb5f8..8a3c703, tests: tools/unity.sh test-playmode → 16/16 pass; tools/unity.sh test-editmode → result="Passed" total="138" passed="138" failed="0" skipped="0" )
+- Task 18: complete (commits 8a3c703..2a7d114, tests: tools/unity.sh test-editmode → 147/147 pass; test-playmode → 19/19 pass)
+- Task 19: complete (commits 2a7d114..62001c7, tests: tools/unity.sh test-playmode → 21/21 pass; test-editmode → 147/147 pass)
+- Task 20: complete (commits 62001c7..bcd9dd0, tests: tools/unity.sh test-editmode → 149/149; test-playmode → 23/23; build-web → exit 0; check-build-size → OK 11.55 MiB)
+- Final review: fresh subagent (opus) on 18d8335..bcd9dd0 — 1 critical, 6 important, 8 minor, 1 uncertain.
+- Final: fixed free actions postponing their consequences (repeat loan/scheme, duplicate ids, work split > 100) — Debt_free_action_cannot_be_repeated_while_its_fact_is_open, Duplicate_free_actions_in_one_month_count_once, Work_split_above_100_does_not_multiply_capacity RED→GREEN, suite 158/158.
+- Final: fixed scenes re-rolled on every relaunch within a month — Scenes_are_rolled_once_per_month_even_after_a_reload RED→GREEN, suite 158/158.
+- Final: fixed first_loss lesson unreachable (now also fires when the month ends with less cash than it started) — Month_that_spends_more_than_it_earns_is_the_first_loss RED→GREEN, suite 158/158.
+- Final: fixed comeback re-bankrupting at once and stale "bankrupt" while solvent — Clearing_bankrupt_restarts_the_deep_debt_count, Solvent_player_drops_a_stale_bankrupt_fact RED→GREEN, suite 158/158.
+- Final: fixed saves that broke the month loop on every launch (invalid decisions, null facts, businesses without industry) + EndMonth guarded in GameBootstrap — Decode_repairs_nested_state_that_would_break_the_month RED→GREEN, suite 158/158.
+- Final: fixed month report not adding up after a burnout mistake (MistakeLoss row and waterfall bar) — Report_adds_up_when_a_burnout_mistake_costs_money RED→GREEN, suite 158/158; PlayMode 23/23.
+
+## Post-plan: Bronx restyle and max-quality pass (2026-11-08)
+
+- Restyle: Ruling: GPT Image 2.6 concepts with the owner-chosen pilot bodega as style reference, standard Tripo textures (detailed costs +3 cr and is downscaled to 1024 anyway) — cost if wrong: re-run a model at detailed.
+- Restyle: Ruling: new business buildings (coffee shop, barbershop, bakery, car wash) are prefabs only, not in the Bronx scene or CityCatalog, so they do not grow the chapter-1 download — cost if wrong: one catalog entry each when chapter 2 lands.
+- Max: Ruling: Meshy unrigged + four 3d_rigging takes instead of Meshy's built-in rig + 3 takes — same skeleton in every take (verified: identical node lists), 1.5 cr cheaper per character — cost if wrong: none observed.
+- Max: Ruling: character budget 15–20k → 15–22k — rigged ultra takes land at ~20.2k triangles — cost if wrong: ~10% more vertex work per character on screen.
+- Max: Ruling: Prepare keeps textures at app size (2048) and the WebGL import override caps the web build (1024; normal maps 512); the old "Prefab_builder_downscales_textures_for_the_web_budget" test now asserts app size — cost if wrong: none for the web build (override), larger app bundles by design.
+- Max: Ruling: animation takes stripped to animation-only GLBs and key-building textures shrunk to 2048 before commit — keeps Git LFS under the free 1 GB — cost if wrong: re-download from the URLs in tools/art/max/max-jobs.json.
+- Max: Ruling: HeroView reacts to the month report (cheer on profit, think otherwise), thinks while a dialogue choice is open, and strolls ±1.8 m in front of home with the walk clip — cost if wrong: tune or remove one component.
+- Max: Ruling: HeroAnimationSmokeTests written after the feature (it verifies the imported assets end to end, it was never red) — cost if wrong: weaker evidence than test-first.

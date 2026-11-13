@@ -1,0 +1,9 @@
+// Chapter 1 onboarding: the mentor's first 60 seconds, shown as coach marks by Game/Bootstrap/OnboardingFlow
+// (no choices, not run by the DialogueRunner). Russian text lives in Story-ru.csv; keep #line ids stable.
+
+title: ch1_onboarding
+---
+Unpaid CEO: Hey, new kid. Lesson zero is free. A delivery app needs a rider right now. Take the gig. #line:ch1_onboarding_01
+Unpaid CEO: Forty bucks. That's revenue, money that came in. Profit is what's left after the bike, the phone and the taxes. #line:ch1_onboarding_02
+Unpaid CEO: Now tap Next month. The city sends the bill, and we'll see what you really kept. #line:ch1_onboarding_03
+===

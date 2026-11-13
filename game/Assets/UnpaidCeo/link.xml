@@ -1,0 +1,7 @@
+<linker>
+  <!-- Content and saves are deserialised with Newtonsoft by reflection; keep the model types intact. -->
+  <assembly fullname="UnpaidCeo.Core" preserve="all" />
+  <assembly fullname="UnpaidCeo.Game" preserve="all" />
+  <assembly fullname="YarnSpinner" preserve="all" />
+  <assembly fullname="YarnSpinner.Unity" preserve="all" />
+</linker>

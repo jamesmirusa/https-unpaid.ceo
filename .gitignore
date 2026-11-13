@@ -1,0 +1,36 @@
+# Superpowers workspace (ledger, briefs)
+.superpowers/
+
+# Unity
+game/[Ll]ibrary/
+game/[Tt]emp/
+game/[Oo]bj/
+game/[Bb]uild/
+game/[Bb]uilds/
+game/[Ll]ogs/
+game/[Uu]ser[Ss]ettings/
+game/[Mm]emoryCaptures/
+game/[Rr]ecordings/
+game/TestResults/
+game/*.csproj
+game/*.sln
+game/*.slnx
+game/.vs/
+game/.idea/
+game/.vscode/
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+crashlytics-build.properties
+.DS_Store
+tools/voice/raw/
+game/Builds/
+
+# raw generation downloads (the stripped/imported copies live under game/Assets)
+tools/art/max/glb/
+tools/art/max/rig-full/
+tools/art/max/rig/
+tools/art/restyle/glb/
+tools/art/stage2/glb/
+__pycache__/

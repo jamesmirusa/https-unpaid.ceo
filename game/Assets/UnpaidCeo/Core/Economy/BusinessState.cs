@@ -1,0 +1,61 @@
+using System.Collections.Generic;
+using UnpaidCeo.Core.Primitives;
+
+namespace UnpaidCeo.Core.Economy
+{
+    /// <summary>Mutable state of one gig or business the player runs.</summary>
+    public sealed class BusinessState
+    {
+        public string Id { get; set; }
+        public string IndustryId { get; set; }
+        public string LotId { get; set; }
+        public Money Price { get; set; }
+        /// <summary>Owned units (carts, stores). Ignored for gigs.</summary>
+        public int Units { get; set; }
+        public Money Marketing { get; set; }
+        /// <summary>Employees on payroll (the owner is not one of them).</summary>
+        public int Employees { get; set; }
+        /// <summary>Revenue booked but not yet paid, oldest first (B2B delay).</summary>
+        public List<Money> Receivables { get; set; } = new List<Money>();
+    }
+
+    public readonly struct BusinessInputs
+    {
+        public readonly double ReputationFactor;
+        public readonly double SeasonFactor;
+        public readonly double EventFactor;
+        /// <summary>Share of the player's Work time given to this gig, 0..100.</summary>
+        public readonly int WorkShare;
+
+        /// <summary>Demand multiplier of the district the business is in.</summary>
+        public readonly double DistrictFactor;
+        /// <summary>Employer costs on top of salaries.</summary>
+        public readonly double PayrollOverhead;
+        /// <summary>How much of a full-time staff member the owner is (0..1): their work time over a full-time load.</summary>
+        public readonly double OwnerShare;
+
+        public BusinessInputs(double reputationFactor, double seasonFactor, double eventFactor, int workShare,
+            double districtFactor = 1.0, double payrollOverhead = 0.0, double ownerShare = 1.0)
+        {
+            ReputationFactor = reputationFactor;
+            SeasonFactor = seasonFactor;
+            EventFactor = eventFactor;
+            WorkShare = workShare;
+            DistrictFactor = districtFactor;
+            PayrollOverhead = payrollOverhead;
+            OwnerShare = ownerShare;
+        }
+    }
+
+    public sealed class BusinessMonthResult
+    {
+        public int UnitsSold { get; set; }
+        public Money Revenue { get; set; }
+        public Money Cogs { get; set; }
+        public Money GrossProfit { get; set; }
+        public Money Fixed { get; set; }
+        public Money Marketing { get; set; }
+        public Money OperatingProfit { get; set; }
+        public Money CashCollected { get; set; }
+    }
+}

@@ -1,0 +1,92 @@
+// Chapter 1, Tony the bulldog runs the bodega downstairs.
+// Every option runs <<choose "id">>; its effects live in Content/storylets_ch1.json.
+// Russian text lives in Story-ru.csv; keep #line ids stable.
+
+title: ch1_tony_intro
+---
+A bulldog in a stained apron is wrestling a pallet of soda through the bodega door downstairs. #line:ch1_tony_intro_01
+Tony: You. New kid from upstairs. You got arms? #line:ch1_tony_intro_02
+-> Grab the other end. #line:ch1_tony_intro_03
+    <<choose "help">>
+    Tony: Strong and polite. Rare combo. Name's Tony. Coffee's on me this week. #line:ch1_tony_intro_04
+-> Sorry, I'm late for a shift. #line:ch1_tony_intro_05
+    <<choose "busy">>
+    Tony: Everybody's late for something. #line:ch1_tony_intro_06
+===
+
+title: ch1_tony_snacks
+---
+Tony: I got forty boxes of granola bars that expire next week. The distributor won't take them back. #line:ch1_tony_snacks_01
+Tony: Ten bucks a box. You resell them, we both win. #line:ch1_tony_snacks_02
+-> Sell them cheap and say they expire soon. #line:ch1_tony_snacks_03
+    <<choose "honest">>
+    Customers love a deal they understand. The boxes are gone in two days. #line:ch1_tony_snacks_04
+-> Peel off the dates and sell them as fresh. #line:ch1_tony_snacks_05
+    <<choose "relabel">>
+    You make double. You also check the reviews more often than you'd like to admit. #line:ch1_tony_snacks_06
+-> Pass. Not my business. #line:ch1_tony_snacks_07
+    <<choose "pass">>
+    Tony: Suit yourself. #line:ch1_tony_snacks_08
+===
+
+title: ch1_tony_robbery
+---
+Morning. The bodega window is a spiderweb of cracks. Someone broke in overnight and took the register. #line:ch1_tony_robbery_01
+Tony: Insurance covers the glass. Not the week I'm closed. #line:ch1_tony_robbery_02
+-> Chip in a hundred fifty for repairs. #line:ch1_tony_robbery_03
+    <<choose "chip_in">>
+    Tony: I don't forget things like this. Ever. #line:ch1_tony_robbery_04
+-> Spend Saturday helping him clean up. #line:ch1_tony_robbery_05
+    <<choose "clean">>
+    Tony: Sweeping glass with a friend beats sweeping it alone. #line:ch1_tony_robbery_06
+-> Not my problem. #line:ch1_tony_robbery_07
+    <<choose "ignore">>
+    Tony walks past you on the stairs without a word. #line:ch1_tony_robbery_08
+===
+
+title: ch1_tony_shelf
+---
+Tony: I been thinking. That shelf by the register? Yours. Put your resale stuff there. #line:ch1_tony_shelf_01
+Tony: I take ten percent. Family discount. #line:ch1_tony_shelf_02
+-> Deal. Shake on it. #line:ch1_tony_shelf_03
+    <<choose "accept">>
+    Your first retail spot. It's two feet wide and it smells like coffee. It's perfect. #line:ch1_tony_shelf_04
+-> Thanks, but I'm not ready. #line:ch1_tony_shelf_05
+    <<choose "decline">>
+    Tony: Offer stands. #line:ch1_tony_shelf_06
+===
+
+title: ch1_tony_fallout
+---
+A one-star review. The granola tasted like cardboard and somebody's kid got a stomach ache. #line:ch1_tony_fallout_01
+The post has three hundred shares and your shop name in the first line. #line:ch1_tony_fallout_02
+-> Refund everyone and apologize publicly. #line:ch1_tony_fallout_03
+    <<choose "refund">>
+    It costs you. Two customers reply that they respect the honesty. #line:ch1_tony_fallout_04
+-> Deny everything. #line:ch1_tony_fallout_05
+    <<choose "deny">>
+    The comments get worse. Screenshots don't lie. #line:ch1_tony_fallout_06
+===
+
+title: ch1_tony_cold
+---
+Tony: No tab for you. Cash only. #line:ch1_tony_cold_01
+You remember every time you said you were busy. #line:ch1_tony_cold_02
+-> Apologize and offer to help this weekend. #line:ch1_tony_cold_03
+    <<choose "apologize">>
+    Tony: Saturday, seven sharp. Bring gloves. #line:ch1_tony_cold_04
+-> Shrug and pay cash. #line:ch1_tony_cold_05
+    <<choose "shrug">>
+    Tony: Next. #line:ch1_tony_cold_06
+===
+
+title: ch1_tony_dinner
+---
+Tony: Sunday. Family dinner at my place. You're coming, no excuses. #line:ch1_tony_dinner_01
+-> Go. Bring dessert. #line:ch1_tony_dinner_02
+    <<choose "go">>
+    Six cousins, one table, zero talk about work. You laugh until your face hurts. #line:ch1_tony_dinner_03
+-> Pick up a dinner shift instead. #line:ch1_tony_dinner_04
+    <<choose "work">>
+    The tips are good. The empty seat at Tony's table is noticed. #line:ch1_tony_dinner_05
+===

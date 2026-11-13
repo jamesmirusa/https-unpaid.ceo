@@ -1,0 +1,36 @@
+{
+    "name": "UnpaidCeo.Editor.Tests",
+    "rootNamespace": "UnpaidCeo.Editor.Tests",
+    "references": [
+        "UnpaidCeo.Core",
+        "UnpaidCeo.Game",
+        "UnpaidCeo.Editor",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "YarnSpinner.Unity",
+        "YarnSpinner.Unity.Editor",
+        "Unity.Localization",
+        "Unity.Localization.Editor",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.Addressables",
+        "Unity.Addressables.Editor",
+        "Unity.ResourceManager"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
