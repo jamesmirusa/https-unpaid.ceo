@@ -8,7 +8,8 @@
   Спека: `docs/superpowers/specs/2026-11-13-stage5b-living-city-top-look-design.md`.
   Макеты: https://claude.ai/artifact/KocBu66cSL23THQC15GrN1. Ветка: `feat/stage5b-living-city`.
   Одобрено: скачать Phosphor (MIT), ≈250 кредитов Higgsfield на игровые иконки; звуки — сначала показать цену.
-- Ждёт владельца: `ugs login` (сервер ещё не перезалит после 5А); аккаунт Apple Developer — к этапу 6.
+- Ждёт владельца: одна кнопка в Unity — **Window → Deployment → Deploy** (сервер ещё не перезалит после 5А; путь без
+  `ugs login`, см. `server/README.md`); аккаунт Apple Developer — к TestFlight (этап 6 идёт без него).
 
 ## Дальше по порядку
 Каждый шаг: план (`writing-plans`) → реализация по TDD → ревью → выкладка на сайт → скриншоты владельцу.

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ugs-config-schemas.unity3d.com/v1/leaderboards.schema.json",
+  "Name": "Capital",
+  "SortOrder": "desc",
+  "UpdateType": "keepBest",
+  "TieringConfig": {
+    "Strategy": "score",
+    "Tiers": [
+      { "Id": "legend", "Cutoff": 10000000 },
+      { "Id": "tycoon", "Cutoff": 1000000 },
+      { "Id": "boss", "Cutoff": 100000 },
+      { "Id": "hustler", "Cutoff": 10000 },
+      { "Id": "rookie" }
+    ]
+  }
+}
