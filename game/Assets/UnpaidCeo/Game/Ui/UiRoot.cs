@@ -305,31 +305,11 @@ namespace UnpaidCeo.Game.Ui
         }
 
         /// <summary>
-        /// Everything by button: a strip of the block's places over the city (tap: the camera turns to the building and
-        /// its sign; tap again: walk in) and the camera's own buttons (back to the hero, zoom).
+        /// The camera's own buttons (back to the hero, zoom) — §8: one compact row at the right edge, under the bar. The
+        /// places themselves open from the Places tab as a sheet, so nothing covers the street.
         /// </summary>
-        void BuildStreetStrip(VisualElement city)
+        void BuildCameraButtons(VisualElement city)
         {
-            var strip = new ScrollView(ScrollViewMode.Horizontal) { name = "city-strip" };
-            strip.AddToClassList("strip");
-            strip.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
-            strip.verticalScrollerVisibility = ScrollerVisibility.Hidden;
-            foreach (var place in Places.All)
-            {
-                var id = place.Id;
-                var b = new Button(() => OnStripTap(id)) { name = "strip-" + id };
-                b.AddToClassList("strip__item");
-                var pic = new VisualElement { name = "strip-pic-" + id };
-                pic.AddToClassList("strip__pic");
-                b.Add(pic);
-                PlacesScreen.LoadThumb(id, pic);
-                var title = UiText.Label($"place.{id}.title", "strip__title");
-                title.name = "strip-title-" + id;
-                b.Add(title);
-                strip.Add(b);
-            }
-            city.Add(strip);
-
             var cam = new VisualElement { name = "city-camera" };
             cam.AddToClassList("camera-buttons");
             var home = UiText.Bind(new Button(() => { SetFocusedPlace(null); HeroFocusRequested?.Invoke(); }) { name = "city-home" }, "city.home");
@@ -346,18 +326,9 @@ namespace UnpaidCeo.Game.Ui
             city.Add(cam);
         }
 
-        void OnStripTap(string id)
-        {
-            if (_focusedPlace == id) { OpenPlace(id); return; }
-            SetFocusedPlace(id);
-            PlaceFocusRequested?.Invoke(id);
-        }
-
         void SetFocusedPlace(string id)
         {
             _focusedPlace = id;
-            foreach (var place in Places.All)
-                Root.Q<Button>("strip-" + place.Id)?.EnableInClassList("strip__item--focused", place.Id == id);
         }
 
         void GateItem(string id, bool done, string count, Action open)
@@ -600,7 +571,7 @@ namespace UnpaidCeo.Game.Ui
             hud.Q("hud-stat-energy").Q(className: "hud__caption-row").Insert(0, Icons.Game("energy", "hud__stat-icon"));
             _hero = new HeroStateView(this, hud);
             _calendar = new CalendarStrip(this);
-            hud.Add(_calendar.Root);
+            hud.Q("hud-expanded").Add(_calendar.Root);
             hud.Q("hud-week-pill").Add(_calendar.Tokens);
             UiText.Bind(hud.Q<Label>("hud-cash-caption"), "hud.cash");
             UiText.Bind(hud.Q<Label>("hud-month-caption"), "hud.week");
@@ -643,7 +614,13 @@ namespace UnpaidCeo.Game.Ui
             _chooseBusiness.AddToClassList("chapter-bar__advance");
             progressRow.Add(_chooseBusiness);
             _chapterBar.Add(progressRow);
-            Root.Add(_chapterBar);
+            // §8: the goal's words and sum live in the open panel; its progress is the line under the bar, and the
+            // "move on" / "choose a business" buttons sit in the bar so they are never folded away
+            hud.Q("hud-expanded").Add(_chapterBar);
+            var bar = hud.Q("hud-bar");
+            bar.Insert(bar.IndexOf(bar.Q("hud-menu")), _advance);
+            bar.Insert(bar.IndexOf(bar.Q("hud-menu")), _chooseBusiness);
+            _hudView = new HudView(this, hud);
             _loan = new LoanDialog(this, engine, state);
             _loan.Taken += (_, __) => { RefreshHud(); _company?.Refresh(); LoanTaken?.Invoke(); };
             _transition = new ChapterTransition();
@@ -694,6 +671,7 @@ namespace UnpaidCeo.Game.Ui
             _wasBankrupt = state.Facts.Has("bankrupt");
             _heroTag = UiText.Label("city.you", "hero-tag");
             _heroTag.RegisterCallback<ClickEvent>(_ => OpenRadial("hero", _heroTag));
+            _screens[City].RegisterCallback<ClickEvent>(e => { if (_hudView != null && _hudView.IsExpanded && e.target == _screens[City]) _hudView.SetExpanded(false); });   // a tap on the city folds the panel
             _heroTag.name = "hero-tag";
             _heroTag.style.display = DisplayStyle.None;
             _screens[City].Add(_heroTag);
@@ -712,7 +690,9 @@ namespace UnpaidCeo.Game.Ui
             _duelCard.style.display = DisplayStyle.None;
             stack.Add(_duelCard);
             stack.Add(_missions);
-            BuildStreetStrip(_screens[City]);
+            // §8: no strip of places over the map — the Places tab opens them as a sheet
+            BuildCameraButtons(_screens[City]);
+            _screens[PlacesTab].AddToClassList("screen--sheet");
             _gateBox = new VisualElement { name = "turn-gate" };
             _gateBox.AddToClassList("gate");
             _gateBox.Add(UiText.Label("gate.title", "gate__title"));
@@ -901,6 +881,7 @@ namespace UnpaidCeo.Game.Ui
             _energyFill.style.width = Length.Percent(energyAfter);
             if (_energyValue != null) _energyValue.text = VisitPanel.EnergyText(_state.Life.Energy, energyAfter);
             if (_chapterBar != null) _chapterBar.style.display = RunMode ? DisplayStyle.None : DisplayStyle.Flex;
+            if (_advance != null && RunMode) _advance.style.display = DisplayStyle.None;   // §8: it lives in the bar now, not in the chapter bar
             if (_engine != null && _chapterBar != null && !RunMode)
             {
                 var chapter = _engine.Chapter(_state);
@@ -916,10 +897,11 @@ namespace UnpaidCeo.Game.Ui
                 var balance = _engine.Content.Balance;
                 _goalValue.text = MoneyFormat.Compact(shown == 1 ? balance.Chapter1CashGoal : shown == 2 ? balance.Chapter2CapitalGoal : balance.Chapter3CapitalGoal, Language);
             }
-            if (_chooseBusiness != null) _chooseBusiness.style.display = NeedsBusiness ? DisplayStyle.Flex : DisplayStyle.None;
+            if (_chooseBusiness != null) _chooseBusiness.style.display = NeedsBusiness && !RunMode ? DisplayStyle.Flex : DisplayStyle.None;
             RefreshBadges();
             _calendar?.Refresh(_engine, _state);
             _hero?.Refresh(_state, _engine, _lastReport, _decisions != null ? _decisions.Planned : new string[0], energyAfter);
+            _hudView?.Refresh(_state, _engine, _engine != null && !RunMode ? _engine.Chapter(_state).Progress : 0, energyAfter);
             RefreshEmotes();
             RefreshGuide();
         }
@@ -928,6 +910,26 @@ namespace UnpaidCeo.Game.Ui
 
         RadialMenu _radial;
         HeroStateView _hero;
+        HudView _hudView;
+        /// <summary>The top bar (§8): folded by default, opens to the full panel.</summary>
+        public HudView Hud => _hudView;
+
+        public const string CityMovingClass = "city-moving";
+        public const float CityStillSeconds = 1.5f;
+        IVisualElementScheduledItem _still;
+
+        /// <summary>
+        /// §8 walk mode: the camera moves or zooms, or the hero walks — the goal, cards and hints step aside (USS
+        /// .city-moving), leaving the thin bar and the dock; they come back 1.5 s after the last motion.
+        /// </summary>
+        public void NotifyCityMotion()
+        {
+            if (Root == null) return;
+            Root.AddToClassList(CityMovingClass);
+            // called every frame while things move: one scheduled item, pushed back each time (no garbage per frame)
+            if (_still == null) _still = Root.schedule.Execute(() => Root.RemoveFromClassList(CityMovingClass));
+            _still.ExecuteLater((long)(CityStillSeconds * 1000));
+        }
         MonthReport _lastReport;
         public HeroStateView HeroState => _hero;
         CalendarStrip _calendar;

@@ -677,3 +677,42 @@
 .mood__icon { width: 52px; height: 52px; margin: 0 0 2px 0; }
 .mood__name { font-size: 19px; white-space: normal; -unity-text-align: middle-center; }
 .mood__sign { position: absolute; right: 12px; top: 6px; margin: 0; }
+
+/* ===== §8 · the top must not hide the city: a thin bar by default, the full panel on a tap ===== */
+.hud { margin: 10px 16px 0 16px; padding: 6px 12px 8px 14px; border-radius: 40px; }
+.hud__bar { flex-direction: row; align-items: center; height: 128px; }
+.hud__bar .hud__pill { height: 112px; padding: 0 16px 0 6px; margin-right: 8px; flex-shrink: 1; }
+.hud__bar .hud__pill-icon { width: 56px; height: 56px; margin-right: 6px; }
+.hud__bar .hud__caption { font-size: 20px; }
+.hud__bar .hud__value { font-size: 38px; }
+.hud__rings { flex-direction: row; align-items: center; flex-shrink: 0; }
+.need-ring { width: 84px; height: 84px; margin: 0 4px; justify-content: center; align-items: center; border-radius: 42px; transition-property: scale; transition-duration: 0.45s; transition-timing-function: ease-in-out; }
+.need-ring__icon { width: 46px; height: 46px; }
+.hud__menu { width: 128px; height: 128px; margin: 0; padding: 0; border-radius: 64px; border-width: 0; background-color: var(--chrome-2); justify-content: center; align-items: center; font-size: 1px; }
+.hud__menu .icon { width: 60px; height: 60px; margin: 0; -unity-background-image-tint-color: var(--on-chrome); }
+.hud__bar .chapter-bar__advance { height: 112px; margin: 0 8px 0 0; padding: 0 18px; border-radius: 56px; font-size: 24px; flex-shrink: 1; }
+.hud__goal { height: 8px; margin: 4px 12px 0 12px; border-radius: 4px; background-color: var(--chrome-2); overflow: hidden; transition-property: opacity; transition-duration: 0.3s; }
+.hud__goal-fill { height: 100%; width: 0; border-radius: 4px; background-color: var(--accent); }
+/* Danger never hides: a low need's ring and a money week pulse (HudView flips hud--beat). */
+.need-ring.hud--alarm { background-color: rgba(255, 110, 96, 0.35); }
+.hud__pill.hud--alarm { background-color: rgba(255, 110, 96, 0.35); transition-property: scale; transition-duration: 0.45s; transition-timing-function: ease-in-out; }
+.hud--beat .hud--alarm { scale: 1.12 1.12; }
+/* The open panel drops under the bar with a bounce, over the city instead of pushing it. */
+.hud__expanded { position: absolute; left: 0; right: 0; top: 100%; margin-top: 8px; padding: 14px 18px 18px 18px; border-radius: 40px; border-width: 2px; border-color: var(--chrome-edge); background-color: var(--chrome); translate: 0 -40px; opacity: 0; transition-property: translate, opacity; transition-duration: 0.25s, 0.16s; transition-timing-function: ease-out-back, ease-out; }
+.hud__expanded.popup--in { translate: 0 0; opacity: 1; }
+.hud__expanded-row { flex-direction: row; justify-content: flex-end; }
+.hud__expanded .chapter-bar { margin: 8px 0 0 0; }
+.hud--expanded .hud__goal { opacity: 0; }
+/* Walk mode: while the camera or the hero moves, only the bar and the dock stay. */
+.city-stack, .camera-buttons, .hero-tag, .place-marker { transition-property: opacity; transition-duration: 0.3s; }
+.city-moving .city-stack, .city-moving .hud__goal, .city-moving .place-marker { opacity: 0; }
+/* The camera's buttons: one compact row at the right edge, just under the bar. */
+.camera-buttons { top: 16px; right: 16px; }
+.camera-button { margin-left: 8px; font-size: 40px; }
+#city-home { padding: 0 22px; font-size: 24px; }
+/* Places open as a sheet from the bottom, the street still showing above it. */
+.screen--sheet { top: 22%; left: 0; right: 0; bottom: 0; background-color: var(--ground); border-top-left-radius: 44px; border-top-right-radius: 44px; border-width: 2px 2px 0 2px; border-color: var(--card-edge); }
+/* The open panel lies over the city: the camera buttons, the cards and the signs wait under it. */
+.hud-open .camera-buttons, .hud-open .city-stack, .hud-open .place-marker, .hud-open .hero-tag { display: none; }
+/* Hidden cards take no taps while the player walks. */
+.city-moving .city-stack, .city-moving .place-marker { visibility: hidden; }

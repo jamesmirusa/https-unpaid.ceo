@@ -59,6 +59,7 @@ namespace UnpaidCeo.Game.Tests
         [TearDown]
         public void TearDown()
         {
+            PlayerPrefs.DeleteKey(HudView.ExpandedPrefsKey);
             UiSound.Sink = null;
             Haptics.Sink = null;
             if (_host != null) Object.Destroy(_host);
@@ -87,9 +88,13 @@ namespace UnpaidCeo.Game.Tests
             yield return Boot(s => s.Life.Relationships = 40);
             _state.Life.Relationships = 48;
             _ui.RefreshHud();
-            var delta = _ui.Root.Q("hud-stat-relationships").Q<Label>("delta");
-            Assert.IsNotNull(delta);
+            var delta = _ui.Root.Q("hud-ring-relationships").Q<Label>("delta");
+            Assert.IsNotNull(delta, "folded (§8): the change floats over the need's ring");
             Assert.AreEqual("+8", delta.text);
+            _ui.Hud.SetExpanded(true);
+            _state.Life.Relationships = 50;
+            _ui.RefreshHud();
+            Assert.AreEqual("+2", _ui.Root.Q("hud-stat-relationships").Q<Label>("delta").text, "open: over its bar");
         }
 
         [UnityTest]
@@ -98,7 +103,7 @@ namespace UnpaidCeo.Game.Tests
             yield return Boot();
             _ui.DecisionsPanel.Plan("overtime");
             yield return null;
-            Assert.IsNull(_ui.Root.Q("hud-stat-energy").Q<Label>("delta"), "the plan's preview reads \"70 → 60\"; only real changes float");
+            Assert.IsNull(_ui.Root.Q("hud-stat-energy").Q<Label>("delta") ?? _ui.Root.Q("hud-ring-energy").Q<Label>("delta"), "the plan's preview reads \"70 → 60\"; only real changes float");
         }
 
         [UnityTest]

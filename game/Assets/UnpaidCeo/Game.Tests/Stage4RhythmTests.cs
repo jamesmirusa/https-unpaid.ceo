@@ -187,40 +187,16 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual("Bank", sign.Q<Label>("marker-title-bank").text);
         }
 
-        // ---------- Everything by button: the street strip and the camera buttons ----------
+        // ---------- Everything by button: the places sheet (§8 took the strip off the map) and the camera buttons ----------
 
         [UnityTest]
-        public IEnumerator Every_place_has_a_button_on_the_street_strip()
+        public IEnumerator Every_place_has_a_card_in_the_places_sheet()
         {
             yield return Boot();
-            var strip = _ui.Root.Q("city-strip");
-            Assert.IsTrue(Shown(strip), "the strip of places sits over the city");
+            Assert.IsNull(_ui.Root.Q("city-strip"), "no strip over the city any more");
+            _ui.OpenPlaces();
             foreach (var place in Places.All)
-            {
-                var b = strip.Q<Button>("strip-" + place.Id);
-                Assert.IsNotNull(b, place.Id + " has no button");
-                Assert.IsNotNull(b.Q("strip-pic-" + place.Id), place.Id + ": the button carries the place's picture");
-                Assert.IsTrue(UiText.IsLocalized(b.Q<Label>("strip-title-" + place.Id)), place.Id + ": and its name");
-            }
-        }
-
-        [UnityTest]
-        public IEnumerator A_strip_button_turns_the_camera_to_the_place_and_a_second_tap_walks_in()
-        {
-            yield return Boot();
-            string focused = null;
-            _ui.PlaceFocusRequested += id => focused = id;
-            Tap(_ui.Root.Q<Button>("strip-bank"));
-            Assert.AreEqual("bank", focused, "the first tap asks the city to look at the bank");
-            Assert.AreEqual(UiRoot.City, _ui.CurrentTab, "and stays on the street");
-            Assert.IsTrue(_ui.Root.Q<Button>("strip-bank").ClassListContains("strip__item--focused"));
-            Tap(_ui.Root.Q<Button>("strip-bank"));
-            Assert.AreEqual(UiRoot.PlacesTab, _ui.CurrentTab, "the second tap walks in");
-            Assert.AreEqual("bank", _ui.PlacesPanel.CurrentPlace);
-            _ui.Open(UiRoot.City);
-            Tap(_ui.Root.Q<Button>("strip-bodega"));
-            Assert.AreEqual("bodega", focused, "another place: the camera turns again instead of walking in");
-            Assert.AreEqual(UiRoot.City, _ui.CurrentTab);
+                Assert.IsNotNull(_ui.Screen(UiRoot.PlacesTab).Q<Button>("place-card-" + place.Id), place.Id + " has no card");
         }
 
         [UnityTest]
@@ -236,7 +212,6 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual(0f, zoom, 1e-6f);
             Tap(_ui.Root.Q<Button>("city-home"));
             Assert.AreEqual(1, home);
-            Assert.IsFalse(_ui.Root.Query<Button>(className: "strip__item--focused").ToList().Any(), "back to the hero: no place is the focus");
         }
 
         // ---------- A living scene ----------
