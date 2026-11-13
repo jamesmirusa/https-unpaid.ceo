@@ -155,6 +155,7 @@ namespace UnpaidCeo.Game.Tests
             _ui.Visit.Close();
             _ui.Open(UiRoot.Decisions);
             yield return null;
+            Tap(_ui.Root.Q<Button>("mode-balance"));
             Assert.IsTrue(_ui.Root.Q<Button>("next-month").enabledSelf, "a spent week can still be played");
         }
 

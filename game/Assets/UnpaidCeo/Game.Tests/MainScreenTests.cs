@@ -365,9 +365,9 @@ namespace UnpaidCeo.Game.Tests
             _ui.Open(UiRoot.Decisions);
             yield return null;
             var hint = _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-hint");
-            Assert.IsNotNull(hint, "a new player is told what the sliders do");
+            Assert.IsNotNull(hint, "a new player is told how the week is decided");
             Assert.IsTrue(Shown(hint) && UiText.IsLocalized(hint) && hint.text.Length > 40 && !hint.text.StartsWith("decisions."));
-            Assert.AreEqual("Week plan", _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-title").text, "the popup is named like the button that opens it");
+            Assert.AreEqual("This week", _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-title").text, "the popup is named like the button that opens it (Week)");
             _ui.Open(UiRoot.Company);
             yield return null;
             Assert.AreEqual("Report", _ui.Screen(UiRoot.Company).Q<Label>("company-title").text);

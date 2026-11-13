@@ -140,6 +140,12 @@ namespace UnpaidCeo.Core.Persistence
                 m.Meta.MissionsDone = m.Meta.MissionsDone ?? new System.Collections.Generic.List<string>();
                 m.Meta.SkillXp = m.Meta.SkillXp ?? new System.Collections.Generic.Dictionary<string, int>();
                 m.Meta.QuizKeysToday = m.Meta.QuizKeysToday ?? new System.Collections.Generic.List<string>();
+                if (m.Meta.WeekPlan != null)
+                {
+                    m.Meta.WeekPlan.Actions = m.Meta.WeekPlan.Actions ?? new System.Collections.Generic.List<string>();
+                    m.Meta.WeekPlan.Levers = m.Meta.WeekPlan.Levers ?? new System.Collections.Generic.List<LeverChange>();
+                    m.Meta.WeekPlan.Levers.RemoveAll(l => l == null);
+                }
                 return m;
             }
             catch (Exception e) when (e is JsonException || e is FormatException || e is InvalidCastException || e is ArgumentException || e is OverflowException)

@@ -48,6 +48,8 @@ namespace UnpaidCeo.Core.Game
         public bool GatePlan { get; set; }
         public bool GatePlace { get; set; }
         public List<string> GateAnswered { get; set; } = new List<string>();
+        /// <summary>Stage 5A: what was tapped on the Week screen and in the rooms during the week being played.</summary>
+        public WeekPlanRecord WeekPlan { get; set; }
     }
 
     /// <summary>Turn budget, streak and mission progress, saved next to the game save.</summary>

@@ -1779,6 +1779,98 @@ MonoBehaviour:
     m_Key: choice.cooldown.4
     m_Metadata:
       m_Items: []
+  - m_Id: 1539110257811456
+    m_Key: week.mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394368
+    m_Key: mode.hustle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394369
+    m_Key: mode.hustle.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394370
+    m_Key: mode.balance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394371
+    m_Key: mode.balance.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394372
+    m_Key: mode.study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394373
+    m_Key: mode.study.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394374
+    m_Key: mode.family
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394375
+    m_Key: mode.family.desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394376
+    m_Key: week.last
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394377
+    m_Key: week.mode_set
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394378
+    m_Key: week.focus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394379
+    m_Key: focus.even
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394380
+    m_Key: focus.needs_study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394381
+    m_Key: week.focus_set
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394382
+    m_Key: lever.price_down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394383
+    m_Key: lever.price_up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394384
+    m_Key: lever.marketing_down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394385
+    m_Key: lever.marketing_up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394386
+    m_Key: lever.close_unit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394387
+    m_Key: lever.open_unit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394388
+    m_Key: lever.fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394389
+    m_Key: lever.hire
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

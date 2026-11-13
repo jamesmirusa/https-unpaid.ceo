@@ -69,7 +69,7 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual("Week", _ui.Root.Q<Label>("hud-month-caption").text);
             Assert.AreEqual("1", _ui.Root.Q<Label>("hud-month").text);
             Assert.AreEqual("Next week", _ui.NextMonthButton.text);
-            Assert.AreEqual("Week plan", _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-title").text);
+            Assert.AreEqual("This week", _ui.Screen(UiRoot.Decisions).Q<Label>("decisions-title").text);
             _ui.SetBusy(true);
             yield return null;
             Assert.AreEqual("Week in progress…", _ui.NextMonthButton.text);

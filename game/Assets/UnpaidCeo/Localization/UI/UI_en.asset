@@ -115,7 +115,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425559
-    m_Localized: Week plan
+    m_Localized: This week
     m_Metadata:
       m_Items: []
   - m_Id: 527425560
@@ -143,11 +143,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 527425566
-    m_Localized: Free actions
+    m_Localized: This week's deeds
     m_Metadata:
       m_Items: []
   - m_Id: 527425567
-    m_Localized: Action points
+    m_Localized: Actions left
     m_Metadata:
       m_Items: []
   - m_Id: 527425568
@@ -743,7 +743,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 94522578034688
-    m_Localized: Your work time now runs your business. At 60% work you count as one full-time staff member; gigs no longer pay.
+    m_Localized: Your work time now runs your business, and gigs no longer pay. In Hustle you count as a full-time staff member.
     m_Metadata:
       m_Items: []
   - m_Id: 122661639282688
@@ -1091,7 +1091,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 829442665472000
-    m_Localized: Plan
+    m_Localized: Week
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054912
@@ -1231,7 +1231,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 839183491915776
-    m_Localized: Split your time. Work earns money, but too much of it burns energy. Rest restores it, family keeps relationships warm, study builds knowledge.
+    m_Localized: One tap and it's decided. Choices open again next week.
     m_Metadata:
       m_Items: []
   - m_Id: 842826840530944
@@ -1527,7 +1527,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 929770912079878
-    m_Localized: Plan your day
+    m_Localized: Choose the week mode
     m_Metadata:
       m_Items: []
   - m_Id: 929770912079879
@@ -1780,6 +1780,98 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1533343379218434
     m_Localized: "Once a month \u2014 again in 4 weeks"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110257811456
+    m_Localized: Week mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394368
+    m_Localized: Hustle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394369
+    m_Localized: "More income \xB7 energy \u2193\u2193 \xB7 close ones \u2193"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394370
+    m_Localized: Balance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394371
+    m_Localized: "Steady income \xB7 energy slightly \u2193"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394372
+    m_Localized: Study
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394373
+    m_Localized: "Knowledge \u2191\u2191 \xB7 less income \xB7 energy slightly \u2193"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394374
+    m_Localized: Family
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394375
+    m_Localized: "Close ones \u2191 \xB7 energy holds \xB7 less income"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394376
+    m_Localized: "Last week's \u2014 tap to keep it"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394377
+    m_Localized: "\u2713 This week's mode"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394378
+    m_Localized: Where I earn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394379
+    m_Localized: Split evenly
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394380
+    m_Localized: 'Needs knowledge:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394381
+    m_Localized: "\u2713 This week"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394382
+    m_Localized: "Price \u22125%"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394383
+    m_Localized: Price +5%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394384
+    m_Localized: "Ads \u2212"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394385
+    m_Localized: Ads +
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394386
+    m_Localized: Close a location
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394387
+    m_Localized: Open a location
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394388
+    m_Localized: Let go
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1539110270394389
+    m_Localized: Hire
     m_Metadata:
       m_Items: []
   references:

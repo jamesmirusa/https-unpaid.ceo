@@ -80,25 +80,6 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
-        public IEnumerator The_days_hours_always_add_up()
-        {
-            yield return Boot("en");
-            _ui.Open(UiRoot.Decisions);
-            yield return null;
-            var control = _ui.Root.Q<DayPlanControl>();
-            Assert.IsNotNull(control);
-            var rng = new System.Random(3);
-            for (int i = 0; i < 200; i++)
-            {
-                if (rng.Next(2) == 0) control.Add(rng.Next(4)); else control.Remove(rng.Next(4));
-                Assert.AreEqual(DayPlanControl.FreeHours, control.Hours.Sum());
-                Assert.AreEqual(100, control.Values.Sum());
-            }
-            var d = _ui.CurrentDecisions();
-            Assert.AreEqual(100, d.Work + d.Family + d.Rest + d.Study);
-        }
-
-        [UnityTest]
         public IEnumerator No_text_overflow_in_ru()
         {
             yield return Boot("ru");

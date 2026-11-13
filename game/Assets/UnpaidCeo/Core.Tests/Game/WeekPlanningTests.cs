@@ -76,6 +76,22 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
+        public void The_week_plan_round_trips_through_the_meta_save()
+        {
+            var meta = new PlayerMeta();
+            meta.Meta.WeekPlan = new WeekPlanRecord { Week = 7, Mode = "study", ModeChosen = true, Focus = "even", FocusChosen = false };
+            meta.Meta.WeekPlan.Actions.Add("overtime");
+            meta.Meta.WeekPlan.Levers.Add(new LeverChange { BusinessId = "coffee_cart", Lever = "price", ValueCents = 420 });
+            var back = UnpaidCeo.Core.Persistence.SaveCodec.DecodeMeta(UnpaidCeo.Core.Persistence.SaveCodec.EncodeMeta(meta)).Meta.WeekPlan;
+            Assert.AreEqual(7, back.Week);
+            Assert.AreEqual("study", back.Mode);
+            Assert.IsTrue(back.ModeChosen);
+            CollectionAssert.AreEqual(new[] { "overtime" }, back.Actions);
+            Assert.AreEqual(420, back.Levers.Single().ValueCents);
+            Assert.IsNull(UnpaidCeo.Core.Persistence.SaveCodec.DecodeMeta("{}").Meta.WeekPlan, "an old meta save has no week plan");
+        }
+
+        [Test]
         public void A_mode_that_does_not_sum_to_100_is_reported()
         {
             var db = TestContent.Db();

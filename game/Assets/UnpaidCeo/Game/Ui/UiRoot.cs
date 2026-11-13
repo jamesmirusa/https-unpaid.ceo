@@ -88,7 +88,7 @@ namespace UnpaidCeo.Game.Ui
         public MetaProgress Meta
         {
             get => _meta;
-            set { _meta = value; if (value != null) _gate.Load(value); }
+            set { _meta = value; if (value != null) { _gate.Load(value); _decisions?.Restore(value.WeekPlan); } }
         }
         /// <summary>The screens show a challenge or duel run: no daily turns, no chapter bar. Set before Initialize.</summary>
         bool _runMode;
@@ -258,6 +258,16 @@ namespace UnpaidCeo.Game.Ui
             RefreshGate();
         }
 
+        /// <summary>
+        /// What this week decided goes into the meta record (saved on GateChanged), so a reload cannot take a choice back;
+        /// a challenge or duel run keeps nothing between sessions.
+        /// </summary>
+        void KeepWeekPlan()
+        {
+            if (_meta != null && !RunMode) _meta.WeekPlan = _decisions.Snapshot();
+            RefreshGate();
+        }
+
         void RefreshGate()
         {
             if (_gateBox == null) return;
@@ -266,12 +276,16 @@ namespace UnpaidCeo.Game.Ui
             _gateLocked = show && !_gate.AllMet;
             ApplyNext();
             _gateItems.Clear();
-            if (!show) return;
-            GateItem(TurnGate.Plan, _gate.PlanReviewed, null, () => Open(Decisions));
-            GateItem(TurnGate.Place, _gate.PlaceVisited, null, OpenPlaces);
-            if (_gate.StudyRequired)
-                GateItem(TurnGate.StudyItem, _gate.AnswersGiven >= _gate.AnswersNeeded,
-                    Math.Min(_gate.AnswersGiven, _gate.AnswersNeeded) + " / " + _gate.AnswersNeeded, () => Open(Academy));
+            if (show)
+            {
+                GateItem(TurnGate.Plan, _gate.PlanReviewed, null, () => Open(Decisions));
+                GateItem(TurnGate.Place, _gate.PlaceVisited, null, OpenPlaces);
+                if (_gate.StudyRequired)
+                    GateItem(TurnGate.StudyItem, _gate.AnswersGiven >= _gate.AnswersNeeded,
+                        Math.Min(_gate.AnswersGiven, _gate.AnswersNeeded) + " / " + _gate.AnswersNeeded, () => Open(Academy));
+            }
+            // Saved even while the checklist is hidden (the mentor speaking): the week's choices must survive a reload.
+            if (RunMode || _state == null) return;
             if (_meta != null) _gate.CopyTo(_meta);
             GateChanged?.Invoke();
         }
@@ -621,7 +635,9 @@ namespace UnpaidCeo.Game.Ui
             _ranking = new RankingScreen(_screens[Ranking], this, engine, state);
             _company = new CompanyScreen(_screens[Company], this, engine, state);
             _decisions = new DecisionsScreen(_screens[Decisions], this, engine, state);
+            if (_meta != null) _decisions.Restore(_meta.WeekPlan);   // a reload keeps what this week already decided
             _decisions.PlanChanged += RefreshHud;   // the energy a choice takes shows the moment it is made
+            _decisions.PlanChanged += KeepWeekPlan;
             _places = new PlacesScreen(_screens[PlacesTab], this, engine, state, _decisions);
             _visit = new VisitPanel(this, engine, state, _decisions);
             _industry = new IndustryScreen(_screens[Industry], this, engine, state);
@@ -767,7 +783,6 @@ namespace UnpaidCeo.Game.Ui
             UnpaidCeo.Game.City.CameraRig.InputBlocked = popup || _visiting;   // drags belong to the popup (or the room), not to the city under it
             foreach (var b in _nav) b.Value.EnableInClassList("nav-button--active", b.Key == tab);
             CurrentTab = tab;
-            if (tab == Decisions) _gate.PlanReviewed = true;
             if (tab == Academy) { _newLesson = false; _academy.Refresh(); }
             if (tab == Journal) _journal.Refresh();
             if (tab == Settings) { _settings.Refresh(); _account.Refresh(); }

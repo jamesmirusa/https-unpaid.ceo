@@ -14,6 +14,8 @@ namespace UnpaidCeo.Game.Tests
         public static void Satisfy(UiRoot ui, ContentDb content, GameState state)
         {
             ui.Open(UiRoot.Decisions);
+            // Looking is not deciding: the week's mode is tapped (last week's, to keep it).
+            if (!ui.Gate.PlanReviewed) ui.DecisionsPanel.ChooseMode(ui.DecisionsPanel.Mode ?? "balance");
             ui.OpenPlace(Places.Home);
             foreach (var lesson in content.LessonsInOrder)
             {

@@ -80,77 +80,10 @@ namespace UnpaidCeo.Game.Tests
             }
         }
 
-        // ---------- My day · 24 hours ----------
-
-        [UnityTest]
-        public IEnumerator The_day_has_24_hours_and_12_of_them_are_the_ceos_to_give()
-        {
-            yield return Boot();
-            _ui.Open(UiRoot.Decisions);
-            yield return null;
-            var day = _ui.Root.Q<DayPlanControl>();
-            Assert.IsNotNull(day, "the plan screen shows the day planner");
-            Assert.IsNull(_ui.Root.Q("time-allocation"), "percent sliders are gone");
-            Assert.AreEqual(DayPlanControl.FreeHours, day.Hours.Sum());
-            Assert.AreEqual(24, DayPlanControl.Sleep + DayPlanControl.Travel + DayPlanControl.Chores + DayPlanControl.FreeHours);
-            foreach (var key in DayPlanControl.Keys)
-                Assert.IsTrue(Shown(_ui.Root.Q("day-hours-" + key)), key + " shows its hours");
-            Assert.IsTrue(Shown(_ui.Root.Q("day-bar")), "the segmented day bar is shown");
-        }
-
-        [UnityTest]
-        public IEnumerator An_hour_more_at_work_comes_out_of_my_time_and_the_plan_follows()
-        {
-            yield return Boot();
-            _ui.Open(UiRoot.Decisions);
-            yield return null;
-            var day = _ui.Root.Q<DayPlanControl>();
-            int work = day.Hours[DayPlanControl.Work], me = day.Hours[DayPlanControl.MyTime];
-            Tap(_ui.Root.Q<Button>("day-plus-work"));
-            Assert.AreEqual(work + 1, day.Hours[DayPlanControl.Work]);
-            Assert.AreEqual(me - 1, day.Hours[DayPlanControl.MyTime]);
-            Assert.AreEqual(DayPlanControl.FreeHours, day.Hours.Sum());
-            var d = _ui.CurrentDecisions();
-            Assert.AreEqual(100, d.Work + d.Family + d.Rest + d.Study);
-            Assert.AreEqual(DayPlanControl.SharesFromHours(day.Hours)[DayPlanControl.Work], d.Work);
-            Assert.AreEqual((work + 1).ToString(), _ui.Root.Q<Label>("day-hours-work").text);
-            Assert.AreEqual("h", _ui.Root.Q("day-row-work").Q<Label>(className: "day-row__unit").text, "the unit is its own localized word");
-        }
-
-        [UnityTest]
-        public IEnumerator Hours_never_go_below_zero_and_a_taken_hour_goes_back_to_my_time()
-        {
-            yield return Boot();
-            _ui.Open(UiRoot.Decisions);
-            yield return null;
-            var day = _ui.Root.Q<DayPlanControl>();
-            int me = day.Hours[DayPlanControl.MyTime];
-            int study = day.Hours[DayPlanControl.Study];
-            for (int i = 0; i < 20; i++) day.Remove(DayPlanControl.Study);
-            Assert.AreEqual(0, day.Hours[DayPlanControl.Study]);
-            Assert.AreEqual(me + study, day.Hours[DayPlanControl.MyTime]);
-            Assert.IsFalse(_ui.Root.Q<Button>("day-minus-study").enabledSelf, "nothing left to take");
-            for (int i = 0; i < 20; i++) day.Add(DayPlanControl.Work);
-            Assert.AreEqual(DayPlanControl.FreeHours, day.Hours.Sum());
-            Assert.IsTrue(day.Hours.All(h => h >= 0));
-        }
-
-        [Test]
-        public void Shares_and_hours_round_trip_without_losing_the_total()
-        {
-            var hours = DayPlanControl.HoursFromShares(new[] { 55, 15, 20, 10 });
-            Assert.AreEqual(DayPlanControl.FreeHours, hours.Sum());
-            Assert.AreEqual(7, hours[DayPlanControl.Work], "55% of 12 hours is about 7");
-            var shares = DayPlanControl.SharesFromHours(hours);
-            Assert.AreEqual(100, shares.Sum());
-            Assert.AreEqual(hours, DayPlanControl.HoursFromShares(shares), "a saved plan comes back as the same hours");
-            CollectionAssert.AreEqual(new[] { 100, 0, 0, 0 }, DayPlanControl.SharesFromHours(new[] { 12, 0, 0, 0 }));
-        }
-
         // ---------- Requirements before "Next month" ----------
 
         [UnityTest]
-        public IEnumerator Next_week_waits_until_the_day_is_planned_and_a_place_was_visited()
+        public IEnumerator Next_week_waits_until_the_mode_is_chosen_and_a_place_was_visited()
         {
             yield return Boot();
             Assert.IsTrue(Shown(_ui.Root.Q("turn-gate")), "the checklist sits on the main screen");
@@ -160,7 +93,9 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsNull(_ui.Root.Q("gate-study"), "week 1 asks no study");
 
             Tap(_ui.Root.Q<Button>("gate-plan"));
-            Assert.AreEqual(UiRoot.Decisions, _ui.CurrentTab, "the item opens the plan as a popup");
+            Assert.AreEqual(UiRoot.Decisions, _ui.CurrentTab, "the item opens the week as a popup");
+            Assert.IsFalse(_ui.Gate.PlanReviewed, "looking is not deciding");
+            Tap(_ui.Root.Q<Button>("mode-balance"));
             _ui.Open(UiRoot.City);
             Assert.IsTrue(_ui.Gate.PlanReviewed);
             Assert.IsFalse(_ui.NextMonthButton.enabledSelf);
@@ -180,7 +115,7 @@ namespace UnpaidCeo.Game.Tests
             yield return Boot(s => { s.Week = 2; s.LessonsSeen["revenue_vs_profit"] = 1; });
             Assert.IsTrue(Shown(_ui.Root.Q("gate-study")), "week 2 asks for study");
             Assert.AreEqual(3, _ui.Gate.AnswersNeeded);
-            _ui.Open(UiRoot.Decisions); _ui.OpenPlace("bodega"); _ui.Open(UiRoot.City);
+            _ui.Open(UiRoot.Decisions); _ui.DecisionsPanel.ChooseMode("balance"); _ui.OpenPlace("bodega"); _ui.Open(UiRoot.City);
             Assert.IsFalse(_ui.NextMonthButton.enabledSelf, "the plan and the visit are not enough on a study month");
 
             var lesson = _engine.Content.Lessons["revenue_vs_profit"];

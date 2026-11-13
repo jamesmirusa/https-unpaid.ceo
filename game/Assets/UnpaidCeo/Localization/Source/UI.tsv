@@ -25,15 +25,13 @@ company.net	Net profit	Чистая прибыль
 company.personal	Living costs	Расходы на жизнь
 company.cash_end	Cash at week end	Деньги на конец недели
 company.disclaimer	Money in this game is simulated. This is not financial advice.	Деньги в игре симулированные. Это не финансовый совет.
-decisions.title	Week plan	План недели
-decisions.time	CEO time	Время CEO
+decisions.title	This week	Эта неделя
 decisions.work	Work	Работа
 decisions.family	Family	Семья
 decisions.rest	Rest	Отдых
 decisions.study	Study	Учёба
-decisions.split	Work split	Распределение работы
-decisions.actions	Free actions	Свободные действия
-decisions.ap	Action points	Очки действий
+decisions.actions	This week's deeds	Дела недели
+decisions.ap	Actions left	Действий осталось
 gig.gig_delivery	Delivery	Доставка
 gig.gig_resale	Resale	Перепродажа
 gig.gig_ai_freelance	AI freelance	ИИ-фриланс
@@ -189,7 +187,7 @@ journal.chapter2_start	You moved to Brooklyn.	Ты переехал в Брук�
 journal.chapter3_start	You moved to Queens.	Ты переехал в Квинс.
 journal.chapter2_done	Chapter 2 goal reached.	Цель второй главы достигнута.
 journal.chapter3_done	Chapter 3 goal reached.	Цель третьей главы достигнута.
-decisions.owner_time	Your work time now runs your business. At 60% work you count as one full-time staff member; gigs no longer pay.	Твоё рабочее время теперь уходит на бизнес. При 60% работы ты — полноценный сотрудник, а подработки больше не платят.
+decisions.owner_time	Your work time now runs your business, and gigs no longer pay. In Hustle you count as a full-time staff member.	Твоё рабочее время теперь уходит на бизнес, подработки больше не платят. В режиме «Пахать» ты — полноценный сотрудник.
 account.title	Account	Аккаунт
 account.status.guest	You're playing as a guest. Create an account to keep your progress on any device.	Ты играешь как гость. Создай аккаунт, чтобы прогресс был с тобой на любом устройстве.
 account.status.signed	Signed in as	Вход выполнен:
@@ -274,7 +272,7 @@ consent.deny	No thanks	Нет, спасибо
 settings.analytics	Anonymous statistics	Анонимная статистика
 settings.analytics.on	On	Вкл
 settings.analytics.off	Off	Выкл
-dock.decisions	Plan	План
+dock.decisions	Week	Неделя
 dock.company	Report	Отчёт
 dock.academy	Lessons	Уроки
 dock.ranking	Ranking	Рейтинг
@@ -308,7 +306,7 @@ summary.tip.cash_down	There was profit, yet cash went down: living costs, purcha
 summary.tip.profit	Profit is what stays after every cost. Keep part of it as a reserve and put the rest to work.	Прибыль — это то, что осталось после всех расходов. Часть оставь в резерве, остальное пусть работает.
 summary.ok	Got it	Понятно
 summary.details	Full report	Полный отчёт
-decisions.hint	Split your time. Work earns money, but too much of it burns energy. Rest restores it, family keeps relationships warm, study builds knowledge.	Раздели своё время. Работа приносит деньги, но её избыток сжигает энергию. Отдых её возвращает, семья бережёт отношения, учёба даёт знания.
+decisions.hint	One tap and it's decided. Choices open again next week.	Одно нажатие — и решено. Выборы откроются снова на следующей неделе.
 city.mentor	Mentor	Наставник
 city.tony	Tony	Тони
 summary.other	Other: one-off income, purchases, loans	Прочее: разовые доходы, покупки, кредиты
@@ -379,14 +377,8 @@ place.action.night_shift	Take the night shift at the register	Взять ноч�
 place.action.pitch_night	Pitch your idea at the startup night	Рассказать свою идею на вечере стартапов
 place.action.budget_review	Go over your budget with Ms. Lee	Разобрать бюджет с мисс Ли
 place.action.certificate_course	Take the weekend certificate course	Пройти курс выходного дня с сертификатом
-day.title	My day · 24 h	Мой день · 24 часа
-day.sleep	Sleep	Сон
-day.travel	Commute	Дорога
-day.chores	Food & chores	Еда и быт
-day.me	My time	Моё время
-day.hours_unit	h	ч
 gate.title	Before next week	До следующей недели
-gate.plan	Plan your day	Распредели свой день
+gate.plan	Choose the week mode	Выбери режим недели
 gate.place	Drop by a place in the city	Зайди куда-нибудь в городе
 gate.study	Answer the new academy questions	Ответь на новые вопросы академии
 npc.mentor	Mentor	Наставник
@@ -436,3 +428,26 @@ place.react.night_shift	The night shift's yours. Coffee's on the house; sleep is
 place.react.pitch_night	Two minutes, one idea, a room full of people with money. Go get them!	Две минуты, одна идея, полный зал людей с деньгами. Вперёд!
 place.react.budget_review	Every dollar needs a job. Let's see where yours really go.	У каждого доллара должна быть работа. Посмотрим, куда на самом деле уходят твои.
 place.react.certificate_course	A certificate on the wall opens doors a résumé can't.	Сертификат на стене открывает двери, которые резюме не откроет.
+week.mode	Week mode	Режим недели
+mode.hustle	Hustle	Пахать
+mode.hustle.desc	More income · energy ↓↓ · close ones ↓	Больше дохода · силы ↓↓ · близкие ↓
+mode.balance	Balance	Баланс
+mode.balance.desc	Steady income · energy slightly ↓	Ровный доход · силы слегка ↓
+mode.study	Study	Учёба
+mode.study.desc	Knowledge ↑↑ · less income · energy slightly ↓	Знания ↑↑ · дохода меньше · силы слегка ↓
+mode.family	Family	Семья
+mode.family.desc	Close ones ↑ · energy holds · less income	Близкие ↑ · силы держатся · дохода меньше
+week.last	Last week's — tap to keep it	Как на прошлой неделе — нажми, чтобы оставить
+week.mode_set	✓ This week's mode	✓ Режим этой недели
+week.focus	Where I earn	Где зарабатываю
+focus.even	Split evenly	Поровну
+focus.needs_study	Needs knowledge:	Нужно знаний:
+week.focus_set	✓ This week	✓ На этой неделе
+lever.price_down	Price −5%	Цена −5%
+lever.price_up	Price +5%	Цена +5%
+lever.marketing_down	Ads −	Реклама −
+lever.marketing_up	Ads +	Реклама +
+lever.close_unit	Close a location	Закрыть точку
+lever.open_unit	Open a location	Открыть точку
+lever.fire	Let go	Уволить
+lever.hire	Hire	Нанять

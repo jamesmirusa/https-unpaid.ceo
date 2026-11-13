@@ -297,33 +297,6 @@
 /* The city clips its name tags and markers to its own area: nothing of it is drawn over the HUD or the chapter bar. */
 #city { overflow: hidden; }
 
-/* Stage 4 · "My day · 24 hours": a segmented bar of the day and an hour stepper per slot the CEO can give. */
-.day-plan { margin-bottom: 8px; }
-.day-bar { flex-direction: row; height: 44px; margin: 8px 0 14px 0; border-radius: 22px; overflow: hidden; background-color: var(--track); }
-.day-bar__seg { height: 100%; flex-basis: 0; }
-.day-bar__seg--sleep { background-color: #4A5A7A; }
-.day-bar__seg--travel { background-color: #8C97AD; }
-.day-bar__seg--chores { background-color: #C9B79C; }
-.day-bar__seg--work { background-color: var(--accent); }
-.day-bar__seg--family { background-color: #E26D5A; }
-.day-bar__seg--me { background-color: #2E9E5B; }
-.day-bar__seg--study { background-color: #4C7BD9; }
-.day-dot { width: 22px; height: 22px; border-radius: 11px; margin-right: 12px; flex-shrink: 0; }
-.day-fixed { flex-direction: row; flex-wrap: wrap; margin-bottom: 6px; }
-.day-fixed__item { flex-direction: row; align-items: center; margin: 0 26px 8px 0; }
-.day-fixed__label { font-size: 28px; margin-right: 8px; }
-.day-fixed__hours { font-size: 28px; -unity-font-style: bold; }
-.day-row { flex-direction: row; align-items: center; height: 92px; padding: 0 8px 0 16px; margin-bottom: 8px; border-radius: 24px; background-color: var(--panel); }
-.day-row__label { flex-grow: 1; font-size: 34px; }
-.day-row__step { width: 76px; height: 76px; margin: 0; padding: 0; border-radius: 38px; border-width: 3px; border-color: var(--track); background-color: var(--panel-strong); font-size: 40px; -unity-font-style: bold; }
-.day-row__step:disabled { opacity: 0.35; }
-.day-row__hours { width: 110px; flex-direction: row; justify-content: center; align-items: flex-end; }
-.day-row__number { font-size: 38px; -unity-font-style: bold; }
-.day-row__unit { font-size: 26px; margin: 0 0 5px 2px; }
-.app .day-row__unit { color: var(--text-dim); }
-.app .day-fixed__label { color: var(--text-dim); }
-.app Button.day-row__step:hover, .app Button.day-row__step:focus { background-color: var(--panel-strong); border-color: var(--accent); }
-.app Button.day-row__step:active { background-color: var(--track); }
 
 /* Stage 4 · the checklist before "Next month": each line opens the screen where it is done. */
 .gate { margin-top: 12px; padding: 16px 24px 8px 24px; background-color: var(--panel); border-radius: 28px; }
@@ -390,6 +363,26 @@
 .visit__choice--planned .visit__choice-status { color: var(--accent); }
 /* A done choice is closed but not greyed: it reads as done, a blocked one reads as unavailable. */
 .visit__choice--planned:disabled { opacity: 1; }
+/* Stage 5A · the Week screen: one-tap cards (mode, where the work goes) and one-step lever buttons, closed until next week. */
+.week__cards { flex-direction: row; flex-wrap: wrap; justify-content: space-between; margin-bottom: 4px; }
+.week-card { width: 49%; flex-direction: column; align-items: stretch; margin: 6px 0; padding: 16px 18px; border-radius: 22px; border-width: 3px; border-color: var(--track); background-color: var(--panel); }
+.week-card--small { padding: 12px 18px; }
+.week-card--selected { border-color: var(--accent); background-color: var(--panel-strong); }
+.week-card:disabled { opacity: 0.45; }
+.week-card--selected:disabled { opacity: 1; }
+.week-card__title { font-size: 30px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
+.week-card__desc { font-size: 22px; white-space: normal; -unity-text-align: middle-left; margin-top: 2px; }
+.week-card__status-row { flex-direction: row; flex-wrap: wrap; align-items: center; }
+.week-card__status { font-size: 22px; margin: 6px 6px 0 0; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
+.app .week-card__desc { color: var(--text-dim); }
+.app .week-card__status { color: var(--text-dim); }
+.app .week-card--selected .week-card__status { color: var(--accent); }
+.app Button.week-card:hover, .app Button.week-card:focus { border-color: var(--accent); }
+.lever-row { flex-direction: row; margin: 2px 0 10px 0; }
+.lever-button { flex-grow: 1; flex-basis: 0; height: 72px; margin: 0 4px; border-radius: 20px; border-width: 3px; border-color: var(--accent); background-color: var(--card); font-size: 24px; -unity-font-style: bold; white-space: normal; }
+.lever-button:disabled { opacity: 0.4; }
+.app Button.lever-button:hover, .app Button.lever-button:focus { background-color: var(--panel-strong); }
+.app Button.lever-button:active { background-color: var(--track); }
 .visit__budget { flex-direction: row; align-items: center; flex-wrap: wrap; margin: 0 0 6px 0; }
 .visit__budget-caption { font-size: 24px; margin-right: 6px; color: var(--text-dim); }
 .visit__budget-value { font-size: 26px; margin-right: 22px; -unity-font-style: bold; }
