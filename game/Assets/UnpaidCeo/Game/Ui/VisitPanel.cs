@@ -21,6 +21,18 @@ namespace UnpaidCeo.Game.Ui
         readonly DecisionsScreen _plan;
         readonly VisualElement _portrait, _choices, _consequences;
         readonly Label _speaker, _place, _line, _energy, _points;
+        Label _hearts;
+        VisualElement _heartIcon;
+
+        /// <summary>Shows the host's hearts (level 0–10; the cold icon below zero trust).</summary>
+        public void RefreshHearts()
+        {
+            var place = CurrentPlace != null ? Places.Find(CurrentPlace) : null;
+            if (place == null) return;
+            int trust = _state.Npcs.Get(place.Host);
+            _hearts.text = UnpaidCeo.Core.Narrative.Relationships.Level(trust).ToString();
+            _heartIcon.style.backgroundImage = new StyleBackground(Kit.Icons.Load(Kit.Icons.GameFolder + (trust < 0 ? "trust_cold" : "trust")));
+        }
         readonly Dictionary<string, Button> _buttons = new Dictionary<string, Button>();
         readonly Dictionary<string, ChoiceCard> _cards = new Dictionary<string, ChoiceCard>();
         int _lineIndex;
@@ -58,6 +70,15 @@ namespace UnpaidCeo.Game.Ui
             _place.AddToClassList("visit__place");
             names.Add(_speaker);
             names.Add(_place);
+            // the host's hearts: trust ÷ 10, or "cold" below zero
+            var heartsRow = new VisualElement { name = "visit-hearts-row" };
+            heartsRow.AddToClassList("visit__hearts");
+            _heartIcon = Kit.Icons.Game("trust", "visit__heart-icon");
+            heartsRow.Add(_heartIcon);
+            _hearts = UiText.ValueLabel("", "visit__hearts-value");
+            _hearts.name = "visit-hearts";
+            heartsRow.Add(_hearts);
+            names.Add(heartsRow);
             head.Add(names);
             Root.Add(head);
             _line = new Label { name = "visit-line" };
@@ -136,12 +157,16 @@ namespace UnpaidCeo.Game.Ui
                 _choices.Add(b);
             }
             RefreshChoices();
+            RefreshHearts();
             Root.style.display = DisplayStyle.Flex;
             Root.BringToFront();
             _ui.SetVisiting(true);
         }
 
-        void Say(string key) => UiText.Bind(_line, key);
+        /// <summary>The key of the line the host says now.</summary>
+        public string LineKey { get; private set; }
+
+        public void Say(string key) { LineKey = key; UiText.Bind(_line, key); }
 
         /// <summary>The room's action by id, as if its card was tapped (the radial menu on the host uses it).</summary>
         public void Choose(string actionId)
@@ -182,8 +207,12 @@ namespace UnpaidCeo.Game.Ui
         public void Talk()
         {
             if (CurrentPlace == null) return;
-            _lineIndex = (_lineIndex + 1) % Places.LinesPerPlace;
-            Say($"place.{CurrentPlace}.line.{_lineIndex + 1}");
+            // stage 5B: the host's waiting scene (Core decides) or an everyday line by trust; others keep the place's lines
+            if (!_ui.Talk(Places.Find(CurrentPlace).Host))
+            {
+                _lineIndex = (_lineIndex + 1) % Places.LinesPerPlace;
+                Say($"place.{CurrentPlace}.line.{_lineIndex + 1}");
+            }
             _consequences.style.display = DisplayStyle.None;
             Talked?.Invoke();
         }

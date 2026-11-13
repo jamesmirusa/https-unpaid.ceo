@@ -147,6 +147,8 @@ namespace UnpaidCeo.Game.Ui
         public void SetSceneOpen(bool open)
         {
             _sceneOpen = open;
+            _radial?.Close();
+            Root.EnableInClassList("scene-open", open);   // a scene in a room: the room's panel steps aside for the dialogue
             _missions.style.display = !open && _missions.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
         bool _sceneOpen;
@@ -779,6 +781,8 @@ namespace UnpaidCeo.Game.Ui
             Root.Add(_transition.Root);
             _radial = new RadialMenu(this);
             Root.Add(_radial.Root);
+            _levelUp = new LevelUpMoment();
+            Root.Add(_levelUp.Root);
             Root.schedule.Execute(PulseEmotes).Every(650);
             _fade = new VisualElement { name = "fade" };
             _fade.AddToClassList("fade");
@@ -857,6 +861,7 @@ namespace UnpaidCeo.Game.Ui
         public void ShowReport(MonthReport report)
         {
             if (!RunMode) RecordMonth(report);
+            foreach (var up in report.LevelUps) ShowLevelUp(up.Npc, up.Level, up.Key);
             if (report.Lessons.Count > 0) { _newLesson = true; Toasts.Show(Root, "toast.new_lesson", "lesson"); }
             _company.Show(report);
             _decisions.Refresh();
@@ -915,6 +920,50 @@ namespace UnpaidCeo.Game.Ui
         bool _pulse;
 
         public RadialMenu Radial => _radial;
+        public GameState State => _state;
+        public GameEngine Engine => _engine;
+
+        // ---------- Stage 5B step 3: talking to hosts ----------
+
+        LevelUpMoment _levelUp;
+        /// <summary>A host's waiting scene became pending (Core's TalkTo): the game plays it.</summary>
+        public event Action<UnpaidCeo.Core.Narrative.StoryletDef> SceneRequested;
+        /// <summary>Hosts with everyday lines by trust tier (live.&lt;host&gt;.&lt;tier&gt;.1..3).</summary>
+        public static readonly string[] LiveHosts = { "tony", "mom" };
+        public const int LiveLinesPerTier = 3;
+
+        /// <summary>
+        /// "Talk" at <paramref name="host"/>: Core's waiting scene if there is one (one a week), else an everyday line by
+        /// trust (in the room, or as a note in the city). False when the host has neither (the room keeps its own lines).
+        /// </summary>
+        public bool Talk(string host)
+        {
+            if (_engine == null || _state == null || host == null) return false;
+            var scene = _engine.TalkTo(_state, host);
+            if (scene != null)
+            {
+                SceneRequested?.Invoke(scene);
+                RefreshHud();
+                return true;
+            }
+            if (Array.IndexOf(LiveHosts, host) < 0) return false;
+            var key = LiveLine(host, _state);
+            if (_visit != null && _visit.IsOpen) _visit.Say(key);
+            else Toasts.Show(Root, key, host == "mom" ? "close_ones" : "trust", 3500);
+            return true;
+        }
+
+        int _liveTurn;
+        /// <summary>An everyday line: the tier of the host's trust, a different line each time.</summary>
+        string LiveLine(string host, GameState s)
+        {
+            var tier = UnpaidCeo.Core.Narrative.Relationships.Tier(s.Npcs.Get(host));
+            int n = (_liveTurn++ + s.Week) % LiveLinesPerTier + 1;
+            return $"live.{host}.{tier}.{n}";
+        }
+
+        /// <summary>A relationship level reached: the short moment with its bonus.</summary>
+        public void ShowLevelUp(string npc, int level, string bonusKey) => _levelUp?.Show(npc, level, bonusKey);
         public int Chapter => _state != null ? _state.Chapter : 1;
         /// <summary>A lesson opened this week and has not been looked at.</summary>
         public bool NewLesson => _newLesson;
@@ -947,6 +996,8 @@ namespace UnpaidCeo.Game.Ui
         {
             var icon = RadialMenus.Emote((string)e.userData, this);
             e.style.display = icon != null ? DisplayStyle.Flex : DisplayStyle.None;
+            foreach (var c in e.GetClasses().Where(c => c.StartsWith("emote--emote_")).ToList()) e.RemoveFromClassList(c);
+            if (icon != null) e.AddToClassList("emote--" + icon);
             if (icon != null) e.style.backgroundImage = new StyleBackground(Icons.Load(Icons.GameFolder + icon));
         }
 

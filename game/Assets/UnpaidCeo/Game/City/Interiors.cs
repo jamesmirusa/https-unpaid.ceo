@@ -293,6 +293,36 @@ namespace UnpaidCeo.Game.City
         }
 
         /// <summary>The host's clip for a moment of the talk: cheer for a deal, think while the player chooses.</summary>
+        float _baseFov = -1f;
+
+        /// <summary>
+        /// Stage 5B · a conversation's close-up: the room camera narrows on the host (0.4 s), and widens back after.
+        /// </summary>
+        public System.Collections.IEnumerator CloseUp(bool on, float seconds = 0.4f)
+        {
+            if (_camera == null) yield break;
+            if (_baseFov < 0f) _baseFov = _camera.fieldOfView;
+            float from = _camera.fieldOfView, to = on ? _baseFov * 0.68f : _baseFov;
+            var fromRot = _camera.transform.rotation;
+            var toRot = fromRot;
+            if (on && _host != null)
+                toRot = Quaternion.LookRotation((_host.transform.position + Vector3.up * 1.3f) - _camera.transform.position);
+            else if (!on && _baseRot.HasValue) toRot = _baseRot.Value;
+            if (on) _baseRot = fromRot;
+            for (float t = 0f; t < 1f; t += Time.unscaledDeltaTime / seconds)
+            {
+                if (_camera == null) yield break;
+                float k = 1f - (1f - t) * (1f - t);
+                _camera.fieldOfView = Mathf.Lerp(from, to, k);
+                _camera.transform.rotation = Quaternion.Slerp(fromRot, toRot, k);
+                yield return null;
+            }
+            if (_camera == null) yield break;
+            _camera.fieldOfView = to;
+            _camera.transform.rotation = toRot;
+        }
+        Quaternion? _baseRot;
+
         public void HostReacts(CharacterAnimator.State state) => _host?.GetComponentInChildren<CharacterAnimator>()?.PlayOnce(state);
         public void HeroReacts(CharacterAnimator.State state) => _hero?.GetComponentInChildren<CharacterAnimator>()?.PlayOnce(state);
 

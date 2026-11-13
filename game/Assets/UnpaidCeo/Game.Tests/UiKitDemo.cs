@@ -133,6 +133,58 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator Conversation([Values("ru", "en")] string lang)
+        {
+            UiSound.Sink = _ => { };
+            yield return Boot(lang, s => { Gigger(s); s.Npcs.Add("tony", 28); s.StudyXp = 14; });
+            _ui.Visit.Show("bodega");
+            yield return new WaitForSecondsRealtime(0.3f);
+            yield return Shot($"step3_{lang}_1_room_hearts");
+            // the scene's panel as the dialogue draws it (same classes), with Tony's markup answers
+            var back = new VisualElement();
+            back.AddToClassList("dialogue-backdrop");
+            var panel = new VisualElement();
+            panel.AddToClassList("dialogue");
+            panel.AddToClassList("theme-day");
+            var plate = new VisualElement();
+            plate.AddToClassList("dialogue__nameplate");
+            var speaker = new Label(lang == "ru" ? "Тони" : "Tony");
+            speaker.AddToClassList("dialogue__speaker");
+            plate.Add(speaker);
+            var hearts = new VisualElement();
+            hearts.AddToClassList("dialogue__hearts");
+            hearts.Add(Icons.Game("trust", "dialogue__heart-icon"));
+            var hv = new Label("2");
+            hv.AddToClassList("dialogue__hearts-value");
+            hearts.Add(hv);
+            plate.Add(hearts);
+            panel.Add(plate);
+            var text = new Label(lang == "ru" ? "Поставщик опять поднял цену. Сорок центов за пачку. А продаю я по доллару двадцать пять."
+                                              : "Supplier raised me again. Forty cents a bag. I sell 'em for a buck twenty-five.");
+            text.AddToClassList("dialogue__text");
+            panel.Add(text);
+            var options = new VisualElement();
+            options.AddToClassList("dialogue__options");
+            panel.Add(options);
+            back.Add(panel);
+            _ui.Root.Add(back);
+            DialogueOptionsView.Build(options, new System.Collections.Generic.List<DialogueOptionsView.Option>
+            {
+                new DialogueOptionsView.Option { Text = lang == "ru" ? "Тяжёлая неделя. Помочь с коробками?" : "Rough week. Want a hand with the boxes?", Tone = "friendly",
+                    Effects = new System.Collections.Generic.List<UnpaidCeo.Core.Narrative.Effect> { new UnpaidCeo.Core.Narrative.StatEffect("energy", -3) } },
+                new DialogueOptionsView.Option { Text = lang == "ru" ? "Какая у тебя наценка после новой цены?" : "What's your markup after the new price?", Tone = "business", Locked = true, RequiredKnowledge = 30 },
+                new DialogueOptionsView.Option { Text = lang == "ru" ? "Продавай по два доллара. Назови «ремесленные»." : "Charge two bucks. Call it artisanal.", Tone = "joke" },
+            }, _ => { }, lang);
+            yield return new WaitForSecondsRealtime(0.3f);
+            yield return Shot($"step3_{lang}_2_answers");
+            back.RemoveFromHierarchy();
+            _ui.ShowLevelUp("tony", 3, "bonus.tony.3");
+            yield return new WaitForSecondsRealtime(0.45f);
+            yield return Shot($"step3_{lang}_3_level_up");
+            UiSound.Sink = null;
+        }
+
+        [UnityTest]
         public IEnumerator The_new_look([Values("ru", "en")] string lang)
         {
             UiSound.Sink = _ => { };

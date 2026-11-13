@@ -573,3 +573,55 @@
 .app Button.calendar__cell.calendar__cell--now:hover, .app Button.calendar__cell.calendar__cell--now:focus { background-color: var(--card-face); }
 .npc-tag-box { position: absolute; translate: -50% -100%; align-items: center; }
 .npc-tag-box .npc-tag { position: relative; translate: 0 0; }
+
+/* ===== Stage 5B step 3 · conversations ===== */
+.dialogue__options-grid { flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
+.dialogue .dialogue__option { width: 49%; min-height: 150px; margin: 8px 0; padding: 18px 18px 14px 18px; border-radius: 28px; border-width: 3px; border-color: var(--card-edge); border-bottom-width: 9px; border-bottom-color: var(--card-lip); background-color: var(--card-face); align-items: flex-start; }
+.dialogue__option-text { font-size: 30px; white-space: normal; -unity-text-align: upper-left; margin-top: 54px; }
+.dialogue .dialogue__option-text { color: var(--text); }
+.dialogue__tone-icon { position: absolute; left: 14px; top: 10px; width: 56px; height: 56px; }
+.dialogue__tone { position: absolute; left: 78px; top: 22px; font-size: 22px; -unity-font-style: bold; }
+.dialogue .dialogue__tone { color: var(--text-dim); }
+.dialogue__option--friendly { border-color: #7BC795; }
+.dialogue__option--business { border-color: #8FA3D6; }
+.dialogue__option--joke { border-color: #F2C14E; }
+.dialogue__option--firm { border-color: #E58A7F; }
+.dialogue__option-chips { flex-direction: row; flex-wrap: wrap; margin-top: 8px; }
+.dialogue__requires { flex-direction: row; align-items: center; margin-top: 8px; padding: 4px 14px; border-radius: 18px; background-color: #EFEAFF; }
+.dialogue__lock { width: 28px; height: 28px; margin-right: 6px; -unity-background-image-tint-color: #4B30C2; }
+.dialogue__requires-text { font-size: 24px; -unity-font-style: bold; margin-right: 6px; }
+.dialogue .dialogue__requires-text { color: #4B30C2; }
+.dialogue .dialogue__option--locked:disabled { opacity: 0.85; background-color: #F4F1FB; border-color: #B9A9E8; border-bottom-color: #B9A9E8; }
+.dialogue Button.dialogue__option:hover, .dialogue Button.dialogue__option:focus { background-color: var(--card-face); }
+.dialogue__nameplate { flex-direction: row; align-items: center; }
+.dialogue__hearts { flex-direction: row; align-items: center; margin-left: 12px; padding: 2px 12px; border-radius: 16px; background-color: var(--tile); }
+.dialogue__heart-icon { width: 34px; height: 34px; margin-right: 4px; }
+.dialogue__hearts-value { font-size: 26px; -unity-font-style: bold; }
+.dialogue .dialogue__hearts-value { color: var(--text); }
+.trust-float { position: absolute; right: 30px; top: -70px; flex-direction: row; align-items: center; padding: 6px 18px; border-radius: 24px; background-color: var(--positive); transition-property: translate, opacity; transition-duration: 1s, 0.5s; transition-delay: 0s, 0.5s; }
+.trust-float--down { background-color: var(--negative); }
+.trust-float--fly { translate: 0 -60px; opacity: 0; }
+.trust-float Label { font-size: 30px; -unity-font-style: bold; color: #FFFFFF; }
+.trust-float .game-icon { width: 40px; height: 40px; margin-left: 6px; }
+
+/* The host's hearts in a room. */
+.visit__hearts { flex-direction: row; align-items: center; margin-top: 4px; }
+.visit__heart-icon { width: 34px; height: 34px; margin-right: 4px; }
+.visit__hearts-value { font-size: 26px; -unity-font-style: bold; }
+
+/* A relationship level reached: flash, banner, bonus (1.5 s, a tap skips). */
+.level-up { position: absolute; left: -4000px; right: -4000px; top: 0; bottom: 0; border-left-width: 4000px; border-right-width: 4000px; border-color: rgba(0, 0, 0, 0); justify-content: center; align-items: center; background-color: rgba(10, 12, 20, 0.35); }
+.level-up__flash { position: absolute; left: -4000px; right: -4000px; top: 0; bottom: 0; background-color: rgba(255, 245, 210, 0.9); opacity: 1; transition-property: opacity; transition-duration: 0.35s; }
+.level-up--in .level-up__flash { opacity: 0; }
+.level-up__banner { width: 900px; padding: 30px 36px; border-radius: 48px; background-color: var(--chrome); border-width: 4px; border-color: var(--accent); border-bottom-width: 12px; border-bottom-color: var(--accent-lip); align-items: center; scale: 0.6 0.6; opacity: 0; transition-property: scale, opacity; transition-duration: 0.3s, 0.2s; transition-timing-function: ease-out-back, ease-out; }
+.level-up--in .level-up__banner { scale: 1 1; opacity: 1; }
+.level-up__icon { width: 150px; height: 150px; margin-top: -100px; }
+.level-up__title { flex-direction: row; align-items: center; margin-top: 8px; }
+.level-up__name, .level-up__word, .level-up__level { font-size: 52px; -unity-font-style: bold; margin: 0 8px; }
+.app .level-up__name, .app .level-up__word { color: var(--on-chrome); }
+.app .level-up__level { color: var(--accent); }
+.level-up__bonus-row { flex-direction: row; align-items: center; margin-top: 16px; padding: 12px 20px; border-radius: 28px; background-color: var(--chrome-2); }
+.level-up__bonus-icon { width: 72px; height: 72px; margin-right: 12px; }
+.level-up__bonus { font-size: 32px; -unity-font-style: bold; white-space: normal; flex-shrink: 1; }
+.app .level-up__bonus { color: var(--on-chrome); }
+.scene-open .visit { display: none; }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnpaidCeo.Core.Game;
+using UnpaidCeo.Core.Narrative;
 
 namespace UnpaidCeo.Game.Ui
 {
@@ -39,6 +40,8 @@ namespace UnpaidCeo.Game.Ui
             {
                 foreach (var d in HeroDeeds) items.Add(Deed(d, plan, () => plan.Plan(d)));
                 items.RemoveAll(i => i.State == ChoiceState.Locked);
+                items.Add(new RadialItem { Id = "call_mom", LabelKey = "radial.call_mom", GameIcon = "close_ones", HintKey = "radial.hint.call_mom",
+                    Pending = ui.State != null && HostScenes.HasScene(ui.State, ui.Engine.Content, "mom"), Run = () => ui.Talk("mom") });
                 items.Add(new RadialItem { Id = "week", LabelKey = "dock.decisions", ServiceIcon = "calendar-dots", HintKey = "radial.hint.week", Run = () => ui.Open(UiRoot.Decisions) });
                 items.Add(new RadialItem { Id = "journal", LabelKey = "hud.journal", ServiceIcon = "book-open-text", HintKey = "radial.hint.journal", Run = () => ui.Open(UiRoot.Journal) });
                 return items;
@@ -50,6 +53,7 @@ namespace UnpaidCeo.Game.Ui
             bool room = kind == "room";
             if (kind == "resident" || room)
                 items.Add(new RadialItem { Id = "talk", LabelKey = "visit.talk", ServiceIcon = "chat-circle-dots", First = true, HintKey = "radial.hint.talk",
+                    Pending = ui.State != null && HostScenes.HasScene(ui.State, ui.Engine.Content, place.Host),
                     Run = room ? (System.Action)(() => ui.Visit.Talk()) : () => ui.OpenPlace(place.Id) });
             else
                 items.Add(new RadialItem { Id = "enter", LabelKey = "radial.enter", ServiceIcon = "door-open", First = true, HintKey = "radial.hint.enter", Run = () => ui.OpenPlace(place.Id) });
@@ -112,6 +116,7 @@ namespace UnpaidCeo.Game.Ui
             string placeId = kind == "resident" ? PlaceOfResident(id) : id;
             var place = placeId != null ? Places.Find(placeId) : null;
             if (place == null) return null;
+            if (ui.State != null && HostScenes.HasScene(ui.State, ui.Engine.Content, place.Host)) return "emote_scene";
             if (place.Id == "academy" && ui.NewLesson) return "emote_lesson";
             foreach (var a in place.Actions)
             {

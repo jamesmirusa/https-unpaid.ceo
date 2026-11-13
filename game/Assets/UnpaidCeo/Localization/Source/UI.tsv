@@ -505,3 +505,34 @@ bonus.tony.3	Tony gives you weekend shifts: 8 hours, $136	Тони даёт см
 bonus.mom.3	Mom invites you to Sunday dinners: energy and close ones up	Мама зовёт на воскресные ужины: больше сил и тепла
 journal.bonus.tony.3	Tony trusts you now: he offered you weekend shifts.	Тони теперь тебе доверяет: он предложил смены в выходные.
 journal.bonus.mom.3	Mom said: "Sundays you eat here. No arguments."	Мама сказала: «По воскресеньям ешь у меня. Без разговоров».
+radial.call_mom	Call Mom	Позвонить маме
+radial.hint.call_mom	She'll want to hear how you are	Она захочет знать, как ты
+tone.friendly	Friendly	Дружелюбно
+tone.business	Business	По делу
+tone.joke	Joke	Шутка
+tone.firm	Firm	Жёстко
+levelup.level	— level	— уровень
+live.tony.cold.1	Tony doesn't look up from the register. "Buying something?"	Тони не отрывается от кассы. «Берёшь что-нибудь?»
+live.tony.cold.2	"Cash only today. For you, anyway."	«Сегодня только наличные. Для тебя — уж точно».
+live.tony.cold.3	"I got customers. Real ones."	«У меня покупатели. Настоящие».
+live.tony.neutral.1	"Kid. Rent's coming for both of us. Keep moving."	«Слышь, малой. Аренда придёт за нами обоими. Не стой на месте».
+live.tony.neutral.2	"Coffee's a dollar. Advice is free and worth it."	«Кофе — доллар. Совет бесплатно, и он того стоит».
+live.tony.neutral.3	"Supplier's late again. Story of my life."	«Поставщик опять опаздывает. Вся моя жизнь».
+live.tony.warm.1	"There he is. Grab a coffee, on me."	«А вот и ты. Бери кофе, я угощаю».
+live.tony.warm.2	"You keep a reserve? Good. Small shops die of one bad week."	«Резерв держишь? Молодец. Маленькие лавки умирают от одной плохой недели».
+live.tony.warm.3	"Customers asked about you. Said you're polite. Don't let it go to your head."	«Покупатели про тебя спрашивали. Говорят, вежливый. Не зазнавайся».
+live.tony.close.1	"You're family now. Family eats first and pays never."	«Ты теперь свой. Свои едят первыми и не платят».
+live.tony.close.2	"When you open your own place, I want the first coffee."	«Когда откроешь своё дело, первый кофе — мой».
+live.tony.close.3	"Thirty years behind this counter. Watching you, I'd do it again."	«Тридцать лет за этим прилавком. Глядя на тебя, я бы всё повторил».
+live.mom.cold.1	Mom answers on the fifth ring. "Oh. It's you."	Мама берёт трубку на пятом гудке. «А, это ты».
+live.mom.cold.2	"Your aunt calls more than you do."	«Тётя звонит мне чаще, чем ты».
+live.mom.cold.3	"I'm fine. Everyone's fine. Are you eating?"	«Всё нормально. У всех всё нормально. Ты ешь вообще?»
+live.mom.neutral.1	"Are you sleeping? You sound tired."	«Ты спишь? Голос усталый».
+live.mom.neutral.2	"Don't spend it all on that city. Put some aside."	«Не трать всё в этом городе. Откладывай понемногу».
+live.mom.neutral.3	"Call me Sunday. Your grandmother asks."	«Позвони в воскресенье. Бабушка спрашивает».
+live.mom.warm.1	"I told the neighbors about your work. They were impressed."	«Рассказала соседям про твою работу. Они под впечатлением».
+live.mom.warm.2	"I made too much soup again. Come and take some."	«Опять наварила слишком много супа. Приезжай, забери».
+live.mom.warm.3	"You sound like your father when he started. In a good way."	«Ты говоришь, как отец, когда он начинал. В хорошем смысле».
+live.mom.close.1	"Whatever happens with the business, you always have a home here."	«Что бы ни случилось с делом, у тебя всегда есть дом».
+live.mom.close.2	"I'm proud of you. Now go to bed."	«Я тобой горжусь. А теперь иди спать».
+live.mom.close.3	"Bring your receipts on Sunday. I'll check your sums, like old times."	«Привози в воскресенье чеки. Проверю твои подсчёты, как раньше».
