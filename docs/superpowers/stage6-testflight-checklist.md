@@ -11,7 +11,12 @@
 - [ ] `tools/unity.sh build-ios` (сборка для устройства) → Xcode → Product → Archive → Distribute → App Store Connect.
 - [ ] Иконки всех размеров, экран запуска, описание EN/RU, скриншоты 6,9" и 6,5" (из `tools/ios/run-sim.sh`).
 - [ ] Privacy: анкета «Данные» (аналитика анонимная, с согласием — как в игре), ссылка на политику конфиденциальности.
-- [ ] Encryption: `ITSAppUsesNonExemptEncryption = NO` (только HTTPS).
+- [x] Encryption: `ITSAppUsesNonExemptEncryption = NO` пишется в Info.plist при каждой сборке (`Editor/IosPostprocess.cs`).
+- [ ] Privacy manifest: проверить `PrivacyInfo.xcprivacy` в Xcode-проекте (Unity 6 кладёт свой; UGS Analytics,
+      PlayerPrefs = UserDefaults — «required reason API»), дополнить при необходимости.
+- [ ] Важно: `tools/unity.sh build-ios` каждый раз пересоздаёт `game/Builds/iOS` (иначе Unity падает на Xcode 27) —
+      настройки подписи в Xcode после пересборки выбрать снова (Team).
+- [ ] iPad: сейчас сборка только для iPhone; для iPad — макеты, проверка и скриншоты 13".
 - [ ] TestFlight: внутренние тестеры (владелец), потом внешние.
 - [ ] **Sign in with Apple** — возможность в Signing & Capabilities (не работает в бесплатной Personal Team), подключение
       в Unity Authentication (Apple), кнопка в «Настройки → Аккаунт».

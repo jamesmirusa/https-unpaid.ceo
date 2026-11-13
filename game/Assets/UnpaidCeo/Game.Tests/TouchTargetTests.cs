@@ -21,7 +21,8 @@ namespace UnpaidCeo.Game.Tests
     /// </summary>
     public class TouchTargetTests
     {
-        public const float MinPanelPx = 44f * 1080f / 393f;
+        /// <summary>44 pt on the narrowest supported iPhone (375 pt: SE, mini) at the 1080-wide panel.</summary>
+        public const float MinPanelPx = 44f * 1080f / 375f;
 
         GameObject _host;
         UiRoot _ui;
@@ -81,6 +82,21 @@ namespace UnpaidCeo.Game.Tests
                 .Distinct().ToList();
 
         IEnumerator Settle() { for (int i = 0; i < 6; i++) yield return null; }
+
+        [UnityTest]
+        public IEnumerator Panels_at_the_bottom_stay_above_the_home_bar()
+        {
+            yield return Boot();
+            SafeArea.Apply(_ui.Root, new SafeArea.Edges { top = 140, bottom = 100 });
+            _ui.Visit.Show("bodega");
+            yield return Settle();
+            float h = _ui.Root.panel.visualTree.layout.height;
+            Assert.LessOrEqual(_ui.Visit.Root.worldBound.yMax, h - 100 + 1f, "the room's buttons clear the home bar");
+            SafeArea.Apply(_ui.Root, new SafeArea.Edges { top = 140, bottom = 100 });   // applying twice adds nothing
+            yield return Settle();
+            Assert.LessOrEqual(_ui.Visit.Root.worldBound.yMax, h - 100 + 1f);
+            Assert.Greater(_ui.Visit.Root.worldBound.yMax, h - 100 - 40f, "and do not float away");
+        }
 
         [UnityTest]
         public IEnumerator Every_tap_on_the_main_screens_is_at_least_44_points()

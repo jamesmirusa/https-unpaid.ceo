@@ -57,6 +57,7 @@ namespace UnpaidCeo.Game.Ui
             _plan = plan;
             Root = new VisualElement { name = "visit" };
             Root.AddToClassList("visit");
+            Root.AddToClassList(Kit.SafeArea.BottomClass);   // above the home bar on a phone
             var head = new VisualElement();
             head.AddToClassList("visit__head");
             _portrait = new VisualElement { name = "visit-portrait" };

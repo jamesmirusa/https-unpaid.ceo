@@ -111,7 +111,7 @@ namespace UnpaidCeo.Editor
             PlayerSettings.iOS.buildNumber = "1";
             PlayerSettings.iOS.targetOSVersionString = "16.0";
             PlayerSettings.iOS.sdkVersion = simulator ? iOSSdkVersion.SimulatorSDK : iOSSdkVersion.DeviceSDK;
-            PlayerSettings.iOS.targetDevice = iOSTargetDevice.iPhoneAndiPad;
+            PlayerSettings.iOS.targetDevice = iOSTargetDevice.iPhoneOnly;   // iPad layouts are not designed or tested yet
             PlayerSettings.iOS.requiresFullScreen = true;
             PlayerSettings.iOS.hideHomeButton = false;
             PlayerSettings.iOS.appleEnableAutomaticSigning = true;

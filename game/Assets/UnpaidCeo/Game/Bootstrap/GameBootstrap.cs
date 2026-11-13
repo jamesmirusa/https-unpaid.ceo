@@ -71,7 +71,9 @@ namespace UnpaidCeo.Game.Bootstrap
 
         void Start()
         {
+#if !DEVELOPMENT_BUILD
             Debug.developerConsoleEnabled = false;   // players never see the on-screen error console (the Cloud Code package logs its 404s as errors)
+#endif
             StartCoroutine(Boot());
         }
 

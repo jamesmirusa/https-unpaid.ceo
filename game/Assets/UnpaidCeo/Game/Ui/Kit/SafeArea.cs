@@ -27,23 +27,49 @@ namespace UnpaidCeo.Game.Ui.Kit
             };
         }
 
+        public const string BottomClass = "safe-bottom", TopClass = "safe-top";
+        const string BaseKey = "safe-base";
+
+        /// <summary>
+        /// Pads <paramref name="root"/> by <paramref name="e"/> (flex children follow), and lifts the panels pinned to an
+        /// edge (classes <see cref="BottomClass"/>, <see cref="TopClass"/>): absolute children ignore the parent's padding.
+        /// Idempotent: each panel keeps its own offset from the stylesheet and gets the inset added once.
+        /// </summary>
+        public static void Apply(VisualElement root, Edges e)
+        {
+            root.style.paddingTop = e.top;
+            root.style.paddingBottom = e.bottom;
+            root.style.paddingLeft = e.left;
+            root.style.paddingRight = e.right;
+            foreach (var p in root.Query(className: BottomClass).ToList()) Lift(p, e.bottom, false);
+            foreach (var p in root.Query(className: TopClass).ToList()) Lift(p, e.top, true);
+        }
+
+        static void Lift(VisualElement p, float inset, bool top)
+        {
+            if (!(p.userData is float baseOffset))
+            {
+                float resolved = top ? p.resolvedStyle.top : p.resolvedStyle.bottom;
+                if (float.IsNaN(resolved)) return;   // not laid out yet: the next pass lifts it
+                baseOffset = resolved;
+                p.userData = baseOffset;
+            }
+            if (top) p.style.top = baseOffset + inset; else p.style.bottom = baseOffset + inset;
+        }
+
         /// <summary>Pads <paramref name="root"/> by the device's insets now and whenever the panel's size changes.</summary>
         public static void Keep(VisualElement root)
         {
-            void Apply()
+            void Refresh()
             {
                 var panelRoot = root.panel?.visualTree;
                 if (panelRoot == null) return;
                 var size = new Vector2(panelRoot.layout.width, panelRoot.layout.height);
                 if (float.IsNaN(size.x) || size.x <= 0) return;
-                var e = Insets(Screen.safeArea, new Vector2(Screen.width, Screen.height), size);
-                root.style.paddingTop = e.top;
-                root.style.paddingBottom = e.bottom;
-                root.style.paddingLeft = e.left;
-                root.style.paddingRight = e.right;
+                Apply(root, Insets(Screen.safeArea, new Vector2(Screen.width, Screen.height), size));
             }
-            root.RegisterCallback<GeometryChangedEvent>(_ => Apply());
-            root.schedule.Execute(Apply).Every(1000);   // rotation or a split view can change the safe area without a resize
+            root.RegisterCallback<GeometryChangedEvent>(_ => Refresh());
+            root.schedule.Execute(Refresh).Every(1000);   // panels built later (a room, the hero creator) get lifted on the next pass
         }
     }
 }
