@@ -103,7 +103,7 @@ namespace UnpaidCeo.Game.Ui
         }
         /// <summary>The screens show a challenge or duel run: no daily turns, no chapter bar. Set before Initialize.</summary>
         bool _runMode;
-        public bool RunMode { get => _runMode; set { _runMode = value; RefreshGate(); } }
+        public bool RunMode { get => _runMode; set { _runMode = value; RefreshGate(); RefreshEmotes(); } }
         ConsentDialog _consent;
         /// <summary>The one-time analytics question.</summary>
         public ConsentDialog Consent => _consent;
@@ -227,7 +227,7 @@ namespace UnpaidCeo.Game.Ui
         public bool GuideEnabled
         {
             get => _guideEnabled;
-            set { _guideEnabled = value; RefreshGuide(); RefreshGate(); }
+            set { _guideEnabled = value; RefreshGuide(); RefreshGate(); RefreshEmotes(); }
         }
 
         /// <summary>A month is being played: "Next month" shows it cannot be pressed.</summary>
@@ -451,7 +451,7 @@ namespace UnpaidCeo.Game.Ui
                 // (A Button draws its own text under its children, so the name is a Label of its own.)
                 marker = new Button() { name = "marker-" + id };
                 var m = marker;
-                marker.clicked += () => OpenRadial("place:" + id, m);
+                marker.clicked += () => { if (!OpenRadial("place:" + id, m)) OpenPlace(id); };   // no radial (onboarding): walk in as before
                 AddEmote(marker, "place:" + id);
                 marker.AddToClassList("place-marker");
                 var pic = new VisualElement { name = "marker-pic-" + id };
@@ -997,14 +997,15 @@ namespace UnpaidCeo.Game.Ui
         public bool NewLesson => _newLesson;
 
         /// <summary>Opens the radial menu of <paramref name="target"/> around the element that was tapped.</summary>
-        public void OpenRadial(string target, VisualElement at)
+        public bool OpenRadial(string target, VisualElement at)
         {
-            if (_radial == null || RunMode || _sceneOpen || !_guideEnabled) return;   // not during a scene or the mentor's first steps
+            if (_radial == null || RunMode || _sceneOpen || !_guideEnabled) return false;   // not during a scene or the mentor's first steps
             var items = RadialMenus.For(target, this);
-            if (items.Count == 0) return;
+            if (items.Count == 0) return false;
             var center = Root.WorldToLocal(at.worldBound.center);
             if (float.IsNaN(center.x)) center = new Vector2(540, 960);
             _radial.Show(RadialMenus.TitleKey(target), items, center);
+            return true;
         }
 
         /// <summary>Drags go back to the city unless a popup or a room still holds them.</summary>

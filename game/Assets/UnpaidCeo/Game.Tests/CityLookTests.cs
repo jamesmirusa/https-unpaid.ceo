@@ -61,6 +61,9 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsTrue(look.sharedProfile.TryGet<Vignette>(out var v) && v.intensity.value > 0.1f, "a light vignette");
             Assert.IsTrue(look.sharedProfile.TryGet<SplitToning>(out _), "warm light, cool shade");
             Assert.AreEqual(1f, look.weight, 1e-3f);
+            dn.Set(TimeOfDay.Night);
+            Assert.AreEqual(0f, look.weight, 1e-3f, "the neon night keeps its own grade");
+            dn.Set(TimeOfDay.Day);
             GraphicsModeService.Apply(GraphicsMode.Eco);
             yield return null;
             Assert.AreEqual(0f, look.weight, 1e-3f, "Eco keeps it plain");

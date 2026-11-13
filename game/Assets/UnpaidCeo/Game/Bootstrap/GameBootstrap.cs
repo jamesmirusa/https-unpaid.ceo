@@ -646,7 +646,14 @@ namespace UnpaidCeo.Game.Bootstrap
                         presenter.ShowTrust(n.Npc, n.Delta);
                         int after = _state!.Npcs.Get(n.Npc);
                         int la = UnpaidCeo.Core.Narrative.Relationships.Level(after), lb = UnpaidCeo.Core.Narrative.Relationships.Level(after - n.Delta);
-                        if (la > lb) Ui.ShowLevelUp(n.Npc, la, UnpaidCeo.Core.Narrative.LevelBonuses.Reached(_engine!.Content.Balance, n.Npc, lb, la)?.Key);
+                        if (la > lb)
+                        {
+                            var bonus = UnpaidCeo.Core.Narrative.LevelBonuses.Reached(_engine!.Content.Balance, n.Npc, lb, la);
+                            // the bonus line only when this choice granted it (trust can fall and climb back)
+                            bool fresh = bonus != null && _state.Facts.Items.TryGetValue(bonus.Fact, out var m) && m == _state.Month
+                                         && _state.Journal.Count > 0 && _state.Journal[_state.Journal.Count - 1].TextKey == "journal." + bonus.Key;
+                            Ui.ShowLevelUp(n.Npc, la, fresh ? bonus!.Key : null);
+                        }
                     }
                     if (def.Host != null) _stage?.HostReacts(effects.OfType<UnpaidCeo.Core.Narrative.NpcEffect>().Sum(x => x.Delta) >= 0 ? CharacterAnimator.State.Cheer : CharacterAnimator.State.Think);
                 }

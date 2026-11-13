@@ -75,7 +75,10 @@ namespace UnpaidCeo.Game.City
         }
 
         void OnDisable() { UnpaidCeo.Game.Graphics.GraphicsModeService.Changed -= OnMode; }
-        void OnMode(UnpaidCeo.Core.Platform.GraphicsMode m) => LookVolume.weight = UnpaidCeo.Game.Graphics.GraphicsModeService.PostProcessing(m) ? 1f : 0f;
+        bool _lookOn = true;
+        /// <summary>The look fades out toward the neon night, which keeps its own grade.</summary>
+        void ApplyLook() => LookVolume.weight = _lookOn ? 1f - NightAmount : 0f;
+        void OnMode(UnpaidCeo.Core.Platform.GraphicsMode m) { _lookOn = UnpaidCeo.Game.Graphics.GraphicsModeService.PostProcessing(m); ApplyLook(); }
 
         public void Configure(Light s, Volume day, Volume night, List<Light> streetLamps)
         {
@@ -113,6 +116,7 @@ namespace UnpaidCeo.Game.City
             RenderSettings.ambientMode = AmbientMode.Trilight;
             RenderSettings.ambientSkyColor = Stops(daySky, eveningSky, nightSky, NightAmount);
             EveningVolume.weight = 1f - Mathf.Abs(NightAmount * 2f - 1f);
+            ApplyLook();
             RenderSettings.ambientEquatorColor = Color.Lerp((daySky + dayGround) * 0.5f, (nightSky + nightGround) * 0.5f, NightAmount);
             RenderSettings.ambientGroundColor = Color.Lerp(dayGround, nightGround, NightAmount);
             if (dayVolume != null) dayVolume.weight = 1f - NightAmount;

@@ -111,7 +111,7 @@ namespace UnpaidCeo.Game.Ui
         public static string Emote(string target, UiRoot ui)
         {
             var plan = ui.DecisionsPanel;
-            if (plan == null) return null;
+            if (plan == null || ui.RunMode || !ui.GuideEnabled) return null;   // no badge where a tap would not open a menu
             var (kind, id) = Split(target);
             string placeId = kind == "resident" ? PlaceOfResident(id) : id;
             var place = placeId != null ? Places.Find(placeId) : null;

@@ -444,6 +444,7 @@ namespace UnpaidCeo.Core.Game
                 s.StoryletsSeen.Remove(id);
                 s.StoryletLastMonth.Remove(id);
                 s.HostTalkWeek.Remove(st.Host);
+                report.Storylets.Remove(id);
             }
             s.PendingStorylets.Clear();
             if (monthEnd)

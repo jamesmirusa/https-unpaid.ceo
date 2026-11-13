@@ -258,6 +258,30 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator During_the_mentors_first_steps_a_sign_still_walks_in()
+        {
+            yield return Boot();
+            _ui.GuideEnabled = false;   // the onboarding coach speaks
+            _ui.PlaceMarker("bodega", new Vector2(500, 1100));
+            yield return null;
+            Tap(_ui.Root.Q<Button>("marker-bodega"));
+            yield return null;
+            Assert.AreEqual(UiRoot.PlacesTab, _ui.CurrentTab, "no radial then: the sign walks in, as before");
+        }
+
+        [UnityTest]
+        public IEnumerator No_badges_in_a_challenge_run()
+        {
+            yield return Boot();
+            _ui.RunMode = true;
+            _ui.PlaceTag("npc_tony_bulldog", "city.tony", new Vector2(500, 1100));
+            _ui.RefreshHud();
+            yield return null;
+            var badge = _ui.Root.Q("tag-box-npc_tony_bulldog")?.Q("emote");
+            Assert.IsTrue(badge == null || badge.resolvedStyle.display == DisplayStyle.None);
+        }
+
+        [UnityTest]
         public IEnumerator Tapping_beside_the_menu_closes_it()
         {
             yield return Boot();
