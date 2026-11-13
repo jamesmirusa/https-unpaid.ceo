@@ -10,7 +10,9 @@
         "Unity.Localization.Editor",
         "Unity.Addressables",
         "Unity.Addressables.Editor",
-        "Unity.ResourceManager"
+        "Unity.ResourceManager",
+        "Unity.Services.DeploymentApi",
+        "Unity.Services.Core.Environments.Editor"
     ],
     "includePlatforms": [
         "Editor"

@@ -65,6 +65,7 @@ namespace UnpaidCeo.Editor
 
         public const string IosOutput = "Builds/iOS", IosSimOutput = "Builds/iOSSim";
         public const string BundleId = "ceo.unpaid.game";
+        public const string DevelopmentTeam = "5MT347728K";
 
         /// <summary>
         /// Stage 6 · iPhone: an Xcode project from the same game (IL2CPP, ARM64, Metal), Addressables built for iOS first.
@@ -115,6 +116,7 @@ namespace UnpaidCeo.Editor
             PlayerSettings.iOS.requiresFullScreen = true;
             PlayerSettings.iOS.hideHomeButton = false;
             PlayerSettings.iOS.appleEnableAutomaticSigning = true;
+            PlayerSettings.iOS.appleDeveloperTeamID = DevelopmentTeam;   // the owner's Apple Developer team (not a secret: it is in every signed app)
             PlayerSettings.SetScriptingBackend(NamedBuildTarget.iOS, ScriptingImplementation.IL2CPP);
             PlayerSettings.SetArchitecture(NamedBuildTarget.iOS, 1);   // ARM64
             PlayerSettings.SetManagedStrippingLevel(NamedBuildTarget.iOS, ManagedStrippingLevel.Medium);
