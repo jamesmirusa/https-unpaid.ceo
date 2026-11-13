@@ -121,11 +121,56 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual("70 → 60", Named("visit-energy").text);
             Assert.AreEqual($"{points - 1} / {points}", Named("visit-points").text);
             Assert.AreEqual("70 → 60", Named("hud-energy-value").text, "the hud follows the plan at once");
-            Assert.AreEqual(Localized("choice.planned"), Status("overtime").text);
+        }
 
+        [UnityTest]
+        public IEnumerator A_tapped_choice_is_done_and_cannot_be_undone()
+        {
+            yield return Boot(s => s.Life.Energy = 70);
+            _ui.Visit.Show("bodega");
+            yield return null;
             Tap(Choice("overtime"));
             yield return null;
-            Assert.AreEqual("70", Named("hud-energy-value").text, "taking it back gives the energy back");
+            Assert.IsFalse(Choice("overtime").enabledSelf, "done: closed until next week");
+            Assert.IsTrue(Choice("overtime").ClassListContains(ChoiceCard.DoneClass));
+            Assert.AreEqual(Localized("choice.done"), Status("overtime").text);
+            Assert.IsFalse(_ui.DecisionsPanel.Plan("overtime"), "there is no second tap and no undo");
+            Assert.IsTrue(_ui.DecisionsPanel.IsPlanned("overtime"));
+            Assert.AreEqual("70 → 60", Named("hud-energy-value").text, "the energy stays spent");
+        }
+
+        [UnityTest]
+        public IEnumerator Room_cards_say_why_they_are_closed_when_the_weeks_points_run_out()
+        {
+            yield return Boot(s => s.Life.Energy = 90);
+            _ui.Visit.Show("bodega");
+            yield return null;
+            Tap(Choice("overtime"));
+            Tap(Choice("night_shift"));
+            _ui.Visit.Close();
+            _ui.Visit.Show("bar");
+            yield return null;
+            Assert.IsFalse(Choice("networking").enabledSelf);
+            Assert.AreEqual(Localized("choice.no_points"), Status("networking").text);
+            _ui.Visit.Close();
+            _ui.Open(UiRoot.Decisions);
+            yield return null;
+            Assert.IsTrue(_ui.Root.Q<Button>("next-month").enabledSelf, "a spent week can still be played");
+        }
+
+        [UnityTest]
+        public IEnumerator Statuses_follow_the_language()
+        {
+            yield return Boot(s => s.Life.Energy = 70);
+            _ui.Visit.Show("bodega");
+            yield return null;
+            Tap(Choice("overtime"));
+            yield return null;
+            string en = Status("overtime").text;
+            yield return _ui.SetLanguage("ru");
+            for (int i = 0; i < 3; i++) yield return null;
+            Assert.AreEqual(Localized("choice.done"), Status("overtime").text);
+            Assert.AreNotEqual(en, Status("overtime").text, "the status re-renders in Russian");
         }
 
         [UnityTest]

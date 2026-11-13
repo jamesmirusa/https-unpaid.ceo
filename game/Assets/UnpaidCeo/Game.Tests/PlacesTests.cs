@@ -188,7 +188,7 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
-        public IEnumerator What_you_do_at_a_place_goes_into_this_months_plan()
+        public IEnumerator What_you_do_at_a_place_goes_into_this_weeks_plan_and_stays_done()
         {
             yield return Boot();
             _ui.OpenPlace("bodega");
@@ -206,10 +206,9 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual($"{_ui.DecisionsPanel.PointsLeft} / {_ui.DecisionsPanel.PointsTotal}", Panel.Q<Label>("place-points").text);
             Assert.AreEqual(_ui.DecisionsPanel.PointsTotal - 1, _ui.DecisionsPanel.PointsLeft);
 
-            Tap(overtime);
-            yield return null;
-            CollectionAssert.DoesNotContain(_ui.CurrentDecisions().FreeActions, "overtime", "a second tap takes it back out");
-            Assert.IsFalse(overtime.ClassListContains("place-action--planned"));
+            Assert.IsFalse(overtime.enabledSelf, "done until next week: there is no second tap");
+            Assert.IsTrue(overtime.ClassListContains("place-action--planned"));
+            CollectionAssert.Contains(_ui.CurrentDecisions().FreeActions, "overtime", "and nothing takes it back");
         }
 
         [UnityTest]

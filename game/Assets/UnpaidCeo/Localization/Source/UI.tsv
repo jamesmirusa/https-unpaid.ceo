@@ -414,10 +414,9 @@ city.home	To me	Ко мне
 visit.talk	Talk	Поговорить
 visit.exit	Leave	Выйти на улицу
 choice.recommended	★ Recommended	★ Рекомендуем
-choice.planned	✓ In this week's plan — tap to undo	✓ В плане недели — нажми, чтобы отменить
-choice.done	Done this month — again next month	Уже сделано в этом месяце — снова в следующем
+choice.done	✓ Done — again next week	✓ Сделано — снова на следующей неделе
 choice.waiting	Settle the last one first	Сначала закрой прошлое
-choice.no_points	No actions left this month	В этом месяце действий больше нет
+choice.no_points	No actions left this week	Действия этой недели кончились
 choice.no_money	Not enough money	Не хватает денег
 choice.no_energy	Not enough energy — rest at home	Не хватает сил — отдохни дома
 choice.cooldown.1	Once a month — again next week	Раз в месяц — снова на следующей неделе
@@ -437,4 +436,3 @@ place.react.night_shift	The night shift's yours. Coffee's on the house; sleep is
 place.react.pitch_night	Two minutes, one idea, a room full of people with money. Go get them!	Две минуты, одна идея, полный зал людей с деньгами. Вперёд!
 place.react.budget_review	Every dollar needs a job. Let's see where yours really go.	У каждого доллара должна быть работа. Посмотрим, куда на самом деле уходят твои.
 place.react.certificate_course	A certificate on the wall opens doors a résumé can't.	Сертификат на стене открывает двери, которые резюме не откроет.
-place.react.unplanned	Changed your mind? No problem, the offer stands.	Передумал? Без проблем, предложение в силе.

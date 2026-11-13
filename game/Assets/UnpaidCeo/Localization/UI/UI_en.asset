@@ -1683,7 +1683,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1446730456358913
-    m_Localized: "Done this month \u2014 again next month"
+    m_Localized: "\u2713 Done \u2014 again next week"
     m_Metadata:
       m_Items: []
   - m_Id: 1446730456358914
@@ -1691,7 +1691,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1446730456358915
-    m_Localized: No actions left this month
+    m_Localized: No actions left this week
     m_Metadata:
       m_Items: []
   - m_Id: 1446730456358916

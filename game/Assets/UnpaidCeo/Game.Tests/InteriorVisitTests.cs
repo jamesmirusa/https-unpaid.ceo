@@ -331,9 +331,8 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsTrue(_ui.Root.Q<Button>("visit-action-overtime").ClassListContains("visit__choice--planned"));
             Assert.IsTrue(Shown(_ui.Root.Q("visit-consequences")), "and what it brings is shown");
 
-            Tap(_ui.Root.Q<Button>("visit-action-overtime"));
-            yield return null;
-            CollectionAssert.DoesNotContain(_ui.CurrentDecisions().FreeActions, "overtime", "a second tap takes it back");
+            Assert.IsFalse(_ui.Root.Q<Button>("visit-action-overtime").enabledSelf, "done until next week: there is no second tap");
+            CollectionAssert.Contains(_ui.CurrentDecisions().FreeActions, "overtime", "and nothing takes it back");
         }
 
         [UnityTest]

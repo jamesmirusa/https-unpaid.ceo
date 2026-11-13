@@ -164,7 +164,7 @@ namespace UnpaidCeo.Game.Ui
         {
             switch (a.Kind)
             {
-                case PlaceActionKind.Plan: _plan.SetPlanned(a.FreeAction, !_plan.IsPlanned(a.FreeAction)); break;
+                case PlaceActionKind.Plan: _plan.Plan(a.FreeAction); break;
                 case PlaceActionKind.Open: _ui.Open(a.Tab); break;
                 case PlaceActionKind.Loan: _ui.Loan.Open(Money.Zero); break;
             }

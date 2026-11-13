@@ -112,20 +112,19 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>It answers what the hero lacks most right now (rest when tired, family when they drift…).</summary>
         public bool Recommended(string freeAction) => ActionChoices.Recommended(_state, _engine.Content, freeAction, Planned);
 
-        /// <summary>Already planned (it can be taken out), or the week can still take it.</summary>
-        public bool CanPlan(string freeAction)
-        {
-            if (!_toggles.ContainsKey(freeAction)) return false;
-            var state = State(freeAction);
-            return state == ChoiceState.Planned || state == ChoiceState.Open;
-        }
+        /// <summary>The week can still take it (a done choice stays done: there is no undo).</summary>
+        public bool CanPlan(string freeAction) => _toggles.ContainsKey(freeAction) && State(freeAction) == ChoiceState.Open;
 
-        /// <summary>Puts a free action into this month's plan or takes it out: the same list the plan screen ticks.</summary>
-        public void SetPlanned(string freeAction, bool planned)
+        /// <summary>
+        /// One tap: the free action is done this week — it goes into the plan, its energy and money show as spent, and it
+        /// stays done until next week. False when the week cannot take it (or it is already done).
+        /// </summary>
+        public bool Plan(string freeAction)
         {
-            if (!_toggles.TryGetValue(freeAction, out var t) || t.value == planned || planned && !CanPlan(freeAction)) return;
-            t.SetValueWithoutNotify(planned);
+            if (!_toggles.TryGetValue(freeAction, out var t) || t.value || !CanPlan(freeAction)) return false;
+            t.SetValueWithoutNotify(true);
             RefreshPoints();
+            return true;
         }
 
         public void Refresh()

@@ -9,9 +9,9 @@ namespace UnpaidCeo.Game.Ui
 {
     /// <summary>
     /// The conversation inside a place: the host's portrait and name, what they say, the place's actions as choices
-    /// (each with what it pays and costs), "talk" for the host's next line and "leave". A plan choice goes into this
-    /// week's plan (the same free action the plan screen lists) and the host answers it; a choice that opens a screen
-    /// (the plan, the report, lessons, a loan) leaves the room first.
+    /// (each with what it pays and costs), "talk" for the host's next line and "leave". A plan choice is done with one
+    /// tap: it goes into this week's plan (the same free action the Week screen lists), the host answers it, and its card
+    /// stays done until next week; a choice that opens a screen (the plan, the report, lessons, a loan) leaves the room first.
     /// </summary>
     public sealed class VisitPanel
     {
@@ -22,7 +22,7 @@ namespace UnpaidCeo.Game.Ui
         readonly VisualElement _portrait, _choices, _consequences;
         readonly Label _speaker, _place, _line, _energy, _points;
         readonly Dictionary<string, Button> _buttons = new Dictionary<string, Button>();
-        readonly Dictionary<string, Label> _status = new Dictionary<string, Label>();
+        readonly Dictionary<string, ChoiceCard> _cards = new Dictionary<string, ChoiceCard>();
         int _lineIndex;
 
         public VisualElement Root { get; }
@@ -110,25 +110,24 @@ namespace UnpaidCeo.Game.Ui
 
             _choices.Clear();
             _buttons.Clear();
-            _status.Clear();
+            _cards.Clear();
             foreach (var action in place.Actions)
             {
                 if (_state.Chapter < action.MinChapter) continue;
                 var a = action;
-                var b = new Button(() => Choose(a)) { name = "visit-action-" + a.Id };
-                b.AddToClassList("visit__choice");
-                b.Add(UiText.Label("place.action." + a.Id, "visit__choice-label"));
+                Button b;
                 if (a.Kind == PlaceActionKind.Plan && _engine.Content.FreeActions.TryGetValue(a.FreeAction, out var free))
                 {
-                    var chips = new VisualElement();
-                    chips.AddToClassList("visit__choice-chips");
-                    if (free.Cost.Cents > 0) chips.Add(EffectChips.Chip(null, EffectChips.Minus + MoneyFormat.Compact(free.Cost, _ui.Language), false));
-                    foreach (var c in EffectChips.Describe(free.Effects, _ui.Language)) chips.Add(EffectChips.Chip(c.CaptionKey, c.Value, c.Good));
-                    b.Add(chips);
-                    var status = UiText.Label("choice.recommended", "visit__choice-status");
-                    status.name = "visit-status-" + a.Id;
-                    b.Add(status);
-                    _status[a.Id] = status;
+                    var card = new ChoiceCard("visit-action-" + a.Id, "visit-status-" + a.Id, "place.action." + a.Id, () => Choose(a));
+                    card.SetChips(free.Cost, free.Effects, _ui.Language);
+                    _cards[a.Id] = card;
+                    b = card;
+                }
+                else
+                {
+                    b = new Button(() => Choose(a)) { name = "visit-action-" + a.Id };
+                    b.AddToClassList("visit__choice");
+                    b.Add(UiText.Label("place.action." + a.Id, "visit__choice-label"));
                 }
                 _buttons[a.Id] = b;
                 _choices.Add(b);
@@ -146,16 +145,14 @@ namespace UnpaidCeo.Game.Ui
             switch (a.Kind)
             {
                 case PlaceActionKind.Plan:
-                    bool planned = !_plan.IsPlanned(a.FreeAction);
-                    _plan.SetPlanned(a.FreeAction, planned);
-                    planned = _plan.IsPlanned(a.FreeAction);
-                    Say(planned ? "place.react." + a.FreeAction : "place.react.unplanned");
-                    if (planned && _engine.Content.FreeActions.TryGetValue(a.FreeAction, out var free))
+                    // One tap and it is done: no second tap, no undo (stage 5A).
+                    if (!_plan.Plan(a.FreeAction)) break;
+                    Say("place.react." + a.FreeAction);
+                    if (_engine.Content.FreeActions.TryGetValue(a.FreeAction, out var free))
                     {
                         int n = EffectChips.Fill(_consequences, free.Effects, _ui.Language);
                         _consequences.style.display = n > 0 ? DisplayStyle.Flex : DisplayStyle.None;
                     }
-                    else _consequences.style.display = DisplayStyle.None;
                     RefreshChoices();
                     ActionChosen?.Invoke(a.Id);
                     break;
@@ -192,17 +189,9 @@ namespace UnpaidCeo.Game.Ui
             if (place == null) return;
             foreach (var a in place.Actions)
             {
-                if (a.Kind != PlaceActionKind.Plan || !_buttons.TryGetValue(a.Id, out var b)) continue;
+                if (a.Kind != PlaceActionKind.Plan || !_cards.TryGetValue(a.Id, out var card)) continue;
                 var state = _plan.State(a.FreeAction);
-                bool recommended = state == ChoiceState.Open && _plan.Recommended(a.FreeAction);
-                b.EnableInClassList("visit__choice--planned", state == ChoiceState.Planned);
-                b.EnableInClassList("visit__choice--recommended", recommended);
-                b.SetEnabled(state == ChoiceState.Open || state == ChoiceState.Planned);
-                if (!_status.TryGetValue(a.Id, out var status)) continue;
-                string key = recommended ? "choice.recommended"
-                    : state == ChoiceState.Cooldown ? CooldownKey(_plan.WeeksUntilOpen(a.FreeAction)) : StatusKey(state);
-                status.style.display = key != null ? DisplayStyle.Flex : DisplayStyle.None;
-                if (key != null) UiText.Bind(status, key);
+                card.Show(state, state == ChoiceState.Open && _plan.Recommended(a.FreeAction), _plan.WeeksUntilOpen(a.FreeAction));
             }
             int now = _state.Life.Energy, after = _plan.EnergyAfterPlan;
             _energy.text = EnergyText(now, after);
@@ -211,23 +200,6 @@ namespace UnpaidCeo.Game.Ui
 
         /// <summary>"70", or "70 → 60" while the plan changes it.</summary>
         public static string EnergyText(int now, int after) => after == now ? now.ToString() : $"{now} → {after}";
-
-        /// <summary>"Again next week" … "again in 4 weeks": one key per count, so Russian gets its plural right.</summary>
-        public static string CooldownKey(int weeks) => "choice.cooldown." + Math.Max(1, Math.Min(4, weeks));
-
-        static string StatusKey(ChoiceState state)
-        {
-            switch (state)
-            {
-                case ChoiceState.Planned: return "choice.planned";
-                case ChoiceState.DoneThisTurn: return "choice.done";
-                case ChoiceState.Waiting: return "choice.waiting";
-                case ChoiceState.NoPoints: return "choice.no_points";
-                case ChoiceState.NoMoney: return "choice.no_money";
-                case ChoiceState.NoEnergy: return "choice.no_energy";
-                default: return null;
-            }
-        }
 
         /// <summary>Leaves the room.</summary>
         public void Close()

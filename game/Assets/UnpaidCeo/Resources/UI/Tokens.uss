@@ -388,6 +388,8 @@
 .visit__choice--recommended { border-color: var(--energy); }
 .visit__choice--recommended .visit__choice-status { color: var(--energy); }
 .visit__choice--planned .visit__choice-status { color: var(--accent); }
+/* A done choice is closed but not greyed: it reads as done, a blocked one reads as unavailable. */
+.visit__choice--planned:disabled { opacity: 1; }
 .visit__budget { flex-direction: row; align-items: center; flex-wrap: wrap; margin: 0 0 6px 0; }
 .visit__budget-caption { font-size: 24px; margin-right: 6px; color: var(--text-dim); }
 .visit__budget-value { font-size: 26px; margin-right: 22px; -unity-font-style: bold; }
