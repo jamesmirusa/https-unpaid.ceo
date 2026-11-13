@@ -98,10 +98,65 @@ namespace UnpaidCeo.Game.Tests
             var b = _ui.Root.Q<Button>("nav-decisions");
             PointerDown(b);
             Assert.IsTrue(b.ClassListContains(Feel.PressedClass), "the button sinks in the same frame");
-            CollectionAssert.Contains(_sounds, UiSound.Tap);
-            CollectionAssert.Contains(_haptics, Haptics.Kind.Light);
             PointerUp(b);
+            CollectionAssert.Contains(_sounds, UiSound.Tap, "the tap sounds when the finger lifts (a scroll must stay quiet)");
+            CollectionAssert.Contains(_haptics, Haptics.Kind.Light);
             Assert.IsFalse(b.ClassListContains(Feel.PressedClass), "and comes back up on release");
+        }
+
+        [UnityTest]
+        public IEnumerator A_scroll_that_starts_on_a_card_plays_no_tap()
+        {
+            yield return Boot();
+            var b = _ui.Root.Q<Button>("nav-decisions");
+            Feel.Press(b, Vector2.zero);
+            Feel.Move(new Vector2(0, 40));
+            Assert.IsFalse(b.ClassListContains(Feel.PressedClass), "a drag lifts the card back up");
+            Feel.Release();
+            CollectionAssert.DoesNotContain(_sounds, UiSound.Tap);
+            CollectionAssert.DoesNotContain(_haptics, Haptics.Kind.Light);
+        }
+
+        [UnityTest]
+        public IEnumerator A_shaken_button_gets_its_own_style_back()
+        {
+            yield return Boot();
+            var b = _ui.Root.Q<Button>("nav-decisions");
+            Feel.Shake(b);
+            yield return new WaitForSecondsRealtime(0.5f);
+            Assert.AreEqual(StyleKeyword.Null, b.style.translate.keyword, "no inline translate left to block the press and active styles");
+        }
+
+        [UnityTest]
+        public IEnumerator The_week_result_opens_visible()
+        {
+            yield return Boot();
+            var report = _engine.EndWeek(_state, _ui.CurrentDecisions());
+            _ui.ShowMonthSummary(report);
+            yield return new WaitForSecondsRealtime(0.1f);
+            Assert.IsTrue(_ui.Root.Q("month-summary").Q(className: "modal__panel").ClassListContains(UiRoot.PopupInClass));
+        }
+
+        [UnityTest]
+        public IEnumerator Dialogue_buttons_answer_the_tap_too()
+        {
+            yield return Boot();
+            var go = new GameObject("dialogue");
+            try
+            {
+                var panel = ScriptableObject.CreateInstance<PanelSettings>();
+                panel.themeStyleSheet = Resources.Load<ThemeStyleSheet>("UI/UnpaidTheme");
+                panel.targetTexture = _target;
+                go.AddComponent<UIDocument>().panelSettings = panel;
+                go.AddComponent<UnpaidCeo.Game.Narrative.UitkDialoguePresenter>();
+                yield return null;
+                var cont = go.GetComponent<UIDocument>().rootVisualElement.Q<Button>(className: "dialogue__continue");
+                Assert.IsNotNull(cont);
+                PointerDown(cont);
+                PointerUp(cont);
+                CollectionAssert.Contains(_sounds, UiSound.Tap);
+            }
+            finally { Object.Destroy(go); }
         }
 
         [UnityTest]
@@ -153,8 +208,7 @@ namespace UnpaidCeo.Game.Tests
         {
             yield return Boot();
             _ui.Open(UiRoot.Decisions);
-            yield return null;
-            yield return null;
+            yield return new WaitForSecondsRealtime(0.1f);
             Assert.IsTrue(_ui.Screen(UiRoot.Decisions).ClassListContains("popup--in"));
             CollectionAssert.Contains(_sounds, UiSound.Pop);
             _ui.Open(UiRoot.City);

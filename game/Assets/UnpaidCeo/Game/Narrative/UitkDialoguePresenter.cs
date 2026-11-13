@@ -59,6 +59,7 @@ namespace UnpaidCeo.Game.Narrative
             _backdrop.RegisterCallback<ClickEvent>(_ => _advance?.Invoke());
             _backdrop.Add(_panel);
             document.rootVisualElement.Add(_backdrop);
+            UnpaidCeo.Game.Ui.Kit.Feel.Attach(document.rootVisualElement);   // scene buttons answer the tap like the rest
             Show(false);
         }
 

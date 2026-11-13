@@ -48,7 +48,7 @@ namespace UnpaidCeo.Game.Ui.Kit
         }
 
         /// <summary>Re-formats the final value (a language switch) without rolling.</summary>
-        public void Reformat() { if (_hasValue) { _job?.Pause(); _label.text = _format(_target); } }
+        public void Reformat() { if (_hasValue && !Rolling) _label.text = _format(_target); }   // a roll in progress formats each step itself
 
         long Current()
         {

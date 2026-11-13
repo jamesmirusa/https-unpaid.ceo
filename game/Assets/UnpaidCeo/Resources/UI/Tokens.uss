@@ -455,7 +455,9 @@
 .choice-button--selected { border-bottom-color: var(--accent-lip); }
 
 /* Every button answers the touch: it sinks (scale, lip pressed in) and springs back on release (ease-out-back). */
-.app Button { transition-property: scale, translate, border-bottom-width; transition-duration: 0.12s; transition-timing-function: ease-out-back; }
+.app Button, .dialogue Button { transition-property: scale, translate, background-color; transition-duration: 0.12s, 0.12s, 0.18s; transition-timing-function: ease-out-back, ease-out-back, ease-out; }
+.dialogue Button.feel--pressed { scale: 0.96 0.96; }
+.dialogue Button.dialogue__continue.feel--pressed { border-bottom-width: 2px; translate: 0 6px; }
 .app Button.feel--pressed { scale: 0.96 0.96; }
 .app Button.primary-button.feel--pressed, .app Button.guide__action.feel--pressed, .app Button.visit__exit.feel--pressed,
 .app Button.chapter-bar__advance.feel--pressed, .app Button.popup-close.feel--pressed { border-bottom-width: 2px; translate: 0 6px; }
