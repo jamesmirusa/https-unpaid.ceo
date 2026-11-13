@@ -282,7 +282,7 @@ city.you	You	Ты
 goal.1	Goal: save up cash plus a reserve for one month of living	Цель: накопить деньги и резерв на месяц жизни
 goal.2	Goal: break even and grow your capital to	Цель: выйти в ноль и довести капитал до
 goal.3	Goal: two locations and a team, or capital of	Цель: две точки и команда или капитал
-guide.plan	Plan the week: split your day and pick actions. Then press Next week.	Спланируй неделю: распредели день и выбери действия. Потом жми «Следующая неделя».
+guide.plan	Plan the week: tap a mode and the deeds you want — one tap each. Then press Next week.	Спланируй неделю: нажми режим и нужные дела — по одному нажатию. Потом жми «Следующая неделя».
 guide.plan.action	Plan the week	Спланировать неделю
 guide.no_turns	Today's weeks are used up. Meanwhile take a lesson: it is two minutes.	Недели на сегодня закончились. Пока пройди урок: это две минуты.
 guide.no_turns.action	Open lessons	Открыть уроки
@@ -430,13 +430,13 @@ place.react.budget_review	Every dollar needs a job. Let's see where yours really
 place.react.certificate_course	A certificate on the wall opens doors a résumé can't.	Сертификат на стене открывает двери, которые резюме не откроет.
 week.mode	Week mode	Режим недели
 mode.hustle	Hustle	Пахать
-mode.hustle.desc	More income · energy ↓↓ · close ones ↓	Больше дохода · силы ↓↓ · близкие ↓
+mode.hustle.desc	More income, paid for in energy	Больше дохода — ценой сил
 mode.balance	Balance	Баланс
-mode.balance.desc	Steady income · energy slightly ↓	Ровный доход · силы слегка ↓
+mode.balance.desc	A steady week, nothing overdone	Ровная неделя без перекосов
 mode.study	Study	Учёба
-mode.study.desc	Knowledge ↑↑ · less income · energy slightly ↓	Знания ↑↑ · дохода меньше · силы слегка ↓
+mode.study.desc	Knowledge grows and opens new gigs	Растут знания — открываются новые подработки
 mode.family	Family	Семья
-mode.family.desc	Close ones ↑ · energy holds · less income	Близкие ↑ · силы держатся · дохода меньше
+mode.family.desc	Time with close ones, energy holds	Время с близкими, силы держатся
 week.last	Last week's — tap to keep it	Как на прошлой неделе — нажми, чтобы оставить
 week.mode_set	✓ This week's mode	✓ Режим этой недели
 week.focus	Where I earn	Где зарабатываю
@@ -451,3 +451,6 @@ lever.close_unit	Close a location	Закрыть точку
 lever.open_unit	Open a location	Открыть точку
 lever.fire	Let go	Уволить
 lever.hire	Hire	Нанять
+choice.done.cooldown.2	✓ Done — again in 2 weeks	✓ Сделано — снова через 2 недели
+choice.done.cooldown.3	✓ Done — again in 3 weeks	✓ Сделано — снова через 3 недели
+choice.done.cooldown.4	✓ Done — again in 4 weeks	✓ Сделано — снова через 4 недели

@@ -1131,7 +1131,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054921
-    m_Localized: 'Plan the week: split your day and pick actions. Then press Next week.'
+    m_Localized: "Plan the week: tap a mode and the deeds you want \u2014 one tap each. Then press Next week."
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054922
@@ -1791,7 +1791,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1539110270394369
-    m_Localized: "More income \xB7 energy \u2193\u2193 \xB7 close ones \u2193"
+    m_Localized: More income, paid for in energy
     m_Metadata:
       m_Items: []
   - m_Id: 1539110270394370
@@ -1799,7 +1799,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1539110270394371
-    m_Localized: "Steady income \xB7 energy slightly \u2193"
+    m_Localized: A steady week, nothing overdone
     m_Metadata:
       m_Items: []
   - m_Id: 1539110270394372
@@ -1807,7 +1807,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1539110270394373
-    m_Localized: "Knowledge \u2191\u2191 \xB7 less income \xB7 energy slightly \u2193"
+    m_Localized: Knowledge grows and opens new gigs
     m_Metadata:
       m_Items: []
   - m_Id: 1539110270394374
@@ -1815,7 +1815,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1539110270394375
-    m_Localized: "Close ones \u2191 \xB7 energy holds \xB7 less income"
+    m_Localized: Time with close ones, energy holds
     m_Metadata:
       m_Items: []
   - m_Id: 1539110270394376
@@ -1872,6 +1872,18 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1539110270394389
     m_Localized: Hire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547148582707200
+    m_Localized: "\u2713 Done \u2014 again in 2 weeks"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547148599484416
+    m_Localized: "\u2713 Done \u2014 again in 3 weeks"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547148599484417
+    m_Localized: "\u2713 Done \u2014 again in 4 weeks"
     m_Metadata:
       m_Items: []
   references:

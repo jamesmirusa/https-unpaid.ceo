@@ -8,6 +8,7 @@ using UnityEngine.TestTools;
 using UnityEngine.UIElements;
 using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Economy;
+using UnpaidCeo.Core.Format;
 using UnpaidCeo.Core.Game;
 using UnpaidCeo.Core.Primitives;
 using UnpaidCeo.Game.Ui;
@@ -154,6 +155,19 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator Evenly_splits_between_the_gigs_that_pay_and_skips_a_locked_one()
+        {
+            yield return Boot(s => s.StudyXp = 0);
+            Tap(Focus(WeekPlanning.EvenFocus));
+            yield return null;
+            var d = _ui.CurrentDecisions();
+            Assert.AreEqual(0, d.WorkSplit["gig_ai_freelance"], "time sent to a locked gig earns nothing");
+            Assert.AreEqual(100, d.WorkSplit["gig_delivery"] + d.WorkSplit["gig_resale"]);
+            Assert.LessOrEqual(System.Math.Abs(d.WorkSplit["gig_delivery"] - d.WorkSplit["gig_resale"]), 1);
+            Assert.IsTrue(_ui.DecisionsPanel.FocusChosen);
+        }
+
+        [UnityTest]
         public IEnumerator Owner_with_a_unit_sees_no_focus_but_modes_and_levers()
         {
             yield return Boot(s =>
@@ -169,6 +183,57 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsFalse(Screen.Q<Button>("price-plus-coffee_cart").enabledSelf, "one step a week");
             Assert.IsFalse(Screen.Q<Button>("price-minus-coffee_cart").enabledSelf);
             Assert.IsTrue(Screen.Q<Label>("price-value-coffee_cart").text.Contains("→"), "now → after");
+        }
+
+        static void Owner(GameState s)
+        {
+            s.Chapter = 2;
+            s.Cash = Money.FromDollars(10_000);
+            s.Businesses.Add(new BusinessState { Id = "coffee_cart", IndustryId = "coffee_cart", Price = Money.FromCents(400), Units = 1 });
+        }
+
+        static string Localized(string key) => LocalizationSettings.StringDatabase.GetLocalizedString(UiRoot.Table, key);
+
+        [UnityTest]
+        public IEnumerator A_monthly_habit_says_when_it_opens_the_moment_it_is_done()
+        {
+            yield return Boot(s => s.Cash = Money.FromDollars(640));
+            Tap(Screen.Q<Button>("action-reserve_transfer"));
+            yield return null;
+            int weeks = _engine.Content.FreeActions["reserve_transfer"].CooldownWeeks;
+            Assert.AreEqual(Localized("choice.done.cooldown." + weeks), Screen.Q<Label>("action-status-reserve_transfer").text,
+                "a once-a-month habit does not promise next week");
+            Assert.AreEqual(weeks, _ui.DecisionsPanel.WeeksUntilOpen("reserve_transfer"));
+        }
+
+        [UnityTest]
+        public IEnumerator A_stepped_lever_shows_which_way_it_went()
+        {
+            yield return Boot(Owner);
+            Tap(Screen.Q<Button>("price-plus-coffee_cart"));
+            Assert.IsTrue(Screen.Q<Button>("price-plus-coffee_cart").ClassListContains("lever-button--taken"));
+            Assert.IsFalse(Screen.Q<Button>("price-minus-coffee_cart").ClassListContains("lever-button--taken"));
+        }
+
+        [UnityTest]
+        public IEnumerator A_lever_at_its_limit_cannot_be_stepped_further()
+        {
+            yield return Boot(Owner);
+            Assert.IsFalse(Screen.Q<Button>("marketing-minus-coffee_cart").enabledSelf, "no ads yet: nothing to cut");
+            Assert.IsTrue(Screen.Q<Button>("marketing-plus-coffee_cart").enabledSelf);
+            Assert.IsFalse(Screen.Q<Button>("staff-minus-coffee_cart").enabledSelf, "nobody to let go");
+            Assert.IsTrue(Screen.Q<Button>("staff-plus-coffee_cart").enabledSelf);
+        }
+
+        [UnityTest]
+        public IEnumerator Money_on_the_levers_follows_the_language()
+        {
+            yield return Boot(Owner);
+            yield return _ui.SetLanguage("ru");
+            for (int i = 0; i < 3; i++) yield return null;
+            var capex = _engine.Content.Industries["coffee_cart"].Capex;
+            Assert.AreEqual(MoneyFormat.Compact(capex, "ru"), Screen.Q<Label>("unit-cost-coffee_cart").text);
+            Assert.AreEqual(MoneyFormat.Full(Money.FromCents(400), "ru"), Screen.Q<Label>("price-value-coffee_cart").text);
         }
 
         [UnityTest]

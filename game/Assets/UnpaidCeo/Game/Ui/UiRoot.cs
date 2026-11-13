@@ -930,6 +930,7 @@ namespace UnpaidCeo.Game.Ui
             Language = code;
             PlayerPrefs.SetString(LanguagePrefsKey, code);
             RefreshHud();
+            _decisions?.Refresh();   // money on the levers is formatted per language
             _company?.Refresh();
             _settings?.Refresh();
             yield return null;

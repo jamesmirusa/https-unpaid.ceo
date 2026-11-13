@@ -38,8 +38,10 @@ namespace UnpaidCeo.Game.Ui
         readonly Dictionary<string, int> _unitsBase = new Dictionary<string, int>(), _staffBase = new Dictionary<string, int>();
         readonly Dictionary<string, long> _price = new Dictionary<string, long>(), _marketing = new Dictionary<string, long>();
         readonly Dictionary<string, long> _priceBase = new Dictionary<string, long>(), _marketingBase = new Dictionary<string, long>();
-        readonly Dictionary<string, (Label units, Label staff, Label rejected, Label price, Label marketing)> _rows =
-            new Dictionary<string, (Label, Label, Label, Label, Label)>();
+        readonly Dictionary<string, (Label units, Label staff, Label rejected, Label price, Label marketing, Label cost)> _rows =
+            new Dictionary<string, (Label, Label, Label, Label, Label, Label)>();
+        /// <summary>Which way each lever was stepped this week ("bizId/lever" → −1 or +1): that button shows as taken.</summary>
+        readonly Dictionary<string, int> _leverDir = new Dictionary<string, int>();
         List<string> _gigIds = new List<string>();
         string _businessKey = "", _gigKey, _mode, _focusId;
         bool _modeChosen, _focusChosen;
@@ -134,7 +136,10 @@ namespace UnpaidCeo.Game.Ui
         public ChoiceState State(string freeAction) => ActionChoices.State(_state, _engine.Content, Planned, freeAction);
 
         /// <summary>Weeks until a habit with its own rhythm (the payday transfer) opens again.</summary>
-        public int WeeksUntilOpen(string freeAction) => ActionChoices.WeeksUntilOpen(_state, _engine.Content, freeAction);
+        public int WeeksUntilOpen(string freeAction) =>
+            _planned.Contains(freeAction) && _engine.Content.FreeActions.TryGetValue(freeAction, out var fa) && fa.CooldownWeeks > 0
+                ? fa.CooldownWeeks   // done this week: a monthly habit opens again after its own rhythm, not next week
+                : ActionChoices.WeeksUntilOpen(_state, _engine.Content, freeAction);
 
         /// <summary>It answers what the hero lacks most right now (rest when tired, family when they drift…).</summary>
         public bool Recommended(string freeAction) => ActionChoices.Recommended(_state, _engine.Content, freeAction, Planned);
@@ -175,10 +180,13 @@ namespace UnpaidCeo.Game.Ui
             return true;
         }
 
+        /// <summary>"Evenly" means between the gigs that pay: time sent to a gig that needs more knowledge earns nothing.</summary>
         bool FocusOpen(string focus) =>
-            focus == WeekPlanning.EvenFocus ? _gigIds.All(GigOpen) : _gigIds.Contains(focus) && GigOpen(focus);
+            focus == WeekPlanning.EvenFocus ? OpenGigs.Count > 0 : _gigIds.Contains(focus) && GigOpen(focus);
 
         bool GigOpen(string gigId) => RequiredStudy(gigId) <= _state.StudyXp;
+
+        List<string> OpenGigs => _gigIds.Where(GigOpen).ToList();
 
         int RequiredStudy(string gigId)
         {
@@ -205,10 +213,11 @@ namespace UnpaidCeo.Game.Ui
             _planWeek = _state.Week;
             _planned.Clear();
             _leverChanged.Clear();
+            _leverDir.Clear();
             _modeChosen = _focusChosen = false;
             _mode = WeekPlanning.ModeOf(Last, Balance);
             _gigIds = Gigs().Select(b => b.Id).ToList();
-            _focusId = WeekPlanning.FocusOf(Last, _gigIds);
+            _focusId = WeekPlanning.FocusOf(Last, _gigIds) ?? WeekPlanning.FocusOf(Last, OpenGigs);
         }
 
         /// <summary>What was decided this week, for the meta save.</summary>
@@ -250,6 +259,7 @@ namespace UnpaidCeo.Game.Ui
                     default: continue;
                 }
                 _leverChanged.Add(l.BusinessId + "/" + l.Lever);
+                _leverDir[l.BusinessId + "/" + l.Lever] = Math.Sign(l.ValueCents - Base(l.BusinessId, l.Lever));
             }
             Render();
         }
@@ -408,14 +418,16 @@ namespace UnpaidCeo.Game.Ui
             var cost = new VisualElement();
             cost.AddToClassList("row");
             cost.Add(UiText.Label("decisions.unit_cost", "row__label"));
-            cost.Add(UiText.ValueLabel(MoneyFormat.Compact(def.Capex, _ui.Language), "row__value"));
+            var costValue = UiText.ValueLabel(MoneyFormat.Compact(def.Capex, _ui.Language), "row__value");
+            costValue.name = "unit-cost-" + b.Id;
+            cost.Add(costValue);
             box.Add(cost);
             var staff = LeverRow(box, "decisions.staff", "staff", b.Id, "lever.fire", "lever.hire", d => StepStaff(b.Id, d));
             var rejected = UiText.Label("decisions.units_rejected", "decisions__warning");
             rejected.name = "units-rejected-" + b.Id;
             rejected.style.display = DisplayStyle.None;
             box.Add(rejected);
-            _rows[b.Id] = (units, staff, rejected, price, marketing);
+            _rows[b.Id] = (units, staff, rejected, price, marketing, costValue);
             return box;
         }
 
@@ -447,9 +459,9 @@ namespace UnpaidCeo.Game.Ui
 
         bool CanStep(string id, string lever) => _units.ContainsKey(id) && !LeverLocked(id, lever);
 
-        void Stepped(string id, string lever, bool changed)
+        void Stepped(string id, string lever, bool changed, int dir)
         {
-            if (changed) _leverChanged.Add(id + "/" + lever);
+            if (changed) { _leverChanged.Add(id + "/" + lever); _leverDir[id + "/" + lever] = Math.Sign(dir); }
             Show(id);
             PlanChanged?.Invoke();
         }
@@ -461,7 +473,7 @@ namespace UnpaidCeo.Game.Ui
             int before = _units[id];
             _units[id] = Math.Max(0, Math.Min(100, _units[id] + Math.Sign(delta)));
             _staff[id] = Math.Min(_staff[id], MaxStaff(id));
-            Stepped(id, "units", _units[id] != before);
+            Stepped(id, "units", _units[id] != before, delta);
         }
 
         /// <summary>One hire or one goodbye this week.</summary>
@@ -470,7 +482,7 @@ namespace UnpaidCeo.Game.Ui
             if (!CanStep(id, "staff")) return;
             int before = _staff[id];
             _staff[id] = Math.Max(0, Math.Min(MaxStaff(id), _staff[id] + Math.Sign(delta)));
-            Stepped(id, "staff", _staff[id] != before);
+            Stepped(id, "staff", _staff[id] != before, delta);
         }
 
         IndustryDef Def(string id) => _engine.Content.Industries[_state.Businesses.First(b => b.Id == id).IndustryId];
@@ -481,27 +493,40 @@ namespace UnpaidCeo.Game.Ui
             return b.Price.Cents > 0 ? b.Price.Cents : (def.RefPrice.Cents > 0 ? def.RefPrice.Cents : def.Price.Cents);
         }
 
+        (long min, long max, long step) PriceSteps(string id)
+        {
+            var def = Def(id);
+            long reference = Math.Max(1, def.RefPrice.Cents > 0 ? def.RefPrice.Cents : def.Price.Cents);
+            return (Math.Max(1, reference / 2), reference * 2, Math.Max(1, (reference * 5 + 50) / 100));
+        }
+
+        (long max, long step) MarketingSteps(string id)
+        {
+            long scale = Math.Max(10_000, Def(id).MarketingK.Cents);
+            return (scale * 4, Math.Max(1_000, (scale / 4 + 500) / 1_000 * 1_000));
+        }
+
+        long Base(string id, string lever) =>
+            lever == "price" ? _priceBase[id] : lever == "marketing" ? _marketingBase[id] : lever == "units" ? _unitsBase[id] : _staffBase[id];
+
         /// <summary>Price moves by 5% of the reference price, between half and double of it; one step a week.</summary>
         public void StepPrice(string id, int delta)
         {
             if (!CanStep(id, "price")) return;
-            var def = Def(id);
-            long reference = Math.Max(1, def.RefPrice.Cents > 0 ? def.RefPrice.Cents : def.Price.Cents);
-            long step = Math.Max(1, (reference * 5 + 50) / 100);
+            var (min, max, step) = PriceSteps(id);
             long before = _price[id];
-            _price[id] = Math.Max(Math.Max(1, reference / 2), Math.Min(reference * 2, _price[id] + Math.Sign(delta) * step));
-            Stepped(id, "price", _price[id] != before);
+            _price[id] = Math.Max(min, Math.Min(max, _price[id] + Math.Sign(delta) * step));
+            Stepped(id, "price", _price[id] != before, delta);
         }
 
         /// <summary>Monthly marketing moves by a quarter of the industry's marketing scale, from zero to four times it; one step a week.</summary>
         public void StepMarketing(string id, int delta)
         {
             if (!CanStep(id, "marketing")) return;
-            long scale = Math.Max(10_000, Def(id).MarketingK.Cents);
-            long step = Math.Max(1_000, (scale / 4 + 500) / 1_000 * 1_000);
+            var (max, step) = MarketingSteps(id);
             long before = _marketing[id];
-            _marketing[id] = Math.Max(0, Math.Min(scale * 4, _marketing[id] + Math.Sign(delta) * step));
-            Stepped(id, "marketing", _marketing[id] != before);
+            _marketing[id] = Math.Max(0, Math.Min(max, _marketing[id] + Math.Sign(delta) * step));
+            Stepped(id, "marketing", _marketing[id] != before, delta);
         }
 
         /// <summary>Sets the unit target for next week (the industry screen's "open the first unit").</summary>
@@ -509,8 +534,9 @@ namespace UnpaidCeo.Game.Ui
         {
             RefreshBusinesses();
             if (!_units.ContainsKey(id)) return;
+            int before = _units[id];
             _units[id] = Math.Max(0, units);
-            Stepped(id, "units", true);
+            Stepped(id, "units", true, _units[id] - before);
         }
 
         void Show(string id)
@@ -522,11 +548,32 @@ namespace UnpaidCeo.Game.Ui
             r.staff.text = Arrow(_staffBase[id].ToString(), _staff[id].ToString());
             r.price.text = Arrow(Full(_priceBase[id]), Full(_price[id]));
             r.marketing.text = Arrow(Compact(_marketingBase[id]), Compact(_marketing[id]));
-            foreach (var lever in new[] { "price", "marketing", "units", "staff" })
+            r.cost.text = MoneyFormat.Compact(Def(id).Capex, _ui.Language);
+            var (minPrice, maxPrice, _) = PriceSteps(id);
+            var (maxMarketing, _) = MarketingSteps(id);
+            ShowLever(id, "price", _price[id] > minPrice, _price[id] < maxPrice);
+            ShowLever(id, "marketing", _marketing[id] > 0, _marketing[id] < maxMarketing);
+            ShowLever(id, "units", _units[id] > 0, _units[id] < 100);
+            ShowLever(id, "staff", _staff[id] > 0, _staff[id] < MaxStaff(id));
+        }
+
+        /// <summary>
+        /// An open lever offers only the steps that change something (no ads to cut, nobody to let go); a stepped one
+        /// closes until next week and shows the way it went.
+        /// </summary>
+        void ShowLever(string id, string lever, bool canDown, bool canUp)
+        {
+            bool open = !LeverLocked(id, lever);
+            int dir = _leverDir.TryGetValue(id + "/" + lever, out var d) ? d : 0;
+            if (_leverButtons.TryGetValue($"{lever}-minus-{id}", out var minus))
             {
-                bool open = !LeverLocked(id, lever);
-                if (_leverButtons.TryGetValue($"{lever}-minus-{id}", out var minus)) minus.SetEnabled(open);
-                if (_leverButtons.TryGetValue($"{lever}-plus-{id}", out var plus)) plus.SetEnabled(open);
+                minus.SetEnabled(open && canDown);
+                minus.EnableInClassList("lever-button--taken", !open && dir < 0);
+            }
+            if (_leverButtons.TryGetValue($"{lever}-plus-{id}", out var plus))
+            {
+                plus.SetEnabled(open && canUp);
+                plus.EnableInClassList("lever-button--taken", !open && dir > 0);
             }
         }
 
@@ -546,7 +593,12 @@ namespace UnpaidCeo.Game.Ui
         {
             var d = Last.Routine();
             if (_mode != null) WeekPlanning.ApplyMode(d, _mode, Balance);
-            if (_focusId != null && _gigIds.Count > 0) WeekPlanning.ApplyFocus(d, _gigIds, _focusId);
+            if (_focusId == WeekPlanning.EvenFocus && OpenGigs.Count > 0)
+            {
+                foreach (var id in _gigIds) d.WorkSplit[id] = 0;
+                WeekPlanning.ApplyFocus(d, OpenGigs, _focusId);
+            }
+            else if (_focusId != null && _gigIds.Contains(_focusId)) WeekPlanning.ApplyFocus(d, _gigIds, _focusId);
             d.FreeActions.AddRange(Planned);
             foreach (var b in Businesses)
             {

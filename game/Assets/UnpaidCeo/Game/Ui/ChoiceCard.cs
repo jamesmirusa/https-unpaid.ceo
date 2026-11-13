@@ -65,7 +65,7 @@ namespace UnpaidCeo.Game.Ui
             switch (state)
             {
                 case ChoiceState.Planned:
-                case ChoiceState.DoneThisTurn: return "choice.done";
+                case ChoiceState.DoneThisTurn: return weeksUntilOpen > 1 ? DoneKey(weeksUntilOpen) : "choice.done";
                 case ChoiceState.Cooldown: return CooldownKey(weeksUntilOpen);
                 case ChoiceState.Waiting: return "choice.waiting";
                 case ChoiceState.NoPoints: return "choice.no_points";
@@ -77,5 +77,8 @@ namespace UnpaidCeo.Game.Ui
 
         /// <summary>"Again next week" … "again in 4 weeks": one key per count, so Russian gets its plural right.</summary>
         public static string CooldownKey(int weeks) => "choice.cooldown." + Math.Max(1, Math.Min(4, weeks));
+
+        /// <summary>Done this week, and a monthly habit: "done — again in 4 weeks", not "again next week".</summary>
+        public static string DoneKey(int weeks) => "choice.done.cooldown." + Math.Max(2, Math.Min(4, weeks));
     }
 }

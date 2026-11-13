@@ -383,6 +383,12 @@
 .lever-button:disabled { opacity: 0.4; }
 .app Button.lever-button:hover, .app Button.lever-button:focus { background-color: var(--panel-strong); }
 .app Button.lever-button:active { background-color: var(--track); }
+/* The default theme paints a disabled button grey and dims its text (.unity-button:disabled); a card closed for the week
+   keeps its own colours: a taken one stays bright with its accent frame, the others only fade. */
+.app .week-card:disabled, .app .visit__choice:disabled { background-color: var(--panel); border-color: var(--track); }
+.app .week-card--selected:disabled, .app .visit__choice--planned:disabled { background-color: var(--panel-strong); border-color: var(--accent); color: var(--text); }
+.app .lever-button:disabled { background-color: var(--card); border-color: var(--accent); }
+.app .lever-button--taken:disabled { opacity: 1; background-color: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .visit__budget { flex-direction: row; align-items: center; flex-wrap: wrap; margin: 0 0 6px 0; }
 .visit__budget-caption { font-size: 24px; margin-right: 6px; color: var(--text-dim); }
 .visit__budget-value { font-size: 26px; margin-right: 22px; -unity-font-style: bold; }

@@ -1871,6 +1871,18 @@ MonoBehaviour:
     m_Key: lever.hire
     m_Metadata:
       m_Items: []
+  - m_Id: 1547148582707200
+    m_Key: choice.done.cooldown.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547148599484416
+    m_Key: choice.done.cooldown.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1547148599484417
+    m_Key: choice.done.cooldown.4
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
