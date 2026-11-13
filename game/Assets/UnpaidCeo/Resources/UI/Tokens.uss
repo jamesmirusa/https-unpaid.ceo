@@ -346,8 +346,8 @@
 .strip__item--focused { border-color: var(--accent); background-color: var(--card); }
 .strip__pic { width: 134px; height: 90px; border-radius: 12px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
 .strip__title { margin-top: 4px; font-size: 22px; -unity-font-style: bold; white-space: normal; -unity-text-align: upper-center; }
-.camera-buttons { position: absolute; right: 12px; top: 210px; flex-direction: column; }
-.camera-button { width: 84px; height: 84px; margin: 0 0 8px 0; padding: 0; border-radius: 42px; border-width: 3px; border-color: var(--track); background-color: var(--panel); font-size: 36px; -unity-font-style: bold; }
+.camera-buttons { position: absolute; right: 12px; top: 206px; flex-direction: row; }
+.camera-button { width: 80px; height: 80px; margin: 0 0 0 8px; padding: 0; border-radius: 42px; border-width: 3px; border-color: var(--track); background-color: var(--panel); font-size: 36px; -unity-font-style: bold; }
 #city-home { width: auto; min-width: 84px; padding: 0 18px; font-size: 24px; }
 .app Button.strip__item:hover, .app Button.strip__item:focus, .app Button.strip__item:active { background-color: var(--card); }
 .app Button.camera-button:hover, .app Button.camera-button:focus { background-color: var(--panel-strong); border-color: var(--accent); }
@@ -625,3 +625,38 @@
 .level-up__bonus { font-size: 32px; -unity-font-style: bold; white-space: normal; flex-shrink: 1; }
 .app .level-up__bonus { color: var(--on-chrome); }
 .scene-open .visit { display: none; }
+
+/* ===== Stage 5B step 4 · needs, moods, wants ===== */
+.need-fill--relationships { background-color: #FF8FA8; }
+.need-fill--knowledge { background-color: #B9A4FF; }
+.need-fill--reputation { background-color: #FFD27A; }
+.hud__stat--low .energy-bar { border-width: 2px; border-color: #FF9A8F; }
+.hud__stat { margin-bottom: 6px; }
+.needs__row { flex-direction: row; align-items: flex-start; padding: 12px 0; border-bottom-width: 1px; border-bottom-color: var(--track); }
+.needs__icon { width: 80px; height: 80px; margin-right: 16px; }
+.needs__text { flex-grow: 1; flex-shrink: 1; }
+.needs__name { font-size: 34px; -unity-font-style: bold; }
+.needs__line { font-size: 26px; white-space: normal; margin-top: 4px; }
+.app .needs__line--down { color: var(--negative); }
+.moods { flex-direction: row; flex-wrap: wrap; margin-bottom: -4px; }
+.mood { flex-direction: row; align-items: center; height: 60px; margin: 0 8px 8px 0; padding: 0 16px 0 6px; border-radius: 30px; border-width: 2px; border-color: var(--card-edge); border-bottom-width: 5px; border-bottom-color: var(--card-lip); background-color: var(--card-face); }
+.mood__icon { width: 48px; height: 48px; margin-right: 6px; }
+.mood__name { font-size: 22px; -unity-font-style: bold; }
+.mood__sign { font-size: 26px; -unity-font-style: bold; margin-left: 6px; }
+.app .mood--good .mood__sign { color: var(--positive); }
+.app .mood--bad .mood__sign { color: var(--negative); }
+.app Button.mood:hover, .app Button.mood:focus { background-color: var(--card-face); }
+.wants { margin-top: 12px; padding: 8px 20px; border-radius: 28px; background-color: var(--card-face); border-width: 2px; border-color: var(--card-edge); border-top-color: var(--card-highlight); border-bottom-width: 7px; border-bottom-color: var(--card-lip); }
+.wants__head { flex-direction: row; align-items: center; margin: 0; padding: 4px 0; border-width: 0; background-color: rgba(0, 0, 0, 0); }
+.app Button.wants__head:hover, .app Button.wants__head:focus, .app Button.wants__head:active { background-color: rgba(0, 0, 0, 0); }
+.wants__icon { width: 50px; height: 50px; margin-right: 10px; }
+.wants__title { flex-grow: 1; font-size: 30px; -unity-font-style: bold; -unity-text-align: middle-left; }
+.wants__count { padding: 2px 14px; border-radius: 18px; background-color: var(--track); font-size: 26px; -unity-font-style: bold; }
+.want { flex-direction: row; align-items: center; padding: 8px 0; }
+.want__box { width: 44px; height: 44px; margin-right: 12px; border-radius: 12px; border-width: 3px; border-color: var(--card-lip); align-items: center; justify-content: center; }
+.want--done .want__box { background-color: var(--positive); border-color: var(--positive); }
+.want__check { width: 30px; height: 30px; -unity-background-image-tint-color: #FFFFFF; }
+.want__icon { width: 46px; height: 46px; margin-right: 10px; }
+.want__text { flex-grow: 1; flex-shrink: 1; font-size: 28px; white-space: normal; }
+.want__arg { font-size: 28px; -unity-font-style: bold; margin-left: 6px; }
+.app .want--done .want__text { color: var(--text-dim); }

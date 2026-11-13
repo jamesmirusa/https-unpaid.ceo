@@ -27,6 +27,33 @@
                     <ui:VisualElement name="hud-energy-fill" class="energy-bar__fill" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            <ui:VisualElement name="hud-stat-relationships" class="hud__stat hud__stat--relationships">
+                <ui:VisualElement class="hud__caption-row">
+                    <ui:Label name="hud-relationships-caption" class="hud__caption hud__stat-caption" />
+                    <ui:Label name="hud-relationships-value" class="hud__caption hud__energy-value value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="energy-bar">
+                    <ui:VisualElement name="hud-relationships-fill" class="energy-bar__fill need-fill--relationships" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="hud-stat-knowledge" class="hud__stat hud__stat--knowledge">
+                <ui:VisualElement class="hud__caption-row">
+                    <ui:Label name="hud-knowledge-caption" class="hud__caption hud__stat-caption" />
+                    <ui:Label name="hud-knowledge-value" class="hud__caption hud__energy-value value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="energy-bar">
+                    <ui:VisualElement name="hud-knowledge-fill" class="energy-bar__fill need-fill--knowledge" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="hud-stat-reputation" class="hud__stat hud__stat--reputation">
+                <ui:VisualElement class="hud__caption-row">
+                    <ui:Label name="hud-reputation-caption" class="hud__caption hud__stat-caption" />
+                    <ui:Label name="hud-reputation-value" class="hud__caption hud__energy-value value" />
+                </ui:VisualElement>
+                <ui:VisualElement class="energy-bar">
+                    <ui:VisualElement name="hud-reputation-fill" class="energy-bar__fill need-fill--reputation" />
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

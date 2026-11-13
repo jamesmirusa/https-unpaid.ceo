@@ -196,7 +196,34 @@ namespace UnpaidCeo.Game.Tests
             var r = new MonthReport { IsWeek = true, Week = 1 };
             r.LevelUps.Add(new LevelUp { Npc = "tony", Level = 3, Key = "bonus.tony.3" });
             _ui.ShowReport(r);
+            _ui.ShowMonthSummary(r);
+            yield return new WaitForSecondsRealtime(0.1f);
+            Assert.AreEqual(DisplayStyle.None, _ui.Root.Q("level-up").resolvedStyle.display, "it waits until the week's result is read");
+            Tap(_ui.Root.Q<Button>("month-summary-ok"));
+            yield return new WaitForSecondsRealtime(0.1f);
             Assert.AreEqual(DisplayStyle.Flex, _ui.Root.Q("level-up").resolvedStyle.display);
+        }
+
+        [UnityTest]
+        public IEnumerator A_level_reached_in_a_scene_waits_for_the_scene_to_close()
+        {
+            yield return Boot();
+            _ui.SetSceneOpen(true);
+            _ui.ShowLevelUp("tony", 3, "bonus.tony.3");
+            yield return null;
+            Assert.AreEqual(DisplayStyle.None, _ui.Root.Q("level-up").resolvedStyle.display, "never behind the dialogue");
+            _ui.SetSceneOpen(false);
+            yield return new WaitForSecondsRealtime(0.1f);
+            Assert.AreEqual(DisplayStyle.Flex, _ui.Root.Q("level-up").resolvedStyle.display);
+        }
+
+        [UnityTest]
+        public IEnumerator Nobody_talks_in_a_challenge_run()
+        {
+            yield return Boot();
+            _ui.RunMode = true;
+            Assert.IsFalse(_ui.Talk("tony"));
+            Assert.IsFalse(_state.Log.Any(l => l.Kind == DecisionLogEntry.TalkTo), "a talk would make the server refuse the run");
         }
     }
 }

@@ -536,3 +536,39 @@ live.mom.warm.3	"You sound like your father when he started. In a good way."	«�
 live.mom.close.1	"Whatever happens with the business, you always have a home here."	«Что бы ни случилось с делом, у тебя всегда есть дом».
 live.mom.close.2	"I'm proud of you. Now go to bed."	«Я тобой горжусь. А теперь иди спать».
 live.mom.close.3	"Bring your receipts on Sunday. I'll check your sums, like old times."	«Привози в воскресенье чеки. Проверю твои подсчёты, как раньше».
+needs.title	How you are	Как ты
+need.energy	Energy	Энергия
+need.relationships	Close ones	Близкие
+need.knowledge	Knowledge	Знания
+need.reputation	Reputation	Репутация
+need.energy.up	Up: rest, sleep, a calm week, Sunday dinner.	Растёт: отдых, сон, спокойная неделя, воскресный ужин.
+need.energy.down	Below 30 is burnout: one action a week instead of two, and more mistakes at work.	Ниже 30 — выгорание: одно действие в неделю вместо двух и больше ошибок в работе.
+need.relationships.up	Up: time with family, calling Mom, keeping promises.	Растёт: время с семьёй, звонки маме, сдержанные обещания.
+need.relationships.down	When it falls, people stop helping — and a hard week feels harder.	Когда падает, люди перестают помогать, а тяжёлая неделя становится тяжелее.
+need.knowledge.up	Up: lessons, study weeks, courses, good questions.	Растёт: уроки, недели учёбы, курсы, умные вопросы.
+need.knowledge.down	Knowledge opens better gigs and smarter answers in conversations.	Знания открывают подработки получше и умные ответы в разговорах.
+need.reputation.up	Up: honest deals, networking, helping people.	Растёт: честные сделки, нетворкинг, помощь людям.
+need.reputation.down	When it falls, customers and banks trust you less.	Когда падает, покупатели и банки доверяют меньше.
+mood.burnout	Burnout	Выгорание
+mood.burnout.line	Running on empty: tired people make costly mistakes. One good rest week pays for itself.	На пределе: уставшие ошибаются, а ошибки стоят денег. Неделя отдыха окупается.
+mood.shark_debt	Debt to the loan shark	Долг ростовщику
+mood.shark_debt.line	A loan shark's interest grows every month. Pay him first: it is the most expensive money there is.	Проценты ростовщика растут каждый месяц. Ему — в первую очередь: это самые дорогие деньги.
+mood.in_debt	In the red	В минусе
+mood.in_debt.line	Below zero, every bill piles up. Small income now beats a big plan later.	В минусе каждый счёт копится. Маленький доход сейчас лучше большого плана потом.
+mood.lonely	Missing your people	Скучаешь по своим
+mood.lonely.line	Work without people burns out faster. One evening with family helps more than you think.	Работа без людей выжигает быстрее. Один вечер с семьёй помогает больше, чем кажется.
+mood.paycheck	Paycheck came in	Зарплата пришла
+mood.paycheck.line	Money came in this week. Pay yourself first: put a part aside before spending.	На этой неделе пришли деньги. Сначала заплати себе: отложи часть, потом трать.
+mood.rested	Well rested	Выспался
+mood.rested.line	Rested people make fewer mistakes and see chances others miss.	Отдохнувшие ошибаются реже и замечают шансы, которые другие упускают.
+mood.cushion	A cushion	Есть подушка
+mood.cushion.line	A reserve turns a bad week into a lesson instead of a disaster.	Резерв превращает плохую неделю в урок, а не в катастрофу.
+wants.title	Wants this week	Хочу на этой неделе
+wants.done	Done! One step closer.	Сделано! На шаг ближе.
+want.talk.tony	Talk to Tony at the bodega	Поговорить с Тони в бодеге
+want.talk.mom	Call Mom	Позвонить маме
+want.reserve	Put $100 into the reserve	Отложить $100 в резерв
+want.lesson	Finish the lesson's quiz	Пройти вопросы урока
+want.rest	Get some rest	Выспаться
+want.earn	Earn extra at Tony's	Подработать у Тони
+want.study	Study toward the next gig, knowledge needed:	Учиться для следующей подработки, нужно знаний:

@@ -125,7 +125,7 @@ namespace UnpaidCeo.Game.Narrative
             string? speaker = line.CharacterName;
             _speaker.text = speaker ?? string.Empty;
             _speaker.style.display = string.IsNullOrEmpty(speaker) ? DisplayStyle.None : DisplayStyle.Flex;
-            RefreshHearts(!string.IsNullOrEmpty(speaker));
+            RefreshHearts(!string.IsNullOrEmpty(speaker) && IsHost(speaker!));
             string full = line.TextWithoutCharacterName.Text;
             _options?.Clear();
             _continue.style.display = DisplayStyle.Flex;
@@ -135,29 +135,43 @@ namespace UnpaidCeo.Game.Narrative
             // the line types itself out (≤ 1.2 s); the first tap shows it all, the next one goes on
             void Advance() { if (_typing) { _typing = false; return; } done.TrySetResult(); }
             _typing = true;
-            Type(full);
+            int serial = ++_lineSerial;
+            Type(full, serial);
             _continue.clicked += Advance;
             _advance = Advance;
-            using (token.NextContentToken.Register(Advance))
+            using (token.NextContentToken.Register(() => { _typing = false; done.TrySetResult(); }))   // the runner moves on: no second call
                 await done.Task;
             _advance = null;
             _continue.clicked -= Advance;
             Audio?.StopVoice();
         }
 
-        async void Type(string full)
+        int _lineSerial;
+
+        /// <summary>Types one line; a later line (a new serial) owns the text, so an older loop never writes over it.</summary>
+        async void Type(string full, int serial)
         {
             if (_text == null) return;
             float per = Mathf.Min(TypeSeconds, TypeMax / Mathf.Max(1, full.Length)), start = Time.unscaledTime;
-            while (_typing && this != null)
+            while (_typing && serial == _lineSerial && this != null)
             {
                 int n = Mathf.Min(full.Length, Mathf.FloorToInt((Time.unscaledTime - start) / per));
                 _text.text = full.Substring(0, n);
                 if (n >= full.Length) break;
                 await YarnTask.Yield();
             }
+            if (serial != _lineSerial) return;
             _typing = false;
             if (_text != null) _text.text = full;
+        }
+
+        /// <summary>The speaker is the scene's host (hearts are theirs, not a passer-by's).</summary>
+        bool IsHost(string speaker)
+        {
+            var host = Host?.Invoke();
+            if (host == null) return false;
+            var name = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetLocalizedString(UnpaidCeo.Game.Ui.UiRoot.Table, "npc." + host.Value.npc);
+            return string.Equals(name, speaker, System.StringComparison.OrdinalIgnoreCase) || speaker.StartsWith(name ?? "\u0000", System.StringComparison.OrdinalIgnoreCase);
         }
 
         void RefreshHearts(bool show)

@@ -434,6 +434,16 @@ namespace UnpaidCeo.Core.Game
                 report.Lessons.Add(id);
             }
             s.PendingLessons.Clear();
+            // Stage 5B: a host's scene talked into but not played (busy, closed, a refused answer) waits again — a line
+            // never loses a step; city events left unplayed simply pass, as before.
+            foreach (var id in s.PendingStorylets)
+            {
+                var st = _c.Storylets.FirstOrDefault(x => x.Id == id);
+                if (st?.Host == null) continue;
+                s.StoryletsSeen.Remove(id);
+                s.StoryletLastMonth.Remove(id);
+                s.HostTalkWeek.Remove(st.Host);
+            }
             s.PendingStorylets.Clear();
             if (monthEnd)
             {

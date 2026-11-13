@@ -2215,6 +2215,150 @@ MonoBehaviour:
     m_Key: live.mom.close.3
     m_Metadata:
       m_Items: []
+  - m_Id: 1672536529035264
+    m_Key: needs.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618176
+    m_Key: need.energy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618177
+    m_Key: need.relationships
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618178
+    m_Key: need.knowledge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618179
+    m_Key: need.reputation
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618180
+    m_Key: need.energy.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618181
+    m_Key: need.energy.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618182
+    m_Key: need.relationships.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618183
+    m_Key: need.relationships.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618184
+    m_Key: need.knowledge.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618185
+    m_Key: need.knowledge.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618186
+    m_Key: need.reputation.up
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618187
+    m_Key: need.reputation.down
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618188
+    m_Key: mood.burnout
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618189
+    m_Key: mood.burnout.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618190
+    m_Key: mood.shark_debt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618191
+    m_Key: mood.shark_debt.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618192
+    m_Key: mood.in_debt
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618193
+    m_Key: mood.in_debt.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618194
+    m_Key: mood.lonely
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618195
+    m_Key: mood.lonely.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618196
+    m_Key: mood.paycheck
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618197
+    m_Key: mood.paycheck.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618198
+    m_Key: mood.rested
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618199
+    m_Key: mood.rested.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618200
+    m_Key: mood.cushion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618201
+    m_Key: mood.cushion.line
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618202
+    m_Key: wants.title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618203
+    m_Key: wants.done
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618204
+    m_Key: want.talk.tony
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618205
+    m_Key: want.talk.mom
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618206
+    m_Key: want.reserve
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618207
+    m_Key: want.lesson
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618208
+    m_Key: want.rest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618209
+    m_Key: want.earn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1672536541618210
+    m_Key: want.study
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

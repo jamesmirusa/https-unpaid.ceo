@@ -148,6 +148,7 @@ namespace UnpaidCeo.Game.Ui
         {
             _sceneOpen = open;
             _radial?.Close();
+            if (!open) Root?.schedule.Execute(FlushLevelUps).StartingIn(16);
             Root.EnableInClassList("scene-open", open);   // a scene in a room: the room's panel steps aside for the dialogue
             _missions.style.display = !open && _missions.childCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
@@ -595,6 +596,7 @@ namespace UnpaidCeo.Game.Ui
             _cashPill.Insert(0, Icons.Game("money", "hud__pill-icon"));
             hud.Q("hud-week-pill").Insert(0, Icons.Game("money_date", "hud__pill-icon"));
             hud.Q("hud-stat-energy").Q(className: "hud__caption-row").Insert(0, Icons.Game("energy", "hud__stat-icon"));
+            _hero = new HeroStateView(this, hud);
             _calendar = new CalendarStrip(this);
             hud.Add(_calendar.Root);
             hud.Q("hud-week-pill").Add(_calendar.Tokens);
@@ -722,6 +724,8 @@ namespace UnpaidCeo.Game.Ui
             _guideText.AddToClassList("guide__text");
             _guideAction = new Button(() => _guideRun?.Invoke()) { name = "guide-action" };
             _guideAction.AddToClassList("guide__action");
+            stack.Insert(0, _hero.Wants);
+            stack.Insert(0, _hero.Moods);   // badges sit on top of the city's cards, never over them
             _guide.Add(_guideText);
             _guide.Add(_guideAction);
             stack.Add(_guide);
@@ -734,6 +738,7 @@ namespace UnpaidCeo.Game.Ui
             Root.Add(_consent.Root);
             _summary = new MonthSummaryDialog();
             _summary.DetailsRequested += () => Open(Company);
+            _summary.Closed += FlushLevelUps;
 
             _turnsBar = new VisualElement { name = "turns-bar" };
             _turnsBar.AddToClassList("turns-bar");
@@ -783,6 +788,7 @@ namespace UnpaidCeo.Game.Ui
             Root.Add(_radial.Root);
             _levelUp = new LevelUpMoment();
             Root.Add(_levelUp.Root);
+            Root.Add(_hero.NeedsPanel);
             Root.schedule.Execute(PulseEmotes).Every(650);
             _fade = new VisualElement { name = "fade" };
             _fade.AddToClassList("fade");
@@ -860,8 +866,11 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Call after each EndMonth.</summary>
         public void ShowReport(MonthReport report)
         {
+            _lastReport = report;
             if (!RunMode) RecordMonth(report);
-            foreach (var up in report.LevelUps) ShowLevelUp(up.Npc, up.Level, up.Key);
+            // the week's result opens right after this: the moment waits for it to be read (FlushLevelUps on close)
+            foreach (var up in report.LevelUps) _levelUps.Add((up.Npc, up.Level, up.Key));
+            Root.schedule.Execute(FlushLevelUps).StartingIn(50);
             if (report.Lessons.Count > 0) { _newLesson = true; Toasts.Show(Root, "toast.new_lesson", "lesson"); }
             _company.Show(report);
             _decisions.Refresh();
@@ -908,6 +917,7 @@ namespace UnpaidCeo.Game.Ui
             if (_chooseBusiness != null) _chooseBusiness.style.display = NeedsBusiness ? DisplayStyle.Flex : DisplayStyle.None;
             RefreshBadges();
             _calendar?.Refresh(_engine, _state);
+            _hero?.Refresh(_state, _engine, _lastReport, _decisions != null ? _decisions.Planned : new string[0], energyAfter);
             RefreshEmotes();
             RefreshGuide();
         }
@@ -915,6 +925,9 @@ namespace UnpaidCeo.Game.Ui
         // ---------- Stage 5B step 2: the radial menu and the badges over heads ----------
 
         RadialMenu _radial;
+        HeroStateView _hero;
+        MonthReport _lastReport;
+        public HeroStateView HeroState => _hero;
         CalendarStrip _calendar;
         readonly Dictionary<string, VisualElement> _emotes = new Dictionary<string, VisualElement>();
         bool _pulse;
@@ -938,7 +951,7 @@ namespace UnpaidCeo.Game.Ui
         /// </summary>
         public bool Talk(string host)
         {
-            if (_engine == null || _state == null || host == null) return false;
+            if (_engine == null || _state == null || host == null || RunMode) return false;   // challenge runs log no talks
             var scene = _engine.TalkTo(_state, host);
             if (scene != null)
             {
@@ -963,7 +976,21 @@ namespace UnpaidCeo.Game.Ui
         }
 
         /// <summary>A relationship level reached: the short moment with its bonus.</summary>
-        public void ShowLevelUp(string npc, int level, string bonusKey) => _levelUp?.Show(npc, level, bonusKey);
+        public void ShowLevelUp(string npc, int level, string bonusKey)
+        {
+            _levelUps.Add((npc, level, bonusKey));
+            FlushLevelUps();
+        }
+
+        readonly List<(string npc, int level, string key)> _levelUps = new List<(string, int, string)>();
+
+        /// <summary>A level-up waits while a scene or the week's result is on screen: it is never drawn behind them.</summary>
+        void FlushLevelUps()
+        {
+            if (_levelUp == null || _sceneOpen || (_summary != null && _summary.IsOpen)) return;
+            foreach (var (npc, level, key) in _levelUps) _levelUp.Show(npc, level, key);
+            _levelUps.Clear();
+        }
         public int Chapter => _state != null ? _state.Chapter : 1;
         /// <summary>A lesson opened this week and has not been looked at.</summary>
         public bool NewLesson => _newLesson;

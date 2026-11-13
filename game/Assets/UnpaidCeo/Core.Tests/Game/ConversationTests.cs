@@ -82,6 +82,29 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
+        public void A_talked_scene_left_unplayed_waits_again_next_week()
+        {
+            var (e, s) = New();
+            Assert.AreEqual("tony_a", e.TalkTo(s, "tony")?.Id);
+            e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0));   // the scene never played (busy, closed, refused)
+            Assert.AreEqual("tony_a", HostScenes.Waiting(s, e.Content, "tony")?.Id, "a host's line never loses its step");
+            Assert.AreEqual("tony_a", e.TalkTo(s, "tony")?.Id);
+        }
+
+        [Test]
+        public void A_talk_replays_strictly_with_the_same_state()
+        {
+            var (e, s) = New();
+            e.TalkTo(s, "tony");
+            e.ChooseStoryletOption(s, "tony_a", "help");
+            e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0));
+            var start = new RunStart { Kind = RunStart.Career, Seed = 3, Hero = TestContent.Hero };
+            var res = GameEngine.ReplayStrict(e.Content, start, _ => null, s.Log);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(Newtonsoft.Json.JsonConvert.SerializeObject(s), Newtonsoft.Json.JsonConvert.SerializeObject(res.State));
+        }
+
+        [Test]
         public void Weekly_random_scenes_never_take_a_hosts_scene()
         {
             var (e, s) = New();

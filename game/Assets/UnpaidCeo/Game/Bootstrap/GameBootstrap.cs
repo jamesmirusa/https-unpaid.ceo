@@ -646,7 +646,7 @@ namespace UnpaidCeo.Game.Bootstrap
                         presenter.ShowTrust(n.Npc, n.Delta);
                         int after = _state!.Npcs.Get(n.Npc);
                         int la = UnpaidCeo.Core.Narrative.Relationships.Level(after), lb = UnpaidCeo.Core.Narrative.Relationships.Level(after - n.Delta);
-                        if (la > lb) Ui.ShowLevelUp(n.Npc, la, UnpaidCeo.Core.Narrative.LevelBonuses.At(_engine!.Content.Balance, n.Npc, la)?.Key);
+                        if (la > lb) Ui.ShowLevelUp(n.Npc, la, UnpaidCeo.Core.Narrative.LevelBonuses.Reached(_engine!.Content.Balance, n.Npc, lb, la)?.Key);
                     }
                     if (def.Host != null) _stage?.HostReacts(effects.OfType<UnpaidCeo.Core.Narrative.NpcEffect>().Sum(x => x.Delta) >= 0 ? CharacterAnimator.State.Cheer : CharacterAnimator.State.Think);
                 }
@@ -770,7 +770,8 @@ namespace UnpaidCeo.Game.Bootstrap
         /// <summary>Stage 5B · "Talk" made a host's scene pending: it plays now, in the room with the camera close on the host.</summary>
         async void PlayHostScene(UnpaidCeo.Core.Narrative.StoryletDef scene)
         {
-            if (_yarn == null || _engine == null || _state == null || _busy) return;   // busy: it plays with the week's scenes
+            // busy (the week is running): the scene stays pending; if the week ends first, Core puts it back to wait at the host
+            if (_yarn == null || _engine == null || _state == null || _busy) return;
             _busy = true;
             try
             {
@@ -782,6 +783,7 @@ namespace UnpaidCeo.Game.Bootstrap
                 Ui?.SetSceneOpen(false);
                 Ui?.RefreshHud();
                 Ui?.Visit.RefreshHearts();
+                Ui?.DecisionsPanel.Refresh();   // a bonus may have opened a deed
                 SaveService.Save(_state);
                 PushCloud();
             }

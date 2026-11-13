@@ -185,6 +185,21 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator Needs_moods_wants([Values("ru", "en")] string lang)
+        {
+            UiSound.Sink = _ => { };
+            yield return Boot(lang, s => { Gigger(s); s.Life.Energy = 46; s.Life.Relationships = 72; s.StudyXp = 34; s.Life.Reputation = 58; s.Facts.Set("shark_debt", 1); s.Facts.Set("met_mentor", 1); s.Reserve = Money.FromDollars(60); });
+            _ui.ShowReport(new MonthReport { IsWeek = true, Week = 6, Revenue = Money.FromDollars(51) });
+            _ui.DecisionsPanel.Plan("overtime");
+            yield return new WaitForSecondsRealtime(2.6f);
+            yield return Shot($"step4_{lang}_1_city_state");
+            _ui.HeroState.OpenNeeds();
+            yield return new WaitForSecondsRealtime(0.4f);
+            yield return Shot($"step4_{lang}_2_needs_panel");
+            UiSound.Sink = null;
+        }
+
+        [UnityTest]
         public IEnumerator The_new_look([Values("ru", "en")] string lang)
         {
             UiSound.Sink = _ => { };
