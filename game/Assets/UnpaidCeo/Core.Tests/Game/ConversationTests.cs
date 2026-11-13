@@ -105,6 +105,18 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
+        public void The_talk_want_ticks_only_once_the_scene_has_played()
+        {
+            var (e, s) = New();
+            e.TalkTo(s, "tony");
+            var talk = UnpaidCeo.Core.Life.HeroView.Wants(s, e.Content, new string[0]).Single(w => w.Id == "talk");
+            Assert.IsFalse(talk.Done, "talking only opened the scene");
+            e.ChooseStoryletOption(s, "tony_a", "busy");
+            talk = UnpaidCeo.Core.Life.HeroView.Wants(s, e.Content, new string[0]).Single(w => w.Id == "talk");
+            Assert.IsTrue(talk.Done);
+        }
+
+        [Test]
         public void Weekly_random_scenes_never_take_a_hosts_scene()
         {
             var (e, s) = New();

@@ -34,6 +34,7 @@ namespace UnpaidCeo.Game.Ui
         readonly VisualElement _needsPanel, _moods, _wants, _wantsBody;
         readonly Label _wantsCount;
         readonly HashSet<string> _ticked = new HashSet<string>();
+        readonly HashSet<string> _lessonsThisWeek = new HashSet<string>();
         bool _wantsOpen;
         int _wantsWeek = -1;
 
@@ -106,6 +107,9 @@ namespace UnpaidCeo.Game.Ui
             return modal;
         }
 
+        /// <summary>The next refresh is a load (a plan restored), not news: no tick sound, no floating changes.</summary>
+        public void Silence() { _wantsWeek = -1; _shown.Clear(); }
+
         public void OpenNeeds()
         {
             _needsPanel.style.display = DisplayStyle.Flex;
@@ -120,7 +124,7 @@ namespace UnpaidCeo.Game.Ui
         {
             if (s == null || engine == null) return;
             var hud = _ui.Root.Q("hud");
-            foreach (var n in HeroView.Needs(s))
+            foreach (var n in HeroView.Needs(s, engine.Content.Balance))
             {
                 int value = n.Id == "energy" ? energyShown : n.Value;
                 var stat = hud.Q("hud-stat-" + n.Id);
@@ -130,9 +134,10 @@ namespace UnpaidCeo.Game.Ui
                     stat.Q("hud-" + n.Id + "-fill").style.width = UnityEngine.UIElements.Length.Percent(n.Bar);
                 }
                 stat.EnableInClassList("hud__stat--low", n.Low);
-                if (_shown.TryGetValue(n.Id, out var before) && before != value)
-                    FloatingDelta.Show(stat, EffectChips.Signed(value - before), value > before);
-                _shown[n.Id] = value;
+                // only real changes float (the week's result, a scene); the plan's energy preview reads "70 → 60" already
+                if (_shown.TryGetValue(n.Id, out var before) && before != n.Value)
+                    FloatingDelta.Show(stat, EffectChips.Signed(n.Value - before), n.Value > before);
+                _shown[n.Id] = n.Value;
             }
             RefreshMoods(s, engine, last);
             RefreshWants(s, engine, planned);
@@ -157,8 +162,14 @@ namespace UnpaidCeo.Game.Ui
 
         void RefreshWants(GameState s, GameEngine engine, IEnumerable<string> planned)
         {
-            if (s.Week != _wantsWeek) { _wantsWeek = s.Week; _ticked.Clear(); }
+            bool first = _wantsWeek == -1;
+            if (s.Week != _wantsWeek) { _wantsWeek = s.Week; _ticked.Clear(); _lessonsThisWeek.Clear(); }
             var wants = HeroView.Wants(s, engine.Content, planned);
+            // a lesson finished this week stays as a ticked want (Core lists only open lessons)
+            foreach (var l in wants.Where(w => w.Id == "lesson")) _lessonsThisWeek.Add(l.Arg);
+            foreach (var arg in _lessonsThisWeek)
+                if (!wants.Any(w => w.Id == "lesson" && w.Arg == arg) && wants.Count < HeroView.MaxWants)
+                    wants.Add(new Want { Id = "lesson", Arg = arg, Done = true });
             _wantsBody.Clear();
             int done = 0;
             foreach (var w in wants)
@@ -179,10 +190,10 @@ namespace UnpaidCeo.Game.Ui
                 if (w.Done)
                 {
                     done++;
-                    if (_ticked.Add(key))
+                    if (_ticked.Add(key) && !first)   // a want already done on load is not news
                     {
                         UiSound.Play(UiSound.Success);
-                        Toasts.Show(_ui.Root, "wants.done", WantIcon[w.Id]);
+                        Toasts.Show(_ui.Root, "wants.done", WantIcon[w.Id], Toasts.ShowMs, sound: false);
                     }
                 }
             }

@@ -28,6 +28,8 @@ namespace UnpaidCeo.Game.City
             Clear();
             if (prefab == null) return;
             Building = Instantiate(prefab, transform);
+            foreach (var r in Building.GetComponentsInChildren<Renderer>(true))   // stage 5B: a business building lights its windows too
+                foreach (var m in r.sharedMaterials) if (m != null && m.HasProperty(CityView.WindowGlowProperty)) m.SetFloat(CityView.WindowGlowProperty, 1f);
             Building.name = prefab.name;
             Building.transform.localPosition = Vector3.zero;
             Building.transform.localRotation = Quaternion.Euler(0f, yaw, 0f);

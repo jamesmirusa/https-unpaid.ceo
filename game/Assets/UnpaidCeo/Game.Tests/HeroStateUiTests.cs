@@ -93,6 +93,34 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator Planning_a_deed_does_not_float_an_energy_change()
+        {
+            yield return Boot();
+            _ui.DecisionsPanel.Plan("overtime");
+            yield return null;
+            Assert.IsNull(_ui.Root.Q("hud-stat-energy").Q<Label>("delta"), "the plan's preview reads \"70 → 60\"; only real changes float");
+        }
+
+        [UnityTest]
+        public IEnumerator A_reload_with_a_want_done_plays_no_tick()
+        {
+            yield return LocalizationSettings.InitializationOperation;
+            yield return Boot(s => { s.ActionLastWeek.Clear(); });
+            _ui.DecisionsPanel.Plan("overtime");
+            yield return null;
+            var meta = new MetaProgress { WeekPlan = _ui.DecisionsPanel.Snapshot() };
+            Object.Destroy(_host);
+            yield return null;
+            _sounds.Clear();
+            _host = new GameObject("ui2");
+            _ui = _host.AddComponent<UiRoot>();
+            _ui.Initialize(_engine, _state, _target);
+            _ui.Meta = meta;   // the game restores the week's plan from the meta save after the screens are built
+            yield return null;
+            CollectionAssert.DoesNotContain(_sounds, UiSound.Success, "a want already done on load is not news");
+        }
+
+        [UnityTest]
         public IEnumerator A_tap_on_the_needs_explains_each_one()
         {
             yield return Boot();
@@ -111,7 +139,9 @@ namespace UnpaidCeo.Game.Tests
             var burnout = _ui.Root.Q<Button>("mood-burnout");
             Assert.IsNotNull(burnout);
             using (var e = NavigationSubmitEvent.GetPooled()) { e.target = burnout; burnout.SendEvent(e); }
-            Assert.IsNotNull(_ui.Root.Q<Label>("toast"));
+            var toast = _ui.Root.Q<Label>("toast");
+            Assert.IsNotNull(toast);
+            Assert.IsTrue(UiText.IsLocalized(toast));
             Assert.LessOrEqual(_ui.Root.Query(className: "mood").ToList().Count, 4);
         }
 

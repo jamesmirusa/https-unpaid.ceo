@@ -99,7 +99,7 @@ namespace UnpaidCeo.Game.Ui
         public MetaProgress Meta
         {
             get => _meta;
-            set { _meta = value; if (value != null) { _gate.Load(value); _decisions?.Restore(value.WeekPlan); } }
+            set { _meta = value; if (value != null) { _gate.Load(value); _hero?.Silence(); _decisions?.Restore(value.WeekPlan); RefreshHud(); } }
         }
         /// <summary>The screens show a challenge or duel run: no daily turns, no chapter bar. Set before Initialize.</summary>
         bool _runMode;
@@ -568,6 +568,7 @@ namespace UnpaidCeo.Game.Ui
         {
             _engine = engine;
             _state = state;
+            IsEvening = PlayerPrefs.GetInt(EveningPrefsKey, 0) == 1;
 
             var panel = ScriptableObject.CreateInstance<PanelSettings>();
             panel.name = "UnpaidCeo Panel";
@@ -1150,6 +1151,21 @@ namespace UnpaidCeo.Game.Ui
             _settings?.Refresh();
             yield return null;
         }
+
+        public const string EveningPrefsKey = "unpaidceo.look.evening";
+        /// <summary>Stage 5B · the city's evening look (warm sun, lit windows) with the day interface; saved on this device.</summary>
+        public bool IsEvening { get; private set; }
+
+        public void SetEvening(bool on)
+        {
+            IsEvening = on;
+            PlayerPrefs.SetInt(EveningPrefsKey, on ? 1 : 0);
+            PlayerPrefs.Save();
+            ThemeChanged?.Invoke(IsNeon);
+        }
+
+        /// <summary>The light the city should show for the current look.</summary>
+        public UnpaidCeo.Game.City.TimeOfDay LightTime => IsNeon ? UnpaidCeo.Game.City.TimeOfDay.Night : IsEvening ? UnpaidCeo.Game.City.TimeOfDay.Evening : UnpaidCeo.Game.City.TimeOfDay.Day;
 
         public void SetTheme(bool neon)
         {

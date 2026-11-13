@@ -54,6 +54,8 @@ namespace UnpaidCeo.Core.Game
         public List<string> RejectedActions { get; set; } = new List<string>();
         /// <summary>Stage 5B · relationship levels reached this turn that brought a bonus.</summary>
         public List<LevelUp> LevelUps { get; set; } = new List<LevelUp>();
+        /// <summary>Stage 5B · cash the week's deeds paid (overtime, a shift): pay that is not revenue.</summary>
+        public Money ActionIncome { get; set; }
         /// <summary>Levers that could not be applied, as "lever:businessId" (e.g. "units:shop" when cash was short).</summary>
         public List<string> RejectedLevers { get; set; } = new List<string>();
         /// <summary>Paid this month for new units (investment, not an expense).</summary>

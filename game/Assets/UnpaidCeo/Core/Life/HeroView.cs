@@ -44,9 +44,9 @@ namespace UnpaidCeo.Core.Life
         public const int MaxMoods = 4, MaxWants = 3, RestedFrom = 80, LonelyBelow = 30, TiredBelow = 40;
         static readonly string[] TalkHosts = { "tony", "mom" };
 
-        public static List<Need> Needs(GameState s)
+        public static List<Need> Needs(GameState s, Balance b = null)
         {
-            int burnout = 30;
+            int burnout = b != null ? b.Life.BurnoutThreshold : 30;
             return new List<Need>
             {
                 new Need { Id = "energy", Value = s.Life.Energy, Bar = s.Life.Energy, Low = s.Life.Energy < burnout },
@@ -63,7 +63,7 @@ namespace UnpaidCeo.Core.Life
             if (s.Facts.Has("shark_debt")) all.Add(new Mood { Id = "shark_debt" });
             if (s.Cash.Cents < 0) all.Add(new Mood { Id = "in_debt" });
             if (s.Life.Relationships < LonelyBelow) all.Add(new Mood { Id = "lonely" });
-            if (last != null && last.Revenue.Cents > 0) all.Add(new Mood { Id = "paycheck", Good = true, WeeksLeft = 1 });
+            if (last != null && (last.Revenue.Cents > 0 || last.ActionIncome.Cents > 0)) all.Add(new Mood { Id = "paycheck", Good = true, WeeksLeft = 1 });
             if (s.Life.Energy >= RestedFrom) all.Add(new Mood { Id = "rested", Good = true, WeeksLeft = 1 });
             if (s.Reserve.Cents > 0) all.Add(new Mood { Id = "cushion", Good = true });
             return all.OrderBy(m => m.Good ? 1 : 0).Take(MaxMoods).ToList();
@@ -76,7 +76,9 @@ namespace UnpaidCeo.Core.Life
             foreach (var host in TalkHosts)
             {
                 bool talked = s.HostTalkWeek.TryGetValue(host, out var w) && w == s.Week;
-                if (talked || HostScenes.HasScene(s, c, host)) wants.Add(new Want { Id = "talk", Arg = host, Done = talked });
+                // done once the scene has played: a scene only opened (still pending) is not a talk yet
+                bool played = talked && !s.PendingStorylets.Any(id => c.Storylets.Any(x => x.Id == id && x.Host == host));
+                if (talked || HostScenes.HasScene(s, c, host)) wants.Add(new Want { Id = "talk", Arg = host, Done = played });
             }
             void Deed(string want, string action, bool wanted = true)
             {

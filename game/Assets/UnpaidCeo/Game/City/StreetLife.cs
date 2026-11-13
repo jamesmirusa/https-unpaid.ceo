@@ -52,6 +52,24 @@ namespace UnpaidCeo.Game.City
         }
 
         readonly List<Standing> _residents = new List<Standing>();
+        readonly List<Quaternion> _facing = new List<Quaternion>();
+
+        /// <summary>Stage 5B · how far a standing resident turns while looking around (degrees).</summary>
+        public const float LookAround = 28f;
+
+        /// <summary>The look-around yaw at time <paramref name="t"/> for the <paramref name="index"/>-th resident: a slow, uneven sway, out of phase.</summary>
+        public static float LookYaw(float t, int index)
+        {
+            float p = index * 2.3f;
+            return LookAround * (0.7f * Mathf.Sin(t * 0.55f + p) + 0.3f * Mathf.Sin(t * 1.37f + p * 1.7f));
+        }
+
+        void Update()
+        {
+            for (int i = 0; i < _residents.Count && i < _facing.Count; i++)
+                if (_residents[i].Transform != null)
+                    _residents[i].Transform.rotation = _facing[i] * Quaternion.Euler(0f, LookYaw(Time.time, i), 0f);
+        }
         public IReadOnlyList<Standing> Residents => _residents;
 
         /// <summary>
@@ -119,6 +137,7 @@ namespace UnpaidCeo.Game.City
                 go.transform.SetParent(transform, false);
                 go.transform.SetPositionAndRotation(r.Position, r.Rotation);
                 _residents.Add(new Standing { Address = r.Address, TagKey = r.TagKey, Transform = go.transform });
+                _facing.Add(r.Rotation);
                 if (spawn != null) Dress(spawn(r.Address, go.transform), Color.white, HeroView.Height);
                 else StartCoroutine(Load(r.Address, go.transform, Color.white, HeroView.Height));
             }

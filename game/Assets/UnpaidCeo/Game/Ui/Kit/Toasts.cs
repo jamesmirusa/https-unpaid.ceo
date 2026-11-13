@@ -8,7 +8,7 @@ namespace UnpaidCeo.Game.Ui.Kit
         public const string Class = "toast", In = "toast--in";
         public const long ShowMs = 2000;
 
-        public static Label Show(VisualElement root, string key, string icon = null, long showMs = ShowMs)
+        public static Label Show(VisualElement root, string key, string icon = null, long showMs = ShowMs, bool sound = true)
         {
             root.Q<Label>("toast")?.RemoveFromHierarchy();
             var t = UiText.Label(key, Class);
@@ -20,7 +20,7 @@ namespace UnpaidCeo.Game.Ui.Kit
             t.schedule.Execute(() => t.AddToClassList(In)).StartingIn(30);
             t.schedule.Execute(() => t.RemoveFromClassList(In)).StartingIn(showMs);
             t.schedule.Execute(t.RemoveFromHierarchy).StartingIn(showMs + 400);
-            UiSound.Play(UiSound.Pop);
+            if (sound) UiSound.Play(UiSound.Pop);
             return t;
         }
     }

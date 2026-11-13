@@ -247,6 +247,23 @@ namespace UnpaidCeo.Game.Tests
         }
 
         [UnityTest]
+        public IEnumerator Settings_offer_an_evening_look()
+        {
+            yield return Boot();
+            bool was = _ui.IsEvening;
+            try
+            {
+                _ui.Open(UiRoot.Settings);
+                var evening = _ui.Root.Q<Button>("settings-theme-evening");
+                using (var e = NavigationSubmitEvent.GetPooled()) { e.target = evening; evening.SendEvent(e); }
+                Assert.IsTrue(_ui.IsEvening);
+                Assert.IsFalse(_ui.IsNeon, "evening keeps the day interface");
+                Assert.IsTrue(evening.ClassListContains("choice-button--selected"));
+            }
+            finally { _ui.SetEvening(was); }
+        }
+
+        [UnityTest]
         public IEnumerator The_week_tab_counts_the_actions_left()
         {
             yield return Boot();

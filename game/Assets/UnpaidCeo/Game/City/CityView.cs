@@ -20,6 +20,28 @@ namespace UnpaidCeo.Game.City
         public CityCatalog Catalog => catalog;
         public Transform HomeAnchor => homeAnchor;
 
+        public const string WindowGlowProperty = "_WindowGlow";
+        static readonly int WindowGlowId = Shader.PropertyToID(WindowGlowProperty);
+
+        /// <summary>Stage 5B · the block's buildings light their windows in the evening (props, cars and people do not).</summary>
+        void Start() { foreach (var root in gameObject.scene.GetRootGameObjects()) LightWindows(root); }
+
+        static bool InBuilding(Transform t)
+        {
+            for (var p = t; p != null; p = p.parent) if (p.name.StartsWith("building_")) return true;
+            return false;
+        }
+
+        public static void LightWindows(GameObject root)
+        {
+            foreach (var r in root.GetComponentsInChildren<Renderer>(true))
+            {
+                if (!InBuilding(r.transform)) continue;
+                foreach (var m in r.sharedMaterials)
+                    if (m != null && m.HasProperty(WindowGlowId)) m.SetFloat(WindowGlowId, 1f);
+            }
+        }
+
         public void Configure(CityCatalog c, List<LotView> l, Transform home)
         {
             catalog = c;

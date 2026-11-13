@@ -341,6 +341,7 @@ namespace UnpaidCeo.Core.Game
                 s.ActionsThisTurn.Add(id);
                 if (fa.CooldownWeeks > 0) s.ActionLastWeek[id] = s.Week;
                 s.Cash -= fa.Cost;
+                foreach (var ce in fa.Effects.OfType<CashEffect>()) if (ce.Amount.Cents > 0) report.ActionIncome += ce.Amount;
                 EffectApplier.ApplyAll(fa.Effects, s);
                 AddJournal(s, "decision", fa.JournalKey ?? $"journal.{id}", ("action", id));
             }

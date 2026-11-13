@@ -55,6 +55,28 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
+        public void Pay_from_a_deed_is_a_paycheck_too()
+        {
+            var e = Engine();
+            var s = e.NewGame(1, TestContent.Hero);
+            s.Life.Energy = 80;
+            var r = e.EndWeek(s, TestContent.Decisions(0, 30, 70, 0, "overtime"));   // no gig work, overtime pays cash
+            Assert.Greater(r.ActionIncome.Cents, 0);
+            Assert.IsTrue(HeroView.Moods(s, e.Content.Balance, r).Any(m => m.Id == "paycheck"));
+        }
+
+        [Test]
+        public void Bad_news_comes_first_even_with_good_news_around()
+        {
+            var e = Engine();
+            var s = e.NewGame(1, TestContent.Hero);
+            s.Life.Energy = 90; s.Reserve = Money.FromDollars(50); s.Cash = Money.FromDollars(-5);
+            var m = HeroView.Moods(s, e.Content.Balance, new MonthReport { Revenue = Money.FromDollars(10) });
+            Assert.AreEqual("in_debt", m[0].Id);
+            Assert.IsTrue(m.Skip(1).All(x => x.Good));
+        }
+
+        [Test]
         public void Moods_never_touch_the_game()
         {
             var e = Engine();

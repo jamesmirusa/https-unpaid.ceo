@@ -92,7 +92,7 @@ namespace UnpaidCeo.Game.Bootstrap
             if (loaded)
             {
                 if (_state != null) _city?.Sync(_state);
-                if (_light != null && Ui != null) _light.Set(Ui.IsNeon ? TimeOfDay.Night : TimeOfDay.Day);
+                if (_light != null && Ui != null) _light.Set(Ui.LightTime);
                 PlaceHeroAtHome();
                 if (_audio != null) StartCoroutine(_audio.LoadDayTheme(DistrictMusic(chapter)));
             }
@@ -284,7 +284,7 @@ namespace UnpaidCeo.Game.Bootstrap
         /// <summary>The career screens' events (also after a run, when the career screens are rebuilt).</summary>
         void WireCareerUi()
         {
-            Ui!.ThemeChanged += neon => { if (_light != null) _light.Set(neon ? TimeOfDay.Night : TimeOfDay.Day); };
+            Ui!.ThemeChanged += neon => { if (_light != null && Ui != null) _light.Set(Ui.LightTime); };
             Ui.ResetRequested += () => { CloudSync.MarkReset(); SaveService.Delete(); SceneManager.LoadScene(0); };
             Ui.AccountChanged += OnAccountChanged;
             Ui.QuizAnswered += OnQuizAnswered;
@@ -458,7 +458,7 @@ namespace UnpaidCeo.Game.Bootstrap
             if (neon) Ui.SetTheme(true);
             if (run != null)
             {
-                Ui.ThemeChanged += on => { if (_light != null) _light.Set(on ? TimeOfDay.Night : TimeOfDay.Day); };
+                Ui.ThemeChanged += on => { if (_light != null && Ui != null) _light.Set(Ui.LightTime); };
                 Ui.AccountChanged += OnAccountChanged;   // Settings is reachable in a run too
                 Ui.NextMonthRequested += () => { if (!_busy) StartCoroutine(NextRunMonth()); };
                 Ui.LoanTaken += () => _runs?.Save();
