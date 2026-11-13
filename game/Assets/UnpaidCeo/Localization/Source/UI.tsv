@@ -420,6 +420,10 @@ choice.waiting	Settle the last one first	Сначала закрой прошл�
 choice.no_points	No actions left this month	В этом месяце действий больше нет
 choice.no_money	Not enough money	Не хватает денег
 choice.no_energy	Not enough energy — rest at home	Не хватает сил — отдохни дома
+choice.cooldown.1	Once a month — again next week	Раз в месяц — снова на следующей неделе
+choice.cooldown.2	Once a month — again in 2 weeks	Раз в месяц — снова через 2 недели
+choice.cooldown.3	Once a month — again in 3 weeks	Раз в месяц — снова через 3 недели
+choice.cooldown.4	Once a month — again in 4 weeks	Раз в месяц — снова через 4 недели
 place.react.rest	Good call. A rested CEO makes fewer expensive mistakes.	Правильно. Отдохнувший CEO делает меньше дорогих ошибок.
 place.react.family_time	Call your mom. Money comes back; these evenings don't.	Позвони маме. Деньги вернутся, а такие вечера — нет.
 place.react.overtime	Deal! Unload the truck and I pay cash, same day.	Договорились! Разгрузишь машину — плачу наличными в тот же день.

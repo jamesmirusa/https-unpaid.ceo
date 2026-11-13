@@ -21,7 +21,8 @@ namespace UnpaidCeo.Core.Tests.Game
   { ""id"": ""family_time"", ""actionPoints"": 1, ""cost"": 0, ""effects"": [ { ""stat"": ""relationships"", ""delta"": 8 } ] },
   { ""id"": ""networking"", ""actionPoints"": 1, ""cost"": 2000, ""effects"": [ { ""stat"": ""connections"", ""delta"": 4 } ] },
   { ""id"": ""scheme"", ""actionPoints"": 1, ""cost"": 0, ""effects"": [ { ""cash"": 15000 }, { ""setFact"": ""scheme"" } ] },
-  { ""id"": ""save"", ""actionPoints"": 0, ""cost"": 0, ""effects"": [ { ""reserve"": 10000 } ] }
+  { ""id"": ""save"", ""actionPoints"": 0, ""cost"": 0, ""effects"": [ { ""reserve"": 10000 } ] },
+  { ""id"": ""autosave"", ""actionPoints"": 0, ""cost"": 0, ""cooldownWeeks"": 4, ""effects"": [ { ""reserve"": 10000 } ] }
 ] }";
 
         static GameEngine Engine() => new GameEngine(ContentDb.FromJson(new ContentFiles
@@ -63,6 +64,32 @@ namespace UnpaidCeo.Core.Tests.Game
             e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "overtime"));
             Assert.AreEqual(2, s.WeekOfMonth, "still the same month");
             Assert.AreEqual(ChoiceState.Open, State(e, s, "overtime"));
+        }
+
+        /// <summary>A monthly habit (the payday transfer to the reserve): closed for four weeks, and it says when it opens.</summary>
+        [Test]
+        public void A_monthly_saving_closes_for_four_weeks_and_says_when_it_opens()
+        {
+            var e = Engine();
+            var s = Game(e);
+            Assert.IsEmpty(e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "autosave")).RejectedActions);
+            Assert.AreEqual(ChoiceState.Cooldown, State(e, s, "autosave"));
+            Assert.AreEqual(3, ActionChoices.WeeksUntilOpen(s, e.Content, "autosave"));
+            CollectionAssert.Contains(e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0, "autosave")).RejectedActions, "autosave",
+                "the engine waits too");
+            for (int i = 0; i < 2; i++) e.EndWeek(s, TestContent.Decisions(60, 15, 25, 0));
+            Assert.AreEqual(ChoiceState.Open, State(e, s, "autosave"), "four weeks on it opens again");
+            Assert.AreEqual(0, ActionChoices.WeeksUntilOpen(s, e.Content, "autosave"));
+        }
+
+        /// <summary>Guard: a legacy month is four weeks, so a monthly habit fits every month as before.</summary>
+        [Test]
+        public void A_monthly_saving_fits_every_legacy_month()
+        {
+            var e = Engine();
+            var s = Game(e);
+            Assert.IsEmpty(e.EndMonth(s, TestContent.Decisions(60, 15, 25, 0, "autosave")).RejectedActions);
+            Assert.IsEmpty(e.EndMonth(s, TestContent.Decisions(60, 15, 25, 0, "autosave")).RejectedActions);
         }
 
         [Test]

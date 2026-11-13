@@ -102,6 +102,7 @@ namespace UnpaidCeo.Core.Persistence
             s.LessonsSeen = s.LessonsSeen ?? new System.Collections.Generic.Dictionary<string, int>();
             s.Skills = s.Skills ?? new System.Collections.Generic.Dictionary<string, int>();
             s.ActionsThisTurn = s.ActionsThisTurn ?? new System.Collections.Generic.List<string>();
+            s.ActionLastWeek = s.ActionLastWeek ?? new System.Collections.Generic.Dictionary<string, int>();
             s.QuizAnswers = s.QuizAnswers ?? new System.Collections.Generic.Dictionary<string, int>();
             s.Businesses = s.Businesses ?? new System.Collections.Generic.List<Economy.BusinessState>();
             s.Loans = s.Loans ?? new System.Collections.Generic.List<Economy.LoanState>();

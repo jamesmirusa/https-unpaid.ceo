@@ -199,7 +199,8 @@ namespace UnpaidCeo.Game.Ui
                 b.EnableInClassList("visit__choice--recommended", recommended);
                 b.SetEnabled(state == ChoiceState.Open || state == ChoiceState.Planned);
                 if (!_status.TryGetValue(a.Id, out var status)) continue;
-                string key = recommended ? "choice.recommended" : StatusKey(state);
+                string key = recommended ? "choice.recommended"
+                    : state == ChoiceState.Cooldown ? CooldownKey(_plan.WeeksUntilOpen(a.FreeAction)) : StatusKey(state);
                 status.style.display = key != null ? DisplayStyle.Flex : DisplayStyle.None;
                 if (key != null) UiText.Bind(status, key);
             }
@@ -210,6 +211,9 @@ namespace UnpaidCeo.Game.Ui
 
         /// <summary>"70", or "70 → 60" while the plan changes it.</summary>
         public static string EnergyText(int now, int after) => after == now ? now.ToString() : $"{now} → {after}";
+
+        /// <summary>"Again next week" … "again in 4 weeks": one key per count, so Russian gets its plural right.</summary>
+        public static string CooldownKey(int weeks) => "choice.cooldown." + Math.Max(1, Math.Min(4, weeks));
 
         static string StatusKey(ChoiceState state)
         {

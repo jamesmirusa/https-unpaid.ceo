@@ -109,6 +109,8 @@
     "roundDilution": 0.2
   },
   "sources": [
+    {"field": "freeActions.overtime.cash, freeActions.night_shift.cash", "url": "https://dol.ny.gov/minimum-wage", "checkedOn": "2026-11-12", "note": "NYC minimum wage $17.00/hour from Jan 1, 2026 (NYS Department of Labor). Unloading Tony's truck: 3 h x $17 = $51; a night shift at the register: 6 h x $17 = $102."},
+    {"field": "freeActions.reserve_transfer (reserve, cooldownWeeks)", "url": "", "checkedOn": "2026-11-12", "note": "Game assumption: $100 once every 4 weeks — a payday transfer to savings (pay yourself first), the same pace as stage 4's once-a-month action; it holds chapter 1 at the stage-4 length on weekly turns (plan 5A, WeeklyPacingTests)."},
     {
       "field": "personalCostsByChapter.2.room",
       "url": "https://www.apartmentlist.com/renter-life/average-rent-in-brooklyn",

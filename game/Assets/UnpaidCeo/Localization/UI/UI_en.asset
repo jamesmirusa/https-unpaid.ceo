@@ -1766,6 +1766,22 @@ MonoBehaviour:
     m_Localized: "A certificate on the wall opens doors a r\xE9sum\xE9 can't."
     m_Metadata:
       m_Items: []
+  - m_Id: 1533343366635520
+    m_Localized: "Once a month \u2014 again next week"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1533343379218432
+    m_Localized: "Once a month \u2014 again in 2 weeks"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1533343379218433
+    m_Localized: "Once a month \u2014 again in 3 weeks"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1533343379218434
+    m_Localized: "Once a month \u2014 again in 4 weeks"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

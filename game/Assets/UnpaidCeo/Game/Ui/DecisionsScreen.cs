@@ -106,6 +106,9 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Whether a free action can go into this week's plan, and if not, why (the engine settles the same way).</summary>
         public ChoiceState State(string freeAction) => ActionChoices.State(_state, _engine.Content, Planned, freeAction);
 
+        /// <summary>Weeks until a habit with its own rhythm (the payday transfer) opens again.</summary>
+        public int WeeksUntilOpen(string freeAction) => ActionChoices.WeeksUntilOpen(_state, _engine.Content, freeAction);
+
         /// <summary>It answers what the hero lacks most right now (rest when tired, family when they drift…).</summary>
         public bool Recommended(string freeAction) => ActionChoices.Recommended(_state, _engine.Content, freeAction, Planned);
 

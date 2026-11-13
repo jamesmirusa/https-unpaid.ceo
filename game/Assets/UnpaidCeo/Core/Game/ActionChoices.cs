@@ -16,6 +16,8 @@ namespace UnpaidCeo.Core.Game
         Planned,
         /// <summary>Already taken in this turn (a plan that lists it twice): each free action at most once a turn.</summary>
         DoneThisTurn,
+        /// <summary>A habit with its own rhythm, taken recently: opens again in <see cref="ActionChoices.WeeksUntilOpen"/> weeks.</summary>
+        Cooldown,
         /// <summary>It opens a fact (a debt, a scheme) that is still open.</summary>
         Waiting,
         /// <summary>The week's action points are spent.</summary>
@@ -60,9 +62,11 @@ namespace UnpaidCeo.Core.Game
         /// The one rule for a free action at the moment the turn settles it: once a turn, not while its fact is open,
         /// within the points left, paid for, and never more energy than the hero has.
         /// </summary>
-        public static ChoiceState Check(FreeActionDef fa, int pointsLeft, int energy, Money cash, ICollection<string> doneThisTurn, FactStore facts)
+        public static ChoiceState Check(FreeActionDef fa, int pointsLeft, int energy, Money cash, ICollection<string> doneThisTurn, FactStore facts,
+            int weeksUntilOpen = 0)
         {
             if (doneThisTurn.Contains(fa.Id)) return ChoiceState.DoneThisTurn;
+            if (weeksUntilOpen > 0) return ChoiceState.Cooldown;
             if (fa.Effects.OfType<SetFactEffect>().Any(f => facts.Has(f.FactId))) return ChoiceState.Waiting;
             if (fa.ActionPoints > pointsLeft) return ChoiceState.NoPoints;
             if (fa.Cost.Cents > 0 && cash < fa.Cost) return ChoiceState.NoMoney;
@@ -86,7 +90,7 @@ namespace UnpaidCeo.Core.Game
             ChoiceState? other = null;
             foreach (var fa in Ordered(c, set))
             {
-                var st = Check(fa, points, energy, cash, done, s.Facts);
+                var st = Check(fa, points, energy, cash, done, s.Facts, WeeksUntilOpen(s, fa));
                 if (st != ChoiceState.Open)
                 {
                     if (fa.Id == id) return st;
@@ -116,6 +120,16 @@ namespace UnpaidCeo.Core.Game
             if (life.Relationships < LowRelationships && Gain("relationships") > 0) return true;
             if (life.Connections < FewConnections && Gain("connections") > 0) return true;
             return false;
+        }
+
+        /// <summary>Weeks until a habit with a cooldown can be taken again (0 = it can be taken this week).</summary>
+        public static int WeeksUntilOpen(GameState s, ContentDb c, string id) =>
+            c.FreeActions.TryGetValue(id, out var fa) ? WeeksUntilOpen(s, fa) : 0;
+
+        public static int WeeksUntilOpen(GameState s, FreeActionDef fa)
+        {
+            if (fa.CooldownWeeks <= 0 || s.ActionLastWeek == null || !s.ActionLastWeek.TryGetValue(fa.Id, out var last)) return 0;
+            return Math.Max(0, last + fa.CooldownWeeks - s.Week);
         }
 
         static IEnumerable<FreeActionDef> Defs(ContentDb c, IEnumerable<string> ids) =>

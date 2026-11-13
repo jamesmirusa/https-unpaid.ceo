@@ -1763,6 +1763,22 @@ MonoBehaviour:
     m_Key: place.react.certificate_course
     m_Metadata:
       m_Items: []
+  - m_Id: 1533343366635520
+    m_Key: choice.cooldown.1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1533343379218432
+    m_Key: choice.cooldown.2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1533343379218433
+    m_Key: choice.cooldown.3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1533343379218434
+    m_Key: choice.cooldown.4
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

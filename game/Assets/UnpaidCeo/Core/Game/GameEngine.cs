@@ -313,10 +313,12 @@ namespace UnpaidCeo.Core.Game
             foreach (var id in d.FreeActions)
             {
                 if (!_c.FreeActions.TryGetValue(id, out var fa)
-                    || ActionChoices.Check(fa, s.ActionPointsLeft, s.Life.Energy, s.Cash, s.ActionsThisTurn, s.Facts) != ChoiceState.Open)
+                    || ActionChoices.Check(fa, s.ActionPointsLeft, s.Life.Energy, s.Cash, s.ActionsThisTurn, s.Facts,
+                        ActionChoices.WeeksUntilOpen(s, fa)) != ChoiceState.Open)
                 { report.RejectedActions.Add(id); continue; }
                 s.ActionPointsLeft -= fa.ActionPoints;
                 s.ActionsThisTurn.Add(id);
+                if (fa.CooldownWeeks > 0) s.ActionLastWeek[id] = s.Week;
                 s.Cash -= fa.Cost;
                 EffectApplier.ApplyAll(fa.Effects, s);
                 AddJournal(s, "decision", fa.JournalKey ?? $"journal.{id}", ("action", id));

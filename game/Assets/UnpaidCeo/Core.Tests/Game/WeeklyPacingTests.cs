@@ -13,6 +13,32 @@ namespace UnpaidCeo.Core.Tests.Game
     {
         static readonly ulong[] Seeds = { 11, 23, 37, 41, 59 };
 
+        /// <summary>Optimal chapter 1 in weeks before the weekly pool (Task 1 of plan 5A, monthly pool on weekly turns).</summary>
+        const int BaselineOptimalMedianWeeks = 57;
+
+        [Test]
+        public void Optimal_weekly_play_takes_40_weeks_or_more_for_chapter1_and_stays_near_the_baseline()
+        {
+            var db = BotRunner.Content();
+            var weeks = new List<int>();
+            var bad = new List<string>();
+            foreach (var seed in Seeds)
+            {
+                var o = BotRunner.RunWeekly(db, seed, "coffee_cart", new OptimalBot(weekly: true));
+                if (!o.Finished) { bad.Add($"{seed}: did not finish chapter 1"); continue; }
+                if (o.ChapterWeeks[1] < 40) bad.Add($"{seed}: chapter 1 in {o.ChapterWeeks[1]} weeks");
+                weeks.Add(o.ChapterWeeks[1]);
+            }
+            weeks.Sort();
+            if (weeks.Count > 0)
+            {
+                int median = weeks[weeks.Count / 2];
+                if (median < BaselineOptimalMedianWeeks * 0.85 || median > BaselineOptimalMedianWeeks * 1.15)
+                    bad.Add($"median {median} weeks vs baseline {BaselineOptimalMedianWeeks} (±15%)");
+            }
+            Assert.IsEmpty(bad, string.Join("\n", bad));
+        }
+
         [Test]
         public void Weekly_chapter1_pacing_is_recorded()
         {
