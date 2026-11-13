@@ -24,6 +24,8 @@ namespace UnpaidCeo.Core.Game
         NoPoints,
         NoMoney,
         NoEnergy,
+        /// <summary>Stage 5B · opened by a relationship (a level bonus) not reached yet: not offered at all.</summary>
+        Locked,
     }
 
     /// <summary>
@@ -69,6 +71,7 @@ namespace UnpaidCeo.Core.Game
         public static ChoiceState Check(FreeActionDef fa, int pointsLeft, int energy, Money cash, ICollection<string> doneThisTurn, FactStore facts,
             int weeksUntilOpen = 0)
         {
+            if (fa.RequiresFact != null && !facts.Has(fa.RequiresFact)) return ChoiceState.Locked;
             if (doneThisTurn.Contains(fa.Id)) return ChoiceState.DoneThisTurn;
             if (weeksUntilOpen > 0) return ChoiceState.Cooldown;
             if (fa.Effects.OfType<SetFactEffect>().Any(f => facts.Has(f.FactId))) return ChoiceState.Waiting;

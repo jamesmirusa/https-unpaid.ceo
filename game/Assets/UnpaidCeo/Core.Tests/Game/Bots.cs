@@ -74,6 +74,16 @@ namespace UnpaidCeo.Core.Tests.Game
             return result;
         }
 
+        /// <summary>The scene with the answers the hero cannot give yet removed (a knowledge lock).</summary>
+        static StoryletDef Unlocked(StoryletDef st, GameState s)
+        {
+            var copy = new StoryletDef { Id = st.Id, YarnNode = st.YarnNode, Host = st.Host };
+            foreach (var c in st.Choices) if (!HostScenes.Locked(st, c.Key, s)) copy.Choices[c.Key] = c.Value;
+            return copy;
+        }
+
+        static string Open(string pick, StoryletDef st, GameState s) => HostScenes.Locked(st, pick, s) ? st.Choices.Keys.First(k => !HostScenes.Locked(st, k, s)) : pick;
+
         /// <summary>The career loop as the game plays it: a week per turn (BeginWeek, scenes, EndWeek).</summary>
         public static RunResult RunWeekly(ContentDb db, ulong seed, string industry, IBot bot, int maxWeeks = 1600, int stopAfterChapter = 1)
         {
@@ -86,6 +96,12 @@ namespace UnpaidCeo.Core.Tests.Game
             {
                 foreach (var scene in e.BeginWeek(s).ToList())
                     e.ChooseStoryletOption(s, scene.Id, bot.PickChoice(e, s, scene));
+                // stage 5B: scenes wait at their hosts; a player drops by every host each week
+                foreach (var host in HostScenes.Hosts(db).ToList())
+                {
+                    var talk = e.TalkTo(s, host);
+                    if (talk != null) e.ChooseStoryletOption(s, talk.Id, Open(bot.PickChoice(e, s, Unlocked(talk, s)), talk, s));
+                }
                 var report = e.EndWeek(s, bot.Decide(e, s));
                 if (s.Facts.Has("bankrupt")) result.Bankrupt = true;
                 bot.AfterMonth(e, s, report);

@@ -44,6 +44,8 @@ namespace UnpaidCeo.Core.Content
         public bool Confirm { get; set; }
         public List<Effect> Effects { get; set; } = new List<Effect>();
         public string JournalKey { get; set; }
+        /// <summary>Stage 5B · a deed a relationship opens (a level bonus fact); hidden and refused until the fact is set.</summary>
+        public string RequiresFact { get; set; }
     }
 
     public sealed class ContentDb

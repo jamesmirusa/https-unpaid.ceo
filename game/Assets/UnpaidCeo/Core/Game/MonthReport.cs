@@ -5,6 +5,14 @@ using UnpaidCeo.Core.Primitives;
 
 namespace UnpaidCeo.Core.Game
 {
+    /// <summary>A relationship level reached, with the bonus it brought (its string key).</summary>
+    public sealed class LevelUp
+    {
+        public string Npc { get; set; }
+        public int Level { get; set; }
+        public string Key { get; set; }
+    }
+
     /// <summary>One named amount of a week's result: a bill paid, a loan payment, what falls due next week.</summary>
     public sealed class LineItem
     {
@@ -44,6 +52,8 @@ namespace UnpaidCeo.Core.Game
         public List<string> Lessons { get; set; } = new List<string>();
         public bool BurnoutMistake { get; set; }
         public List<string> RejectedActions { get; set; } = new List<string>();
+        /// <summary>Stage 5B · relationship levels reached this turn that brought a bonus.</summary>
+        public List<LevelUp> LevelUps { get; set; } = new List<LevelUp>();
         /// <summary>Levers that could not be applied, as "lever:businessId" (e.g. "units:shop" when cash was short).</summary>
         public List<string> RejectedLevers { get; set; } = new List<string>();
         /// <summary>Paid this month for new units (investment, not an expense).</summary>

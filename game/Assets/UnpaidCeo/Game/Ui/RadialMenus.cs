@@ -38,6 +38,7 @@ namespace UnpaidCeo.Game.Ui
             if (target == "hero")
             {
                 foreach (var d in HeroDeeds) items.Add(Deed(d, plan, () => plan.Plan(d)));
+                items.RemoveAll(i => i.State == ChoiceState.Locked);
                 items.Add(new RadialItem { Id = "week", LabelKey = "dock.decisions", ServiceIcon = "calendar-dots", HintKey = "radial.hint.week", Run = () => ui.Open(UiRoot.Decisions) });
                 items.Add(new RadialItem { Id = "journal", LabelKey = "hud.journal", ServiceIcon = "book-open-text", HintKey = "radial.hint.journal", Run = () => ui.Open(UiRoot.Journal) });
                 return items;
@@ -70,6 +71,7 @@ namespace UnpaidCeo.Game.Ui
                         break;
                 }
             }
+            items.RemoveAll(i => i.State == ChoiceState.Locked);   // not offered until a relationship opens it
             return items;
         }
 

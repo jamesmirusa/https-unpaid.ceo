@@ -14,6 +14,8 @@ namespace UnpaidCeo.Core.Game
         public const string TakeLoan = "takeLoan";
         public const string ChooseIndustry = "chooseIndustry";
         public const string AdvanceChapter = "advanceChapter";
+        /// <summary>Stage 5B: "Talk" at a host made their waiting scene pending.</summary>
+        public const string TalkTo = "talkTo";
 
         public int Month { get; set; }
         public string Kind { get; set; }

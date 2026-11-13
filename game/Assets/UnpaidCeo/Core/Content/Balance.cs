@@ -75,8 +75,18 @@ namespace UnpaidCeo.Core.Content
     }
 
     /// <summary>Global balance constants (balance.json). Values in cents where money.</summary>
+    /// <summary>Stage 5B · what a relationship level gives: a fact (which can open a deed or a scene) and its line.</summary>
+    public sealed class LevelBonusDef
+    {
+        public string Npc { get; set; }
+        public int Level { get; set; }
+        public string Fact { get; set; }
+        public string Key { get; set; }
+    }
+
     public sealed class Balance
     {
+        public List<LevelBonusDef> LevelBonuses { get; set; } = new List<LevelBonusDef>();
         public double TaxRate { get; set; }
         public Money BillsStartAfter { get; set; }
         /// <summary>Chapter-1 living costs (a shared room in the Bronx).</summary>

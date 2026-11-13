@@ -58,9 +58,9 @@ namespace UnpaidCeo.Game.Ui
         public static IReadOnlyList<PlaceDef> All { get; } = new List<PlaceDef>
         {
             new PlaceDef { Id = Home, Host = "mentor",
-                Actions = new[] { Plan("rest"), Plan("family_time"), Open("journal", UiRoot.Journal) } },
+                Actions = new[] { Plan("rest"), Plan("family_time"), Plan("sunday_dinner"), Open("journal", UiRoot.Journal) } },
             new PlaceDef { Id = "bodega", Host = "tony", Buildings = new[] { "building_bodega" },
-                Actions = new[] { Plan("overtime"), Plan("night_shift") } },
+                Actions = new[] { Plan("overtime"), Plan("night_shift"), Plan("weekend_shift") } },
             new PlaceDef { Id = "bar", Host = "best_friend", Buildings = new[] { "building_pizza", "building_bakery" },
                 Actions = new[] { Plan("networking"), Plan("pitch_night"), Plan("hobby") } },
             new PlaceDef { Id = "office", Host = "cofounder_sam", Buildings = new[] { "building_laundromat", "building_barbershop" },

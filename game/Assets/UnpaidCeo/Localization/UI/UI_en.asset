@@ -2046,6 +2046,54 @@ MonoBehaviour:
     m_Localized: What happened so far
     m_Metadata:
       m_Items: []
+  - m_Id: 1668043557036032
+    m_Localized: Weekend shift
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618944
+    m_Localized: 'You worked a weekend shift at Tony''s: eight hours behind the counter.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618945
+    m_Localized: Work Tony's weekend shift (8 h)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618946
+    m_Localized: Saturday's yours. I trust you with the register now.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618947
+    m_Localized: Sunday dinner at Mom's
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618948
+    m_Localized: 'Sunday dinner at Mom''s: soup, stories and a bag of food to take home.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618949
+    m_Localized: Go to Mom's for Sunday dinner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618950
+    m_Localized: Mom packs you leftovers for the week. You don't argue.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618951
+    m_Localized: 'Tony gives you weekend shifts: 8 hours, $136'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618952
+    m_Localized: 'Mom invites you to Sunday dinners: energy and close ones up'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618953
+    m_Localized: 'Tony trusts you now: he offered you weekend shifts.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1668043569618954
+    m_Localized: 'Mom said: "Sundays you eat here. No arguments."'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

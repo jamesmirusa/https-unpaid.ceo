@@ -46,6 +46,8 @@ namespace UnpaidCeo.Core.Game
         [JsonProperty("ActionsThisMonth")] public List<string> ActionsThisTurn { get; set; } = new List<string>();
         /// <summary>Week a free action with a cooldown (FreeActionDef.CooldownWeeks) was last taken: id → week.</summary>
         public Dictionary<string, int> ActionLastWeek { get; set; } = new Dictionary<string, int>();
+        /// <summary>Stage 5B · host → the week the host last gave a story scene (one a week).</summary>
+        public Dictionary<string, int> HostTalkWeek { get; set; } = new Dictionary<string, int>();
         /// <summary>Week whose scenes were already rolled (0 = none yet).</summary>
         public int ScenesRolledWeek { get; set; }
         public int Chapter { get; set; } = 1;

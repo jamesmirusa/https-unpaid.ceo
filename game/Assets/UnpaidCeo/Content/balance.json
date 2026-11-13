@@ -108,7 +108,12 @@
     "publicMultiple": 15.0,
     "roundDilution": 0.2
   },
+  "levelBonuses": [
+    { "npc": "tony", "level": 3, "fact": "tony_weekend_shift", "key": "bonus.tony.3" },
+    { "npc": "mom", "level": 3, "fact": "mom_sunday_dinner", "key": "bonus.mom.3" }
+  ],
   "sources": [
+    { "field": "freeActions.weekend_shift.cash", "url": "https://dol.ny.gov/minimum-wage", "checkedOn": "2026-11-13", "note": "Tony's level-3 bonus: an 8-hour weekend shift at the NYC minimum wage $17.00/hour = $136." },
     {"field": "freeActions.overtime.cash, freeActions.night_shift.cash", "url": "https://dol.ny.gov/minimum-wage", "checkedOn": "2026-11-12", "note": "NYC minimum wage $17.00/hour from Jan 1, 2026 (NYS Department of Labor). Unloading Tony's truck: 3 h x $17 = $51; a night shift at the register: 6 h x $17 = $102."},
     {"field": "freeActions.reserve_transfer (reserve, cooldownWeeks)", "url": "", "checkedOn": "2026-11-12", "note": "Game assumption: $100 once every 4 weeks — a payday transfer to savings (pay yourself first), the same pace as stage 4's once-a-month action; it holds chapter 1 at the stage-4 length on weekly turns (plan 5A, WeeklyPacingTests)."},
     {

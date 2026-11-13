@@ -493,3 +493,15 @@ radial.hint.enter	Walk in and see what is on offer	Зайти и посмотр�
 radial.hint.talk	Have a word — they may have news	Поговорить — может, есть новости
 radial.hint.week	Open this week's plan	Открыть план недели
 radial.hint.journal	What happened so far	Что уже было
+action.weekend_shift	Weekend shift	Смена в выходные
+journal.action.weekend_shift	You worked a weekend shift at Tony's: eight hours behind the counter.	Ты отработал смену в выходные у Тони: восемь часов за прилавком.
+place.action.weekend_shift	Work Tony's weekend shift (8 h)	Отработать у Тони смену в выходные (8 ч)
+place.react.weekend_shift	Saturday's yours. I trust you with the register now.	Суббота твоя. Кассу я тебе теперь доверяю.
+action.sunday_dinner	Sunday dinner at Mom's	Воскресный ужин у мамы
+journal.action.sunday_dinner	Sunday dinner at Mom's: soup, stories and a bag of food to take home.	Воскресный ужин у мамы: суп, разговоры и пакет еды с собой.
+place.action.sunday_dinner	Go to Mom's for Sunday dinner	Поехать к маме на воскресный ужин
+place.react.sunday_dinner	Mom packs you leftovers for the week. You don't argue.	Мама собирает тебе еду на неделю. Ты не споришь.
+bonus.tony.3	Tony gives you weekend shifts: 8 hours, $136	Тони даёт смены в выходные: 8 часов, $136
+bonus.mom.3	Mom invites you to Sunday dinners: energy and close ones up	Мама зовёт на воскресные ужины: больше сил и тепла
+journal.bonus.tony.3	Tony trusts you now: he offered you weekend shifts.	Тони теперь тебе доверяет: он предложил смены в выходные.
+journal.bonus.mom.3	Mom said: "Sundays you eat here. No arguments."	Мама сказала: «По воскресеньям ешь у меня. Без разговоров».
