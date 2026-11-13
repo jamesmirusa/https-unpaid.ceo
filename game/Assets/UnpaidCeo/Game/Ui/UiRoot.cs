@@ -590,6 +590,7 @@ namespace UnpaidCeo.Game.Ui
             Root.style.flexGrow = 1;
             _document.rootVisualElement.Add(Root);
             Feel.Attach(Root);
+            SafeArea.Keep(Root);   // stage 6: out of the notch, the Dynamic Island and the home bar
 
             var hud = Clone("Hud");
             Root.Add(hud);

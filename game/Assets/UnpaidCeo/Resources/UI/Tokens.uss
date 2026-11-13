@@ -660,3 +660,20 @@
 .want__text { flex-grow: 1; flex-shrink: 1; font-size: 28px; white-space: normal; }
 .want__arg { font-size: 28px; -unity-font-style: bold; margin-left: 6px; }
 .app .want--done .want__text { color: var(--text-dim); }
+
+/* ===== Stage 6 · touch targets ≥ 44 pt (121 panel px at 1080 wide on a 393-pt iPhone) ===== */
+.icon-button { height: 124px; }
+.calendar__cell { min-height: 122px; justify-content: center; }
+.gate__item { height: 122px; }
+.guide__action { height: 122px; }
+.visit__talk, .visit__exit { height: 122px; }
+.week-card--small { min-height: 122px; justify-content: center; }
+.wants__head { min-height: 122px; }
+.camera-button { width: 122px; height: 122px; border-radius: 61px; }
+#city-home { min-width: 122px; }
+.popup-close { height: 122px; border-radius: 61px; }
+.moods { justify-content: space-between; }
+.mood { flex-direction: column; justify-content: center; width: 24%; height: 124px; margin: 0 0 8px 0; padding: 6px 6px; border-radius: 28px; }
+.mood__icon { width: 52px; height: 52px; margin: 0 0 2px 0; }
+.mood__name { font-size: 19px; white-space: normal; -unity-text-align: middle-center; }
+.mood__sign { position: absolute; right: 12px; top: 6px; margin: 0; }

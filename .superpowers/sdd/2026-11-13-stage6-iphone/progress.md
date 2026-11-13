@@ -1,0 +1,7 @@
+# SDD ledger — plan: docs/superpowers/plans/2026-11-13-stage6-iphone.md
+Spec: docs/superpowers/specs/2026-11-13-stage6-iphone-design.md (pre-approved, docs/AUTOPILOT.md §5). Executor: inline. Branch feat/stage6-iphone from design/unpaid-ceo-2-spec a108a63 (5B merged, PR #3).
+Task 1: SafeAreaTests 3 RED (compile: SafeArea missing) → GREEN. Kit/SafeArea.Insets (Screen.safeArea → panel units) and SafeArea.Keep pads the app root (re-applied on resize and once a second for rotation); the web's safe area is the whole screen, so nothing changes there.
+Task 2: TouchTargetTests (1179×2556, Russian, the busiest city + Week + radial + room) RED: 20 buttons under 44 pt (HUD icon buttons 100 px tall, calendar cells 104, mood chips 60, wants header 58, gate items 76, guide action 92, camera buttons 80, focus cards 90–116, room talk/exit 84) → GREEN after raising each to ≥ 122 panel px (44 pt = 121 px at 1080 wide on a 393-pt iPhone).
+Ruling: real sizes, not invisible hit areas — UI Toolkit has no hit slop, and a slop child overlapping a neighbour in a list would steal its taps — cost if wrong: the city's card stack is taller (the phone's extra height absorbs it; checked on phone_ru_1_city).
+Ruling: mood badges became tiles (icon over name, four to a row) so each is a 44-pt target without a 120-px pill per badge — cost if wrong: none.
+Suites: EditMode 399/399, PlayMode 252 + 16 explicit demos.
