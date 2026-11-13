@@ -126,6 +126,18 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
+        public void The_buttons_offer_a_legacy_months_pool_on_a_legacy_month()
+        {
+            // Challenge and duel runs play whole months: their buttons must offer what EndMonth accepts.
+            var e = Engine();
+            var s = e.NewGame(1, TestContent.Hero);
+            Assert.AreEqual(UnpaidCeo.Core.Life.LifeSimulator.ActionPoints(s.Life, 0, e.Content.Balance.Life),
+                ActionChoices.PointsTotal(s, e.Content, weekly: false));
+            Assert.AreEqual(UnpaidCeo.Core.Life.LifeSimulator.WeeklyActionPoints(s.Life, e.Content.Balance.Life),
+                ActionChoices.PointsTotal(s, e.Content));
+        }
+
+        [Test]
         public void An_old_save_from_the_middle_of_a_month_opens_with_a_fresh_week()
         {
             var e = Engine();

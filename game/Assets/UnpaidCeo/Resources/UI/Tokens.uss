@@ -273,15 +273,12 @@
 .place__host { font-size: 30px; margin: -8px 0 14px 0; white-space: normal; }
 .place__line { margin-bottom: 14px; padding: 20px 24px; border-radius: 24px; border-left-width: 10px; border-left-color: var(--accent); background-color: var(--panel); font-size: 34px; white-space: normal; }
 .place-action { flex-direction: column; align-items: stretch; margin: 8px 0; padding: 18px 24px; border-radius: 24px; border-width: 3px; border-color: var(--track); background-color: var(--panel); }
-.place-action--planned { border-color: var(--accent); }
 .place-action:disabled { opacity: 0.45; }
 .place-action__label { font-size: 34px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-left; }
 .place-action__chips { flex-direction: row; flex-wrap: wrap; margin-top: 6px; }
 .chip { flex-direction: row; align-items: center; margin-right: 22px; }
 .chip__caption { font-size: 26px; margin-right: 6px; }
 .chip__value { font-size: 28px; -unity-font-style: bold; }
-.place-action__planned { display: none; margin-top: 6px; font-size: 26px; -unity-font-style: bold; -unity-text-align: middle-left; }
-.place-action--planned .place-action__planned { display: flex; }
 .place-marker { position: absolute; translate: -50% -100%; flex-direction: column; align-items: center; width: 210px; margin: 0; padding: 8px 8px 6px 8px; border-radius: 22px; border-width: 3px; border-color: var(--accent); background-color: var(--card); font-size: 26px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-center; }
 .place-marker__pic { width: 190px; height: 112px; margin-bottom: 4px; border-radius: 14px; background-color: var(--track); -unity-background-scale-mode: scale-and-crop; }
 .place-marker__title { font-size: 26px; -unity-font-style: bold; white-space: normal; -unity-text-align: middle-center; }
@@ -390,6 +387,12 @@
 .app .week-card--selected:disabled, .app .visit__choice--planned:disabled { background-color: var(--panel-strong); border-color: var(--accent); color: var(--text); }
 .app .lever-button:disabled { background-color: var(--card); border-color: var(--accent); }
 .app .lever-button--taken:disabled { opacity: 1; background-color: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+/* "Sure?": a step that cannot be undone waits for its second tap in the warning colour. */
+.app .lever-button--armed, .app .visit__choice--armed { border-color: var(--negative); }
+.app .lever-button--armed { color: var(--negative); }
+.app .visit__choice--armed .visit__choice-status { color: var(--negative); }
+.lever-status { font-size: 22px; margin: -4px 4px 10px 4px; white-space: normal; -unity-font-style: bold; }
+.app .lever-status { color: var(--text-dim); }
 .visit__budget { flex-direction: row; align-items: center; flex-wrap: wrap; margin: 0 0 6px 0; }
 .visit__budget-caption { font-size: 24px; margin-right: 6px; color: var(--text-dim); }
 .visit__budget-value { font-size: 26px; margin-right: 22px; -unity-font-style: bold; }

@@ -10,6 +10,8 @@ using UnpaidCeo.Core.Content;
 using UnpaidCeo.Core.Economy;
 using UnpaidCeo.Core.Format;
 using UnpaidCeo.Core.Game;
+using UnpaidCeo.Core.Life;
+using UnpaidCeo.Core.Persistence;
 using UnpaidCeo.Core.Primitives;
 using UnpaidCeo.Game.Ui;
 
@@ -38,7 +40,7 @@ namespace UnpaidCeo.Game.Tests
             });
         }
 
-        IEnumerator Boot(System.Action<GameState> setup = null)
+        IEnumerator Boot(System.Action<GameState> setup = null, bool runMode = false)
         {
             yield return LocalizationSettings.InitializationOperation;
             _target = _target ?? new RenderTexture(1080, 1920, 24);
@@ -50,6 +52,7 @@ namespace UnpaidCeo.Game.Tests
             }
             _host = new GameObject("ui");
             _ui = _host.AddComponent<UiRoot>();
+            _ui.RunMode = runMode;
             _ui.Initialize(_engine, _state, _target);
             yield return _ui.SetLanguage("en");
             _ui.Open(UiRoot.Decisions);
@@ -234,6 +237,154 @@ namespace UnpaidCeo.Game.Tests
             var capex = _engine.Content.Industries["coffee_cart"].Capex;
             Assert.AreEqual(MoneyFormat.Compact(capex, "ru"), Screen.Q<Label>("unit-cost-coffee_cart").text);
             Assert.AreEqual(MoneyFormat.Full(Money.FromCents(400), "ru"), Screen.Q<Label>("price-value-coffee_cart").text);
+        }
+
+        static void OwnerOfTwo(GameState s)
+        {
+            Owner(s);
+            var cart = s.Businesses.Single(b => b.Id == "coffee_cart");
+            cart.Units = 2;
+            cart.Employees = 1;
+        }
+
+        [UnityTest]
+        public IEnumerator A_risky_deed_needs_a_second_tap()
+        {
+            yield return Boot(s => s.Cash = Money.FromDollars(640));
+            var card = Screen.Q<Button>("action-loan_shark_loan");
+            Tap(card);
+            Assert.IsFalse(_ui.DecisionsPanel.IsPlanned("loan_shark_loan"), "one stray tap does not borrow from a loan shark");
+            Assert.AreEqual(Localized("choice.confirm"), Screen.Q<Label>("action-status-loan_shark_loan").text);
+            Tap(card);
+            Assert.IsTrue(_ui.DecisionsPanel.IsPlanned("loan_shark_loan"));
+        }
+
+        [UnityTest]
+        public IEnumerator Closing_a_location_or_letting_someone_go_needs_a_second_tap()
+        {
+            yield return Boot(OwnerOfTwo);
+            var close = Screen.Q<Button>("units-minus-coffee_cart");
+            Tap(close);
+            Assert.IsFalse(_ui.CurrentDecisions().Levers.Any(l => l.Lever == "units"), "one stray tap does not close a location");
+            Assert.AreEqual(Localized("lever.close_unit.confirm"), close.text);
+            Tap(close);
+            Assert.AreEqual(1, _ui.CurrentDecisions().Levers.Single(l => l.Lever == "units").ValueCents);
+
+            var fire = Screen.Q<Button>("staff-minus-coffee_cart");
+            Tap(fire);
+            Assert.IsFalse(_ui.CurrentDecisions().Levers.Any(l => l.Lever == "staff"));
+            Assert.AreEqual(Localized("lever.fire.confirm"), fire.text);
+            Tap(fire);
+            Assert.AreEqual(0, _ui.CurrentDecisions().Levers.Single(l => l.Lever == "staff").ValueCents);
+        }
+
+        [UnityTest]
+        public IEnumerator Locked_modes_and_gigs_say_why()
+        {
+            yield return Boot(s => s.StudyXp = 100);
+            Tap(Mode("hustle"));
+            Tap(Focus("gig_delivery"));
+            foreach (var name in new[] { "mode-status-balance", "focus-status-gig_resale" })
+            {
+                var status = Screen.Q<Label>(name);
+                Assert.IsTrue(Shown(status), name);
+                Assert.AreEqual(Localized("week.locked"), status.text, name);
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator A_closed_lever_says_why()
+        {
+            yield return Boot(s => { Owner(s); s.Cash = Money.FromDollars(100); });
+            Assert.AreEqual(Localized("lever.marketing_none"), Screen.Q<Label>("marketing-status-coffee_cart").text);
+            Assert.AreEqual(Localized("lever.staff_none"), Screen.Q<Label>("staff-status-coffee_cart").text);
+            Assert.IsFalse(Screen.Q<Button>("units-plus-coffee_cart").enabledSelf, "a new location costs more than the cash");
+            Assert.AreEqual(Localized("lever.no_money"), Screen.Q<Label>("units-status-coffee_cart").text);
+            Tap(Screen.Q<Button>("price-plus-coffee_cart"));
+            Assert.AreEqual(Localized("lever.locked"), Screen.Q<Label>("price-status-coffee_cart").text);
+        }
+
+        [UnityTest]
+        public IEnumerator A_challenge_month_offers_the_months_points_and_four_lever_steps()
+        {
+            yield return Boot(Owner, runMode: true);
+            Assert.AreEqual(LifeSimulator.ActionPoints(_state.Life, 0, _engine.Content.Balance.Life), _ui.DecisionsPanel.PointsTotal,
+                "a challenge plays whole months: the buttons offer what the month accepts");
+            var plus = Screen.Q<Button>("price-plus-coffee_cart");
+            for (int i = 0; i < GameState.WeeksPerMonth; i++)
+            {
+                Assert.IsTrue(plus.enabledSelf, "step " + (i + 1));
+                Tap(plus);
+            }
+            Assert.IsFalse(plus.enabledSelf, "a month is four weeks: four steps");
+        }
+
+        [UnityTest]
+        public IEnumerator A_career_week_plan_never_lands_on_a_challenge_run()
+        {
+            yield return Boot(null, runMode: true);
+            var r = new WeekPlanRecord { Week = _state.Week, Seed = _state.Seed, Mode = "hustle", ModeChosen = true };
+            r.Actions.Add("overtime");
+            _ui.Meta = new MetaProgress { WeekPlan = r };
+            Assert.IsFalse(_ui.DecisionsPanel.IsPlanned("overtime"));
+            Assert.IsFalse(_ui.DecisionsPanel.ModeChosen);
+        }
+
+        [UnityTest]
+        public IEnumerator A_plan_from_another_game_is_ignored()
+        {
+            yield return Boot();
+            var r = new WeekPlanRecord { Week = _state.Week, Seed = _state.Seed + 1, Mode = "hustle", ModeChosen = true };
+            r.Actions.Add("overtime");
+            _ui.DecisionsPanel.Restore(r);
+            Assert.IsFalse(_ui.DecisionsPanel.IsPlanned("overtime"), "a new game does not inherit the last game's taps");
+            Assert.IsFalse(_ui.DecisionsPanel.ModeChosen);
+        }
+
+        /// <summary>A reload the way the game does it: the meta goes through the save codec, a new screen, then Meta.</summary>
+        IEnumerator ReloadThroughTheMetaSave(PlayerMeta meta)
+        {
+            yield return null;
+            string saved = SaveCodec.EncodeMeta(meta);
+            Object.Destroy(_host);
+            yield return null;
+            yield return Boot();
+            _ui.Meta = SaveCodec.DecodeMeta(saved).Meta;
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator The_week_survives_leaving_the_game_through_the_meta_save()
+        {
+            var meta = new PlayerMeta();
+            yield return Boot(s => { s.StudyXp = 100; s.Life.Energy = 70; });
+            _ui.Meta = meta.Meta;   // the bootstrap's order: Initialize, then Meta
+            Tap(Mode("study"));
+            Tap(Focus("gig_resale"));
+            Tap(Screen.Q<Button>("action-overtime"));
+            int after = _ui.DecisionsPanel.EnergyAfterPlan;
+            yield return ReloadThroughTheMetaSave(meta);
+            Assert.AreEqual("study", _ui.DecisionsPanel.Mode);
+            Assert.IsTrue(_ui.DecisionsPanel.ModeChosen);
+            Assert.AreEqual("gig_resale", _ui.DecisionsPanel.Focus);
+            Assert.IsTrue(_ui.DecisionsPanel.FocusChosen);
+            Assert.IsTrue(_ui.DecisionsPanel.IsPlanned("overtime"));
+            Assert.AreEqual(after, _ui.DecisionsPanel.EnergyAfterPlan);
+            Assert.AreEqual(100, _ui.CurrentDecisions().WorkSplit["gig_resale"]);
+        }
+
+        [UnityTest]
+        public IEnumerator A_stepped_lever_survives_leaving_the_game()
+        {
+            var meta = new PlayerMeta();
+            yield return Boot(Owner);
+            _ui.Meta = meta.Meta;
+            Tap(Screen.Q<Button>("price-plus-coffee_cart"));
+            long price = _ui.CurrentDecisions().Levers.Single(l => l.Lever == "price").ValueCents;
+            yield return ReloadThroughTheMetaSave(meta);
+            Assert.IsTrue(_ui.DecisionsPanel.LeverLocked("coffee_cart", "price"));
+            Assert.IsTrue(Screen.Q<Button>("price-plus-coffee_cart").ClassListContains("lever-button--taken"));
+            Assert.AreEqual(price, _ui.CurrentDecisions().Levers.Single(l => l.Lever == "price").ValueCents);
         }
 
         [UnityTest]

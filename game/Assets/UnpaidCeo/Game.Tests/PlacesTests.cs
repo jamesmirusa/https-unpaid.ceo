@@ -202,13 +202,31 @@ namespace UnpaidCeo.Game.Tests
             Tap(overtime);
             yield return null;
             CollectionAssert.Contains(_ui.CurrentDecisions().FreeActions, "overtime");
-            Assert.IsTrue(overtime.ClassListContains("place-action--planned"));
+            Assert.IsTrue(overtime.ClassListContains(ChoiceCard.DoneClass));
             Assert.AreEqual($"{_ui.DecisionsPanel.PointsLeft} / {_ui.DecisionsPanel.PointsTotal}", Panel.Q<Label>("place-points").text);
             Assert.AreEqual(_ui.DecisionsPanel.PointsTotal - 1, _ui.DecisionsPanel.PointsLeft);
 
             Assert.IsFalse(overtime.enabledSelf, "done until next week: there is no second tap");
-            Assert.IsTrue(overtime.ClassListContains("place-action--planned"));
+            Assert.IsTrue(overtime.ClassListContains(ChoiceCard.DoneClass));
             CollectionAssert.Contains(_ui.CurrentDecisions().FreeActions, "overtime", "and nothing takes it back");
+        }
+
+        [UnityTest]
+        public IEnumerator A_closed_card_at_a_place_says_why()
+        {
+            yield return Boot(s => s.Life.Energy = 90);
+            _ui.OpenPlace("bodega");
+            yield return null;
+            Tap(Panel.Q<Button>("place-action-overtime"));
+            Tap(Panel.Q<Button>("place-action-night_shift"));
+            yield return null;
+            Assert.AreEqual(LocalizationSettings.StringDatabase.GetLocalizedString(UiRoot.Table, "choice.done"),
+                Panel.Q<Label>("place-status-overtime").text, "done says done, not 'in the plan'");
+            _ui.OpenPlace("bar");
+            yield return null;
+            Assert.IsFalse(Panel.Q<Button>("place-action-networking").enabledSelf);
+            Assert.AreEqual(LocalizationSettings.StringDatabase.GetLocalizedString(UiRoot.Table, "choice.no_points"),
+                Panel.Q<Label>("place-status-networking").text);
         }
 
         [UnityTest]

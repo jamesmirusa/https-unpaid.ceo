@@ -135,29 +135,25 @@ namespace UnpaidCeo.Game.Ui
             foreach (var action in place.Actions)
             {
                 var a = action;
-                var button = new Button(() => Do(a)) { name = "place-action-" + a.Id };
-                button.AddToClassList("place-action");
-                button.Add(UiText.Label("place.action." + a.Id, "place-action__label"));
+                Button button;
                 if (a.Kind == PlaceActionKind.Plan && _engine.Content.FreeActions.TryGetValue(a.FreeAction, out var free))
                 {
-                    var chips = new VisualElement();
-                    chips.AddToClassList("place-action__chips");
-                    AddChips(chips, free);
-                    button.Add(chips);
-                    button.Add(UiText.Label("place.planned", "place-action__planned"));
+                    // The same card as in the rooms and on the Week screen: done says done, closed says why.
+                    var card = new ChoiceCard("place-action-" + a.Id, "place-status-" + a.Id, "place.action." + a.Id, () => Do(a));
+                    card.SetChips(free.Cost, free.Effects, _ui.Language);
+                    card.Confirm = free.Confirm;
+                    button = card;
+                }
+                else
+                {
+                    button = new Button(() => Do(a)) { name = "place-action-" + a.Id };
+                    button.AddToClassList("place-action");
+                    button.Add(UiText.Label("place.action." + a.Id, "place-action__label"));
                 }
                 _buttons[a.Id] = button;
                 _actions.Add(button);
             }
             Refresh();
-        }
-
-        /// <summary>What an action costs and gives, from its definition: nothing here is written by hand.</summary>
-        void AddChips(VisualElement chips, FreeActionDef free)
-        {
-            string lang = _ui.Language;
-            if (free.Cost.Cents > 0) chips.Add(EffectChips.Chip(null, EffectChips.Minus + MoneyFormat.Compact(free.Cost, lang), false));
-            foreach (var c in EffectChips.Describe(free.Effects, lang)) chips.Add(EffectChips.Chip(c.CaptionKey, c.Value, c.Good));
         }
 
         void Do(PlaceAction a)
@@ -182,9 +178,9 @@ namespace UnpaidCeo.Game.Ui
             {
                 if (!_buttons.TryGetValue(a.Id, out var button)) continue;
                 button.style.display = _state.Chapter >= a.MinChapter ? DisplayStyle.Flex : DisplayStyle.None;
-                if (a.Kind != PlaceActionKind.Plan) continue;
-                button.EnableInClassList("place-action--planned", _plan.IsPlanned(a.FreeAction));
-                button.SetEnabled(_plan.CanPlan(a.FreeAction));
+                if (!(button is ChoiceCard card)) continue;
+                var state = _plan.State(a.FreeAction);
+                card.Show(state, state == ChoiceState.Open && _plan.Recommended(a.FreeAction), _plan.WeeksUntilOpen(a.FreeAction));
             }
         }
 

@@ -670,7 +670,10 @@ namespace UnpaidCeo.Game.Bootstrap
         void RunLaunchAutopilot()
         {
             DailyMissions.Sync(_meta!.Meta, _meta.Turns, _state!, _engine!.Content);
-            var reports = TurnBudget.OnLaunch(_engine, _state!, _meta.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes());
+            // The week the player already decided before leaving (restored from the meta save) is played as decided;
+            // the rest of the offline weeks repeat the routine.
+            var reports = TurnBudget.OnLaunch(_engine, _state!, _meta.Turns, DeviceClock.NowUnix(), DeviceClock.UtcOffsetMinutes(),
+                Ui!.CurrentDecisions());
             DailyMissions.SkipLog(_meta.Meta, _state!);
             if (reports.Count > 0)
             {

@@ -120,6 +120,7 @@ namespace UnpaidCeo.Game.Ui
                 {
                     var card = new ChoiceCard("visit-action-" + a.Id, "visit-status-" + a.Id, "place.action." + a.Id, () => Choose(a));
                     card.SetChips(free.Cost, free.Effects, _ui.Language);
+                    card.Confirm = free.Confirm;
                     _cards[a.Id] = card;
                     b = card;
                 }

@@ -32,6 +32,21 @@ namespace UnpaidCeo.Core.Tests.Content
             ContentDb.FromJson(new ContentFiles { Industries = industries, Balance = balance, FreeActions = freeActions });
 
         [Test]
+        public void A_loan_shark_and_a_gray_scheme_ask_for_a_second_tap()
+        {
+            string dir = Path.Combine(UnityEngine.Application.dataPath, "UnpaidCeo/Content");
+            var db = ContentDb.FromJson(new ContentFiles
+            {
+                Industries = File.ReadAllText(Path.Combine(dir, "industries.json")),
+                Balance = File.ReadAllText(Path.Combine(dir, "balance.json")),
+                FreeActions = File.ReadAllText(Path.Combine(dir, "free_actions.json")),
+            });
+            Assert.IsTrue(db.FreeActions["loan_shark_loan"].Confirm, "a debt to a loan shark is never one stray tap");
+            Assert.IsTrue(db.FreeActions["gray_scheme"].Confirm);
+            Assert.IsFalse(db.FreeActions["overtime"].Confirm);
+        }
+
+        [Test]
         public void Loads_fixture_content()
         {
             var db = Load();

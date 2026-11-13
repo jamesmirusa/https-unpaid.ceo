@@ -1203,7 +1203,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054939
-    m_Localized: 'No revenue this week. Money comes only from sales: open the week plan and give time to paid work.'
+    m_Localized: 'No revenue this week. Money comes only from sales: open the Week and pick Hustle or Balance so time goes to paid work.'
     m_Metadata:
       m_Items: []
   - m_Id: 829442678054940
@@ -1884,6 +1884,58 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1547148599484417
     m_Localized: "\u2713 Done \u2014 again in 4 weeks"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181708644352
+    m_Localized: "Tap again to confirm \u2014 this cannot be undone"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227264
+    m_Localized: Close it for good? Tap again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227265
+    m_Localized: Let them go? Tap again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227266
+    m_Localized: You can change this next week
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227267
+    m_Localized: "This week's step is taken \u2014 the next one next week"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227268
+    m_Localized: 'Price at its limit: from half to twice the market price'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227269
+    m_Localized: "No ads yet \u2014 nothing to cut"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227270
+    m_Localized: Ads are at their maximum
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227271
+    m_Localized: "No locations \u2014 nothing to close"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227272
+    m_Localized: The most locations this game allows
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227273
+    m_Localized: Not enough cash for a new location
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227274
+    m_Localized: "No staff \u2014 nobody to let go"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227275
+    m_Localized: Your locations need no more people
     m_Metadata:
       m_Items: []
   references:

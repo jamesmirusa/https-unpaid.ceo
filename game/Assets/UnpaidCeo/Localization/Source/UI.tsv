@@ -300,7 +300,7 @@ summary.profit	Net profit	Чистая прибыль
 summary.personal	Living costs	Личные расходы
 summary.cash	Cash now	Денег на счёте
 summary.change	Change over the week	Изменение за неделю
-summary.tip.no_revenue	No revenue this week. Money comes only from sales: open the week plan and give time to paid work.	На этой неделе нет выручки. Деньги приходят только с продаж: открой план недели и отдай время оплачиваемой работе.
+summary.tip.no_revenue	No revenue this week. Money comes only from sales: open the Week and pick Hustle or Balance so time goes to paid work.	На этой неделе нет выручки. Деньги приходят только с продаж: открой «Неделю» и выбери «Пахать» или «Баланс», чтобы время шло на оплачиваемую работу.
 summary.tip.loss	A loss: costs were higher than revenue. Open the full report and find the biggest cost.	Убыток: расходы оказались больше выручки. Открой полный отчёт и найди самую большую статью расходов.
 summary.tip.cash_down	There was profit, yet cash went down: living costs, purchases and loan payments are paid out of it.	Прибыль есть, а денег стало меньше: из неё оплачены личные расходы, покупки и платежи по кредитам.
 summary.tip.profit	Profit is what stays after every cost. Keep part of it as a reserve and put the rest to work.	Прибыль — это то, что осталось после всех расходов. Часть оставь в резерве, остальное пусть работает.
@@ -315,7 +315,6 @@ places.title	Your block	Твой квартал
 places.hint	Every place has its own business and its own host. Walk in.	В каждом месте своё дело и свой хозяин. Заходи.
 places.back	All places	Все места
 place.trust	Trust	Доверие
-place.planned	In this week's plan	В плане на эту неделю
 place.hint	What you pick here happens when you press Next week.	Выбранное здесь случится, когда нажмёшь «Следующая неделя».
 stat.energy	Energy	Энергия
 stat.relationships	Family	Близкие
@@ -454,3 +453,16 @@ lever.hire	Hire	Нанять
 choice.done.cooldown.2	✓ Done — again in 2 weeks	✓ Сделано — снова через 2 недели
 choice.done.cooldown.3	✓ Done — again in 3 weeks	✓ Сделано — снова через 3 недели
 choice.done.cooldown.4	✓ Done — again in 4 weeks	✓ Сделано — снова через 4 недели
+choice.confirm	Tap again to confirm — this cannot be undone	Нажми ещё раз — это нельзя отменить
+lever.close_unit.confirm	Close it for good? Tap again	Закрыть насовсем? Нажми ещё раз
+lever.fire.confirm	Let them go? Tap again	Уволить? Нажми ещё раз
+week.locked	You can change this next week	Сменить можно на следующей неделе
+lever.locked	This week's step is taken — the next one next week	Шаг этой недели сделан — следующий на следующей неделе
+lever.price_limit	Price at its limit: from half to twice the market price	Цена на пределе: от половины до двух рыночных
+lever.marketing_none	No ads yet — nothing to cut	Рекламы пока нет — урезать нечего
+lever.marketing_max	Ads are at their maximum	Реклама на максимуме
+lever.units_none	No locations — nothing to close	Точек нет — закрывать нечего
+lever.units_max	The most locations this game allows	Больше точек в игре не бывает
+lever.no_money	Not enough cash for a new location	Не хватает денег на новую точку
+lever.staff_none	No staff — nobody to let go	Сотрудников нет — увольнять некого
+lever.staff_max	Your locations need no more people	Больше людей точкам не нужно

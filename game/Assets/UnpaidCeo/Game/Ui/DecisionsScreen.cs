@@ -32,7 +32,6 @@ namespace UnpaidCeo.Game.Ui
         readonly Dictionary<string, Label> _focusNeed = new Dictionary<string, Label>();
         readonly Dictionary<string, ChoiceCard> _cards = new Dictionary<string, ChoiceCard>();
         readonly HashSet<string> _planned = new HashSet<string>();
-        readonly HashSet<string> _leverChanged = new HashSet<string>();
         readonly Dictionary<string, Button> _leverButtons = new Dictionary<string, Button>();
         readonly Dictionary<string, int> _units = new Dictionary<string, int>(), _staff = new Dictionary<string, int>();
         readonly Dictionary<string, int> _unitsBase = new Dictionary<string, int>(), _staffBase = new Dictionary<string, int>();
@@ -42,6 +41,11 @@ namespace UnpaidCeo.Game.Ui
             new Dictionary<string, (Label, Label, Label, Label, Label, Label)>();
         /// <summary>Which way each lever was stepped this week ("bizId/lever" → −1 or +1): that button shows as taken.</summary>
         readonly Dictionary<string, int> _leverDir = new Dictionary<string, int>();
+        /// <summary>Steps taken this turn per lever ("bizId/lever"): one a week, four in a challenge's month.</summary>
+        readonly Dictionary<string, int> _leverSteps = new Dictionary<string, int>();
+        readonly Dictionary<string, Label> _leverStatus = new Dictionary<string, Label>();
+        /// <summary>The irreversible lever button waiting for its second tap (close a location, let someone go), or null.</summary>
+        string _armed;
         List<string> _gigIds = new List<string>();
         string _businessKey = "", _gigKey, _mode, _focusId;
         bool _modeChosen, _focusChosen;
@@ -91,6 +95,7 @@ namespace UnpaidCeo.Game.Ui
             {
                 var id = fa.Id;
                 var card = new ChoiceCard("action-" + id, "action-status-" + id, "action." + id, () => Plan(id));
+                card.Confirm = fa.Confirm;
                 _cards[id] = card;
                 _actions.Add(card);
             }
@@ -123,8 +128,10 @@ namespace UnpaidCeo.Game.Ui
         public IEnumerable<string> Planned => _engine.Content.FreeActions.Keys.Where(_planned.Contains);
 
         /// <summary>The points this week can spend, and how many its deeds leave.</summary>
-        public int PointsTotal => ActionChoices.PointsTotal(_state, _engine.Content);
-        public int PointsLeft => ActionChoices.PointsLeft(_state, _engine.Content, Planned);
+        /// <summary>Career weeks and challenge months each offer what their turn accepts (EndWeek or EndMonth).</summary>
+        bool Weekly => !_ui.RunMode;
+        public int PointsTotal => ActionChoices.PointsTotal(_state, _engine.Content, Weekly);
+        public int PointsLeft => ActionChoices.PointsLeft(_state, _engine.Content, Planned, Weekly);
         /// <summary>The hero's energy once this week's deeds are done.</summary>
         public int EnergyAfterPlan => ActionChoices.EnergyAfter(_state, _engine.Content, Planned);
         /// <summary>Something was decided this week (here or at a place in the city).</summary>
@@ -133,7 +140,7 @@ namespace UnpaidCeo.Game.Ui
         public bool IsPlanned(string freeAction) => _planned.Contains(freeAction);
 
         /// <summary>Whether a free action can be done this week, and if not, why (the engine settles the same way).</summary>
-        public ChoiceState State(string freeAction) => ActionChoices.State(_state, _engine.Content, Planned, freeAction);
+        public ChoiceState State(string freeAction) => ActionChoices.State(_state, _engine.Content, Planned, freeAction, Weekly);
 
         /// <summary>Weeks until a habit with its own rhythm (the payday transfer) opens again.</summary>
         public int WeeksUntilOpen(string freeAction) =>
@@ -195,7 +202,11 @@ namespace UnpaidCeo.Game.Ui
         }
 
         /// <summary>A lever was stepped this week: its buttons are closed until next week.</summary>
-        public bool LeverLocked(string businessId, string lever) => _leverChanged.Contains(businessId + "/" + lever);
+        public bool LeverLocked(string businessId, string lever) =>
+            _leverSteps.TryGetValue(businessId + "/" + lever, out var n) && n >= StepsPerTurn;
+
+        /// <summary>One step a week; a challenge's turn is a month of four weeks.</summary>
+        int StepsPerTurn => Weekly ? 1 : GameState.WeeksPerMonth;
 
         // ---------- Weeks and reloads ----------
 
@@ -212,8 +223,9 @@ namespace UnpaidCeo.Game.Ui
         {
             _planWeek = _state.Week;
             _planned.Clear();
-            _leverChanged.Clear();
             _leverDir.Clear();
+            _leverSteps.Clear();
+            Disarm();
             _modeChosen = _focusChosen = false;
             _mode = WeekPlanning.ModeOf(Last, Balance);
             _gigIds = Gigs().Select(b => b.Id).ToList();
@@ -223,7 +235,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>What was decided this week, for the meta save.</summary>
         public WeekPlanRecord Snapshot()
         {
-            var r = new WeekPlanRecord { Week = _planWeek, Mode = _mode, ModeChosen = _modeChosen, Focus = _focusId, FocusChosen = _focusChosen };
+            var r = new WeekPlanRecord { Week = _planWeek, Seed = _state.Seed, Mode = _mode, ModeChosen = _modeChosen, Focus = _focusId, FocusChosen = _focusChosen };
             r.Actions.AddRange(Planned);
             foreach (var b in Businesses)
             {
@@ -239,7 +251,7 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Brings back this week's decisions after a reload; a record of another week is ignored.</summary>
         public void Restore(WeekPlanRecord r)
         {
-            if (r == null || r.Week != _state.Week) return;
+            if (r == null || r.Week != _state.Week || (r.Seed != 0 && r.Seed != _state.Seed) || _ui.RunMode) return;
             StartWeek();
             if (r.Mode != null && Balance.WeekModes.ContainsKey(r.Mode)) { _mode = r.Mode; _modeChosen = r.ModeChosen; }
             if (r.Focus != null && (r.Focus == WeekPlanning.EvenFocus || _gigIds.Contains(r.Focus))) { _focusId = r.Focus; _focusChosen = r.FocusChosen; }
@@ -258,7 +270,7 @@ namespace UnpaidCeo.Game.Ui
                     case "staff": _staff[l.BusinessId] = (int)l.ValueCents; break;
                     default: continue;
                 }
-                _leverChanged.Add(l.BusinessId + "/" + l.Lever);
+                _leverSteps[l.BusinessId + "/" + l.Lever] = StepsPerTurn;
                 _leverDir[l.BusinessId + "/" + l.Lever] = Math.Sign(l.ValueCents - Base(l.BusinessId, l.Lever));
             }
             Render();
@@ -268,12 +280,14 @@ namespace UnpaidCeo.Game.Ui
 
         void Render()
         {
+            Disarm();   // any other decision forgets a half-asked "sure?"
             foreach (var kv in _modes)
             {
                 bool selected = kv.Key == _mode;
                 kv.Value.EnableInClassList("week-card--selected", selected);
                 kv.Value.SetEnabled(!_modeChosen);
-                string key = selected ? (_modeChosen ? "week.mode_set" : "week.last") : null;
+                // A closed card says why: chosen this week, or closed until next week.
+                string key = selected ? (_modeChosen ? "week.mode_set" : "week.last") : _modeChosen ? "week.locked" : null;
                 ShowStatus(_modeStatus[kv.Key], key);
                 FillModeChips(kv.Key);
             }
@@ -288,7 +302,7 @@ namespace UnpaidCeo.Game.Ui
                 bool selected = kv.Key == _focusId, open = FocusOpen(kv.Key);
                 kv.Value.EnableInClassList("week-card--selected", selected);
                 kv.Value.SetEnabled(!_focusChosen && open);
-                string key = !open ? "focus.needs_study" : selected ? (_focusChosen ? "week.focus_set" : "week.last") : null;
+                string key = !open ? "focus.needs_study" : selected ? (_focusChosen ? "week.focus_set" : "week.last") : _focusChosen ? "week.locked" : null;
                 ShowStatus(_focusStatus[kv.Key], key);
                 if (_focusNeed.TryGetValue(kv.Key, out var need))
                 {
@@ -442,13 +456,26 @@ namespace UnpaidCeo.Game.Ui
             parent.Add(head);
             var buttons = new VisualElement();
             buttons.AddToClassList("lever-row");
-            var minus = UiText.Bind(new Button(() => step(-1)) { name = $"{what}-minus-{id}" }, downKey);
+            // Closing a location and letting someone go cannot be undone: the first tap asks, the second does it.
+            bool irreversible = what == "units" || what == "staff";
+            string minusName = $"{what}-minus-{id}";
+            var minus = UiText.Bind(new Button(() =>
+            {
+                if (irreversible && _armed != minusName) { Arm(minusName, downKey + ".confirm"); return; }
+                step(-1);
+            }) { name = minusName }, downKey);
+            minus.userData = downKey;
             minus.AddToClassList("lever-button");
             var plus = UiText.Bind(new Button(() => step(+1)) { name = $"{what}-plus-{id}" }, upKey);
             plus.AddToClassList("lever-button");
             buttons.Add(minus);
             buttons.Add(plus);
             parent.Add(buttons);
+            var status = UiText.Label("lever.locked", "lever-status");
+            status.name = $"{what}-status-{id}";
+            status.style.display = DisplayStyle.None;
+            parent.Add(status);
+            _leverStatus[status.name] = status;
             _leverButtons[minus.name] = minus;
             _leverButtons[plus.name] = plus;
             return value;
@@ -461,7 +488,13 @@ namespace UnpaidCeo.Game.Ui
 
         void Stepped(string id, string lever, bool changed, int dir)
         {
-            if (changed) { _leverChanged.Add(id + "/" + lever); _leverDir[id + "/" + lever] = Math.Sign(dir); }
+            Disarm();
+            if (changed)
+            {
+                string key = id + "/" + lever;
+                _leverDir[key] = Math.Sign(dir);
+                _leverSteps[key] = (_leverSteps.TryGetValue(key, out var n) ? n : 0) + 1;
+            }
             Show(id);
             PlanChanged?.Invoke();
         }
@@ -551,19 +584,45 @@ namespace UnpaidCeo.Game.Ui
             r.cost.text = MoneyFormat.Compact(Def(id).Capex, _ui.Language);
             var (minPrice, maxPrice, _) = PriceSteps(id);
             var (maxMarketing, _) = MarketingSteps(id);
-            ShowLever(id, "price", _price[id] > minPrice, _price[id] < maxPrice);
-            ShowLever(id, "marketing", _marketing[id] > 0, _marketing[id] < maxMarketing);
-            ShowLever(id, "units", _units[id] > 0, _units[id] < 100);
-            ShowLever(id, "staff", _staff[id] > 0, _staff[id] < MaxStaff(id));
+            bool affordable = _state.Cash >= Def(id).Capex;
+            ShowLever(id, "price", _price[id] > minPrice, _price[id] < maxPrice, "lever.price_limit", "lever.price_limit");
+            ShowLever(id, "marketing", _marketing[id] > 0, _marketing[id] < maxMarketing, "lever.marketing_none", "lever.marketing_max");
+            ShowLever(id, "units", _units[id] > 0, _units[id] < 100 && affordable, "lever.units_none", affordable ? "lever.units_max" : "lever.no_money");
+            ShowLever(id, "staff", _staff[id] > 0, _staff[id] < MaxStaff(id), "lever.staff_none", "lever.staff_max");
+        }
+
+        /// <summary>The first tap on an irreversible step: the button asks "sure?"; any other tap or a new week disarms it.</summary>
+        void Arm(string buttonName, string confirmKey)
+        {
+            Disarm();
+            _armed = buttonName;
+            if (_leverButtons.TryGetValue(buttonName, out var b)) { UiText.Bind(b, confirmKey); b.AddToClassList("lever-button--armed"); }
+        }
+
+        void Disarm()
+        {
+            if (_armed != null && _leverButtons.TryGetValue(_armed, out var b) && b.userData is string key)
+            {
+                UiText.Bind(b, key);
+                b.RemoveFromClassList("lever-button--armed");
+            }
+            _armed = null;
         }
 
         /// <summary>
         /// An open lever offers only the steps that change something (no ads to cut, nobody to let go); a stepped one
         /// closes until next week and shows the way it went.
         /// </summary>
-        void ShowLever(string id, string lever, bool canDown, bool canUp)
+        void ShowLever(string id, string lever, bool canDown, bool canUp, string downReason, string upReason)
         {
             bool open = !LeverLocked(id, lever);
+            if (_leverStatus.TryGetValue($"{lever}-status-{id}", out var status))
+            {
+                // A closed button says why: the week's step is taken, or the next step would change nothing.
+                string key = !open ? "lever.locked" : !canUp ? upReason : !canDown ? downReason : null;
+                status.style.display = key != null ? DisplayStyle.Flex : DisplayStyle.None;
+                if (key != null) UiText.Bind(status, key);
+            }
             int dir = _leverDir.TryGetValue(id + "/" + lever, out var d) ? d : 0;
             if (_leverButtons.TryGetValue($"{lever}-minus-{id}", out var minus))
             {

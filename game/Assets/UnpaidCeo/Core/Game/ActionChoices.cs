@@ -38,11 +38,15 @@ namespace UnpaidCeo.Core.Game
         public const int LowRelationships = 40;
         public const int FewConnections = 15;
 
-        /// <summary>The pool the coming week spends: every week brings its own (stage 5A).</summary>
-        public static int PointsTotal(GameState s, ContentDb c) => LifeSimulator.WeeklyActionPoints(s.Life, c.Balance.Life);
+        /// <summary>
+        /// The pool the coming turn spends: every week brings its own (stage 5A); a legacy month (challenge and duel runs)
+        /// gets the month's, as <see cref="GameEngine.EndMonth"/> settles it.
+        /// </summary>
+        public static int PointsTotal(GameState s, ContentDb c, bool weekly = true) =>
+            weekly ? LifeSimulator.WeeklyActionPoints(s.Life, c.Balance.Life) : LifeSimulator.ActionPoints(s.Life, 0, c.Balance.Life);
 
-        public static int PointsLeft(GameState s, ContentDb c, IEnumerable<string> planned) =>
-            PointsTotal(s, c) - Defs(c, planned).Sum(fa => fa.ActionPoints);
+        public static int PointsLeft(GameState s, ContentDb c, IEnumerable<string> planned, bool weekly = true) =>
+            PointsTotal(s, c, weekly) - Defs(c, planned).Sum(fa => fa.ActionPoints);
 
         public static int EnergyDelta(FreeActionDef fa) =>
             fa.Effects.OfType<StatEffect>().Where(e => e.Stat == "energy").Sum(e => e.Delta);
@@ -78,13 +82,13 @@ namespace UnpaidCeo.Core.Game
         /// Plays the week's free actions with this one added: closed if it fails, or if it leaves a planned one
         /// without the energy, money or points that one needs.
         /// </summary>
-        public static ChoiceState State(GameState s, ContentDb c, IEnumerable<string> planned, string id)
+        public static ChoiceState State(GameState s, ContentDb c, IEnumerable<string> planned, string id, bool weekly = true)
         {
             var set = new HashSet<string>(planned);
             if (set.Contains(id)) return ChoiceState.Planned;
             if (!c.FreeActions.ContainsKey(id)) return ChoiceState.Waiting;
             set.Add(id);
-            int points = PointsTotal(s, c), energy = s.Life.Energy;
+            int points = PointsTotal(s, c, weekly), energy = s.Life.Energy;
             var cash = s.Cash;
             var done = new HashSet<string>();   // every week starts fresh: only this plan counts
             ChoiceState? other = null;

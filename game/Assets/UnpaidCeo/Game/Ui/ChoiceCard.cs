@@ -17,14 +17,34 @@ namespace UnpaidCeo.Game.Ui
     {
         public const string DoneClass = "visit__choice--planned";
         public const string RecommendedClass = "visit__choice--recommended";
+        public const string ArmedClass = "visit__choice--armed";
 
         readonly VisualElement _chips;
         readonly Label _status;
 
         public Label StatusLabel => _status;
 
-        public ChoiceCard(string name, string statusName, string titleKey, Action onTap) : base(onTap)
+        /// <summary>A choice that cannot be undone and hurts (a loan shark, a gray scheme): the first tap asks, the second takes it.</summary>
+        public bool Confirm { get; set; }
+        /// <summary>Asked once and waiting for the second tap (any re-render forgets it).</summary>
+        public bool Armed { get; private set; }
+
+        public ChoiceCard(string name, string statusName, string titleKey, Action onTap)
         {
+            clicked += () =>
+            {
+                if (Confirm && !Armed)
+                {
+                    Armed = true;
+                    AddToClassList(ArmedClass);
+                    UiText.Bind(_status, "choice.confirm");
+                    _status.style.display = DisplayStyle.Flex;
+                    return;
+                }
+                Armed = false;
+                RemoveFromClassList(ArmedClass);
+                onTap?.Invoke();
+            };
             this.name = name;
             AddToClassList("visit__choice");
             Add(UiText.Label(titleKey, "visit__choice-label"));
@@ -50,6 +70,8 @@ namespace UnpaidCeo.Game.Ui
         /// <summary>Open cards can be tapped; done ones show "done", closed ones say why; a recommended open card says so.</summary>
         public void Show(ChoiceState state, bool recommended, int weeksUntilOpen = 0)
         {
+            Armed = false;
+            RemoveFromClassList(ArmedClass);
             bool done = state == ChoiceState.Planned || state == ChoiceState.DoneThisTurn;
             SetEnabled(state == ChoiceState.Open);
             EnableInClassList(DoneClass, done);

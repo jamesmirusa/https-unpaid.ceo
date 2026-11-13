@@ -1883,6 +1883,58 @@ MonoBehaviour:
     m_Key: choice.done.cooldown.4
     m_Metadata:
       m_Items: []
+  - m_Id: 1568181708644352
+    m_Key: choice.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227264
+    m_Key: lever.close_unit.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227265
+    m_Key: lever.fire.confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227266
+    m_Key: week.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227267
+    m_Key: lever.locked
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227268
+    m_Key: lever.price_limit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227269
+    m_Key: lever.marketing_none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227270
+    m_Key: lever.marketing_max
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227271
+    m_Key: lever.units_none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227272
+    m_Key: lever.units_max
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227273
+    m_Key: lever.no_money
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227274
+    m_Key: lever.staff_none
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1568181721227275
+    m_Key: lever.staff_max
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

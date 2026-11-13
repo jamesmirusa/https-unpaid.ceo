@@ -33,6 +33,25 @@ namespace UnpaidCeo.Core.Tests.Game
         }
 
         [Test]
+        public void Autopilot_plays_the_week_the_player_already_decided_then_the_routine()
+        {
+            // The player tapped a saving this week and left for hours: the week they decided is the one played.
+            var e = new GameEngine(TestContent.Db());
+            var s = e.NewGame(1, TestContent.Hero);
+            s.Cash = UnpaidCeo.Core.Primitives.Money.FromDollars(500);
+            s.LastDecisions = TestContent.Decisions(55, 15, 20, 10);
+            var thisWeek = s.LastDecisions.Routine();
+            thisWeek.FreeActions.Add("save");
+            long reserve = s.Reserve.Cents;
+            var reports = Autopilot.Run(e, s, 2, thisWeek);
+            Assert.AreEqual(2, reports.Count);
+            Assert.IsEmpty(reports[0].RejectedActions);
+            Assert.AreEqual(reserve + e.Content.FreeActions["save"].Effects
+                .OfType<UnpaidCeo.Core.Narrative.ReserveEffect>().Sum(r => r.Amount.Cents), s.Reserve.Cents,
+                "the tapped saving happened once: the second week is the routine");
+        }
+
+        [Test]
         public void Autopilot_does_not_repeat_last_months_levers_or_free_actions()
         {
             var (e, s) = Stage2Content.Chapter2(10_000_000, noPersonalCosts: true);
