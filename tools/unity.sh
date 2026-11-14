@@ -35,7 +35,8 @@ case "$CMD" in
     rm -f "$RESULTS"
     FILTER=()
     if [ -n "${2:-}" ]; then FILTER=(-testFilter "$2"); fi
-    "$UNITY" -batchmode -projectPath "$PROJECT" -runTests -testPlatform "$PLATFORM" \
+    # tests run against the web target: art budgets are web caps, and the last build may have left iOS active
+    "$UNITY" -batchmode -buildTarget WebGL -projectPath "$PROJECT" -runTests -testPlatform "$PLATFORM" \
       -testResults "$RESULTS" -logFile "$PROJECT/Logs/$CMD.log" ${FILTER[@]+"${FILTER[@]}"}
     code=$?
     summarize "$RESULTS"
