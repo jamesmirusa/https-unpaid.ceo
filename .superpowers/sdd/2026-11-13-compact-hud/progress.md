@@ -15,3 +15,9 @@ Ruling: пока панель открыта, кнопки камеры, кар�
 - [x] Ревью свежим ревьюером: 10 замечаний. Исправлены: мусор на каждый кадр в NotifyCityMotion (один таймер, сдвигается), кнопки главы в полосе во время забега (RunMode), свайп вверх по полосе снова открывал панель, невидимые карточки ловили тапы в режиме прогулки, запомненная «открытая» панель не сворачивалась сама, пульс тикал без опасности. Полный PlayMode 262/262 (+16 демо), EditMode 399/399.
 Ruling: не исправлял — несколько тостов в начале недели (очередь тостов уже есть, 2 с каждый — терпимо), панорама по улице сворачивает панель (так и задумано: «тап по городу»), общий сброс PlayerPrefs в тестах (сейчас утечки нет) — ошибка стоит лишь мелкого неудобства.
 Ruling: в режиме прогулки карточки прячутся через visibility (не только прозрачность) — иначе невидимые кнопки ловили тапы; цена — исчезают сразу, без плавности.
+
+## 2026-11-14 · server deploy after the owner's Unity Hub sign-in
+- Ruling: ServerDeploy waits up to 90 s for the Hub sign-in before it reads the environments — an Editor started from the command line gets the account a few seconds late and failed with "no environment 'production'" — cost of a mistake: a slower failure (90 s) when nobody is signed in.
+- Ruling: the log says only "signed in", not the account name — the account name is the owner's personal email — cost: none.
+- Ruling: tests run with -buildTarget WebGL — after an iOS build the textures import at iOS sizes and the web art budget tests fail on a clean tree — cost: one platform reimport when the last build was iOS.
+- Blocked: with the sign-in in place, listing the environments of project 4da0a5db-… answers 403 Forbidden (3 tries). The signed-in account has no rights on that Unity Cloud project: the owner checks it in the Unity Cloud dashboard (the project is in org "jamamir").

@@ -18,6 +18,23 @@ namespace UnpaidCeo.Editor
 
         public static void DeployAll()
         {
+            // an Editor started from the command line gets the Hub sign-in a little later: wait for it (only checks that
+            // the account is there; the token itself is never read out or stored)
+            double until = EditorApplication.timeSinceStartup + 90;
+            void WaitSignIn()
+            {
+                bool signedIn = !string.IsNullOrEmpty(CloudProjectSettings.userId) && !string.IsNullOrEmpty(CloudProjectSettings.accessToken);
+                if (!signedIn && EditorApplication.timeSinceStartup < until) return;
+                EditorApplication.update -= WaitSignIn;
+                if (!signedIn) { Debug.LogError("[deploy] not signed in: open the project from Unity Hub once, then retry"); EditorApplication.Exit(10); return; }
+                Debug.Log("[deploy] signed in");
+                PickEnvironment();
+            }
+            EditorApplication.update += WaitSignIn;
+        }
+
+        static void PickEnvironment()
+        {
             // pick the environment (production unless UC_UGS_ENV says otherwise) the way the Environments selector does
             string env = System.Environment.GetEnvironmentVariable("UC_UGS_ENV");
             if (string.IsNullOrEmpty(env)) env = "production";
