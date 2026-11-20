@@ -48,8 +48,8 @@ namespace UnpaidCeo.Game.City
         public void Cancel() => _down = false;
 
         /// <summary>
-        /// One frame of a finger or button; true when a tap ends in it. A quick finger, or a trackpad's tap-to-click, goes
-        /// down and up within one frame: that release still ends the press (unpaid.ceo, 2026-11-19: such taps were lost).
+        /// One frame of a finger or button; true when a tap ends in it. A quick finger, or a trackpad's tap-to-click, can go
+        /// down and up within one frame: that release still ends the press (an `else if` used to drop it).
         /// </summary>
         public bool Step(bool pressed, bool released, bool held, Vector2 at, float time, bool startsOnStreet)
         {
