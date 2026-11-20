@@ -116,6 +116,90 @@ namespace UnpaidCeo.Game.Tests
             Assert.Less(Vector2.Distance(new Vector2(at.x, at.z), new Vector2(door.x, door.z)), 8f, "the hero comes out at the bodega's door");
         }
 
+        static void Submit(Button b)
+        {
+            using (var e = NavigationSubmitEvent.GetPooled()) { e.target = b; b.SendEvent(e); }
+        }
+
+        /// <summary>
+        /// Owner, 2026-11-19: no sign on the street could be tapped. Walk mode (§8) hid the signs and the cards while "the
+        /// hero moves" — and the hero's idle stroll in front of home never stops, so they were hidden all the time.
+        /// </summary>
+        [UnityTest]
+        public IEnumerator Standing_on_the_street_keeps_the_signs_and_cards()
+        {
+            yield return BootPlaying(14);
+            var boot = Object.FindFirstObjectByType<GameBootstrap>();
+            int moving = 0, frames = 0;
+            for (float t = 0f; t < 3f; t += Time.unscaledDeltaTime)
+            {
+                yield return null;
+                frames++;
+                if (t > 1.6f && boot.Ui.Root.ClassListContains(UnpaidCeo.Game.Ui.UiRoot.CityMovingClass)) moving++;
+            }
+            Assert.AreEqual(0, moving, $"nobody touches anything, yet the city counts as moving on {moving} of {frames} frames");
+
+            var rig = Object.FindFirstObjectByType<CameraRig>();
+            rig.Frame(boot.Hero.transform.position + new Vector3(8f, 0f, 0f), 40f);
+            for (int i = 0; i < 3; i++) yield return null;
+            Assert.IsTrue(boot.Ui.Root.ClassListContains(UnpaidCeo.Game.Ui.UiRoot.CityMovingClass), "moving the camera still clears the extras");
+        }
+
+        /// <summary>A saved player on the street, done with the month's scenes and the statistics question, as a player would be.</summary>
+        static IEnumerator BootPlaying(ulong seed)
+        {
+            yield return Boot(new GameEngine(Content()).NewGame(seed, new UnpaidCeo.Core.Game.HeroAppearance()));
+            var boot = Object.FindFirstObjectByType<GameBootstrap>();
+            Assert.AreEqual(GameBootstrap.Phase.Playing, boot.Current, "a saved player resumes");
+            for (float t = 0f; t < 10f && boot.Hero.Model == null; t += Time.unscaledDeltaTime) yield return null;
+            var dialogue = Object.FindFirstObjectByType<UnpaidCeo.Game.Narrative.UitkDialoguePresenter>().GetComponent<UIDocument>().rootVisualElement;
+            int quiet = 0;
+            for (float t = 0f; quiet < 45 && t < 60f; t += Time.unscaledDeltaTime)
+            {
+                yield return null;
+                if (!CameraRig.SceneOpen) { quiet++; continue; }
+                quiet = 0;
+                var option = dialogue.Q<Button>(className: "dialogue__option");
+                var next = dialogue.Q<Button>("dialogue-continue");
+                if (option != null) Submit(option);
+                else if (next != null && Shown(next)) Submit(next);
+            }
+            Assert.IsFalse(CameraRig.SceneOpen, "the month's scenes are over");
+            for (float t = 0f; t < 5f && !Shown(boot.Ui.Consent.Root); t += Time.unscaledDeltaTime) yield return null;
+            var deny = boot.Ui.Root.Q<Button>("consent-deny");
+            if (deny != null && Shown(deny)) Submit(deny);
+            for (int i = 0; i < 5; i++) yield return null;
+        }
+
+        /// <summary>Owner, 2026-11-19: "a building on the map can't be tapped to go in" — the whole game, a tap on the bodega.</summary>
+        [UnityTest]
+        public IEnumerator A_tap_on_the_bodegas_building_walks_the_hero_in()
+        {
+            yield return BootPlaying(13);
+            var boot = Object.FindFirstObjectByType<GameBootstrap>();
+            var bodega = boot.PlaceBuildings.First(p => p.Value == "bodega").Key;
+            var wall = bodega.GetComponentInChildren<Collider>();
+            Assert.IsNotNull(wall, "the bodega can be hit");
+            var rig = Object.FindFirstObjectByType<CameraRig>();
+            rig.Frame(wall.bounds.center, 46f);
+            for (int i = 0; i < 3; i++) yield return null;
+            var at = rig.GetComponent<Camera>().WorldToScreenPoint(wall.bounds.center);
+            Assert.AreEqual("bodega", boot.TapCity(new Vector2(at.x, at.y)), "the tap lands on the bodega");
+            yield return null;
+
+            var enter = boot.Ui.Root.Q<Button>("radial-enter");
+            Assert.IsNotNull(enter, "its menu offers to walk in");
+            Submit(enter);
+            InteriorStage stage = null;
+            for (float t = 0f; t < 15f && (stage == null || !stage.Showing); t += Time.unscaledDeltaTime)
+            {
+                stage = Object.FindFirstObjectByType<InteriorStage>();
+                yield return null;
+            }
+            Assert.IsTrue(stage != null && stage.Showing, "the bodega's room is up");
+            Assert.AreEqual("npc_tony_bulldog", stage.Host?.name, "with Tony in it");
+        }
+
         [UnityTest]
         public IEnumerator Ms_Lee_receives_the_hero_in_the_bank()
         {

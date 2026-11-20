@@ -172,21 +172,40 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsFalse(Shown(marker), "off screen: no marker");
         }
 
-        /// <summary>Seen live: a marker near the top of the city was drawn over the HUD's Settings button.</summary>
+        /// <summary>
+        /// Seen live: a marker near the top of the city was drawn over the HUD's Settings button. Owner, 2026-11-19: hiding
+        /// such signs left the bodega next to the hero with none — a building in view keeps its sign, held inside the city.
+        /// </summary>
         [UnityTest]
-        public IEnumerator Markers_never_cover_the_hud()
+        public IEnumerator Signs_near_the_top_or_a_side_stay_inside_the_city_and_never_cover_the_hud()
         {
             yield return Boot();
             var city = _ui.Screen(UiRoot.City);
-            var top = city.worldBound;
-            _ui.PlaceMarker("bodega", new Vector2(top.xMax - 40f, top.yMin + 30f));   // up under the chapter bar, at the right edge
+            var area = city.worldBound;
+            _ui.PlaceMarker("bodega", new Vector2(area.xMax - 40f, area.yMin + 30f));   // right under the bar, at the right edge
+            yield return null;
             yield return null;
             var marker = city.Q<Button>("marker-bodega");
-            Assert.IsFalse(Shown(marker), "a marker whose sign would reach above the city is not shown");
+            Assert.IsTrue(Shown(marker), "a building in view keeps its sign");
+            Assert.GreaterOrEqual(marker.worldBound.yMin, area.yMin - 0.5f, "the sign never reaches over the bar");
+            Assert.LessOrEqual(marker.worldBound.xMax, area.xMax + 0.5f, "nor past the right side");
+            var camera = city.Q("city-camera").worldBound;
+            Assert.IsFalse(marker.worldBound.Overlaps(camera), $"nor onto the camera buttons: sign {marker.worldBound}, buttons {camera}");
+            var badge = marker.Q("emote");
+            Assert.IsTrue(Shown(badge), "the bodega's sign wears its badge (work on offer)");
+            Assert.LessOrEqual(badge.worldBound.xMax, area.xMax + 0.5f, $"and the badge stays on screen too: {badge.worldBound}");
+            Assert.GreaterOrEqual(badge.worldBound.yMin, area.yMin - 0.5f, "under the bar");
+            Assert.IsFalse(badge.worldBound.Overlaps(camera), $"and off the camera buttons: badge {badge.worldBound}, buttons {camera}");
 
-            _ui.PlaceMarker("bodega", new Vector2(top.center.x, top.center.y));
+            _ui.PlaceMarker("bodega", new Vector2(area.xMin + 10f, area.center.y));
+            yield return null;
             yield return null;
             Assert.IsTrue(Shown(marker));
+            Assert.GreaterOrEqual(marker.worldBound.xMin, area.xMin - 0.5f, "nor past the left side");
+
+            _ui.PlaceMarker("bodega", new Vector2(area.center.x, area.yMin - 300f));   // the building is behind the bar
+            yield return null;
+            Assert.IsFalse(Shown(marker), "a building out of view has no sign");
         }
 
         [UnityTest]

@@ -324,6 +324,7 @@ namespace UnpaidCeo.Game.Ui
             cam.Add(zoomIn);
             cam.Add(zoomOut);
             city.Add(cam);
+            _cameraButtons = cam;
         }
 
         void SetFocusedPlace(string id)
@@ -439,20 +440,64 @@ namespace UnpaidCeo.Game.Ui
             if (panelPosition == null) { marker.style.display = DisplayStyle.None; return; }
             var cityArea = _screens[City];
             var local = cityArea.WorldToLocal(panelPosition.Value);
-            // The sign hangs above its point (translate -50% -100%): it must clear the city hint at the top and stay inside
-            // the city's sides, or it is drawn over the HUD and the chapter bar.
-            float width = cityArea.layout.width;
-            bool fits = local.y >= MarkerClearTop && local.x >= MarkerHalfWidth && (float.IsNaN(width) || local.x <= width - MarkerHalfWidth);
-            if (!fits) { marker.style.display = DisplayStyle.None; return; }
+            float width = cityArea.layout.width, height = cityArea.layout.height;
+            // Only a building in view has a sign: its point inside the city, which starts under the top bar.
+            bool inView = !float.IsNaN(width) && local.x >= 0f && local.x <= width && local.y >= 0f && (float.IsNaN(height) || local.y <= height);
+            if (!inView) { marker.style.display = DisplayStyle.None; return; }
+            // The sign hangs above its point (translate -50% -100%). Near the top it moves down under the bar and near a side
+            // it moves in, rather than vanishing: hiding such signs left the bodega next to the hero with none (owner, 2026-11-19).
+            float signWidth = Measured(marker.layout.width, SignWidth), signHeight = Measured(marker.layout.height, SignHeight);
+            // The badge (work on offer) hangs off the sign's top-right corner and counts as part of the sign.
+            float right = 0f, above = 0f;
+            var badge = marker.Q("emote");
+            if (badge != null && badge.style.display.value != DisplayStyle.None)
+            {
+                bool laidOut = !float.IsNaN(badge.layout.xMax) && !float.IsNaN(marker.layout.width) && badge.layout.width > 0f;
+                right = Mathf.Max(0f, laidOut ? badge.layout.xMax - marker.layout.width : BadgeRight);
+                above = Mathf.Max(0f, laidOut ? -badge.layout.yMin : BadgeAbove);
+            }
+            local.x = Mathf.Clamp(local.x, signWidth * 0.5f, Mathf.Max(signWidth * 0.5f, width - signWidth * 0.5f - right));
+            local.y = Mathf.Max(local.y, signHeight + above);
+            // Nor onto the camera buttons in the top-right corner: there the sign drops just below their row.
+            if (_cameraButtons != null && _cameraButtons.resolvedStyle.display != DisplayStyle.None)
+            {
+                var buttons = cityArea.WorldToLocal(_cameraButtons.worldBound);
+                var sign = new Rect(local.x - signWidth * 0.5f, local.y - signHeight - above, signWidth + right, signHeight + above);
+                if (buttons.width > 0f && buttons.height > 0f && sign.Overlaps(buttons))
+                    local.y = buttons.yMax + SignGap + signHeight + above;
+            }
             marker.style.left = local.x;
             marker.style.top = local.y;
             marker.style.display = DisplayStyle.Flex;
         }
 
-        /// <summary>The street strip's band plus a sign's height: one hanging higher than this would be drawn over them.</summary>
-        const float MarkerClearTop = 200f + 210f;
-        /// <summary>Half of a long marker's width ("Laundromat Office").</summary>
-        const float MarkerHalfWidth = 110f;
+        /// <summary>A sign's size before its first layout: the USS width and no less than its tallest (a two-line name).</summary>
+        const float SignWidth = 210f, SignHeight = 240f;
+        const float SignGap = 8f;
+        /// <summary>How far the badge sticks out past the sign before its first layout (USS .place-marker .emote).</summary>
+        const float BadgeRight = 30f, BadgeAbove = 70f;
+        VisualElement _cameraButtons;
+
+        static float Measured(float size, float fallback) => float.IsNaN(size) || size <= 0f ? fallback : size;
+
+        /// <summary>
+        /// A tap on a place's building in the street (owner, 2026-11-19): the same as its sign — its menu with "go in" first,
+        /// or straight in while the mentor leads the first steps. <paramref name="panelPoint"/> is where the finger was.
+        /// </summary>
+        public bool TapPlace(string id, Vector2 panelPoint)
+        {
+            if (Places.Find(id) == null || RunMode || _visiting || _sceneOpen) return false;
+            if (!OpenRadialAt("place:" + id, Root.WorldToLocal(panelPoint))) OpenPlace(id);
+            return true;
+        }
+
+        /// <summary>Whether interface lies under a point of the panel (a button, a card, a bar, a sign); the bare street does not.</summary>
+        public bool IsOverInterface(Vector2 panelPoint)
+        {
+            var hit = Root.panel?.Pick(panelPoint);
+            if (hit == null) return false;
+            return hit != _screens[City] && hit != Root && hit != Root.parent;
+        }
 
         readonly Dictionary<string, VisualElement> _tags = new Dictionary<string, VisualElement>();
 
@@ -1000,12 +1045,14 @@ namespace UnpaidCeo.Game.Ui
         public bool NewLesson => _newLesson;
 
         /// <summary>Opens the radial menu of <paramref name="target"/> around the element that was tapped.</summary>
-        public bool OpenRadial(string target, VisualElement at)
+        public bool OpenRadial(string target, VisualElement at) => OpenRadialAt(target, Root.WorldToLocal(at.worldBound.center));
+
+        /// <summary>The radial menu of a target around a point of the root.</summary>
+        bool OpenRadialAt(string target, Vector2 center)
         {
             if (_radial == null || RunMode || _sceneOpen || !_guideEnabled) return false;   // not during a scene or the mentor's first steps
             var items = RadialMenus.For(target, this);
             if (items.Count == 0) return false;
-            var center = Root.WorldToLocal(at.worldBound.center);
             if (float.IsNaN(center.x)) center = new Vector2(540, 960);
             _radial.Show(RadialMenus.TitleKey(target), items, center);
             return true;
