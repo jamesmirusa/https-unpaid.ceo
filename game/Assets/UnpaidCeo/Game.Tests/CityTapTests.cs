@@ -24,6 +24,27 @@ namespace UnpaidCeo.Game.Tests
             Assert.IsFalse(tap.Release(new Vector2(100, 100), 4.00f), "a release without a press is nothing");
         }
 
+        /// <summary>
+        /// On unpaid.ceo a quick tap on the bodega did nothing while a held one opened its menu: a finger (or a trackpad's
+        /// tap-to-click) that goes down and up within one frame was taken as a press and its release was dropped.
+        /// </summary>
+        [Test]
+        public void A_tap_that_goes_down_and_up_within_one_frame_is_still_a_tap()
+        {
+            var tap = new TapDetector(maxMove: 12f, maxSeconds: 0.35f);
+            var at = new Vector2(100, 100);
+            Assert.IsTrue(tap.Step(pressed: true, released: true, held: false, at, 1.00f, startsOnStreet: true), "down and up in one frame");
+            Assert.IsFalse(tap.Step(pressed: true, released: true, held: false, at, 2.00f, startsOnStreet: false), "but not one that lands on the interface");
+
+            Assert.IsFalse(tap.Step(pressed: true, released: false, held: true, at, 3.00f, startsOnStreet: true), "over several frames: down");
+            Assert.IsFalse(tap.Step(pressed: false, released: false, held: true, at + new Vector2(3, 0), 3.05f, startsOnStreet: false), "held, barely moving");
+            Assert.IsTrue(tap.Step(pressed: false, released: true, held: false, at + new Vector2(4, 0), 3.10f, startsOnStreet: false), "up: a tap");
+
+            Assert.IsFalse(tap.Step(pressed: true, released: false, held: true, at, 4.00f, startsOnStreet: true));
+            Assert.IsFalse(tap.Step(pressed: false, released: false, held: true, at + new Vector2(80, 0), 4.05f, startsOnStreet: false));
+            Assert.IsFalse(tap.Step(pressed: false, released: true, held: false, at, 4.10f, startsOnStreet: false), "a drag stays a drag");
+        }
+
         [Test]
         public void A_drag_that_comes_back_to_where_it_started_is_still_a_drag()
         {

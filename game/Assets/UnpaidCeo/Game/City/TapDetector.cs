@@ -46,5 +46,17 @@ namespace UnpaidCeo.Game.City
 
         /// <summary>Forgets the press (it began on the interface, or a second finger came down to pinch).</summary>
         public void Cancel() => _down = false;
+
+        /// <summary>
+        /// One frame of a finger or button; true when a tap ends in it. A quick finger, or a trackpad's tap-to-click, goes
+        /// down and up within one frame: that release still ends the press (unpaid.ceo, 2026-11-19: such taps were lost).
+        /// </summary>
+        public bool Step(bool pressed, bool released, bool held, Vector2 at, float time, bool startsOnStreet)
+        {
+            if (pressed) { if (startsOnStreet) Press(at, time); else Cancel(); }
+            if (released) return Release(at, time);
+            if (held && !pressed) Move(at);
+            return false;
+        }
     }
 }

@@ -242,21 +242,21 @@ namespace UnpaidCeo.Game.Bootstrap
             float now = Time.unscaledTime;
             _tap.MaxMove = Mathf.Max(12f, Screen.height * 0.012f);
             var touch = UnityEngine.InputSystem.Touchscreen.current;
-            if (touch != null && (touch.primaryTouch.press.isPressed || touch.primaryTouch.press.wasReleasedThisFrame))
+            var finger = touch?.primaryTouch.press;
+            if (finger != null && (finger.isPressed || finger.wasPressedThisFrame || finger.wasReleasedThisFrame))
             {
+                if (touch!.touches.Count > 1 && touch.touches[1].isInProgress) { _tap.Cancel(); return; }   // a pinch
                 var p = touch.primaryTouch.position.ReadValue();
-                if (touch.primaryTouch.press.wasPressedThisFrame) { if (StreetUnder(p, out _)) _tap.Press(p, now); else _tap.Cancel(); }
-                else if (touch.primaryTouch.press.wasReleasedThisFrame) { if (_tap.Release(p, now)) TapCity(p); }
-                else _tap.Move(p);
-                if (touch.touches.Count > 1 && touch.touches[1].isInProgress) _tap.Cancel();   // a pinch
+                bool down = finger.wasPressedThisFrame;
+                if (_tap.Step(down, finger.wasReleasedThisFrame, finger.isPressed, p, now, down && StreetUnder(p, out _))) TapCity(p);
                 return;
             }
             var mouse = UnityEngine.InputSystem.Mouse.current;
             if (mouse == null) return;
             var m = mouse.position.ReadValue();
-            if (mouse.leftButton.wasPressedThisFrame) { if (StreetUnder(m, out _)) _tap.Press(m, now); else _tap.Cancel(); }
-            else if (mouse.leftButton.wasReleasedThisFrame) { if (_tap.Release(m, now)) TapCity(m); }
-            else if (mouse.leftButton.isPressed) _tap.Move(m);
+            var button = mouse.leftButton;
+            bool click = button.wasPressedThisFrame;
+            if (_tap.Step(click, button.wasReleasedThisFrame, button.isPressed, m, now, click && StreetUnder(m, out _))) TapCity(m);
         }
 
         Vector3 _seenCam, _seenHero;
