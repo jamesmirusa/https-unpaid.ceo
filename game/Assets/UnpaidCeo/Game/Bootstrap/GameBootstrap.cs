@@ -81,6 +81,9 @@ namespace UnpaidCeo.Game.Bootstrap
         public HeroView? Hero => _hero;
         /// <summary>Where each place's sign hangs, just in front of its door on the street side.</summary>
         public IReadOnlyDictionary<string, Vector3> PlaceSpots => _placeSpots;
+        /// <summary>The district's place buildings (top transforms) → place id; a tap on one walks to its place.</summary>
+        public IReadOnlyDictionary<Transform, string> PlaceBuildings => _placeBuildings;
+        Dictionary<Transform, string> _placeBuildings = new Dictionary<Transform, string>();
 
         /// <summary>Addressable scene of the chapter's district: Bronx (1), Brooklyn (2), Queens (3).</summary>
         public static string DistrictAddress(int chapter) => "district_" + Chapters.District(chapter);
@@ -118,6 +121,7 @@ namespace UnpaidCeo.Game.Bootstrap
             var everything = new List<Transform>();
             foreach (var root in scene.GetRootGameObjects()) everything.AddRange(root.GetComponentsInChildren<Transform>(true));
             _placeSpots = Places.FindSpots(everything, _city != null ? _city.HomeAnchor : null);
+            _placeBuildings = Places.FindBuildings(everything, _city != null ? _city.HomeAnchor : null);
             StartStreetLife(scene, chapter);
             _light = InScene<DayNeonController>(scene);
             _timelapse = InScene<TimelapseDirector>(scene);
@@ -202,14 +206,71 @@ namespace UnpaidCeo.Game.Bootstrap
                 if (!seen.Contains(old)) { Ui!.PlaceTag(old, _tagged[old], null); _tagged.Remove(old); }
         }
 
+        /// <summary>Owner, 2026-11-19: "a building on the map can't be tapped to go in" — a tap is a short, still press.</summary>
+        readonly TapDetector _tap = new TapDetector(maxMove: 12f, maxSeconds: 0.35f);
+
+        /// <summary>
+        /// A tap on the street (screen pixels, origin at the bottom left): on a place's building it does what the building's
+        /// sign does. Not the street's: taps on the interface, during the mentor's first steps, while a popup, scene or room is
+        /// up, or while the hero walks somewhere. Returns the place tapped, or null.
+        /// </summary>
+        public string? TapCity(Vector2 screen)
+        {
+            if (!StreetUnder(screen, out var panelPoint)) return null;
+            var cam = _rig!.GetComponent<Camera>();
+            if (!Physics.Raycast(cam.ScreenPointToRay(screen), out var hit, 1000f)) return null;
+            var id = Places.PlaceOf(hit.transform, _placeBuildings);
+            if (id == null) return null;
+            return Ui!.TapPlace(id, panelPoint) ? id : null;
+        }
+
+        /// <summary>Whether a screen point shows the bare street now (and where it is on the interface's panel).</summary>
+        bool StreetUnder(Vector2 screen, out Vector2 panelPoint)
+        {
+            panelPoint = default;
+            if (Current != Phase.Playing || Ui == null || Ui.Root?.panel == null || _busy || _swapping || _entering) return false;
+            if (CameraRig.InputBlocked || CameraRig.SceneOpen) return false;
+            var cam = _rig != null ? _rig.GetComponent<Camera>() : null;
+            if (cam == null || !cam.enabled) return false;
+            panelPoint = RuntimePanelUtils.ScreenToPanel(Ui.Root.panel, new Vector2(screen.x, Screen.height - screen.y));
+            return !Ui.IsOverInterface(panelPoint);
+        }
+
+        /// <summary>Turns a finger (or the mouse) into street taps; a press that starts on the interface never becomes one.</summary>
+        void ReadStreetTaps()
+        {
+            float now = Time.unscaledTime;
+            _tap.MaxMove = Mathf.Max(12f, Screen.height * 0.012f);
+            var touch = UnityEngine.InputSystem.Touchscreen.current;
+            var finger = touch?.primaryTouch.press;
+            if (finger != null && (finger.isPressed || finger.wasPressedThisFrame || finger.wasReleasedThisFrame))
+            {
+                if (touch!.touches.Count > 1 && touch.touches[1].isInProgress) { _tap.Cancel(); return; }   // a pinch
+                var p = touch.primaryTouch.position.ReadValue();
+                bool down = finger.wasPressedThisFrame;
+                if (_tap.Step(down, finger.wasReleasedThisFrame, finger.isPressed, p, now, down && StreetUnder(p, out _))) TapCity(p);
+                return;
+            }
+            var mouse = UnityEngine.InputSystem.Mouse.current;
+            if (mouse == null) return;
+            var m = mouse.position.ReadValue();
+            var button = mouse.leftButton;
+            bool click = button.wasPressedThisFrame;
+            if (_tap.Step(click, button.wasReleasedThisFrame, button.isPressed, m, now, click && StreetUnder(m, out _))) TapCity(m);
+        }
+
         Vector3 _seenCam, _seenHero;
         Quaternion _seenCamTurn;
 
-        /// <summary>§8 walk mode: a moving camera or a walking hero clears the cards until things settle.</summary>
+        /// <summary>
+        /// §8 walk mode: a moving camera or a hero walking somewhere clears the cards until things settle. The hero's idle
+        /// stroll in front of home only sways the model inside the hero and never stops, so it is not "walking somewhere"
+        /// (owner, 2026-11-19: with it counted, the signs and cards were hidden all the time).
+        /// </summary>
         void NoticeMotion(Camera cam)
         {
             var t = cam.transform;
-            var hero = _hero != null && _hero.Model != null ? _hero.Model.transform.position : _seenHero;
+            var hero = _hero != null ? _hero.transform.position : _seenHero;
             bool moved = (t.position - _seenCam).sqrMagnitude > 1e-4f || Quaternion.Angle(t.rotation, _seenCamTurn) > 0.05f
                          || (hero - _seenHero).sqrMagnitude > 1e-4f;
             _seenCam = t.position;
@@ -225,6 +286,7 @@ namespace UnpaidCeo.Game.Bootstrap
             var cam = _rig != null ? _rig.GetComponent<Camera>() : null;
             if (cam == null || Ui.Root.panel == null) { Ui.PlaceHeroTag(null); return; }
             NoticeMotion(cam);
+            ReadStreetTaps();
             PlaceResidentTags(cam);
             PlaceMarkers(cam);
             if (_hero == null || _hero.Model == null) { Ui.PlaceHeroTag(null); return; }

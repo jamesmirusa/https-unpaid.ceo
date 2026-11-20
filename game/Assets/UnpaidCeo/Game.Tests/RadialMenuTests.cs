@@ -181,6 +181,20 @@ namespace UnpaidCeo.Game.Tests
             Assert.AreEqual("bodega", _ui.PlacesPanel.CurrentPlace);
         }
 
+        /// <summary>Owner, 2026-11-19: "a building on the map can't be tapped to go in" — the building answers like its sign.</summary>
+        [UnityTest]
+        public IEnumerator Tapping_a_building_opens_the_same_menu_as_its_sign()
+        {
+            yield return Boot();
+            Assert.IsTrue(_ui.TapPlace("bodega", new Vector2(500, 1000)), "a tap on a place's building is taken");
+            yield return null;
+            Assert.AreEqual("radial-enter", Petals[0].name, "walking in comes first, as on the sign");
+            Tap(Petal("enter"));
+            yield return null;
+            Assert.AreEqual(UiRoot.PlacesTab, _ui.CurrentTab);
+            Assert.AreEqual("bodega", _ui.PlacesPanel.CurrentPlace);
+        }
+
         [UnityTest]
         public IEnumerator The_hero_offers_things_for_themselves()
         {

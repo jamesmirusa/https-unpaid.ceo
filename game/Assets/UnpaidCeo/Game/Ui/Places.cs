@@ -98,5 +98,55 @@ namespace UnpaidCeo.Game.Ui
             }
             return spots;
         }
+
+        const string BuildingPrefix = "building_";
+        /// <summary>How near the home spot the hero's house stands (row houses are ~8 m wide, the spot is on its stoop).</summary>
+        const float HomeReach = 12f;
+
+        /// <summary>
+        /// Each place's building by its top transform — the same building that carries its sign (see <see cref="FindSpots"/>);
+        /// Home is the house nearest the home spot. A tap on any part of a building finds its place with <see cref="PlaceOf"/>.
+        /// </summary>
+        public static Dictionary<Transform, string> FindBuildings(IEnumerable<Transform> all, Transform home)
+        {
+            var map = new Dictionary<Transform, string>();
+            var list = all.Where(t => t != null).ToList();
+            foreach (var place in All)
+            {
+                if (place.Id == Home) continue;
+                var at = list.FirstOrDefault(t => place.Buildings.Any(b => t.name.StartsWith(b)));
+                if (at != null) map[BuildingRoot(at)] = place.Id;
+            }
+            if (home != null)
+            {
+                Transform best = null;
+                float nearest = HomeReach;
+                foreach (var root in list.Where(t => t.name.StartsWith(BuildingPrefix)).Select(BuildingRoot).Distinct())
+                {
+                    if (map.ContainsKey(root)) continue;
+                    float d = Vector2.Distance(new Vector2(root.position.x, root.position.z), new Vector2(home.position.x, home.position.z));
+                    if (d < nearest) { nearest = d; best = root; }
+                }
+                if (best != null) map[best] = Home;
+            }
+            return map;
+        }
+
+        /// <summary>The place whose building was hit (a wall, a roof, an awning of it), or null.</summary>
+        public static string PlaceOf(Transform hit, IReadOnlyDictionary<Transform, string> buildings)
+        {
+            for (var t = hit; t != null; t = t.parent)
+                if (buildings.TryGetValue(t, out var id)) return id;
+            return null;
+        }
+
+        /// <summary>The outermost "building_…" transform above (or at) a part of a building.</summary>
+        static Transform BuildingRoot(Transform part)
+        {
+            var root = part;
+            for (var t = part.parent; t != null; t = t.parent)
+                if (t.name.StartsWith(BuildingPrefix)) root = t;
+            return root;
+        }
     }
 }
